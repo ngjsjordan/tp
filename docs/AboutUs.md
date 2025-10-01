@@ -48,12 +48,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Documentation
 
-### James Doe
+### Gabriel Er
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/gab-er.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/gab-er)]
+[[portfolio](team/gab-er.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Storage
