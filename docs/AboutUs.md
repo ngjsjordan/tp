@@ -29,31 +29,31 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Jordan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ngjsjordan.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/ngjsjordan)] [[portfolio](team/ngjsjordan.md)]
 
 * Role: Developer
-* Responsibilities: Data
+* Responsibilities: Code Quality, In charge of Model
 
-### Jean Doe
+### Jeric Tan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jeric_tan.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[github](http://github.com/jeric_tan)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Documentation
 
-### James Doe
+### Gabriel Er
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/gab-er.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](https://github.com/gab-er)]
+[[portfolio](team/gab-er.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Storage
