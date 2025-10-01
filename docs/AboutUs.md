@@ -14,7 +14,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/balkinaveen.png" width="200px">
 
 [[github](https://github.com/balkinaveen)]
-[[portfolio](team/naveen)]
+[[portfolio](team/naveen.md)]
 
 * Role: Ideator, Developer
 * Responsibilities: Integration & Merges, Feature design
@@ -29,31 +29,31 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Team Lead
 * Responsibilities: UI
 
-### Johnny Doe
+### Jordan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ngjsjordan.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe)]
-
-* Role: Developer
-* Responsibilities: Data
-
-### Jean Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe)]
+[[github](http://github.com/ngjsjordan)] [[portfolio](team/ngjsjordan.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Code Quality, In charge of Model
 
-### James Doe
+### Jeric Tan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jeric_tan.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe)]
+[[github](http://github.com/jeric_tan)]
+[[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Documentation
+
+### Gabriel Er
+
+<img src="images/gab-er.png" width="200px">
+
+[[github](https://github.com/gab-er)]
+[[portfolio](team/gab-er.md)]
+
+* Role: Developer
+* Responsibilities: Storage
