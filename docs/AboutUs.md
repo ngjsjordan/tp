@@ -38,15 +38,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Code Quality, In charge of Model
 
-### Jean Doe
+### Jeric Tan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jeric_tan.png" width="200px">
 
-[[github](http://github.com/johndoe)]
+[[github](http://github.com/jeric_tan)]
 [[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Documentation
 
 ### James Doe
 
