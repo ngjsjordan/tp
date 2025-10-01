@@ -15,16 +15,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[homepage](http://www.comp.nus.edu.sg/~damithch)]
 [[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/jakekeech)]
 
 * Role: Project Advisor
 
-### Jane Doe
+### Jake Kee
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jakekeech.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/jakekeech)]
+[[portfolio](team/jakekeech.md)]
 
 * Role: Team Lead
 * Responsibilities: UI
@@ -33,7 +33,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/johndoe.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/johndoe)] [[portfolio](team/jakekeech)]
 
 * Role: Developer
 * Responsibilities: Data
@@ -43,17 +43,17 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/jakekeech)]
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Role: Testing
+* Responsibilities: UI
 
 ### James Doe
 
 <img src="images/johndoe.png" width="200px">
 
 [[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[portfolio](team/jakekeech)]
 
 * Role: Developer
 * Responsibilities: UI
