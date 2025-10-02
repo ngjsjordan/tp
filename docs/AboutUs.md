@@ -9,15 +9,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Balakrishnan Naveen Mani Kumar
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/balkinaveen.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/jakekeech)]
+[[github](https://github.com/balkinaveen)]
+[[portfolio](team/naveen.md)]
 
-* Role: Project Advisor
+* Role: Ideator, Developer
+* Responsibilities: Integration & Merges, Feature design
 
 ### Jake Kee
 
@@ -41,8 +41,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 ### Jeric Tan
 
 <img src="images/jeric_tan.png" width="200px">
-
-
 
 [[github](http://github.com/jeric_tan)]
 [[portfolio](team/johndoe.md)]
