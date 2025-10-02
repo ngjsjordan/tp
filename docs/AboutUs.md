@@ -19,12 +19,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Ideator, Developer
 * Responsibilities: Integration & Merges, Feature design
 
-### Jane Doe
+### Jake Kee
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jakekeech.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe)]
+[[github](http://github.com/jakekeech)]
+[[portfolio](team/jakekeech.md)]
 
 * Role: Team Lead
 * Responsibilities: UI
