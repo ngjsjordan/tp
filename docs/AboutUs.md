@@ -40,10 +40,10 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Jeric Tan
 
-<img src="images/jeric_tan.png" width="200px">
+<img src="images/jeric-tan.png" width="200px">
 
-[[github](http://github.com/jeric_tan)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/jeric-tan)]
+[[portfolio](team/jeric-tan.md)]
 
 * Role: Developer
 * Responsibilities: Documentation
