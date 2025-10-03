@@ -1,6 +1,6 @@
 ---
 layout: page
-title: ClientSquare Level-0
+title: ClientSquare
 ---
 [![CI Status](https://github.com/AY2526S1-CS2103T-F08a-3/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2526S1-CS2103T-F08a-3/tp/actions/workflows/gradle.yml)
 [![codecov](https://codecov.io/gh/se-edu/addressbook-level3/branch/master/graph/badge.svg)](https://codecov.io/gh/se-edu/addressbook-level3)
