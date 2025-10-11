@@ -1,10 +1,10 @@
-package seedu.address.model.person;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+package seedu.address.model.appointment;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents an appointment with a Person in the address book.
@@ -12,7 +12,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Appointment {
 
-    public static final String MESSAGE_CONSTRAINTS = "Appointment must take a valid ISO 8601 String";
+    public static final String MESSAGE_CONSTRAINTS =
+            "Appointment must take a valid ISO 8601 datetime without seconds and nanoseconds";
 
     /*
      * The string must be in ISO 8601 format excluding seconds and nanoseconds: YYYY-MM-DDTHH:MM.
