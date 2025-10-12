@@ -45,7 +45,7 @@ public class NameContainsKeywordsPredicateTest {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
-        // Multiple keywords matching name  
+        // Multiple keywords matching name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
@@ -82,7 +82,7 @@ public class NameContainsKeywordsPredicateTest {
                 .withEmail("alice@email.com").withAddress("Main Street").withRole("buyer").build()));
 
         // Keywords that don't match any field
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("NonExistent", "NotFound"));   
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("NonExistent", "NotFound"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street").withRole("buyer").build()));
     }
