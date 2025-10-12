@@ -21,6 +21,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Role role;
 
     // Data fields
     private final Address address;
@@ -30,11 +31,13 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Set<Appointment> appointments) {
+    public Person(Name name, Phone phone, Email email, Role role, Address address, Set<Tag> tags,
+                  Set<Appointment> appointments) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.role = role;
         this.address = address;
         this.tags.addAll(tags);
         this.appointments.addAll(appointments);
@@ -50,6 +53,10 @@ public class Person {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Role getRole() {
+        return role;
     }
 
     public Address getAddress() {
@@ -105,6 +112,7 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
+                && role.equals(otherPerson.role)
                 && tags.equals(otherPerson.tags)
                 && appointments.equals(otherPerson.appointments);
     }
@@ -112,7 +120,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags, appointments);
+        return Objects.hash(name, phone, email, role, address, tags, appointments);
     }
 
     @Override
@@ -121,6 +129,7 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
+                .add("role", role)
                 .add("address", address)
                 .add("tags", tags)
                 .add("appointments", appointments)

@@ -19,6 +19,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Role;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -85,12 +86,14 @@ public class AddAppointmentCommand extends Command {
         Name updatedName = personToEdit.getName();
         Phone updatedPhone = personToEdit.getPhone();
         Email updatedEmail = personToEdit.getEmail();
+        Role updatedRole = personToEdit.getRole();
         Address updatedAddress = personToEdit.getAddress();
         Set<Tag> updatedTags = personToEdit.getTags();
         Set<Appointment> updatedAppointments = new HashSet<>(personToEdit.getAppointments());
         updatedAppointments.add(appointment);
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, updatedAppointments);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedRole, updatedAddress,
+                updatedTags, updatedAppointments);
     }
 
     @Override
