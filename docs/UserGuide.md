@@ -154,6 +154,18 @@ Format: `ap INDEX d/DATETIME`
 Examples:
 *  `ap 1 d/2025-01-01T12:00` Adds an appointment to the 1st person on 1 Jan 2025 at 12pm.
 
+### Deleting an appointment : `dap`
+
+Deletes an appointment from a person in the address book
+
+Format: `dap INDEX d/DATETIME`
+
+* Deletes an appointment from the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Datetime should be in the format `yyyy-MM-ddTHH:mm` and must be provided.
+
+Examples:
+*  `dap 1 d/2025-01-01T12:00` Deletes an appointment to the 1st person on 1 Jan 2025 at 12pm.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book.
