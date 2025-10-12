@@ -28,23 +28,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
-        String roleFilter = null;
-        String locationFilter = null;
-        List<String> keywords = new ArrayList<>();
 
-        for (String keyword : nameKeywords) {
-            if (keyword.equals("r/buyer")) {
-                roleFilter = "buyer";
-            } else if (keyword.equals("r/seller")) {
-                roleFilter = "seller";
-            } else if (keyword.startsWith("l/")) {
-                locationFilter = keyword.substring(2);
-            } else {
-                keywords.add(keyword);
-            }
-        }
-
-        return new FindCommand(new NameContainsKeywordsPredicate(keywords, roleFilter, locationFilter));
+        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
     }
 
 }

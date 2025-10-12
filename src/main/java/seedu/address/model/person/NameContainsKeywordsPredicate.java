@@ -8,54 +8,33 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
- * Can optionally filter by role (r/buyer or r/seller) and location (l/location).
+ * Tests that a {@code Person}'s details match any of the keywords given.
+ * Searches across name, role, address, email, phone, and tags.
  */
 public class NameContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
-    private final String roleFilter;
-    private final String locationFilter;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
-        this.roleFilter = null;
-        this.locationFilter = null;
-    }
-
-    public NameContainsKeywordsPredicate(List<String> keywords, String roleFilter) {
-        this.keywords = keywords;
-        this.roleFilter = roleFilter;
-        this.locationFilter = null;
-    }
-
-    public NameContainsKeywordsPredicate(List<String> keywords, String roleFilter, String locationFilter) {
-        this.keywords = keywords;
-        this.roleFilter = roleFilter;
-        this.locationFilter = locationFilter;
     }
 
     @Override
     public boolean test(Person person) {
-        if (roleFilter != null) {
-            boolean roleMatches = person.getRole().value.toLowerCase().equals(roleFilter.toLowerCase());
-            if (!roleMatches) {
-                return false;
-            }
-        }
-
-        if (locationFilter != null) {
-            boolean locationMatches = StringUtil.containsWordIgnoreCase(person.getAddress().value, locationFilter);
-            if (!locationMatches) {
-                return false;
-            }
-        }
-
-        if (keywords.isEmpty()) {
-            return true;
-        }
-
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+                .allMatch(keyword -> matchesAnyField(person, keyword));
+    }
+
+    /**
+     * Checks if the keyword matches any field of the person.
+     */
+    private boolean matchesAnyField(Person person, String keyword) {
+        return StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword)
+                || StringUtil.containsWordIgnoreCase(person.getRole().value, keyword)
+                || StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword)
+                || StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword)
+                || StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword)
+                || person.getTags().stream()
+                    .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword));
     }
 
     @Override
@@ -70,14 +49,11 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
-        return keywords.equals(otherNameContainsKeywordsPredicate.keywords)
-                && Objects.equals(roleFilter, otherNameContainsKeywordsPredicate.roleFilter)
-                && Objects.equals(locationFilter, otherNameContainsKeywordsPredicate.locationFilter);
+        return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("keywords", keywords).add("roleFilter", roleFilter)
-                .add("locationFilter", locationFilter).toString();
+        return new ToStringBuilder(this).add("keywords", keywords).toString();
     }
 }
