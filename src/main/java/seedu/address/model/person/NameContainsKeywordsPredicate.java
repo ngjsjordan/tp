@@ -21,7 +21,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return keywords.stream()
-                .allMatch(keyword -> matchesAnyField(person, keyword));
+                .anyMatch(keyword -> matchesAnyField(person, keyword));
     }
 
     /**

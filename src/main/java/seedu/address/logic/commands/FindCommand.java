@@ -15,15 +15,14 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose details contain ALL of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose details contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Searches across name, role, address, email, phone, and tags.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Examples:\n"
-            + "  " + COMMAND_WORD + " alex (finds all persons named alex)\n"
-            + "  " + COMMAND_WORD + " buyer alex (finds buyers named alex)\n"
-            + "  " + COMMAND_WORD + " seller bishan (finds sellers living in bishan)\n"
-            + "  " + COMMAND_WORD + " bishan (finds all persons in bishan)\n";
+            + "  " + COMMAND_WORD + " alex bob (finds all persons named alex or bob)\n"
+            + "  " + COMMAND_WORD + " buyer alex (finds all buyers and persons named alex)\n"
+            + "  " + COMMAND_WORD + " bishan (finds all persons with their address in bishan)\n";
 
     private final NameContainsKeywordsPredicate predicate;
 
