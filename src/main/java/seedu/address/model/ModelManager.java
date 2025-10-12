@@ -4,15 +4,20 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.ui.AppointmentEntry;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -133,6 +138,29 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Appointment List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code AppointmentEntry} representing all
+     * appointments from all persons, sorted by datetime (present to future).
+     */
+    @Override
+    public ObservableList<AppointmentEntry> getAppointmentList() {
+        List<AppointmentEntry> appointmentEntries = new ArrayList<>();
+
+        // Collect all appointments from all persons
+        for (Person person : addressBook.getPersonList()) {
+            person.getAppointments().forEach(appointment -> {
+                appointmentEntries.add(new AppointmentEntry(appointment, person));
+            });
+        }
+
+        // Sort by datetime (present to future)
+        appointmentEntries.sort(Comparator.comparing(entry -> entry.getAppointment().datetime));
+
+        return FXCollections.observableArrayList(appointmentEntries);
     }
 
     @Override

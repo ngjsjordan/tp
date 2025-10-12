@@ -19,13 +19,22 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should show appointment list view. */
+    private final boolean showAppointmentList;
+
+    /** The application should show person list view. */
+    private final boolean showPersonList;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean showAppointmentList, boolean showPersonList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.showAppointmentList = showAppointmentList;
+        this.showPersonList = showPersonList;
     }
 
     /**
@@ -33,7 +42,14 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields for backwards compatibility.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this(feedbackToUser, showHelp, exit, false, false);
     }
 
     public String getFeedbackToUser() {
@@ -46,6 +62,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowAppointmentList() {
+        return showAppointmentList;
+    }
+
+    public boolean isShowPersonList() {
+        return showPersonList;
     }
 
     @Override
@@ -62,12 +86,14 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && showAppointmentList == otherCommandResult.showAppointmentList
+                && showPersonList == otherCommandResult.showPersonList;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, showAppointmentList, showPersonList);
     }
 
     @Override
@@ -76,6 +102,8 @@ public class CommandResult {
                 .add("feedbackToUser", feedbackToUser)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
+                .add("showAppointmentList", showAppointmentList)
+                .add("showPersonList", showPersonList)
                 .toString();
     }
 
