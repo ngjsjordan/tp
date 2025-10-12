@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -20,21 +21,26 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Role role;
 
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Appointment> appointments = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Role role, Address address, Set<Tag> tags,
+                  Set<Appointment> appointments) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.role = role;
         this.address = address;
         this.tags.addAll(tags);
+        this.appointments.addAll(appointments);
     }
 
     public Name getName() {
@@ -49,6 +55,10 @@ public class Person {
         return email;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
     public Address getAddress() {
         return address;
     }
@@ -59,6 +69,14 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Returns an immutable appointments set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Appointment> getAppointments() {
+        return Collections.unmodifiableSet(appointments);
     }
 
     /**
@@ -94,13 +112,15 @@ public class Person {
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
                 && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+                && role.equals(otherPerson.role)
+                && tags.equals(otherPerson.tags)
+                && appointments.equals(otherPerson.appointments);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, role, address, tags, appointments);
     }
 
     @Override
@@ -109,8 +129,10 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
+                .add("role", role)
                 .add("address", address)
                 .add("tags", tags)
+                .add("appointments", appointments)
                 .toString();
     }
 
