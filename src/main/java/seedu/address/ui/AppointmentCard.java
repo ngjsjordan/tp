@@ -24,7 +24,7 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private Label datetime;
     @FXML
-    private Label location;
+    private Label appointmentLocation;
     @FXML
     private Label buyer;
     @FXML
@@ -38,7 +38,7 @@ public class AppointmentCard extends UiPart<Region> {
         this.appointmentEntry = appointmentEntry;
         id.setText(displayedIndex + ". ");
         datetime.setText(appointmentEntry.getAppointment().datetime.format(DISPLAY_FORMATTER));
-        location.setText(appointmentEntry.getPerson().getAddress().value);
+        appointmentLocation.setText(appointmentEntry.getPerson().getAddress().value);
 
         // Display buyer/seller based on the person's role
         if (appointmentEntry.getPerson().getRole().value.equalsIgnoreCase("buyer")) {

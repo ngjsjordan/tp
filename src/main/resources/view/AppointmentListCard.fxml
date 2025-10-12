@@ -20,7 +20,7 @@
       <Label fx:id="datetime" styleClass="cell_big_label" text="\$datetime" />
       <Label text=" | " styleClass="cell_small_label" />
       <Label text="Location: " styleClass="cell_small_label" />
-      <Label fx:id="location" styleClass="cell_small_label" text="\$location" />
+      <Label fx:id="appointmentLocation" styleClass="cell_small_label" text="\$location" />
     </HBox>
     <Label fx:id="buyer" styleClass="cell_small_label" text="\$buyer" />
     <Label fx:id="seller" styleClass="cell_small_label" text="\$seller" />
