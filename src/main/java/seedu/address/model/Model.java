@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.ui.AppointmentEntry;
 
 /**
  * The API of the Model component.
@@ -84,6 +85,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the appointment list */
+    ObservableList<AppointmentEntry> getAppointmentList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

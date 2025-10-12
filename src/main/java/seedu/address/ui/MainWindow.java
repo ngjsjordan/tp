@@ -209,6 +209,14 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isShowAppointmentList()) {
+                showAppointmentList(logic.getAppointmentList());
+            }
+
+            if (commandResult.isShowPersonList()) {
+                showPersonList();
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);

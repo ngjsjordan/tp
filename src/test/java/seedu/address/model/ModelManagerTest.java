@@ -15,8 +15,12 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.PersonBuilder;
+import seedu.address.ui.AppointmentEntry;
 
 public class ModelManagerTest {
 
@@ -107,6 +111,46 @@ public class ModelManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void getAppointmentList_noAppointments_returnsEmptyList() {
+        modelManager = new ModelManager();
+        assertEquals(0, modelManager.getAppointmentList().size());
+    }
+
+    @Test
+    public void getAppointmentList_withAppointments_returnsSortedList() {
+        // Create persons with appointments at different times
+        Appointment appointment1 = new Appointment("2025-01-15T10:00");
+        Appointment appointment2 = new Appointment("2025-01-10T14:00");
+        Appointment appointment3 = new Appointment("2025-01-20T09:00");
+
+        Person person1 = new PersonBuilder().withName("Alice")
+                .withAppointments("2025-01-15T10:00").build();
+        Person person2 = new PersonBuilder().withName("Bob")
+                .withAppointments("2025-01-10T14:00", "2025-01-20T09:00").build();
+
+        modelManager.addPerson(person1);
+        modelManager.addPerson(person2);
+
+        // Get the appointment list
+        var appointmentList = modelManager.getAppointmentList();
+
+        // Verify the list has 3 appointments
+        assertEquals(3, appointmentList.size());
+
+        // Verify they are sorted by datetime (present to future)
+        AppointmentEntry entry1 = appointmentList.get(0);
+        AppointmentEntry entry2 = appointmentList.get(1);
+        AppointmentEntry entry3 = appointmentList.get(2);
+
+        assertEquals(appointment2, entry1.getAppointment()); // 2025-01-10
+        assertEquals(person2, entry1.getPerson());
+        assertEquals(appointment1, entry2.getAppointment()); // 2025-01-15
+        assertEquals(person1, entry2.getPerson());
+        assertEquals(appointment3, entry3.getAppointment()); // 2025-01-20
+        assertEquals(person2, entry3.getPerson());
     }
 
     @Test

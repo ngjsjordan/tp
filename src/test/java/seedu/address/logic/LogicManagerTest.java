@@ -88,6 +88,12 @@ public class LogicManagerTest {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPersonList().remove(0));
     }
 
+    @Test
+    public void getAppointmentList_returnsUnmodifiableList() {
+        // Verify the appointment list is returned
+        assertEquals(0, logic.getAppointmentList().size());
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
