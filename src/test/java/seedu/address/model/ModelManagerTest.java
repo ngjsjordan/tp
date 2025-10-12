@@ -146,8 +146,11 @@ public class ModelManagerTest {
         AppointmentEntry entry3 = appointmentList.get(2);
 
         assertEquals(appointment2, entry1.getAppointment()); // 2025-01-10
+        assertEquals(person2, entry1.getPerson());
         assertEquals(appointment1, entry2.getAppointment()); // 2025-01-15
+        assertEquals(person1, entry2.getPerson());
         assertEquals(appointment3, entry3.getAppointment()); // 2025-01-20
+        assertEquals(person2, entry3.getPerson());
     }
 
     @Test
