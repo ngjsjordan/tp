@@ -16,9 +16,13 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified role or keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: [/b|/s] KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " /b alex charlotte";
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+            + "Parameters: [r/buyer|r/seller] [l/LOCATION] [KEYWORD] [MORE_KEYWORDS]...\n"
+            + "Examples:\n"
+            + "  " + COMMAND_WORD + " alex bob (finds all persons named alex or bob)\n"
+            + "  " + COMMAND_WORD + " r/buyer alex (finds all buyers named alex)\n"
+            + "  " + COMMAND_WORD + " r/seller (finds all sellers)\n"
+            + "  " + COMMAND_WORD + " l/singapore (finds all persons in singapore)\n";
 
     private final NameContainsKeywordsPredicate predicate;
 

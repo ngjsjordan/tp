@@ -9,20 +9,29 @@ import seedu.address.commons.util.ToStringBuilder;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
- * Can optionally filter by buyer or seller role with /b or /s flag.
+ * Can optionally filter by role (r/buyer or r/seller) and location (l/location).
  */
 public class NameContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
     private final String roleFilter;
+    private final String locationFilter;
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
         this.roleFilter = null;
+        this.locationFilter = null;
     }
 
     public NameContainsKeywordsPredicate(List<String> keywords, String roleFilter) {
         this.keywords = keywords;
         this.roleFilter = roleFilter;
+        this.locationFilter = null;
+    }
+
+    public NameContainsKeywordsPredicate(List<String> keywords, String roleFilter, String locationFilter) {
+        this.keywords = keywords;
+        this.roleFilter = roleFilter;
+        this.locationFilter = locationFilter;
     }
 
     @Override
@@ -30,6 +39,13 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         if (roleFilter != null) {
             boolean roleMatches = person.getRole().value.toLowerCase().equals(roleFilter.toLowerCase());
             if (!roleMatches) {
+                return false;
+            }
+        }
+
+        if (locationFilter != null) {
+            boolean locationMatches = StringUtil.containsWordIgnoreCase(person.getAddress().value, locationFilter);
+            if (!locationMatches) {
                 return false;
             }
         }
@@ -55,11 +71,13 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
 
         NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
         return keywords.equals(otherNameContainsKeywordsPredicate.keywords)
-                && Objects.equals(roleFilter, otherNameContainsKeywordsPredicate.roleFilter);
+                && Objects.equals(roleFilter, otherNameContainsKeywordsPredicate.roleFilter)
+                && Objects.equals(locationFilter, otherNameContainsKeywordsPredicate.locationFilter);
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("keywords", keywords).add("roleFilter", roleFilter).toString();
+        return new ToStringBuilder(this).add("keywords", keywords).add("roleFilter", roleFilter)
+                .add("locationFilter", locationFilter).toString();
     }
 }
