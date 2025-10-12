@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private AppointmentListPanel appointmentListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -122,6 +123,27 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    }
+
+    /**
+     * Switches the view to display the appointment list.
+     * This method will be called by the list appointments command.
+     *
+     * @param appointmentList The observable list of appointment entries to display.
+     */
+    public void showAppointmentList(javafx.collections.ObservableList<AppointmentEntry> appointmentList) {
+        personListPanelPlaceholder.getChildren().clear();
+        appointmentListPanel = new AppointmentListPanel(appointmentList);
+        personListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+    }
+
+    /**
+     * Switches the view back to display the person list.
+     * This method will be called by the list command.
+     */
+    public void showPersonList() {
+        personListPanelPlaceholder.getChildren().clear();
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
     }
 
     /**

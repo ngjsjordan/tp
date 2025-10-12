@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+  <VBox alignment="CENTER_LEFT" minHeight="80" HBox.hgrow="ALWAYS">
+    <padding>
+      <Insets top="10" right="15" bottom="10" left="15" />
+    </padding>
+    <HBox spacing="5" alignment="CENTER_LEFT">
+      <Label fx:id="id" styleClass="cell_big_label">
+        <minWidth>
+          <Region fx:constant="USE_PREF_SIZE" />
+        </minWidth>
+      </Label>
+      <Label fx:id="datetime" styleClass="cell_big_label" text="\$datetime" />
+      <Label text=" | " styleClass="cell_small_label" />
+      <Label text="Location: " styleClass="cell_small_label" />
+      <Label fx:id="appointmentLocation" styleClass="cell_small_label" text="\$location" />
+    </HBox>
+    <Label fx:id="buyer" styleClass="cell_small_label" text="\$buyer" />
+    <Label fx:id="seller" styleClass="cell_small_label" text="\$seller" />
+  </VBox>
+</HBox>
