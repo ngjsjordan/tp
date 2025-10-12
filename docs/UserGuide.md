@@ -93,6 +93,20 @@ Shows a list of all persons in the address book.
 
 Format: `list`
 
+### Listing all appointments : `lap`
+
+Shows a list of all appointments in the address book, sorted by date and time (present to future).
+
+Format: `lap`
+
+* Displays all appointments from all persons
+* Each appointment shows the date/time, location (person's address), and the buyer/seller names
+* Appointments are sorted chronologically from present to future
+* Use `list` to switch back to the person list view
+
+Examples:
+* `lap` displays all appointments sorted by date and time
+
 ### Editing a person : `edit`
 
 Edits an existing person in the address book.
@@ -219,7 +233,9 @@ Action | Format, Examples
 **Add Appointment** | `ap INDEX d/DATETIME` <br> e.g., `ap 1 d/2025-01-01:12:00`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
+**Delete Appointment** | `dap INDEX d/DATETIME` <br> e.g., `dap 1 d/2025-01-01:12:00`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
+**List Appointments** | `lap`
 **Help** | `help`
