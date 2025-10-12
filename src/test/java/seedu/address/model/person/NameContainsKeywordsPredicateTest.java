@@ -45,13 +45,25 @@ public class NameContainsKeywordsPredicateTest {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
-        // Multiple keywords
+        // Multiple keywords matching name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
-        // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
+        // Keywords matching different fields
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("buyer"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withRole("buyer").build()));
+
+        // Keywords matching phone
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345").build()));
+
+        // Keywords matching email
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("alice@email.com"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Bob").withEmail("alice@email.com").build()));
+
+        // Keywords matching address
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Street"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withAddress("Main Street").build()));
 
         // Mixed-case keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
@@ -64,14 +76,15 @@ public class NameContainsKeywordsPredicateTest {
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
 
-        // Non-matching keyword
+        // Non-matching keyword - no field contains "Carol"
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").withPhone("12345")
+                .withEmail("alice@email.com").withAddress("Main Street").withRole("buyer").build()));
 
-        // Keywords match phone, email and address, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
+        // Keywords that don't match any field
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("NonExistent", "NotFound"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
+                .withEmail("alice@email.com").withAddress("Main Street").withRole("buyer").build()));
     }
 
     @Test
