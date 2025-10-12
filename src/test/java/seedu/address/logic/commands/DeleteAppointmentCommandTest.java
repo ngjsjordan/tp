@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DEC_31;
@@ -105,5 +106,15 @@ public class DeleteAppointmentCommandTest {
         // different descriptor -> returns false
         assertFalse(deleteAppointmentCommand.equals(new DeleteAppointmentCommand(INDEX_FIRST_PERSON,
                 new Appointment(VALID_APPOINTMENT_DEC_31))));
+    }
+
+    @Test
+    public void toStringMethod() {
+        Index index = Index.fromOneBased(1);
+        Appointment appointment = new Appointment(VALID_APPOINTMENT_JAN_1);
+        DeleteAppointmentCommand deleteAppointmentCommand = new DeleteAppointmentCommand(index, appointment);
+        String expected = DeleteAppointmentCommand.class.getCanonicalName() + "{index=" + index + ", appointment="
+                + appointment + "}";
+        assertEquals(expected, deleteAppointmentCommand.toString());
     }
 }
