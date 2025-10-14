@@ -63,7 +63,8 @@ public class NameContainsKeywordsPredicateTest {
 
         // Keywords matching address
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Street"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withAddress("Main Street").build()));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withAddress("Main Street",
+                "HDB_4").build()));
 
         // Mixed-case keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
@@ -79,12 +80,14 @@ public class NameContainsKeywordsPredicateTest {
         // Non-matching keyword - no field contains "Carol"
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").withRole("buyer").build()));
+                .withEmail("alice@email.com").withAddress("Main Street", "HDB_4")
+                .withRole("buyer").build()));
 
         // Keywords that don't match any field
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("NonExistent", "NotFound"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").withRole("buyer").build()));
+                .withEmail("alice@email.com").withAddress("Main Street", "HDB_4")
+                .withRole("buyer").build()));
     }
 
     @Test

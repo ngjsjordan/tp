@@ -47,10 +47,10 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ROLE_DESC_AMY = " " + PREFIX_ROLE + VALID_ROLE_AMY;
     public static final String ROLE_DESC_BOB = " " + PREFIX_ROLE + VALID_ROLE_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY + ", " +
-            VALID_PROPERTY_TYPE_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB + ", " +
-            VALID_PROPERTY_TYPE_BOB;
+    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY + " "
+            + PREFIX_PROPERTY_TYPE + VALID_PROPERTY_TYPE_AMY;
+    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB + " "
+            + PREFIX_PROPERTY_TYPE + VALID_PROPERTY_TYPE_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String APPOINTMENT_DESC_JAN_1 = " " + PREFIX_DATETIME + VALID_APPOINTMENT_JAN_1;
@@ -59,7 +59,8 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "purchaser";
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    // empty string not allowed for addresses
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS + " " + PREFIX_PROPERTY_TYPE + "HDB_4";
     public static final String INVALID_PROPERTY_TYPE = " " + PREFIX_PROPERTY_TYPE + "HDB_10"; // HDB_10 not valid type
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_APPOINTMENT_DESC = " " + PREFIX_DATETIME + "2024-13-01T12:00"; // invalid month

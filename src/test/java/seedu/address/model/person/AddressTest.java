@@ -3,22 +3,26 @@ package seedu.address.model.person;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.model.person.address.Address;
+import seedu.address.model.person.address.AddressType;
 
 public class AddressTest {
 
+    private static final AddressType VALID_PROPERTY_TYPE = new AddressType(BENSON.getAddressType().toString());
+
     @Test
     public void constructor_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new Address(null));
+        assertThrows(NullPointerException.class, () -> new Address(null, VALID_PROPERTY_TYPE));
     }
 
     @Test
     public void constructor_invalidAddress_throwsIllegalArgumentException() {
         String invalidAddress = "";
-        assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress));
+        assertThrows(IllegalArgumentException.class, () -> new Address(invalidAddress, VALID_PROPERTY_TYPE));
     }
 
     @Test
@@ -38,10 +42,10 @@ public class AddressTest {
 
     @Test
     public void equals() {
-        Address address = new Address("Valid Address");
+        Address address = new Address("Valid Address", VALID_PROPERTY_TYPE);
 
         // same values -> returns true
-        assertTrue(address.equals(new Address("Valid Address")));
+        assertTrue(address.equals(new Address("Valid Address", VALID_PROPERTY_TYPE)));
 
         // same object -> returns true
         assertTrue(address.equals(address));
@@ -53,6 +57,6 @@ public class AddressTest {
         assertFalse(address.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(address.equals(new Address("Other Valid Address")));
+        assertFalse(address.equals(new Address("Other Valid Address", VALID_PROPERTY_TYPE)));
     }
 }
