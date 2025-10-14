@@ -4,12 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Address;
+import seedu.address.model.person.address.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
+import seedu.address.model.person.address.AddressType;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -23,12 +24,14 @@ public class PersonBuilder {
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ROLE = "buyer";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_ADDRESS_TYPE = "HDB_4";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Role role;
     private Address address;
+    private AddressType addressType;
     private Set<Tag> tags;
     private Set<Appointment> appointments;
 
@@ -40,7 +43,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         role = new Role(DEFAULT_ROLE);
-        address = new Address(DEFAULT_ADDRESS);
+        address = new Address(DEFAULT_ADDRESS, new AddressType(DEFAULT_ADDRESS_TYPE));
         tags = new HashSet<>();
         appointments = new HashSet<>();
     }
@@ -86,8 +89,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
-    public PersonBuilder withAddress(String address) {
-        this.address = new Address(address);
+    public PersonBuilder withAddress(String address, String addressType) {
+        this.address = new Address(address, new AddressType(addressType));
         return this;
     }
 
