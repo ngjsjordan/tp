@@ -1,12 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -14,13 +12,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
+import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Role;
-import seedu.address.model.person.address.Address;
-import seedu.address.model.tag.Tag;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -31,69 +24,72 @@ public class AddAppointmentCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment to the client specified "
             + "by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DATETIME + "DATETIME]\n"
+            + "Parameters: SELLER_INDEX (must be a positive integer) "
+            + PREFIX_DATETIME + "DATETIME "
+            + PREFIX_BUYER + "BUYER_INDEX (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DATETIME + "2025-01-01T12:00 ";
+            + PREFIX_DATETIME + "2025-01-01T12:00 "
+            + PREFIX_BUYER + "2";
 
-    public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "Appointment added to Person: %1$s";
+    public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS =
+            "Appointment added with seller %1$s.";
     public static final String MESSAGE_APPOINTMENT_NOT_ADDED = "Time of appointment must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "That appointment already exists.";
 
-    private final Index index;
-    private final Appointment appointment;
+    private final AppointmentDatetime appointmentDatetime;
+    private final Index sellerIndex;
+    private final Index buyerIndex;
 
     /**
-     * @param index       of the person in the filtered person list to edit
-     * @param appointment details to edit the person with
+     * @param appointmentDatetime datetime of appointment to be added
+     * @param sellerIndex index of the seller in the appointment
+     * @param buyerIndex index of the buyer in the appointment
      */
-    public AddAppointmentCommand(Index index, Appointment appointment) {
-        requireNonNull(index);
-        requireNonNull(appointment);
+    public AddAppointmentCommand(AppointmentDatetime appointmentDatetime, Index sellerIndex, Index buyerIndex) {
+        requireNonNull(appointmentDatetime);
+        requireNonNull(sellerIndex);
+        requireNonNull(buyerIndex);
 
-        this.index = index;
-        this.appointment = appointment;
+        this.appointmentDatetime = appointmentDatetime;
+        this.sellerIndex = sellerIndex;
+        this.buyerIndex = buyerIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        Appointment appointment = getAppointment(lastShownList);
+
+        if (model.hasAppointment(appointment)) {
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
 
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, appointment);
-
-        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, Messages.format(editedPerson)));
+        model.addAppointment(appointment);
+        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS,
+                Messages.format(appointment.getSeller())));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with a new appointment {@code appointment}.
+     * Gets the appointment to be added.
+     *
+     * @param lastShownList the list of persons that the index is based on.
+     * @return the appointment to be added.
+     * @throws CommandException if indices are invalid
      */
-    private static Person createEditedPerson(Person personToEdit, Appointment appointment) {
-        assert personToEdit != null;
+    private Appointment getAppointment(List<Person> lastShownList) throws CommandException {
+        if (sellerIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+        if (buyerIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
 
-        Name updatedName = personToEdit.getName();
-        Phone updatedPhone = personToEdit.getPhone();
-        Email updatedEmail = personToEdit.getEmail();
-        Role updatedRole = personToEdit.getRole();
-        Address updatedAddress = personToEdit.getAddress();
-        Set<Tag> updatedTags = personToEdit.getTags();
-        Set<Appointment> updatedAppointments = new HashSet<>(personToEdit.getAppointments());
-        updatedAppointments.add(appointment);
-
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedRole, updatedAddress,
-                updatedTags, updatedAppointments);
+        Person seller = lastShownList.get(sellerIndex.getZeroBased());
+        Person buyer = lastShownList.get(buyerIndex.getZeroBased());
+        return new Appointment(appointmentDatetime, seller, buyer);
     }
 
     @Override
@@ -108,15 +104,17 @@ public class AddAppointmentCommand extends Command {
         }
 
         AddAppointmentCommand otherAddAppointmentCommand = (AddAppointmentCommand) other;
-        return index.equals(otherAddAppointmentCommand.index)
-                && appointment.equals(otherAddAppointmentCommand.appointment);
+        return appointmentDatetime.equals(otherAddAppointmentCommand.appointmentDatetime)
+                && sellerIndex.equals(otherAddAppointmentCommand.sellerIndex)
+                && buyerIndex.equals(otherAddAppointmentCommand.buyerIndex);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("index", index)
-                .add("appointment", appointment)
+                .add("appointmentDatetime", appointmentDatetime)
+                .add("sellerIndex", sellerIndex)
+                .add("buyerIndex", buyerIndex)
                 .toString();
     }
 

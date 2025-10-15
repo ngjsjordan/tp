@@ -37,7 +37,7 @@ public class AppointmentCard extends UiPart<Region> {
         super(FXML);
         this.appointmentEntry = appointmentEntry;
         id.setText(displayedIndex + ". ");
-        datetime.setText(appointmentEntry.getAppointment().datetime.format(DISPLAY_FORMATTER));
+        datetime.setText(appointmentEntry.getAppointment().getAppointmentDatetime().datetime.format(DISPLAY_FORMATTER));
         appointmentLocation.setText(appointmentEntry.getPerson().getAddress().value);
 
         // Display buyer/seller based on the person's role
