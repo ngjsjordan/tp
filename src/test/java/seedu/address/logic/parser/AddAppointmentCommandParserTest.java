@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_DESC_JAN_1;
+import static seedu.address.logic.commands.CommandTestUtil.BUYER_DESC_2;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DATETIME_JAN_1;
@@ -17,7 +18,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddAppointmentCommand;
-import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDatetime;
 
 public class AddAppointmentCommandParserTest {
@@ -56,16 +56,17 @@ public class AddAppointmentCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_APPOINTMENT_DESC, AppointmentDatetime.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_APPOINTMENT_DESC + BUYER_DESC_2,
+                AppointmentDatetime.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_appointmentAccepted_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1;
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1 + BUYER_DESC_2;
 
         AddAppointmentCommand expectedCommand = new AddAppointmentCommand(
-                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), targetIndex, null);
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -74,23 +75,23 @@ public class AddAppointmentCommandParserTest {
     public void parse_multipleRepeatedFields_failure() {
         // valid followed by invalid
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + INVALID_APPOINTMENT_DESC + APPOINTMENT_DESC_JAN_1;
+        String userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1 + INVALID_APPOINTMENT_DESC + BUYER_DESC_2;
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATETIME));
 
         // invalid followed by valid
-        userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1 + INVALID_APPOINTMENT_DESC;
+        userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1 + INVALID_APPOINTMENT_DESC + BUYER_DESC_2;
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATETIME));
 
         // multiple valid fields repeated
-        userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1 + APPOINTMENT_DESC_JAN_1;
+        userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1 + APPOINTMENT_DESC_JAN_1 + BUYER_DESC_2;
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATETIME));
 
         // multiple invalid values
-        userInput = targetIndex.getOneBased() + INVALID_APPOINTMENT_DESC + INVALID_APPOINTMENT_DESC;
+        userInput = targetIndex.getOneBased() + INVALID_APPOINTMENT_DESC + INVALID_APPOINTMENT_DESC + BUYER_DESC_2;
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATETIME));

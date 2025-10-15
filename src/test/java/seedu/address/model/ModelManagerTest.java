@@ -131,11 +131,11 @@ public class ModelManagerTest {
         modelManager.addPerson(person2);
 
         Appointment appointment1 = new Appointment(new AppointmentDatetime("2025-01-15T10:00"),
-                person1, null);
+                person1, person2);
         Appointment appointment2 = new Appointment(new AppointmentDatetime("2025-01-10T14:00"),
-                person2, null);
+                person2, person1);
         Appointment appointment3 = new Appointment(new AppointmentDatetime("2025-01-20T09:00"),
-                person2, null);
+                person2, person1);
         modelManager.addAppointment(appointment1);
         modelManager.addAppointment(appointment2);
         modelManager.addAppointment(appointment3);

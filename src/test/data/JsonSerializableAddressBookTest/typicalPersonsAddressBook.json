@@ -50,5 +50,21 @@
     "address" : "4th street",
     "tags" : [ ]
   } ],
-  "appointments": []
+  "appointments" : [ {
+    "seller" : "9482427",
+    "buyer" : "9482224",
+    "appointmentDateTime" : "2025-01-01T12:00"
+  }, {
+    "seller" : "9482427",
+    "buyer" : "9482224",
+    "appointmentDateTime" : "2025-01-02T14:00"
+  }, {
+    "seller" : "9482427",
+    "buyer" : "87652533",
+    "appointmentDateTime" : "2025-01-02T12:00"
+  }, {
+    "seller" : "9482442",
+    "buyer" : "98765432",
+    "appointmentDateTime" : "2025-01-01T18:00"
+  } ]
 }

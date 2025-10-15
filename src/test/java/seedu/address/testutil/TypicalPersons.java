@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Person;
 
 /**
@@ -62,6 +64,16 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
+    // Appointments
+    public static final Appointment FIONA_ELLE_1 = new Appointment(
+            new AppointmentDatetime("2025-01-01T12:00"), FIONA, ELLE);
+    public static final Appointment FIONA_ELLE_2 = new Appointment(
+            new AppointmentDatetime("2025-01-02T14:00"), FIONA, ELLE);
+    public static final Appointment FIONA_DANIEL = new Appointment(
+            new AppointmentDatetime("2025-01-02T12:00"), FIONA, DANIEL);
+    public static final Appointment GEORGE_BENSON = new Appointment(
+            new AppointmentDatetime("2025-01-01T18:00"), GEORGE, BENSON);
+
     private TypicalPersons() {} // prevents instantiation
 
     /**
@@ -72,10 +84,17 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
+        for (Appointment appointment : getTypicalAppointments()) {
+            ab.addAppointment(appointment);
+        }
         return ab;
     }
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Appointment> getTypicalAppointments() {
+        return new ArrayList<>(Arrays.asList(FIONA_ELLE_1, FIONA_ELLE_2, FIONA_DANIEL, GEORGE_BENSON));
     }
 }

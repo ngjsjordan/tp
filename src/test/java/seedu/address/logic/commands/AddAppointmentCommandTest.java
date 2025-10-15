@@ -90,10 +90,10 @@ public class AddAppointmentCommandTest {
     public void toStringMethod() {
         Index index = Index.fromOneBased(1);
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
-                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), index, null);
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), index, index);
         String expected = AddAppointmentCommand.class.getCanonicalName()
                 + "{appointmentDatetime=" + VALID_APPOINTMENT_DATETIME_JAN_1 + ", sellerIndex="
-                + index + ", buyerIndex=}";
+                + index + ", buyerIndex=" + index + "}";
         assertEquals(expected, addAppointmentCommand.toString());
     }
 

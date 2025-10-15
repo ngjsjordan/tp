@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.BUYER_DESC_2;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteAppointmentCommand;
+// import seedu.address.logic.commands.DeleteAppointmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -26,7 +28,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAppointmentsCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.Appointment;
+// import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -105,19 +107,21 @@ public class AddressBookParserTest {
         String datetime = "2025-01-01T12:00";
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(
                 AddAppointmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
-                        + "d/" + datetime);
-        assertEquals(new AddAppointmentCommand(new AppointmentDatetime(datetime), INDEX_FIRST_PERSON, null), command);
+                        + "d/" + datetime + BUYER_DESC_2);
+        assertEquals(new AddAppointmentCommand(new AppointmentDatetime(datetime), INDEX_FIRST_PERSON,
+                INDEX_SECOND_PERSON), command);
     }
 
-//    @Test
-//    public void parseCommand_dap() throws Exception {
-//        String datetime = "2025-01-01T12:00";
-//        DeleteAppointmentCommand command = (DeleteAppointmentCommand) parser.parseCommand(
-//                DeleteAppointmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
-//                        + "d/" + datetime);
-//        assertEquals(new DeleteAppointmentCommand(INDEX_FIRST_PERSON,
-//                new Appointment(new AppointmentDatetime(datetime))), command);
-//    }
+    /*
+    * @Test
+    * public void parseCommand_dap() throws Exception {
+    *    String datetime = "2025-01-01T12:00";
+    *    DeleteAppointmentCommand command = (DeleteAppointmentCommand) parser.parseCommand(
+    *            DeleteAppointmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
+    *                    + "d/" + datetime);
+    *    assertEquals(new DeleteAppointmentCommand(INDEX_FIRST_PERSON,
+    *            new Appointment(new AppointmentDatetime(datetime))), command);
+    }*/
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {

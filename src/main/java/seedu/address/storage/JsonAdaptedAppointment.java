@@ -13,6 +13,8 @@ import seedu.address.model.person.Person;
  */
 class JsonAdaptedAppointment {
 
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appointment's %s field is missing!";
+
     private final String appointmentDateTime;
     private final String seller;
     private final String buyer;
@@ -54,8 +56,18 @@ class JsonAdaptedAppointment {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Appointment toModelType(Person seller, Person buyer) throws IllegalValueException {
+        if (appointmentDateTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    AppointmentDatetime.class.getSimpleName()));
+        }
+
         if (!AppointmentDatetime.isValidDatetime(appointmentDateTime)) {
             throw new IllegalValueException(AppointmentDatetime.MESSAGE_CONSTRAINTS);
+        }
+
+        if (seller == null || buyer == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Person.class.getSimpleName()));
         }
         return new Appointment(new AppointmentDatetime(appointmentDateTime), seller, buyer);
     }

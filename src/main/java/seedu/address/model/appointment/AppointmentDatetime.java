@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
 public class AppointmentDatetime implements Comparable<AppointmentDatetime> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Appointment Datetime must take a valid ISO 8601 datetime without seconds and nanoseconds";
+            "Appointment Datetime must take a valid ISO 8601 datetime ";
 
     public final LocalDateTime datetime;
 
