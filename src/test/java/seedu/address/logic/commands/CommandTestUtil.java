@@ -68,7 +68,8 @@ public class CommandTestUtil {
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + "purchaser";
     // empty string not allowed for addresses
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS + " " + PREFIX_PROPERTY_TYPE + "HDB_4";
-    public static final String INVALID_PROPERTY_TYPE = " " + PREFIX_PROPERTY_TYPE + "HDB_10"; // HDB_10 not valid type
+    public static final String INVALID_PROPERTY_TYPE = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY + " "
+            + PREFIX_PROPERTY_TYPE + "HDB_10"; // HDB_10 not valid type
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_APPOINTMENT_DESC = " " + PREFIX_DATETIME + "2024-13-01T12:00"; // invalid month
 

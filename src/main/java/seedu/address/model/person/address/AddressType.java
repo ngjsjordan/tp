@@ -45,6 +45,7 @@ public class AddressType {
      * Returns true if a given string is a valid address type.
      */
     public static boolean isValidType(String test) {
+        requireNonNull(test);
         return PropertyType.contains(test);
     }
 

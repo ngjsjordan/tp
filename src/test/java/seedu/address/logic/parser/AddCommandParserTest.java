@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PROPERTY_TYPE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ROLE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
@@ -122,6 +123,14 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_ADDRESS_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS, PREFIX_PROPERTY_TYPE));
 
+        // invalid property type
+        assertParseFailure(parser, INVALID_PROPERTY_TYPE + validExpectedPersonString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS, PREFIX_PROPERTY_TYPE));
+
+        // invalid address
+        assertParseFailure(parser, INVALID_ADDRESS_DESC + validExpectedPersonString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS, PREFIX_PROPERTY_TYPE));
+
         // valid value followed by invalid value
 
         // invalid name
@@ -138,6 +147,10 @@ public class AddCommandParserTest {
 
         // invalid address
         assertParseFailure(parser, validExpectedPersonString + INVALID_ADDRESS_DESC,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS, PREFIX_PROPERTY_TYPE));
+
+        // invalid property type
+        assertParseFailure(parser, validExpectedPersonString + INVALID_PROPERTY_TYPE,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ADDRESS, PREFIX_PROPERTY_TYPE));
     }
 
