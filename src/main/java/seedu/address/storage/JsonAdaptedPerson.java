@@ -11,12 +11,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.address.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
+import seedu.address.model.person.address.Address;
 import seedu.address.model.person.address.AddressType;
 import seedu.address.model.tag.Tag;
 
@@ -134,7 +134,8 @@ class JsonAdaptedPerson {
         }
 
         if (addressType == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, AddressType.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    AddressType.class.getSimpleName()));
         }
         if (!AddressType.isValidType(addressType)) {
             throw new IllegalValueException(AddressType.MESSAGE_CONSTRAINTS);

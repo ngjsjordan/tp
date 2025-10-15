@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.person.address;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,9 +6,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import org.junit.jupiter.api.Test;
-
-import seedu.address.model.person.address.Address;
-import seedu.address.model.person.address.AddressType;
 
 public class AddressTest {
 

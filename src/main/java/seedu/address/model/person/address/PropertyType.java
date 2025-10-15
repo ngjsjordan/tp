@@ -1,6 +1,6 @@
 package seedu.address.model.person.address;
 
-/*
+/**
  * Represents the different types of properties in Singapore,
  * including HDB flats, condominiums, landed homes, and commercial units.
  * Each property type may include details such as size (e.g., 3-room, 4-room)

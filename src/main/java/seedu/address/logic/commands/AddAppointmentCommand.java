@@ -14,12 +14,12 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.address.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
+import seedu.address.model.person.address.Address;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -44,7 +44,7 @@ public class AddAppointmentCommand extends Command {
     private final Appointment appointment;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index       of the person in the filtered person list to edit
      * @param appointment details to edit the person with
      */
     public AddAppointmentCommand(Index index, Appointment appointment) {

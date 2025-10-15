@@ -3,26 +3,30 @@ package seedu.address.model.person.address;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents an Address's AddressType in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidType(String)}
+ */
 public class AddressType {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Address type should strictly follow any one of these given types: \n " +
-                    "HDB_2\n" +
-                    "HDB_3\n" +
-                    "HDB_4\n" +
-                    "HDB_5\n" +
-                    "HDB_J\n" +
-                    "EC\n" +
-                    "EM\n" +
-                    "CONDO_2\n" +
-                    "CONDO_3\n" +
-                    "CONDO_4\n" +
-                    "CONDO_5\n" +
-                    "CONDO_J\n" +
-                    "LANDED_LH\n" +
-                    "LANDED_FH\n" +
-                    "COMMERCIAL_LH\n" +
-                    "COMMERCIAL_FH";
+            "Address type should strictly follow any one of these given types: \n "
+                    + "HDB_2\n"
+                    + "HDB_3\n"
+                    + "HDB_4\n"
+                    + "HDB_5\n"
+                    + "HDB_J\n"
+                    + "EC\n"
+                    + "EM\n"
+                    + "CONDO_2\n"
+                    + "CONDO_3\n"
+                    + "CONDO_4\n"
+                    + "CONDO_5\n"
+                    + "CONDO_J\n"
+                    + "LANDED_LH\n"
+                    + "LANDED_FH\n"
+                    + "COMMERCIAL_LH\n"
+                    + "COMMERCIAL_FH";
 
     public final PropertyType type;
 

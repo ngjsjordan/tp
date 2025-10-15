@@ -40,7 +40,9 @@ public class Address {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public AddressType getAddressType() { return this.addressType; }
+    public AddressType getAddressType() {
+        return this.addressType;
+    }
 
     @Override
     public String toString() {
