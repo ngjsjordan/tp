@@ -16,8 +16,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Role;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.ui.AppointmentEntry;
@@ -122,17 +124,21 @@ public class ModelManagerTest {
     @Test
     public void getAppointmentList_withAppointments_returnsSortedList() {
         // Create persons with appointments at different times
-        Appointment appointment1 = new Appointment("2025-01-15T10:00");
-        Appointment appointment2 = new Appointment("2025-01-10T14:00");
-        Appointment appointment3 = new Appointment("2025-01-20T09:00");
-
-        Person person1 = new PersonBuilder().withName("Alice")
-                .withAppointments("2025-01-15T10:00").build();
-        Person person2 = new PersonBuilder().withName("Bob")
-                .withAppointments("2025-01-10T14:00", "2025-01-20T09:00").build();
+        Person person1 = new PersonBuilder().withName("Alice").withRole(Role.SELLER).build();
+        Person person2 = new PersonBuilder().withName("Bob").withRole(Role.SELLER).build();
 
         modelManager.addPerson(person1);
         modelManager.addPerson(person2);
+
+        Appointment appointment1 = new Appointment(new AppointmentDatetime("2025-01-15T10:00"),
+                person1, person2);
+        Appointment appointment2 = new Appointment(new AppointmentDatetime("2025-01-10T14:00"),
+                person2, person1);
+        Appointment appointment3 = new Appointment(new AppointmentDatetime("2025-01-20T09:00"),
+                person2, person1);
+        modelManager.addAppointment(appointment1);
+        modelManager.addAppointment(appointment2);
+        modelManager.addAppointment(appointment3);
 
         // Get the appointment list
         var appointmentList = modelManager.getAppointmentList();

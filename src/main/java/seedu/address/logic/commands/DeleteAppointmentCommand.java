@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -87,17 +86,9 @@ public class DeleteAppointmentCommand extends Command {
         Role updatedRole = personToEdit.getRole();
         Address updatedAddress = personToEdit.getAddress();
         Set<Tag> updatedTags = personToEdit.getTags();
-        Set<Appointment> updatedAppointments = new HashSet<>(personToEdit.getAppointments());
 
-        // If there was no such appointment to delete
-        if (!updatedAppointments.contains(appointmentToRemove)) {
-            throw new CommandException(String.format(MESSAGE_NO_APPOINTMENT_TO_DELETE, appointmentToRemove,
-                    personToEdit.getName()));
-        }
-
-        updatedAppointments.remove(appointmentToRemove);
         return new Person(updatedName, updatedPhone, updatedEmail, updatedRole, updatedAddress,
-                updatedTags, updatedAppointments);
+                updatedTags);
     }
 
     @Override

@@ -13,16 +13,14 @@
     "email" : "johnd@example.com",
     "role": "buyer",
     "address" : "311, Clementi Ave 2, #02-25",
-    "tags" : [ "owesMoney", "friends" ],
-    "appointments" : [ "2025-01-01T12:00" ]
+    "tags" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "role": "seller",
     "address" : "wall street",
-    "tags" : [ ],
-    "appointments" : [ "2025-01-01T14:00", "2025-01-02T12:00" ]
+    "tags" : [ ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
@@ -51,5 +49,22 @@
     "role": "seller",
     "address" : "4th street",
     "tags" : [ ]
+  } ],
+  "appointments" : [ {
+    "seller" : "9482427",
+    "buyer" : "9482224",
+    "appointmentDateTime" : "2025-01-01T12:00"
+  }, {
+    "seller" : "9482427",
+    "buyer" : "9482224",
+    "appointmentDateTime" : "2025-01-02T14:00"
+  }, {
+    "seller" : "9482427",
+    "buyer" : "87652533",
+    "appointmentDateTime" : "2025-01-02T12:00"
+  }, {
+    "seller" : "9482442",
+    "buyer" : "98765432",
+    "appointmentDateTime" : "2025-01-01T18:00"
   } ]
 }

@@ -1,55 +1,53 @@
 package seedu.address.model.appointment;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
+import java.util.Objects;
+
+import seedu.address.model.person.Person;
 
 /**
- * Represents an appointment with a Person in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidDatetime(String)}
+ * Represents an appointment in the address book.
+ * Guarantees: immutable; details are present not null; field values are validated.
+ *
  */
-public class Appointment {
+public class Appointment implements Comparable<Appointment> {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Appointment must take a valid ISO 8601 datetime without seconds and nanoseconds";
-
-    /*
-     * The string must be in ISO 8601 format excluding seconds and nanoseconds: YYYY-MM-DDTHH:MM.
-     * The regex checks that these fields, and no more, are specified.
-     * The isValidDatetime method will also check validity using LocalDateTime.parse.
-     */
-    public static final String VALIDATION_REGEX = "(\\d{4}-\\d{2}-\\d{2})T(\\d{2}:\\d{2})";
-
-    public final LocalDateTime datetime;
+    public final AppointmentDatetime appointmentDatetime;
+    public final Person seller;
+    public final Person buyer;
 
     /**
      * Constructs an {@code Appointment}.
      *
-     * @param datetimeStr A String that can be parsed into a valid LocalDateTime.
+     * @param appointmentDatetime An AppointmentDatetime object representing the datetime of the appointment.
+     * @param seller A Person object representing the seller.
+     * @param buyer A Person object representing the buyer.
      */
-    public Appointment(String datetimeStr) {
-        requireNonNull(datetimeStr);
-        checkArgument(isValidDatetime(datetimeStr), MESSAGE_CONSTRAINTS);
-        datetime = LocalDateTime.parse(datetimeStr);
+    public Appointment(AppointmentDatetime appointmentDatetime, Person seller, Person buyer) {
+        requireNonNull(appointmentDatetime);
+        requireNonNull(seller);
+        requireNonNull(buyer);
+        this.appointmentDatetime = appointmentDatetime;
+        this.seller = seller;
+        this.buyer = buyer;
     }
 
-    /**
-     * Returns true if a given string is a valid datetime.
-     */
-    public static boolean isValidDatetime(String test) {
-        try {
-            LocalDateTime.parse(test);
-        } catch (DateTimeParseException e) {
-            return false;
-        }
-        return test.matches(VALIDATION_REGEX);
+    public AppointmentDatetime getAppointmentDatetime() {
+        return appointmentDatetime;
+    }
+
+    public Person getSeller() {
+        return seller;
+    }
+
+    public Person getBuyer() {
+        return buyer;
     }
 
     @Override
     public String toString() {
-        return datetime.toString();
+        return appointmentDatetime.toString();
     }
 
     @Override
@@ -64,12 +62,19 @@ public class Appointment {
         }
 
         Appointment otherAppointment = (Appointment) other;
-        return datetime.equals(otherAppointment.datetime);
+        return appointmentDatetime.equals(otherAppointment.appointmentDatetime)
+                && seller.equals(otherAppointment.seller)
+                && buyer.equals(otherAppointment.buyer);
+    }
+
+    @Override
+    public int compareTo(Appointment other) {
+        return appointmentDatetime.compareTo(other.getAppointmentDatetime());
     }
 
     @Override
     public int hashCode() {
-        return datetime.hashCode();
+        return Objects.hash(appointmentDatetime, seller, buyer);
     }
 
 }
