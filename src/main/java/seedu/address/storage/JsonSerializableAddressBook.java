@@ -33,8 +33,12 @@ class JsonSerializableAddressBook {
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
             @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
-        this.persons.addAll(persons);
-        this.appointments.addAll(appointments);
+        if (persons != null) {
+            this.persons.addAll(persons);
+        }
+        if (appointments != null) {
+            this.appointments.addAll(appointments);
+        }
     }
 
     /**

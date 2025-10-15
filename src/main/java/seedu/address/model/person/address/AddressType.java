@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class AddressType {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Address type should strictly follow any one of these given types: \n "
+            "Address type should strictly follow any one of these given types: \n"
                     + "HDB_2\n"
                     + "HDB_3\n"
                     + "HDB_4\n"
