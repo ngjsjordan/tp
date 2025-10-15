@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.address.Address;
+import seedu.address.model.person.address.AddressType;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -57,6 +59,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public AddressType getAddressType() {
+        return address.getAddressType();
     }
 
     /**
