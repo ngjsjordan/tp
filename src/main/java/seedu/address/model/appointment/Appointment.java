@@ -1,55 +1,32 @@
 package seedu.address.model.appointment;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * Represents an appointment with a Person in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidDatetime(String)}
+ * Guarantees: immutable; details are present and not null, field values are validated.}
  */
-public class Appointment {
+public class Appointment implements Comparable<Appointment> {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Appointment must take a valid ISO 8601 datetime without seconds and nanoseconds";
-
-    /*
-     * The string must be in ISO 8601 format excluding seconds and nanoseconds: YYYY-MM-DDTHH:MM.
-     * The regex checks that these fields, and no more, are specified.
-     * The isValidDatetime method will also check validity using LocalDateTime.parse.
-     */
-    public static final String VALIDATION_REGEX = "(\\d{4}-\\d{2}-\\d{2})T(\\d{2}:\\d{2})";
-
-    public final LocalDateTime datetime;
+    public final AppointmentDatetime appointmentDatetime;
 
     /**
      * Constructs an {@code Appointment}.
      *
-     * @param datetimeStr A String that can be parsed into a valid LocalDateTime.
+     * @param appointmentDatetime An AppointmentDatetime object representing the datetime of the appointment.
      */
-    public Appointment(String datetimeStr) {
-        requireNonNull(datetimeStr);
-        checkArgument(isValidDatetime(datetimeStr), MESSAGE_CONSTRAINTS);
-        datetime = LocalDateTime.parse(datetimeStr);
+    public Appointment(AppointmentDatetime appointmentDatetime) {
+        requireNonNull(appointmentDatetime);
+        this.appointmentDatetime = appointmentDatetime;
     }
 
-    /**
-     * Returns true if a given string is a valid datetime.
-     */
-    public static boolean isValidDatetime(String test) {
-        try {
-            LocalDateTime.parse(test);
-        } catch (DateTimeParseException e) {
-            return false;
-        }
-        return test.matches(VALIDATION_REGEX);
+    public AppointmentDatetime getAppointmentDatetime() {
+        return appointmentDatetime;
     }
 
     @Override
     public String toString() {
-        return datetime.toString();
+        return appointmentDatetime.toString();
     }
 
     @Override
@@ -64,12 +41,17 @@ public class Appointment {
         }
 
         Appointment otherAppointment = (Appointment) other;
-        return datetime.equals(otherAppointment.datetime);
+        return appointmentDatetime.equals(otherAppointment.appointmentDatetime);
+    }
+
+    @Override
+    public int compareTo(Appointment other) {
+        return appointmentDatetime.compareTo(other.getAppointmentDatetime());
     }
 
     @Override
     public int hashCode() {
-        return datetime.hashCode();
+        return appointmentDatetime.hashCode();
     }
 
 }

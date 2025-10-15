@@ -27,6 +27,7 @@ import seedu.address.logic.commands.ListAppointmentsCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -105,7 +106,8 @@ public class AddressBookParserTest {
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(
                 AddAppointmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
                         + "d/" + datetime);
-        assertEquals(new AddAppointmentCommand(INDEX_FIRST_PERSON, new Appointment(datetime)), command);
+        assertEquals(new AddAppointmentCommand(INDEX_FIRST_PERSON, new Appointment(
+                new AppointmentDatetime(datetime))), command);
     }
 
     @Test
@@ -114,7 +116,8 @@ public class AddressBookParserTest {
         DeleteAppointmentCommand command = (DeleteAppointmentCommand) parser.parseCommand(
                 DeleteAppointmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
                         + "d/" + datetime);
-        assertEquals(new DeleteAppointmentCommand(INDEX_FIRST_PERSON, new Appointment(datetime)), command);
+        assertEquals(new DeleteAppointmentCommand(INDEX_FIRST_PERSON,
+                new Appointment(new AppointmentDatetime(datetime))), command);
     }
 
     @Test

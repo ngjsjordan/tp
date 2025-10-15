@@ -158,7 +158,7 @@ public class ModelManager implements Model {
         }
 
         // Sort by datetime (present to future)
-        appointmentEntries.sort(Comparator.comparing(entry -> entry.getAppointment().datetime));
+        appointmentEntries.sort(Comparator.comparing(AppointmentEntry::getAppointment));
 
         return FXCollections.observableArrayList(appointmentEntries);
     }

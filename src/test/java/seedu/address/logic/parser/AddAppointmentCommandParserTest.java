@@ -4,7 +4,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_DESC_JAN_1;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_JAN_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DATETIME_JAN_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -18,6 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDatetime;
 
 public class AddAppointmentCommandParserTest {
 
@@ -55,7 +56,7 @@ public class AddAppointmentCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_APPOINTMENT_DESC, Appointment.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_APPOINTMENT_DESC, AppointmentDatetime.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -64,7 +65,7 @@ public class AddAppointmentCommandParserTest {
         String userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1;
 
         AddAppointmentCommand expectedCommand = new AddAppointmentCommand(targetIndex,
-                new Appointment(VALID_APPOINTMENT_JAN_1));
+                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1)));
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

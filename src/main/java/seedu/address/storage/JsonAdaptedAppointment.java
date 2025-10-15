@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDatetime;
 
 /**
  * Json-friendly version of {@link Appointment}.
@@ -25,7 +26,7 @@ class JsonAdaptedAppointment {
      * Converts a given {@code Appointment} into this class for Json use.
      */
     public JsonAdaptedAppointment(Appointment source) {
-        appointmentDateTime = source.datetime.toString();
+        appointmentDateTime = source.getAppointmentDatetime().toString();
     }
 
     @JsonValue
@@ -39,10 +40,10 @@ class JsonAdaptedAppointment {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Appointment toModelType() throws IllegalValueException {
-        if (!Appointment.isValidDatetime(appointmentDateTime)) {
-            throw new IllegalValueException(Appointment.MESSAGE_CONSTRAINTS);
+        if (!AppointmentDatetime.isValidDatetime(appointmentDateTime)) {
+            throw new IllegalValueException(AppointmentDatetime.MESSAGE_CONSTRAINTS);
         }
-        return new Appointment(appointmentDateTime);
+        return new Appointment(new AppointmentDatetime(appointmentDateTime));
     }
 
 }
