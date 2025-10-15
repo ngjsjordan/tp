@@ -19,6 +19,7 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Role;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.ui.AppointmentEntry;
@@ -127,9 +128,9 @@ public class ModelManagerTest {
         Appointment appointment2 = new Appointment(new AppointmentDatetime("2025-01-10T14:00"));
         Appointment appointment3 = new Appointment(new AppointmentDatetime("2025-01-20T09:00"));
 
-        Person person1 = new PersonBuilder().withName("Alice")
+        Person person1 = new PersonBuilder().withName("Alice").withRole(Role.SELLER)
                 .withAppointments("2025-01-15T10:00").build();
-        Person person2 = new PersonBuilder().withName("Bob")
+        Person person2 = new PersonBuilder().withName("Bob").withRole(Role.SELLER)
                 .withAppointments("2025-01-10T14:00", "2025-01-20T09:00").build();
 
         modelManager.addPerson(person1);

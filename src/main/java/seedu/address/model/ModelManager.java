@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -148,17 +147,14 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<AppointmentEntry> getAppointmentList() {
-        List<AppointmentEntry> appointmentEntries = new ArrayList<>();
 
-        // Collect all appointments from all persons
-        for (Person person : addressBook.getPersonList()) {
-            person.getAppointments().forEach(appointment -> {
-                appointmentEntries.add(new AppointmentEntry(appointment, person));
-            });
-        }
-
-        // Sort by datetime (present to future)
-        appointmentEntries.sort(Comparator.comparing(AppointmentEntry::getAppointment));
+        // Collect all appointments from all sellers
+        List<AppointmentEntry> appointmentEntries = addressBook.getPersonList().stream()
+                .filter(person -> person.getRole().isSeller())
+                .flatMap(person -> person.getAppointments().stream()
+                        .map(appointment -> new AppointmentEntry(appointment, person)))
+                .sorted(Comparator.comparing(AppointmentEntry::getAppointment))
+                .toList();
 
         return FXCollections.observableArrayList(appointmentEntries);
     }
