@@ -12,6 +12,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Person;
 
 /**
@@ -33,18 +34,18 @@ public class DeleteAppointmentCommand extends Command {
 
 
     private final Index personIndex;
-    private final Appointment appointmentToRemove;
+    private final AppointmentDatetime appointmentDatetime;
 
     /**
-     * @param index       of the person in the filtered person list to edit
-     * @param appointment appointment to delete from the specified person
+     * @param index       of the person in the filtered person list
+     * @param appointmentDatetime datetime of the appointment to delete
      */
-    public DeleteAppointmentCommand(Index index, Appointment appointment) {
+    public DeleteAppointmentCommand(Index index, AppointmentDatetime appointmentDatetime) {
         requireNonNull(index);
-        requireNonNull(appointment);
+        requireNonNull(appointmentDatetime);
 
         this.personIndex = index;
-        this.appointmentToRemove = appointment;
+        this.appointmentDatetime = appointmentDatetime;
     }
 
     @Override
@@ -58,16 +59,16 @@ public class DeleteAppointmentCommand extends Command {
 
         Person referencedPerson = lastShownList.get(personIndex.getZeroBased());
 
-        // Find the appointment by datetime (since the appointmentToRemove has null buyer/seller)
+        // Find the appointment by datetime
         Appointment actualAppointment = model.getAddressBook().getAppointmentList().stream()
-                .filter(apt -> apt.appointmentDatetime.equals(appointmentToRemove.appointmentDatetime))
+                .filter(apt -> apt.appointmentDatetime.equals(appointmentDatetime))
                 .filter(apt -> apt.getSeller().equals(referencedPerson) || apt.getBuyer().equals(referencedPerson))
                 .findFirst()
                 .orElse(null);
 
         if (actualAppointment == null) {
             throw new CommandException(String.format(MESSAGE_NO_APPOINTMENT_TO_DELETE,
-                    appointmentToRemove.toString(), Messages.format(referencedPerson)));
+                    appointmentDatetime, Messages.format(referencedPerson)));
         }
 
         model.deleteAppointment(actualAppointment);
@@ -89,14 +90,14 @@ public class DeleteAppointmentCommand extends Command {
 
         DeleteAppointmentCommand otherDeleteAppointmentCommand = (DeleteAppointmentCommand) other;
         return personIndex.equals(otherDeleteAppointmentCommand.personIndex)
-                && appointmentToRemove.equals(otherDeleteAppointmentCommand.appointmentToRemove);
+                && appointmentDatetime.equals(otherDeleteAppointmentCommand.appointmentDatetime);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", personIndex)
-                .add("appointment", appointmentToRemove)
+                .add("appointmentDatetime", appointmentDatetime)
                 .toString();
     }
 }
