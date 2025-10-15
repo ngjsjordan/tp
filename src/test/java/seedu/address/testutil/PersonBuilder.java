@@ -32,7 +32,6 @@ public class PersonBuilder {
     private Role role;
     private Address address;
     private Set<Tag> tags;
-    private Set<Appointment> appointments;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -44,7 +43,6 @@ public class PersonBuilder {
         role = new Role(DEFAULT_ROLE);
         address = new Address(DEFAULT_ADDRESS, new AddressType(DEFAULT_ADDRESS_TYPE));
         tags = new HashSet<>();
-        appointments = new HashSet<>();
     }
 
     /**
@@ -57,7 +55,6 @@ public class PersonBuilder {
         role = personToCopy.getRole();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
-        appointments = new HashSet<>(personToCopy.getAppointments());
     }
 
     /**
@@ -73,15 +70,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Parses the {@code appointments} into a {@code Set<Appointment>} and set it to the {@code Person}
-     * that we are building. No error checking is done.
-     */
-    public PersonBuilder withAppointments(String ... appointments) {
-        this.appointments = SampleDataUtil.getAppointmentSet(appointments);
         return this;
     }
 
@@ -118,7 +106,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(name, phone, email, role, address, tags, appointments);
+        return new Person(name, phone, email, role, address, tags);
     }
 
 }

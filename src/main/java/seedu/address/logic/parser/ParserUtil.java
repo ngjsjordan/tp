@@ -10,6 +10,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDatetime;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
@@ -139,13 +141,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code datetime} is invalid.
      */
-    public static Appointment parseAppointment(String datetime) throws ParseException {
+    public static AppointmentDatetime parseAppointmentDatetime(String datetime) throws ParseException {
         requireNonNull(datetime);
         String trimmedDatetime = datetime.trim();
-        if (!Appointment.isValidDatetime(trimmedDatetime)) {
-            throw new ParseException(Appointment.MESSAGE_CONSTRAINTS);
+        if (!AppointmentDatetime.isValidDatetime(trimmedDatetime)) {
+            throw new ParseException(AppointmentDatetime.MESSAGE_CONSTRAINTS);
         }
-        return new Appointment(trimmedDatetime);
+        return new AppointmentDatetime(trimmedDatetime);
     }
 
     /**

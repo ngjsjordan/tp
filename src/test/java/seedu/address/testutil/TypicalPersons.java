@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Person;
 
 /**
@@ -36,10 +38,9 @@ public class TypicalPersons {
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25", "HDB_2")
             .withEmail("johnd@example.com").withPhone("98765432").withRole("buyer")
-            .withTags("owesMoney", "friends").withAppointments("2025-01-01T12:00").build();
+            .withTags("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withRole("seller").withAddress("wall street", "HDB_3")
-            .withAppointments("2025-01-01T14:00", "2025-01-02T12:00").build();
+            .withEmail("heinz@example.com").withRole("seller").withAddress("wall street", "HDB_3").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withRole("buyer").withAddress("10th street", "HDB_4")
             .withTags("friends").build();
@@ -70,6 +71,16 @@ public class TypicalPersons {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
+    // Appointments
+    public static final Appointment FIONA_ELLE_1 = new Appointment(
+            new AppointmentDatetime("2025-01-01T12:00"), FIONA, ELLE);
+    public static final Appointment FIONA_ELLE_2 = new Appointment(
+            new AppointmentDatetime("2025-01-02T14:00"), FIONA, ELLE);
+    public static final Appointment FIONA_DANIEL = new Appointment(
+            new AppointmentDatetime("2025-01-02T12:00"), FIONA, DANIEL);
+    public static final Appointment GEORGE_BENSON = new Appointment(
+            new AppointmentDatetime("2025-01-01T18:00"), GEORGE, BENSON);
+
     private TypicalPersons() {} // prevents instantiation
 
     /**
@@ -80,10 +91,17 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
+        for (Appointment appointment : getTypicalAppointments()) {
+            ab.addAppointment(appointment);
+        }
         return ab;
     }
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Appointment> getTypicalAppointments() {
+        return new ArrayList<>(Arrays.asList(FIONA_ELLE_1, FIONA_ELLE_2, FIONA_DANIEL, GEORGE_BENSON));
     }
 }
