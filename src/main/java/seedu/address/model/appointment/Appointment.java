@@ -2,26 +2,47 @@ package seedu.address.model.appointment;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Objects;
+
+import seedu.address.model.person.Person;
+
 /**
- * Represents an appointment with a Person in the address book.
- * Guarantees: immutable; details are present and not null, field values are validated.}
+ * Represents an appointment in the address book.
+ * Guarantees: immutable; details are present not null; field values are validated.
+ *
  */
 public class Appointment implements Comparable<Appointment> {
 
     public final AppointmentDatetime appointmentDatetime;
+    public final Person seller;
+    public final Person buyer;
 
     /**
      * Constructs an {@code Appointment}.
      *
      * @param appointmentDatetime An AppointmentDatetime object representing the datetime of the appointment.
+     * @param seller A Person object representing the seller.
+     * @param buyer A Person object representing the buyer.
      */
-    public Appointment(AppointmentDatetime appointmentDatetime) {
+    public Appointment(AppointmentDatetime appointmentDatetime, Person seller, Person buyer) {
         requireNonNull(appointmentDatetime);
+        requireNonNull(seller);
+        requireNonNull(buyer);
         this.appointmentDatetime = appointmentDatetime;
+        this.seller = seller;
+        this.buyer = buyer;
     }
 
     public AppointmentDatetime getAppointmentDatetime() {
         return appointmentDatetime;
+    }
+
+    public Person getSeller() {
+        return seller;
+    }
+
+    public Person getBuyer() {
+        return buyer;
     }
 
     @Override
@@ -41,7 +62,9 @@ public class Appointment implements Comparable<Appointment> {
         }
 
         Appointment otherAppointment = (Appointment) other;
-        return appointmentDatetime.equals(otherAppointment.appointmentDatetime);
+        return appointmentDatetime.equals(otherAppointment.appointmentDatetime)
+                && seller.equals(otherAppointment.seller)
+                && buyer.equals(otherAppointment.buyer);
     }
 
     @Override
@@ -51,7 +74,7 @@ public class Appointment implements Comparable<Appointment> {
 
     @Override
     public int hashCode() {
-        return appointmentDatetime.hashCode();
+        return Objects.hash(appointmentDatetime, seller, buyer);
     }
 
 }

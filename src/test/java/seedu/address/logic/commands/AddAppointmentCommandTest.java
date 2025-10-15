@@ -33,16 +33,18 @@ public class AddAppointmentCommandTest {
 
     @Test
     public void execute_appointmentAcceptedByModel_success() {
-        Person editedPerson = new PersonBuilder(model.getFilteredPersonList().get(0))
-                .withAppointments(VALID_APPOINTMENT_DATETIME_JAN_1).build();
-        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1)));
+        Person seller = new PersonBuilder(model.getFilteredPersonList().get(0)).build();
+        Person buyer = new PersonBuilder(model.getFilteredPersonList().get(1)).build();
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
 
         String expectedMessage = String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS,
-                Messages.format(editedPerson));
+                Messages.format(seller));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+        expectedModel.addAppointment(new Appointment(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1),
+                seller, buyer));
 
         assertCommandSuccess(addAppointmentCommand, model, expectedMessage, expectedModel);
     }
@@ -50,20 +52,20 @@ public class AddAppointmentCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(outOfBoundIndex,
-                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1)));
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), outOfBoundIndex, outOfBoundIndex);
 
         assertCommandFailure(addAppointmentCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final AddAppointmentCommand standardCommand = new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1)));
+        final AddAppointmentCommand standardCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
 
         // same values -> returns true
-        AddAppointmentCommand commandWithSameValues = new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1)));
+        AddAppointmentCommand commandWithSameValues = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -76,21 +78,22 @@ public class AddAppointmentCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new AddAppointmentCommand(INDEX_SECOND_PERSON,
-                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1)))));
+        assertFalse(standardCommand.equals(new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_SECOND_PERSON, INDEX_FIRST_PERSON)));
 
-        // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new AddAppointmentCommand(INDEX_FIRST_PERSON,
-                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_DEC_31)))));
+        // different datetime -> returns false
+        assertFalse(standardCommand.equals(new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_DEC_31), INDEX_FIRST_PERSON, INDEX_SECOND_PERSON)));
     }
 
     @Test
     public void toStringMethod() {
         Index index = Index.fromOneBased(1);
-        Appointment appointment = new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1));
-        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(index, appointment);
-        String expected = AddAppointmentCommand.class.getCanonicalName() + "{index=" + index + ", appointment="
-                + appointment + "}";
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), index, null);
+        String expected = AddAppointmentCommand.class.getCanonicalName()
+                + "{appointmentDatetime=" + VALID_APPOINTMENT_DATETIME_JAN_1 + ", sellerIndex="
+                + index + ", buyerIndex=}";
         assertEquals(expected, addAppointmentCommand.toString());
     }
 

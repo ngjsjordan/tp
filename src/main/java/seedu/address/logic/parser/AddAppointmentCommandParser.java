@@ -2,12 +2,13 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDatetime;
 
 /**
  * Parses input arguments and creates a new AddAppointmentCommand object
@@ -23,13 +24,14 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
     public AddAppointmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DATETIME);
+                ArgumentTokenizer.tokenize(args, PREFIX_DATETIME, PREFIX_BUYER);
 
-        Index index;
-        Appointment appointment;
+        Index sellerIndex;
+        Index buyerIndex;
+        AppointmentDatetime appointmentDatetime;
 
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            sellerIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddAppointmentCommand.MESSAGE_USAGE), pe);
@@ -40,10 +42,16 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
                     AddAppointmentCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATETIME);
+        if (!argMultimap.getValue(PREFIX_BUYER).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddAppointmentCommand.MESSAGE_USAGE));
+        }
 
-        appointment = new Appointment(ParserUtil.parseAppointmentDatetime(argMultimap.getValue(PREFIX_DATETIME).get()));
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATETIME, PREFIX_BUYER);
 
-        return new AddAppointmentCommand(index, appointment);
+        appointmentDatetime = ParserUtil.parseAppointmentDatetime(argMultimap.getValue(PREFIX_DATETIME).get());
+        buyerIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_BUYER).get());
+
+        return new AddAppointmentCommand(appointmentDatetime, sellerIndex, buyerIndex);
     }
 }

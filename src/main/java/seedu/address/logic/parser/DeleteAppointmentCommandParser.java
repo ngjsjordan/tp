@@ -42,7 +42,8 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATETIME);
 
-        appointment = new Appointment(ParserUtil.parseAppointmentDatetime(argMultimap.getValue(PREFIX_DATETIME).get()));
+        appointment = new Appointment(ParserUtil.parseAppointmentDatetime(argMultimap.getValue(PREFIX_DATETIME).get()),
+                null, null);
 
         return new DeleteAppointmentCommand(index, appointment);
     }

@@ -87,17 +87,9 @@ public class DeleteAppointmentCommand extends Command {
         Role updatedRole = personToEdit.getRole();
         Address updatedAddress = personToEdit.getAddress();
         Set<Tag> updatedTags = personToEdit.getTags();
-        Set<Appointment> updatedAppointments = new HashSet<>(personToEdit.getAppointments());
 
-        // If there was no such appointment to delete
-        if (!updatedAppointments.contains(appointmentToRemove)) {
-            throw new CommandException(String.format(MESSAGE_NO_APPOINTMENT_TO_DELETE, appointmentToRemove,
-                    personToEdit.getName()));
-        }
-
-        updatedAppointments.remove(appointmentToRemove);
         return new Person(updatedName, updatedPhone, updatedEmail, updatedRole, updatedAddress,
-                updatedTags, updatedAppointments);
+                updatedTags);
     }
 
     @Override

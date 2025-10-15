@@ -64,8 +64,8 @@ public class AddAppointmentCommandParserTest {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1;
 
-        AddAppointmentCommand expectedCommand = new AddAppointmentCommand(targetIndex,
-                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1)));
+        AddAppointmentCommand expectedCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), targetIndex, null);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

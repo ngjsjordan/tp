@@ -12,5 +12,6 @@
     "email": "pauline@example.com",
     "role": "buyer",
     "address": "4th street"
-  } ]
+  } ],
+  "appointments": []
 }

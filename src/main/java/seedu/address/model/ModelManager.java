@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.ui.AppointmentEntry;
@@ -122,6 +123,17 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public boolean hasAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return addressBook.hasAppointment(appointment);
+    }
+
+    @Override
+    public void addAppointment(Appointment appointment) {
+        addressBook.addAppointment(appointment);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -149,10 +161,8 @@ public class ModelManager implements Model {
     public ObservableList<AppointmentEntry> getAppointmentList() {
 
         // Collect all appointments from all sellers
-        List<AppointmentEntry> appointmentEntries = addressBook.getPersonList().stream()
-                .filter(person -> person.getRole().isSeller())
-                .flatMap(person -> person.getAppointments().stream()
-                        .map(appointment -> new AppointmentEntry(appointment, person)))
+        List<AppointmentEntry> appointmentEntries = addressBook.getAppointmentList().stream()
+                .map(appointment -> new AppointmentEntry(appointment, appointment.getSeller()))
                 .sorted(Comparator.comparing(AppointmentEntry::getAppointment))
                 .toList();
 

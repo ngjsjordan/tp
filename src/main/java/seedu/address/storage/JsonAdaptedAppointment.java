@@ -1,11 +1,12 @@
 package seedu.address.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDatetime;
+import seedu.address.model.person.Person;
 
 /**
  * Json-friendly version of {@link Appointment}.
@@ -13,13 +14,18 @@ import seedu.address.model.appointment.AppointmentDatetime;
 class JsonAdaptedAppointment {
 
     private final String appointmentDateTime;
+    private final String seller;
+    private final String buyer;
 
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code appointmentDateTime}.
      */
     @JsonCreator
-    public JsonAdaptedAppointment(String appointmentDateTime) {
+    public JsonAdaptedAppointment(@JsonProperty("datetime") String appointmentDateTime,
+            @JsonProperty("seller") String seller, @JsonProperty("buyer") String buyer) {
         this.appointmentDateTime = appointmentDateTime;
+        this.seller = seller;
+        this.buyer = buyer;
     }
 
     /**
@@ -27,23 +33,31 @@ class JsonAdaptedAppointment {
      */
     public JsonAdaptedAppointment(Appointment source) {
         appointmentDateTime = source.getAppointmentDatetime().toString();
+        seller = source.getSeller().getPhone().value;
+        buyer = source.getBuyer().getPhone().value;
     }
 
-    @JsonValue
-    public String getAppointmentDateTime() {
-        return appointmentDateTime;
+    public String getSeller() {
+        return seller;
+    }
+
+    public String getBuyer() {
+        return buyer;
     }
 
     /**
-     * Converts this Json-friendly adapted appointment object into the model's {@code Appointment} object.
+     * Converts this Json-friendly adapted appointment object into the model's {@code Appointment} object, given
+     * references to the buyer and seller objects.
      *
+     * @param seller the Person object representing the seller of the appointment
+     * @param buyer the Person object representing the buyer of the appointment
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
-    public Appointment toModelType() throws IllegalValueException {
+    public Appointment toModelType(Person seller, Person buyer) throws IllegalValueException {
         if (!AppointmentDatetime.isValidDatetime(appointmentDateTime)) {
             throw new IllegalValueException(AppointmentDatetime.MESSAGE_CONSTRAINTS);
         }
-        return new Appointment(new AppointmentDatetime(appointmentDateTime));
+        return new Appointment(new AppointmentDatetime(appointmentDateTime), seller, buyer);
     }
 
 }
