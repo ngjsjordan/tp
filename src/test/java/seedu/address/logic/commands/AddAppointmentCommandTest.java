@@ -9,6 +9,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SIXTH_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -25,7 +27,7 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for AddAppointmentCommand.
  */
 public class AddAppointmentCommandTest {
 
@@ -33,10 +35,10 @@ public class AddAppointmentCommandTest {
 
     @Test
     public void execute_appointmentAcceptedByModel_success() {
-        Person seller = new PersonBuilder(model.getFilteredPersonList().get(0)).build();
-        Person buyer = new PersonBuilder(model.getFilteredPersonList().get(1)).build();
+        Person seller = new PersonBuilder(model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased())).build();
+        Person buyer = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased())).build();
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
-                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS,
                 Messages.format(seller));
@@ -59,13 +61,38 @@ public class AddAppointmentCommandTest {
     }
 
     @Test
+    public void execute_invalidSellerRole_failure() {
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_THIRD_PERSON);
+
+        assertCommandFailure(addAppointmentCommand, model, AddAppointmentCommand.MESSAGE_INVALID_SELLER_ROLE);
+    }
+
+    @Test
+    public void execute_invalidBuyerRole_failure() {
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_SIXTH_PERSON);
+
+        assertCommandFailure(addAppointmentCommand, model, AddAppointmentCommand.MESSAGE_INVALID_BUYER_ROLE);
+    }
+
+    @Test
+    public void execute_samePersonBuyerSeller_failure() {
+        // Using the same person for both buyer and seller
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_FIRST_PERSON);
+
+        assertCommandFailure(addAppointmentCommand, model, AddAppointmentCommand.MESSAGE_SAME_PERSON);
+    }
+
+    @Test
     public void equals() {
         final AddAppointmentCommand standardCommand = new AddAppointmentCommand(
-                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_FIRST_PERSON);
 
         // same values -> returns true
         AddAppointmentCommand commandWithSameValues = new AddAppointmentCommand(
-                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_FIRST_PERSON);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -79,11 +106,11 @@ public class AddAppointmentCommandTest {
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new AddAppointmentCommand(
-                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_SECOND_PERSON, INDEX_FIRST_PERSON)));
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_THIRD_PERSON)));
 
         // different datetime -> returns false
         assertFalse(standardCommand.equals(new AddAppointmentCommand(
-                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_DEC_31), INDEX_FIRST_PERSON, INDEX_SECOND_PERSON)));
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_DEC_31), INDEX_THIRD_PERSON, INDEX_FIRST_PERSON)));
     }
 
     @Test
