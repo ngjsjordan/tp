@@ -32,6 +32,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
                 || StringUtil.containsWordIgnoreCase(person.getAddress().value, keyword)
                 || StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword)
                 || StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword)
+                || StringUtil.containsWordIgnoreCase(person.getAddressType().toString(), keyword)
                 || person.getTags().stream()
                     .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword));
     }
