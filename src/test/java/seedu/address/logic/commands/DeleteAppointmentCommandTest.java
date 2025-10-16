@@ -3,12 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DEC_31;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_JAN_1;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPersons.FIONA_ELLE_1;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -19,75 +18,94 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.appointment.AppointmentDatetime;
 
 public class DeleteAppointmentCommandTest {
+
+    private static final Index INDEX_FIFTH_PERSON = Index.fromOneBased(5);
+    private static final Index INDEX_SIXTH_PERSON = Index.fromOneBased(6);
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validAppointment_success() {
-        // Person with two appointments
-        Person personWithAppointments = new PersonBuilder(model.getFilteredPersonList().get(0))
-                .withAppointments(VALID_APPOINTMENT_JAN_1, VALID_APPOINTMENT_DEC_31)
-                .build();
-
-        model.setPerson(model.getFilteredPersonList().get(0), personWithAppointments);
-
-        Appointment appointmentToRemove = new Appointment(VALID_APPOINTMENT_JAN_1);
+    public void execute_validAppointmentSeller_success() {
+        // FIONA_ELLE_1 has FIONA as seller (index 6), ELLE as buyer (index 5)
+        // Delete using seller's index
+        AppointmentDatetime datetimeToDelete = new AppointmentDatetime("2025-01-01T12:00");
         DeleteAppointmentCommand deleteAppointmentCommand =
-                new DeleteAppointmentCommand(INDEX_FIRST_PERSON, appointmentToRemove);
-
-        // Expected edited person (after removing one appointment)
-        Person editedPerson = new PersonBuilder(personWithAppointments)
-                .withAppointments(VALID_APPOINTMENT_DEC_31)
-                .build();
+                new DeleteAppointmentCommand(INDEX_SIXTH_PERSON, datetimeToDelete);
 
         String expectedMessage = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS,
-                appointmentToRemove, Messages.format(editedPerson));
+                FIONA_ELLE_1, Messages.format(FIONA));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setPerson(personWithAppointments, editedPerson);
+        expectedModel.deleteAppointment(FIONA_ELLE_1);
+
+        assertCommandSuccess(deleteAppointmentCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validAppointmentBuyer_success() {
+        // FIONA_ELLE_1 has FIONA as seller (index 6), ELLE as buyer (index 5)
+        // Delete using buyer's index
+        AppointmentDatetime datetimeToDelete = new AppointmentDatetime("2025-01-01T12:00");
+        DeleteAppointmentCommand deleteAppointmentCommand =
+                new DeleteAppointmentCommand(INDEX_FIFTH_PERSON, datetimeToDelete);
+
+        String expectedMessage = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS,
+                FIONA_ELLE_1, Messages.format(model.getFilteredPersonList().get(INDEX_FIFTH_PERSON.getZeroBased())));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.deleteAppointment(FIONA_ELLE_1);
 
         assertCommandSuccess(deleteAppointmentCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_appointmentDoesNotExist_failure() {
-        Person personWithoutAppointment = new PersonBuilder(model.getFilteredPersonList().get(0))
-                .withAppointments(VALID_APPOINTMENT_JAN_1)
-                .build();
-
-        model.setPerson(model.getFilteredPersonList().get(0), personWithoutAppointment);
-
-        Appointment nonExistentAppointment = new Appointment(VALID_APPOINTMENT_DEC_31);
+        // Try to delete an appointment that doesn't exist
+        AppointmentDatetime nonExistentDatetime = new AppointmentDatetime("2025-12-31T23:59");
         DeleteAppointmentCommand deleteAppointmentCommand =
-                new DeleteAppointmentCommand(INDEX_FIRST_PERSON, nonExistentAppointment);
+                new DeleteAppointmentCommand(INDEX_FIRST_PERSON, nonExistentDatetime);
 
         assertCommandFailure(deleteAppointmentCommand, model,
-                String.format(DeleteAppointmentCommand.MESSAGE_NO_APPOINTMENT_TO_DELETE, nonExistentAppointment,
-                        personWithoutAppointment.getName()));
+                String.format(DeleteAppointmentCommand.MESSAGE_NO_APPOINTMENT_TO_DELETE, nonExistentDatetime,
+                        Messages.format(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))));
+    }
+
+    @Test
+    public void execute_personNotInvolvedInAppointment_failure() {
+        // FIONA_ELLE_1 involves FIONA (index 6) and ELLE (index 5)
+        // Try to delete with ALICE's index (index 1) who is not involved
+        AppointmentDatetime datetime = new AppointmentDatetime("2025-01-01T12:00");
+        DeleteAppointmentCommand deleteAppointmentCommand =
+                new DeleteAppointmentCommand(INDEX_FIRST_PERSON, datetime);
+
+        assertCommandFailure(deleteAppointmentCommand, model,
+                String.format(DeleteAppointmentCommand.MESSAGE_NO_APPOINTMENT_TO_DELETE, datetime,
+                        Messages.format(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()))));
     }
 
     @Test
     public void execute_invalidPersonIndex_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        DeleteAppointmentCommand deleteAppointmentCommand = new DeleteAppointmentCommand(outOfBoundIndex,
-                new Appointment(VALID_APPOINTMENT_JAN_1));
+        AppointmentDatetime datetime = new AppointmentDatetime("2025-01-01T12:00");
+        DeleteAppointmentCommand deleteAppointmentCommand = new DeleteAppointmentCommand(outOfBoundIndex, datetime);
 
         assertCommandFailure(deleteAppointmentCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final DeleteAppointmentCommand deleteAppointmentCommand = new DeleteAppointmentCommand(INDEX_FIRST_PERSON,
-                new Appointment(VALID_APPOINTMENT_JAN_1));
+        AppointmentDatetime datetime1 = new AppointmentDatetime("2025-01-01T12:00");
+        AppointmentDatetime datetime2 = new AppointmentDatetime("2025-12-31T12:00");
+
+        final DeleteAppointmentCommand deleteAppointmentCommand =
+                new DeleteAppointmentCommand(INDEX_FIRST_PERSON, datetime1);
 
         // same values -> returns true
-        DeleteAppointmentCommand commandWithSameValues = new DeleteAppointmentCommand(INDEX_FIRST_PERSON,
-                new Appointment(VALID_APPOINTMENT_JAN_1));
+        DeleteAppointmentCommand commandWithSameValues =
+                new DeleteAppointmentCommand(INDEX_FIRST_PERSON, datetime1);
         assertTrue(deleteAppointmentCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -100,21 +118,21 @@ public class DeleteAppointmentCommandTest {
         assertFalse(deleteAppointmentCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(deleteAppointmentCommand.equals(new DeleteAppointmentCommand(INDEX_SECOND_PERSON,
-                new Appointment(VALID_APPOINTMENT_JAN_1))));
+        assertFalse(deleteAppointmentCommand.equals(
+                new DeleteAppointmentCommand(INDEX_SIXTH_PERSON, datetime1)));
 
-        // different descriptor -> returns false
-        assertFalse(deleteAppointmentCommand.equals(new DeleteAppointmentCommand(INDEX_FIRST_PERSON,
-                new Appointment(VALID_APPOINTMENT_DEC_31))));
+        // different datetime -> returns false
+        assertFalse(deleteAppointmentCommand.equals(
+                new DeleteAppointmentCommand(INDEX_FIRST_PERSON, datetime2)));
     }
 
     @Test
     public void toStringMethod() {
         Index index = Index.fromOneBased(1);
-        Appointment appointment = new Appointment(VALID_APPOINTMENT_JAN_1);
-        DeleteAppointmentCommand deleteAppointmentCommand = new DeleteAppointmentCommand(index, appointment);
-        String expected = DeleteAppointmentCommand.class.getCanonicalName() + "{index=" + index + ", appointment="
-                + appointment + "}";
+        AppointmentDatetime datetime = new AppointmentDatetime("2025-01-01T12:00");
+        DeleteAppointmentCommand deleteAppointmentCommand = new DeleteAppointmentCommand(index, datetime);
+        String expected = DeleteAppointmentCommand.class.getCanonicalName()
+                + "{index=" + index + ", appointmentDatetime=" + datetime + "}";
         assertEquals(expected, deleteAppointmentCommand.toString());
     }
 }

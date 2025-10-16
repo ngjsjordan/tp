@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDatetime;
 
 /**
  * Parses input arguments and creates a new DeleteAppointmentCommand object
@@ -26,7 +26,7 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
                 ArgumentTokenizer.tokenize(args, PREFIX_DATETIME);
 
         Index index;
-        Appointment appointment;
+        AppointmentDatetime appointmentDatetime;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -42,8 +42,8 @@ public class DeleteAppointmentCommandParser implements Parser<DeleteAppointmentC
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATETIME);
 
-        appointment = ParserUtil.parseAppointment(argMultimap.getValue(PREFIX_DATETIME).get());
+        appointmentDatetime = ParserUtil.parseAppointmentDatetime(argMultimap.getValue(PREFIX_DATETIME).get());
 
-        return new DeleteAppointmentCommand(index, appointment);
+        return new DeleteAppointmentCommand(index, appointmentDatetime);
     }
 }

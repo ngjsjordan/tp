@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -15,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.ui.AppointmentEntry;
@@ -123,6 +123,22 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    @Override
+    public boolean hasAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return addressBook.hasAppointment(appointment);
+    }
+
+    @Override
+    public void addAppointment(Appointment appointment) {
+        addressBook.addAppointment(appointment);
+    }
+
+    @Override
+    public void deleteAppointment(Appointment target) {
+        addressBook.removeAppointment(target);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -148,17 +164,12 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<AppointmentEntry> getAppointmentList() {
-        List<AppointmentEntry> appointmentEntries = new ArrayList<>();
 
-        // Collect all appointments from all persons
-        for (Person person : addressBook.getPersonList()) {
-            person.getAppointments().forEach(appointment -> {
-                appointmentEntries.add(new AppointmentEntry(appointment, person));
-            });
-        }
-
-        // Sort by datetime (present to future)
-        appointmentEntries.sort(Comparator.comparing(entry -> entry.getAppointment().datetime));
+        // Collect all appointments from all sellers
+        List<AppointmentEntry> appointmentEntries = addressBook.getAppointmentList().stream()
+                .map(appointment -> new AppointmentEntry(appointment, appointment.getSeller()))
+                .sorted(Comparator.comparing(AppointmentEntry::getAppointment))
+                .toList();
 
         return FXCollections.observableArrayList(appointmentEntries);
     }

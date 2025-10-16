@@ -6,6 +6,7 @@
     "email" : "alice@example.com",
     "role": "buyer",
     "address" : "123, Jurong West Ave 6, #08-111",
+    "addressType" : "HDB_2",
     "tags" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
@@ -13,22 +14,23 @@
     "email" : "johnd@example.com",
     "role": "buyer",
     "address" : "311, Clementi Ave 2, #02-25",
-    "tags" : [ "owesMoney", "friends" ],
-    "appointments" : [ "2025-01-01T12:00" ]
+    "addressType" : "HDB_2",
+    "tags" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "95352563",
     "email" : "heinz@example.com",
     "role": "seller",
     "address" : "wall street",
-    "tags" : [ ],
-    "appointments" : [ "2025-01-01T14:00", "2025-01-02T12:00" ]
+    "addressType" : "HDB_3",
+    "tags" : [ ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
     "role": "buyer",
     "address" : "10th street",
+    "addressType" : "HDB_4",
     "tags" : [ "friends" ]
   }, {
     "name" : "Elle Meyer",
@@ -36,6 +38,7 @@
     "email" : "werner@example.com",
     "role": "buyer",
     "address" : "michegan ave",
+    "addressType" : "HDB_5",
     "tags" : [ ]
   }, {
     "name" : "Fiona Kunz",
@@ -43,6 +46,7 @@
     "email" : "lydia@example.com",
     "role": "seller",
     "address" : "little tokyo",
+    "addressType" : "HDB_J",
     "tags" : [ ]
   }, {
     "name" : "George Best",
@@ -50,6 +54,24 @@
     "email" : "anna@example.com",
     "role": "seller",
     "address" : "4th street",
+    "addressType" : "EC",
     "tags" : [ ]
+  } ],
+  "appointments" : [ {
+    "seller" : "9482427",
+    "buyer" : "9482224",
+    "appointmentDateTime" : "2025-01-01T12:00"
+  }, {
+    "seller" : "9482427",
+    "buyer" : "9482224",
+    "appointmentDateTime" : "2025-01-02T14:00"
+  }, {
+    "seller" : "9482427",
+    "buyer" : "87652533",
+    "appointmentDateTime" : "2025-01-02T12:00"
+  }, {
+    "seller" : "9482442",
+    "buyer" : "98765432",
+    "appointmentDateTime" : "2025-01-01T18:00"
   } ]
 }

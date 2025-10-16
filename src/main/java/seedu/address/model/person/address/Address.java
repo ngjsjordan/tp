@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.person.address;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -19,28 +19,34 @@ public class Address {
     public static final String VALIDATION_REGEX = "[^\\s].{0,199}$";
 
     public final String value;
+    public final AddressType addressType;
 
     /**
      * Constructs an {@code Address}.
      *
      * @param address A valid address.
      */
-    public Address(String address) {
+    public Address(String address, AddressType addressType) {
         requireNonNull(address);
         checkArgument(isValidAddress(address), MESSAGE_CONSTRAINTS);
         value = address;
+        this.addressType = addressType;
     }
 
     /**
-     * Returns true if a given string is a valid email.
+     * Returns true if a given string is a valid address.
      */
     public static boolean isValidAddress(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public AddressType getAddressType() {
+        return this.addressType;
+    }
+
     @Override
     public String toString() {
-        return value;
+        return value + ", " + addressType;
     }
 
     @Override
@@ -55,7 +61,7 @@ public class Address {
         }
 
         Address otherAddress = (Address) other;
-        return value.equals(otherAddress.value);
+        return value.equals(otherAddress.value) && addressType.equals(otherAddress.addressType);
     }
 
     @Override

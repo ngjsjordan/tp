@@ -9,8 +9,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Role {
 
-    public static final String MESSAGE_CONSTRAINTS = "Role must be either 'buyer' or 'seller'.";
-    public static final String VALIDATION_REGEX = "(?i)(buyer|seller)";
+    public static final String BUYER = "buyer";
+    public static final String SELLER = "seller";
+
+    public static final String MESSAGE_CONSTRAINTS = "Role must be either '%s' or '%s'.".formatted(BUYER, SELLER);
+    public static final String VALIDATION_REGEX = "(?i)(%s|%s)".formatted(BUYER, SELLER);
 
     public final String value;
 
@@ -30,6 +33,24 @@ public class Role {
      */
     public static boolean isValidRole(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if the role is a buyer.
+     *
+     * @return boolean if role is a buyer
+     */
+    public boolean isBuyer() {
+        return value.equals(BUYER);
+    }
+
+    /**
+     * Returns true if the role is a seller.
+     *
+     * @return boolean if role is a seller
+     */
+    public boolean isSeller() {
+        return value.equals(SELLER);
     }
 
     @Override

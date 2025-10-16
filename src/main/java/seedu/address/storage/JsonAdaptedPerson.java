@@ -10,13 +10,13 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Role;
+import seedu.address.model.person.address.Address;
+import seedu.address.model.person.address.AddressType;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,8 +31,8 @@ class JsonAdaptedPerson {
     private final String email;
     private final String role;
     private final String address;
+    private final String addressType;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
-    private final List<JsonAdaptedAppointment> appointments = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -40,18 +40,17 @@ class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("role") String role,
-            @JsonProperty("address") String address, @JsonProperty("tags") List<JsonAdaptedTag> tags,
-            @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
+            @JsonProperty("address") String address, @JsonProperty("addressType") String addressType,
+            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.role = role;
         this.address = address;
+        this.addressType = addressType;
+
         if (tags != null) {
             this.tags.addAll(tags);
-        }
-        if (appointments != null) {
-            this.appointments.addAll(appointments);
         }
     }
 
@@ -64,11 +63,9 @@ class JsonAdaptedPerson {
         email = source.getEmail().value;
         role = source.getRole().value;
         address = source.getAddress().value;
+        addressType = source.getAddressType().toString();
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
-        appointments.addAll(source.getAppointments().stream()
-                .map(JsonAdaptedAppointment::new)
                 .collect(Collectors.toList()));
     }
 
@@ -81,11 +78,6 @@ class JsonAdaptedPerson {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tags) {
             personTags.add(tag.toModelType());
-        }
-
-        final List<Appointment> personAppointments = new ArrayList<>();
-        for (JsonAdaptedAppointment appointment : appointments) {
-            personAppointments.add(appointment.toModelType());
         }
 
         if (name == null) {
@@ -126,11 +118,18 @@ class JsonAdaptedPerson {
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
-        final Address modelAddress = new Address(address);
+
+        if (addressType == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    AddressType.class.getSimpleName()));
+        }
+        if (!AddressType.isValidType(addressType)) {
+            throw new IllegalValueException(AddressType.MESSAGE_CONSTRAINTS);
+        }
+        final Address modelAddress = new Address(address, new AddressType(addressType));
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        final Set<Appointment> modelAppointments = new HashSet<>(personAppointments);
-        return new Person(modelName, modelPhone, modelEmail, modelRole, modelAddress, modelTags, modelAppointments);
+        return new Person(modelName, modelPhone, modelEmail, modelRole, modelAddress, modelTags);
     }
 
 }

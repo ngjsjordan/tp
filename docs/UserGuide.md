@@ -165,7 +165,7 @@ Adds an appointment to a person in the address book
 Format: `ap INDEX d/DATETIME`
 
 * Adds an appointment to the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* Datetime should be in the format `yyyy-MM-ddTHH:mm` and must be provided.
+* Datetime should be in an ISO 8601-compliant format (e.g. `yyyy-MM-ddTHH:mm:ss`) and must be provided.
 
 Examples:
 *  `ap 1 d/2025-01-01T12:00` Adds an appointment to the 1st person on 1 Jan 2025 at 12pm.

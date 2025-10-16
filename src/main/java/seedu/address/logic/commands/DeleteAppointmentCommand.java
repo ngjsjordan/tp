@@ -4,9 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -14,16 +12,11 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
+import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.person.Role;
-import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Deletes an appointment from the address book.
  */
 public class DeleteAppointmentCommand extends Command {
 
@@ -41,18 +34,18 @@ public class DeleteAppointmentCommand extends Command {
 
 
     private final Index personIndex;
-    private final Appointment appointmentToRemove;
+    private final AppointmentDatetime appointmentDatetime;
 
     /**
-     * @param index       of the person in the filtered person list to edit
-     * @param appointment appointment to delete from the specified person
+     * @param index       of the person in the filtered person list
+     * @param appointmentDatetime datetime of the appointment to delete
      */
-    public DeleteAppointmentCommand(Index index, Appointment appointment) {
+    public DeleteAppointmentCommand(Index index, AppointmentDatetime appointmentDatetime) {
         requireNonNull(index);
-        requireNonNull(appointment);
+        requireNonNull(appointmentDatetime);
 
         this.personIndex = index;
-        this.appointmentToRemove = appointment;
+        this.appointmentDatetime = appointmentDatetime;
     }
 
     @Override
@@ -64,40 +57,24 @@ public class DeleteAppointmentCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(personIndex.getZeroBased());
-        Person editedPerson = removeAppointmentFromPerson(personToEdit, appointmentToRemove);
+        Person referencedPerson = lastShownList.get(personIndex.getZeroBased());
 
-        model.setPerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToRemove.toString(),
-                Messages.format(editedPerson)));
-    }
+        // Find the appointment by datetime
+        Appointment actualAppointment = model.getAddressBook().getAppointmentList().stream()
+                .filter(apt -> apt.appointmentDatetime.equals(appointmentDatetime))
+                .filter(apt -> apt.getSeller().equals(referencedPerson) || apt.getBuyer().equals(referencedPerson))
+                .findFirst()
+                .orElse(null);
 
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with the given appointment removed {@code appointment}.
-     */
-    private Person removeAppointmentFromPerson(Person personToEdit, Appointment appointmentToRemove)
-            throws CommandException {
-        assert personToEdit != null;
-
-        Name updatedName = personToEdit.getName();
-        Phone updatedPhone = personToEdit.getPhone();
-        Email updatedEmail = personToEdit.getEmail();
-        Role updatedRole = personToEdit.getRole();
-        Address updatedAddress = personToEdit.getAddress();
-        Set<Tag> updatedTags = personToEdit.getTags();
-        Set<Appointment> updatedAppointments = new HashSet<>(personToEdit.getAppointments());
-
-        // If there was no such appointment to delete
-        if (!updatedAppointments.contains(appointmentToRemove)) {
-            throw new CommandException(String.format(MESSAGE_NO_APPOINTMENT_TO_DELETE, appointmentToRemove,
-                    personToEdit.getName()));
+        if (actualAppointment == null) {
+            throw new CommandException(String.format(MESSAGE_NO_APPOINTMENT_TO_DELETE,
+                    appointmentDatetime, Messages.format(referencedPerson)));
         }
 
-        updatedAppointments.remove(appointmentToRemove);
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedRole, updatedAddress,
-                updatedTags, updatedAppointments);
+        model.deleteAppointment(actualAppointment);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, actualAppointment.toString(),
+                Messages.format(referencedPerson)));
     }
 
     @Override
@@ -113,14 +90,14 @@ public class DeleteAppointmentCommand extends Command {
 
         DeleteAppointmentCommand otherDeleteAppointmentCommand = (DeleteAppointmentCommand) other;
         return personIndex.equals(otherDeleteAppointmentCommand.personIndex)
-                && appointmentToRemove.equals(otherDeleteAppointmentCommand.appointmentToRemove);
+                && appointmentDatetime.equals(otherDeleteAppointmentCommand.appointmentDatetime);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", personIndex)
-                .add("appointment", appointmentToRemove)
+                .add("appointmentDatetime", appointmentDatetime)
                 .toString();
     }
 }
