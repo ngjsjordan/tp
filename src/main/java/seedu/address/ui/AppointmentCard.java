@@ -40,13 +40,8 @@ public class AppointmentCard extends UiPart<Region> {
         datetime.setText(appointmentEntry.getAppointment().getAppointmentDatetime().datetime.format(DISPLAY_FORMATTER));
         appointmentLocation.setText(appointmentEntry.getPerson().getAddress().value);
 
-        // Display buyer/seller based on the person's role
-        if (appointmentEntry.getPerson().getRole().value.equalsIgnoreCase("buyer")) {
-            buyer.setText("Buyer: " + appointmentEntry.getPerson().getName().fullName);
-            seller.setText("Seller: -");
-        } else {
-            buyer.setText("Buyer: -");
-            seller.setText("Seller: " + appointmentEntry.getPerson().getName().fullName);
-        }
+        // Display buyer AND seller information directly from the appointment
+        buyer.setText("Buyer: " + appointmentEntry.getAppointment().getBuyer().getName().fullName);
+        seller.setText("Seller: " + appointmentEntry.getAppointment().getSeller().getName().fullName);
     }
 }

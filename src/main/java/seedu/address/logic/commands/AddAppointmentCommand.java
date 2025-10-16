@@ -35,6 +35,9 @@ public class AddAppointmentCommand extends Command {
             "Appointment added with seller %1$s.";
     public static final String MESSAGE_APPOINTMENT_NOT_ADDED = "Time of appointment must be provided.";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "That appointment already exists.";
+    public static final String MESSAGE_INVALID_SELLER_ROLE = "The person assigned as seller must have a seller role.";
+    public static final String MESSAGE_INVALID_BUYER_ROLE = "The person assigned as buyer must have a buyer role.";
+    public static final String MESSAGE_SAME_PERSON = "The same person cannot be both buyer and seller.";
 
     private final AppointmentDatetime appointmentDatetime;
     private final Index sellerIndex;
@@ -77,7 +80,7 @@ public class AddAppointmentCommand extends Command {
      *
      * @param lastShownList the list of persons that the index is based on.
      * @return the appointment to be added.
-     * @throws CommandException if indices are invalid
+     * @throws CommandException if indices are invalid or if roles are wrong.
      */
     private Appointment getAppointment(List<Person> lastShownList) throws CommandException {
         if (sellerIndex.getZeroBased() >= lastShownList.size()) {
@@ -89,6 +92,19 @@ public class AddAppointmentCommand extends Command {
 
         Person seller = lastShownList.get(sellerIndex.getZeroBased());
         Person buyer = lastShownList.get(buyerIndex.getZeroBased());
+
+        if (seller.equals(buyer)) {
+            throw new CommandException(MESSAGE_SAME_PERSON);
+        }
+
+        if (!seller.getRole().isSeller()) {
+            throw new CommandException(MESSAGE_INVALID_SELLER_ROLE);
+        }
+
+        if (!buyer.getRole().isBuyer()) {
+            throw new CommandException(MESSAGE_INVALID_BUYER_ROLE);
+        }
+
         return new Appointment(appointmentDatetime, seller, buyer);
     }
 
