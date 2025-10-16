@@ -86,7 +86,6 @@ public class DeleteCommandTest {
                 .filter(person -> person.getName().fullName.equals("Fiona Kunz"))
                 .findFirst()
                 .orElse(null);
-        
         int fionaIndex = model.getFilteredPersonList().indexOf(fiona);
         DeleteCommand deleteCommand = new DeleteCommand(Index.fromZeroBased(fionaIndex));
 
