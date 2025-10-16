@@ -103,9 +103,15 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
+     * Also removes all appointments associated with this person.
      */
     public void removePerson(Person key) {
         persons.remove(key);
+
+        appointments.asUnmodifiableObservableList().stream()
+                .filter(appointment -> appointment.getSeller().equals(key) || appointment.getBuyer().equals(key))
+                .toList()
+                .forEach(appointments::remove);
     }
 
     /**
