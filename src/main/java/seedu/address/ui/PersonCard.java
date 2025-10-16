@@ -39,6 +39,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label address;
     @FXML
+    private Label propertyType;
+    @FXML
     private Label email;
     @FXML
     private FlowPane tags;
@@ -54,6 +56,8 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         String roleCapitalised = person.getRole().value.toUpperCase();
         role.setText(roleCapitalised);
+        String propertyTypeCapitalised = person.getAddressType().toString().toUpperCase();
+        propertyType.setText(propertyTypeCapitalised);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         person.getTags().stream()
@@ -61,9 +65,47 @@ public class PersonCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
         if (roleCapitalised.equals("BUYER")) {
-            role.getStyleClass().add("role-buyer");
+            role.getStyleClass().add("role_buyer");
         } else if (roleCapitalised.equals("SELLER")) {
-            role.getStyleClass().add("role-seller");
+            role.getStyleClass().add("role_seller");
         }
+
+        switch (propertyTypeCapitalised) {
+        case "HDB_2":
+        case "HDB_3":
+        case "HDB_4":
+        case "HDB_5":
+        case "HDB_J":
+            propertyType.getStyleClass().add("property_hdb");
+            break;
+        case "EM":
+        case "EC":
+            propertyType.getStyleClass().add("property_executive");
+            break;
+        case "CONDO_2":
+        case "CONDO_3":
+        case "CONDO_4":
+        case "CONDO_5":
+        case "CONDO_J":
+            propertyType.getStyleClass().add("property_condo");
+            break;
+
+        case "LANDED_LH":
+        case "LANDED_FH":
+            propertyType.getStyleClass().add("property_landed");
+            break;
+
+        case "COMMERCIAL_LH":
+        case "COMMERCIAL_FH":
+            propertyType.getStyleClass().add("property_commercial");
+            break;
+
+        default:
+            propertyType.getStyleClass().add("property_unknown");
+            break;
+        }
+
     }
+
+
 }
