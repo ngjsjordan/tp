@@ -61,7 +61,7 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("alice@email.com"));
         assertTrue(predicate.test(new PersonBuilder().withName("Bob").withEmail("alice@email.com").build()));
 
-        // Keywords matching address
+        // Keywords matching address and property type
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Street"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice").withAddress("Main Street",
                 "HDB_4").build()));
@@ -69,6 +69,10 @@ public class NameContainsKeywordsPredicateTest {
         // Mixed-case keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+
+        // Keywords matching tags
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("friend"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice").withTags("friend").build()));
     }
 
     @Test
@@ -88,6 +92,20 @@ public class NameContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345")
                 .withEmail("alice@email.com").withAddress("Main Street", "HDB_4")
                 .withRole("buyer").build()));
+
+        // Keyword doesn't match any tags
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("family"));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withTags("friend", "colleague").build()));
+
+        // Non-matching keyword
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Serangoon"));
+        assertFalse(predicate.test(new PersonBuilder()
+                .withAddress("Block 442, Clementi Ave 1", "HDB_4").build()));
+
+        // Non-matching property type
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("LANDED_FH"));
+        assertFalse(predicate.test(new PersonBuilder()
+                .withAddress("Block 442, Clementi Ave 1", "HDB_4").build()));
     }
 
     @Test
