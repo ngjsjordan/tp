@@ -28,6 +28,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Appointment> filteredAppointments;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,6 +41,7 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
     }
 
     public ModelManager() {
@@ -159,19 +161,29 @@ public class ModelManager implements Model {
     //=========== Appointment List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code AppointmentEntry} representing all
-     * appointments from all persons, sorted by datetime (present to future).
+     * Returns an unmodifiable view of the list of {@code AppointmentEntry} representing filtered
+     * appointments, sorted by datetime (present to future).
      */
     @Override
     public ObservableList<AppointmentEntry> getAppointmentList() {
-
-        // Collect all appointments from all sellers
-        List<AppointmentEntry> appointmentEntries = addressBook.getAppointmentList().stream()
+        // Use filtered appointments instead of all appointments
+        List<AppointmentEntry> appointmentEntries = filteredAppointments.stream()
                 .map(appointment -> new AppointmentEntry(appointment, appointment.getSeller()))
                 .sorted(Comparator.comparing(AppointmentEntry::getAppointment))
                 .toList();
 
         return FXCollections.observableArrayList(appointmentEntries);
+    }
+
+    @Override
+    public ObservableList<Appointment> getFilteredAppointmentList() {
+        return filteredAppointments;
+    }
+
+    @Override
+    public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+        requireNonNull(predicate);
+        filteredAppointments.setPredicate(predicate);
     }
 
     @Override
@@ -188,7 +200,8 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && filteredAppointments.equals(otherModelManager.filteredAppointments);
     }
 
 }
