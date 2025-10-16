@@ -27,6 +27,7 @@ public class SearchAppointmentCommandParser implements Parser<SearchAppointmentC
 
         String[] appointmentKeywords = trimmedArgs.split("\\s+");
 
-        return new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(Arrays.asList(appointmentKeywords)));
+        return new SearchAppointmentCommand(
+            new AppointmentContainsKeywordsPredicate(Arrays.asList(appointmentKeywords)));
     }
 }
