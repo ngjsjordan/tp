@@ -80,6 +80,39 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_personWithAppointments_appointmentsAlsoDeleted() {
+        // Find FIONA who has appointments
+        Person fiona = model.getFilteredPersonList().stream()
+                .filter(person -> person.getName().fullName.equals("Fiona Kunz"))
+                .findFirst()
+                .orElse(null);
+        
+        int fionaIndex = model.getFilteredPersonList().indexOf(fiona);
+        DeleteCommand deleteCommand = new DeleteCommand(Index.fromZeroBased(fionaIndex));
+
+        // Count appointments where FIONA is buyer or seller
+        long appointmentsWithFionaBefore = model.getAddressBook().getAppointmentList().stream()
+                .filter(appointment -> appointment.getSeller().equals(fiona) || appointment.getBuyer().equals(fiona))
+                .count();
+        assertTrue(appointmentsWithFionaBefore > 0);
+
+        // Execute delete command
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS,
+                Messages.format(fiona));
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePerson(fiona);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+
+        // Verify appointments with FIONA are deleted
+        long appointmentsWithFionaAfter = model.getAddressBook().getAppointmentList().stream()
+                .filter(appointment -> appointment.getSeller().equals(fiona) || appointment.getBuyer().equals(fiona))
+                .count();
+        assertEquals(0, appointmentsWithFionaAfter);
+    }
+
+    @Test
     public void equals() {
         DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
         DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
