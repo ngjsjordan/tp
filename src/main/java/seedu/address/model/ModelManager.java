@@ -134,6 +134,11 @@ public class ModelManager implements Model {
         addressBook.addAppointment(appointment);
     }
 
+    @Override
+    public void deleteAppointment(Appointment target) {
+        addressBook.removeAppointment(target);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
