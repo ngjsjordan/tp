@@ -13,7 +13,7 @@ public class ToggleCommandTest {
     private Model expectedModel = new ModelManager();
 
     @Test
-    public void execute_exit_success() {
+    public void execute_toggleTheme_success() {
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_TOGGLE_ACKNOWLEDGEMENT, false,
                 false, true, false, false);
         assertCommandSuccess(new ToggleCommand(), model, expectedCommandResult, expectedModel);
