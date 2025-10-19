@@ -85,7 +85,7 @@ public class GuiSettings implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates);
+        return Objects.hash(windowWidth, windowHeight, isDarkTheme, windowCoordinates);
     }
 
     @Override
@@ -94,6 +94,7 @@ public class GuiSettings implements Serializable {
                 .add("windowWidth", windowWidth)
                 .add("windowHeight", windowHeight)
                 .add("windowCoordinates", windowCoordinates)
+                .add("isDarkTheme", isDarkTheme)
                 .toString();
     }
 }
