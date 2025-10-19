@@ -186,6 +186,13 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Changes the application theme between light and dark theme
+     */
+    @FXML
+    private void handleToggleTheme() {
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -207,6 +214,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isToggleTheme()) {
+                handleToggleTheme();
             }
 
             if (commandResult.isShowAppointmentList()) {
