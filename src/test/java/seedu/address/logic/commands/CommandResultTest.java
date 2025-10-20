@@ -55,11 +55,13 @@ public class CommandResultTest {
     @Test
     public void toStringMethod() {
         CommandResult commandResult = new CommandResult("feedback");
-        String expected = CommandResult.class.getCanonicalName() + "{feedbackToUser="
-                + commandResult.getFeedbackToUser() + ", showHelp=" + commandResult.isShowHelp()
-                + ", exit=" + commandResult.isExit() + ", showAppointmentList="
-                + commandResult.isShowAppointmentList() + ", showPersonList="
-                + commandResult.isShowPersonList() + "}";
+        String expected = CommandResult.class.getCanonicalName()
+                + "{feedbackToUser=" + commandResult.getFeedbackToUser()
+                + ", showHelp=" + commandResult.isShowHelp()
+                + ", exit=" + commandResult.isExit()
+                + ", darkTheme=" + commandResult.isToggleTheme()
+                + ", showAppointmentList=" + commandResult.isShowAppointmentList()
+                + ", showPersonList=" + commandResult.isShowPersonList() + "}";
         assertEquals(expected, commandResult.toString());
     }
 }

@@ -247,6 +247,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isToggleTheme()) {
+                handleToggleTheme();
+            }
+
             if (commandResult.isShowAppointmentList()) {
                 showAppointmentList(logic.getAppointmentList());
             }

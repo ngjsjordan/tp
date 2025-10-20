@@ -27,6 +27,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAppointmentsCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ToggleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 // import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDatetime;
@@ -78,6 +79,12 @@ public class AddressBookParserTest {
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+    }
+
+    @Test
+    public void parseCommand_toggleTheme() throws Exception {
+        assertTrue(parser.parseCommand(ToggleCommand.COMMAND_WORD) instanceof ToggleCommand);
+        assertTrue(parser.parseCommand(ToggleCommand.COMMAND_WORD + " 3") instanceof ToggleCommand);
     }
 
     @Test

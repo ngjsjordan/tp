@@ -20,6 +20,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListAppointmentsCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ToggleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -76,6 +77,9 @@ public class AddressBookParser {
 
         case ListAppointmentsCommand.COMMAND_WORD:
             return new ListAppointmentsCommand();
+
+        case ToggleCommand.COMMAND_WORD:
+            return new ToggleCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
