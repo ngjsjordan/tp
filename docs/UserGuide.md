@@ -127,22 +127,26 @@ Examples:
 
 ### Locating persons by name: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds persons whose details contain any of the keywords you provide. Details include (i) name, (ii) role, (iii) email, (iv) address, (v) address type, or (vi) phone number.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* All details about a person will be searched
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
+* Persons matching at least one keyword will be returned
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find buyer alex` returns all buyers and `Alex Yeoh`
-* `find alex serangoon` returns `Alex Yeoh` and all properties in `serangoon`
-  ![result for 'find alex serangoon'](images/findAlexSerangoonResult.png)
+* `find Alex` returns all persons named 'Alex' (and anyone with 'Alex' in other details)
+  ![result for 'find Alex'](images/findAlexResult.png)
+* `find Alex John` returns all persons named 'Alex' **or** 'John' (and anyone with 'Alex' or 'John' in other details)
+    ![result for 'find Alex'](images/findAlexResult.png)
+* `find buyer` returns all buyers (and anyone with 'buyer' in other details)
+  ![result for 'find buyer'](images/findBuyerResult.png)
+
+Tips:
+* After using the `find` command, you can use the new index numbers shown on screen for commands that require index as an input, such as [`edit`](#editing-a-person--edit) or [`ap`](#adding-an-appointment--ap).
 
 ### Deleting a person : `delete`
 
@@ -151,42 +155,64 @@ Deletes the specified person from the address book.
 Format: `delete INDEX`
 
 * Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index refers to the index number shown in the displayed person list. This will be a positive whole number, such as 1, 2, 3, ...
+* Deleting a person will also delete all their associated appointments.
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+* `list` followed by `delete 2` deletes the 2nd person in the address book. 
+ ![result for 'list'](images/listResult.png)
+ ![result for 'delete 2'](images/delete2Result.png)
+* `find irfan` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+![result for `find irfan`](images/findIrfanResult.png)
+![result for `delete 1`](images/delete1AfterFindIrfanResult.png)
+
+Warnings:
+* The `INDEX` is the index number shown in the current or most recently displayed person list. This may be different from the index number in the full person list. If you wish to use the index from the full person list, don't forget to use `list` before using `delete`.
+
+Tips:
+* Use the [`find`](#locating-persons-by-name-find) command to easily locate the contact that you wish to delete.
 
 ### Adding an appointment : `ap`
 
-Adds an appointment to a person in the address book
+Adds an appointment with a seller and a buyer. 
 
-Format: `ap INDEX d/DATETIME`
+Format: `ap SELLER_INDEX d/DATETIME b/BUYER_INDEX`
 
-* Adds an appointment to the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Adds an appointment with the seller being the person specified by `SELLER_INDEX` and the buyer being the person specified by `BUYER_INDEX`. 
+* The indices refer to the index numbers shown in the displayed person list. This will be a positive whole number, such as 1, 2, 3, ...
 * Datetime should be in an ISO 8601-compliant format (e.g. `yyyy-MM-ddTHH:mm:ss`) and must be provided.
+* The location will be displayed as the seller's address.
 
 Examples:
-*  `ap 1 d/2025-01-01T12:00` Adds an appointment to the 1st person on 1 Jan 2025 at 12pm.
+*  `ap 4 d/2025-12-01T12:00 b/1` adds an appointment with seller (index 4: David) and buyer (index 1: Alex) on 1 Dec 2025 at 12pm. `lap` can be used to view appointments after adding.
+![result for `ap 1 d/2025-12-01T12:00 b/4`](images/apResult.png)
+![result for `lap`](images/lapAfterApResult.png)
+* 
+Tips:
+* Use the [`find`](#locating-persons-by-name-find) command with multiple keywords (such as `find Alex David`) to easily index the contacts you wish to create an appointment for.
 
 ### Deleting an appointment : `dap`
 
-Deletes an appointment from a person in the address book
+Deletes an appointment.
 
 Format: `dap INDEX d/DATETIME`
 
-* Deletes an appointment from the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
-* Datetime should be in the format `yyyy-MM-ddTHH:mm` and must be provided.
+* Deletes an appointment with the **seller** specified by `INDEX`, and the specified `DATETIME`.
+* The index refers to the index number shown in the displayed person list. This will be a positive whole number, such as 1, 2, 3, ...
+* Datetime should match exactly with the appointment's datetime in an ISO 8601-compliant format (e.g. `yyyy-MM-ddTHH:mm:ss`) and must be provided.
 
 Examples:
 *  `dap 1 d/2025-01-01T12:00` Deletes an appointment to the 1st person on 1 Jan 2025 at 12pm.
 
+
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from the address book, including both contacts and appointments.
 
 Format: `clear`
+
+Warnings:
+* This action is irreversible. Please be certain before executing this command.
 
 ### Exiting the program : `exit`
 
