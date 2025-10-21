@@ -227,6 +227,9 @@ Format: `exit`
 Examples:
 * `exit` closes the application
 
+Warnings:
+* Be careful when typing - any command starting with `exit` will close the application
+
 ### Saving the data
 
 AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
