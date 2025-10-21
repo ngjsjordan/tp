@@ -14,31 +14,55 @@ By **typing commands** instead of clicking through menus, you'll be able to comp
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+Set up ClientSquare and start managing your clients within minutes!
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. **Install Java 17 or later**
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+   ClientSquare runs on Java, so make sure your computer has **Java 17 or newer** installed. To check if Java is installed, you will have to open a command terminal. You may follow the respective instructions for your operating system to do so.
+   
+   **Windows:**
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   1. Press Windows + R to open the Run window. 
+   2. Type cmd and press Enter.
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
+   **macOS:**
+   1. Open Spotlight Search by pressing Command + Space. 
+   2. Type Terminal and press Enter.
+
+   **Linux:**
+   1. Press Ctrl + Alt + T to open the Terminal.
+   
+   Now, run `java -version`. If you see a version number lower than 17, download and install the latest version.  
+
+   **Mac users:** Follow the step-by-step guide [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to install the correct JDK version.
+
+2. **Download ClientSquare**  
+   Go to the [releases page](https://github.com/AY2526S1-CS2103T-F08a-3/tp/releases) and download the latest `.jar` file. This file contains everything you need to run the app.
+
+3. **Choose where to keep the app**  
+   Move the downloaded file into any folder where you want ClientSquare to store your data.  
+   This will be your **home folder** for ClientSquare.
+
+4. **Open and run the app**  
+   Open your command terminal and go to the folder where you saved the file using the `cd` command.  
+   Then, **start ClientSquare** by typing: `java -jar clientsquare.jar`. Alternatively, you may double-click the jar file to launch the application. <br>
+   Within a few seconds, the app window will appear with some sample client data for you to explore. <br>
+   ![Ui](images/QuickStartUI.png)
+5. **Try a few basic commands**  
+   Type a command in the command box and press **Enter** to see it in action.  
+   Here are a few examples:
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/Jane Smith p/92345768 e/janesmith@example.com r/buyer a/239, Hougang Ave 2, #01-13 pt/HDB_3 t/friends t/Neighbour` : Adds a contact named `Jane Smith` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
    * `clear` : Deletes all contacts.
 
    * `exit` : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
+6. **Explore more features**  
+   Once you’re comfortable with the basics, check out the [Features](#features) section below to learn more about what ClientSquare can do!
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -60,7 +84,7 @@ By **typing commands** instead of clicking through menus, you'll be able to comp
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit`, `clear` and `toggle`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -77,55 +101,83 @@ Format: `help`
 
 ### Adding a person: `add`
 
-Adds a person to the address book.
+Adds a client to the client square app. Details to include when adding a client:
+<br>(i) Name,
+<br>(ii) Phone Number,
+<br>(iii) Email,
+<br>(iv) Role,
+<br>(v) Address,
+<br>(vi) Property Type,
+<br>(vii) Tags (Optional)
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com r/buyer a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com r/seller a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com r/buyer a/John street, block 123, #01-01 pt/HDB_4`
+![result for 'add n/John Doe p/98765432 e/johnd@example.com r/buyer a/John street, block 123, #01-01 pt/HDB_4'](images/addJohnDoeResult.png)
+<br>
+<br>
+* `add n/Betsy Crowe p/87654321 e/betsycrowe@example.com r/seller a/Clementi Ave 1, Block 442 #19-203 pt/HDB_5`
+![result for 'add n/Betsy Crowe p/87654321 e/betsycrowe@example.com r/seller a/Clementi Ave 1, Block 442 #19-203 pt/HDB_5'](images/addBetsyCroweResult.png)
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all clients in the client square app.
 
 Format: `list`
 
+Example:
+* `list`
+  ![result for 'list'](images/listAllClients.png)
+
 ### Listing all appointments : `lap`
 
-Shows a list of all appointments in the address book, sorted by date and time (present to future).
+Shows a list of all appointments in the client square app, sorted by date and time 
+(earliest at the top to latest at the bottom).
 
 Format: `lap`
 
-* Displays all appointments from all persons
-* Each appointment shows the date/time, location (person's address), and the buyer/seller names
+* Displays all appointments from all clients
+* Each appointment shows the date/time, location (seller client's address), and the buyer/seller names
 * Appointments are sorted chronologically from present to future
 * Use `list` to switch back to the person list view
 
-Examples:
+Example:
 * `lap` displays all appointments sorted by date and time
+![result for 'lap'](images/lapResult.png)
 
 ### Editing a person : `edit`
 
-Edits an existing person in the address book.
+Edits an existing person in the client square app.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing address or property type, it is compulsory to provide both address and property type input 
+  values i.e address and property type cannot be edited independently
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
-Examples:
+Example:
+* Before the following `edit` commands
+![Before the following 'edit' commands](images/editCommandInputs.png)
+<br>
+<br>
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-*  `edit 2 r/buyer` Edits the role of the 3rd person to `buyer`
+*  `edit 3 r/seller` Edits the role of the 3rd person to `seller`
+*  `edit 4 a/59 Jalan Besar Road pt/COMMERCIAL_FH` Edits the address and property type of the 4th person to `59 Jalan Besar Road` and `COMMERCIAL_FH` respectively.
+<br>
+<br>
+* After the above `edit` commands
+![After the above 'edit' commands](images/editCommandOutput.png)
 
 ### Locating persons by name: `find`
 
@@ -202,6 +254,7 @@ Format: `dap INDEX d/DATETIME`
 * Deletes an appointment with the **seller** specified by `INDEX`, and the specified `DATETIME`.
 * The index refers to the index number shown in the displayed person list. This will be a positive whole number, such as 1, 2, 3, ...
 * Datetime should match exactly with the appointment's datetime in an ISO 8601-compliant format (e.g. `yyyy-MM-ddTHH:mm:ss`) and must be provided.
+* If there are multiple appointments with the same seller at the same datetime, they will all be deleted.
 
 Examples:
 *  `dap 1 d/2025-01-01T12:00` Deletes an appointment to the 1st person on 1 Jan 2025 at 12pm.
@@ -216,11 +269,42 @@ Format: `clear`
 Warnings:
 * This action is irreversible. Please be certain before executing this command.
 
+### Toggling UI theme : `toggle`
+
+Switches the user interface theme between **light and dark modes**.
+
+Format: `toggle`
+
+* No parameters are required
+* Each execution switches to the alternate theme
+* Theme preference is **persisted across sessions**
+
+Examples:
+* `toggle` switches from light to dark mode (or vice versa)
+
+  ![result for 'toggle' in light mode](images/toggleresultlight.png)
+  ![result for 'toggle' in dark mode](images/toggleresultdark.png)
+
+Tips:
+* Switch to **dark mode** when working in low-light environments to reduce eye strain
+* Use **light mode** during presentations or when sharing your screen for better visibility
+* The theme switches **immediately** without requiring a restart
+
+Warnings:
+* The theme change applies **immediately** and affects the **entire application interface**
+
 ### Exiting the program : `exit`
 
-Exits the program.
+Exits the program and closes the application window.
 
 Format: `exit`
+
+* The application will close **immediately** without confirmation
+* All data is **automatically saved** before exit
+* You can also close the application using the window close button (X)
+
+Examples:
+* `exit` closes the application
 
 ### Saving the data
 
@@ -262,7 +346,7 @@ Action | Format | Examples | Description
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​` | `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 pt/HDB_3 t/VIP` | Adds a client's contact details into ClientSquare
 **List** | `list` | - | List all the clients you have
 **Find** | `find KEYWORD [MORE_KEYWORDS]` | `find Jake HDB_3` | Find all clients named 'Jake' OR has property type 'HDB_3'
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [p/PROPERTY_TYPE] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com` | Change the name and email of the second index client.
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/PROPERTY_TYPE] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com` | Change the name and email of the second index client.
 **Delete** | `delete INDEX` | `delete 3` | Delete the third indexed client
 **Clear** | `clear` | - | Clears all current clients 
 **Add Appointment** | `ap SELLER_INDEX d/DATETIME b/BUYER_INDEX` | `ap 1 d/2025-01-01:12:00 b/3` | Adds a appointment between seller(indexed 1) and buyer(indexed 3) at that specific timing
