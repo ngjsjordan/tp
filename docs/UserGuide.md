@@ -216,9 +216,16 @@ Warnings:
 
 ### Exiting the program : `exit`
 
-Exits the program.
+Exits the program and closes the application window.
 
 Format: `exit`
+
+* The application will close immediately without confirmation
+* All data is automatically saved before exit
+* You can also close the application using the window close button (X)
+
+Examples:
+* `exit` closes the application
 
 ### Saving the data
 
