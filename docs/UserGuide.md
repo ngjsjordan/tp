@@ -259,7 +259,7 @@ Furthermore, certain edits can cause the ClientSquare to behave in unexpected wa
 
 Action | Format | Examples | Description
 --------|------------------ | ------------------------ | -------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS p/PROPERTY_TYPE [t/TAG]…​` | `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 p/HDB_3 t/VIP` | Adds a client's contact details into ClientSquare
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​` | `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 pt/HDB_3 t/VIP` | Adds a client's contact details into ClientSquare
 **List** | `list` | - | List all the clients you have
 **Find** | `find KEYWORD [MORE_KEYWORDS]` | `find Jake HDB_3` | Find all clients named 'Jake' OR has property type 'HDB_3'
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [p/PROPERTY_TYPE] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com` | Change the name and email of the second index client.
