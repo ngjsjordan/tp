@@ -14,7 +14,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -25,6 +27,8 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(EditCommandParser.class);
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
@@ -37,6 +41,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                         PREFIX_ROLE, PREFIX_ADDRESS, PREFIX_PROPERTY_TYPE, PREFIX_TAG);
 
+        logger.info("Parsing EditCommand with args: " + args);
         Index index;
 
         try {
