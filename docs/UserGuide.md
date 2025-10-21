@@ -346,7 +346,7 @@ Action | Format | Examples | Description
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​` | `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 pt/HDB_3 t/VIP` | Adds a client's contact details into ClientSquare
 **List** | `list` | - | List all the clients you have
 **Find** | `find KEYWORD [MORE_KEYWORDS]` | `find Jake HDB_3` | Find all clients named 'Jake' OR has property type 'HDB_3'
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/PROPERTY_TYPE] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com` | Change the name and email of the second index client.
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/PROPERTY_TYPE] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com` <br> `edit 4 a/59 Jalan Besar Road pt/COMMERCIAL_FH` | Change the name and email of the second index client. <br> Change the address and property type of the fourth index client.
 **Delete** | `delete INDEX` | `delete 3` | Delete the third indexed client
 **Clear** | `clear` | - | Clears all current clients 
 **Add Appointment** | `ap SELLER_INDEX d/DATETIME b/BUYER_INDEX` | `ap 1 d/2025-01-01:12:00 b/3` | Adds a appointment between seller(indexed 1) and buyer(indexed 3) at that specific timing
