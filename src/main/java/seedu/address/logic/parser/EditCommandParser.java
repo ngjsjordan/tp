@@ -71,6 +71,12 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
+        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent() ^ argMultimap.getValue(PREFIX_PROPERTY_TYPE).isPresent()) {
+            // Throws an error only if either one is missing (XOR operator)
+            // If none or both are present, no error is thrown
+            throw new ParseException(EditCommand.MESSAGE_MISSING_ADDRESS_FIELD);
+        }
+
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }

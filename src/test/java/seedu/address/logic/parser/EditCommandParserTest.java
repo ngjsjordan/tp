@@ -108,6 +108,15 @@ public class EditCommandParserTest {
     }
 
     @Test
+    public void parse_missingAddressField_failure() {
+        // Missing address
+        assertParseFailure(parser, "1 pt/HDB_3", EditCommand.MESSAGE_MISSING_ADDRESS_FIELD);
+
+        // Missing property type
+        assertParseFailure(parser, "1 a/Clementi Ave 3", EditCommand.MESSAGE_MISSING_ADDRESS_FIELD);
+    }
+
+    @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
