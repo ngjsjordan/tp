@@ -61,7 +61,7 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
                          boolean showAppointmentList, boolean showPersonList) {
-        this(feedbackToUser, showHelp, exit, false, false, false);
+        this(feedbackToUser, showHelp, exit, false, showAppointmentList, showPersonList);
     }
 
     public String getFeedbackToUser() {
