@@ -101,55 +101,83 @@ Format: `help`
 
 ### Adding a person: `add`
 
-Adds a person to the address book.
+Adds a client to the client square app. Details to include when adding a client:
+<br>(i) Name,
+<br>(ii) Phone Number,
+<br>(iii) Email,
+<br>(iv) Role,
+<br>(v) Address,
+<br>(vi) Property Type,
+<br>(vii) Tags (Optional)
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com r/buyer a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com r/seller a/Newgate Prison p/1234567 t/criminal`
+* `add n/John Doe p/98765432 e/johnd@example.com r/buyer a/John street, block 123, #01-01 pt/HDB_4`
+![result for 'add n/John Doe p/98765432 e/johnd@example.com r/buyer a/John street, block 123, #01-01 pt/HDB_4'](images/addJohnDoeResult.png)
+<br>
+<br>
+* `add n/Betsy Crowe p/87654321 e/betsycrowe@example.com r/seller a/Clementi Ave 1, Block 442 #19-203 pt/HDB_5`
+![result for 'add n/Betsy Crowe p/87654321 e/betsycrowe@example.com r/seller a/Clementi Ave 1, Block 442 #19-203 pt/HDB_5'](images/addBetsyCroweResult.png)
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in the address book.
+Shows a list of all clients in the client square app.
 
 Format: `list`
 
+Example:
+* `list`
+  ![result for 'list'](images/listAllClients.png)
+
 ### Listing all appointments : `lap`
 
-Shows a list of all appointments in the address book, sorted by date and time (present to future).
+Shows a list of all appointments in the client square app, sorted by date and time 
+(earliest at the top to latest at the bottom).
 
 Format: `lap`
 
-* Displays all appointments from all persons
-* Each appointment shows the date/time, location (person's address), and the buyer/seller names
+* Displays all appointments from all clients
+* Each appointment shows the date/time, location (seller client's address), and the buyer/seller names
 * Appointments are sorted chronologically from present to future
 * Use `list` to switch back to the person list view
 
-Examples:
+Example:
 * `lap` displays all appointments sorted by date and time
+![result for 'lap'](images/lapResult.png)
 
 ### Editing a person : `edit`
 
-Edits an existing person in the address book.
+Edits an existing person in the client square app.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* When editing address or property type, it is compulsory to provide both address and property type input 
+  values i.e address and property type cannot be edited independently
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
-Examples:
+Example:
+* Before the following `edit` commands
+![Before the following 'edit' commands](images/editCommandInputs.png)
+<br>
+<br>
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-*  `edit 2 r/buyer` Edits the role of the 3rd person to `buyer`
+*  `edit 3 r/seller` Edits the role of the 3rd person to `seller`
+*  `edit 4 a/59 Jalan Besar Road pt/COMMERCIAL_FH` Edits the address and property type of the 4th person to `59 Jalan Besar Road` and `COMMERCIAL_FH` respectively.
+<br>
+<br>
+* After the above `edit` commands
+![After the above 'edit' commands](images/editCommandOutput.png)
 
 ### Locating persons by name: `find`
 
@@ -284,13 +312,13 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 pt/HDB_5 t/friend t/colleague`
 **Add Appointment** | `ap SELLER_INDEX d/DATETIME b/BUYER_INDEX` <br> e.g., `ap 1 d/2025-01-01T12:00 b/4`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Delete Appointment** | `dap SELLER_INDEX d/DATETIME` <br> e.g., `dap 1 d/2025-01-01:12:00`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]...`<br> e.g., `find James Jake`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/PROPERTY_TYPE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com` <br> e.g.,`edit 4 a/59 Jalan Besar Road pt/COMMERCIAL_FH`
+**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **List Appointments** | `lap`
 **Help** | `help`
