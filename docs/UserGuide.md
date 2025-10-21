@@ -202,6 +202,7 @@ Format: `dap INDEX d/DATETIME`
 * Deletes an appointment with the **seller** specified by `INDEX`, and the specified `DATETIME`.
 * The index refers to the index number shown in the displayed person list. This will be a positive whole number, such as 1, 2, 3, ...
 * Datetime should match exactly with the appointment's datetime in an ISO 8601-compliant format (e.g. `yyyy-MM-ddTHH:mm:ss`) and must be provided.
+* If there are multiple appointments with the same seller at the same datetime, they will all be deleted.
 
 Examples:
 *  `dap 1 d/2025-01-01T12:00` Deletes an appointment to the 1st person on 1 Jan 2025 at 12pm.
@@ -260,12 +261,12 @@ _Details coming soon ..._
 Action | Format, Examples
 --------|------------------
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Add Appointment** | `ap INDEX d/DATETIME` <br> e.g., `ap 1 d/2025-01-01:12:00`
+**Add Appointment** | `ap SELLER_INDEX d/DATETIME b/BUYER_INDEX` <br> e.g., `ap 1 d/2025-01-01T12:00 b/4`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Delete Appointment** | `dap INDEX d/DATETIME` <br> e.g., `dap 1 d/2025-01-01:12:00`
+**Delete Appointment** | `dap SELLER_INDEX d/DATETIME` <br> e.g., `dap 1 d/2025-01-01:12:00`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find** | `find KEYWORD [MORE_KEYWORDS]...`<br> e.g., `find James Jake`
 **List** | `list`
 **List Appointments** | `lap`
 **Help** | `help`
