@@ -216,13 +216,13 @@ Warnings:
 
 ### Toggling UI theme : `toggle`
 
-Switches the user interface theme between light and dark modes.
+Switches the user interface theme between **light and dark modes**.
 
 Format: `toggle`
 
 * No parameters are required
 * Each execution switches to the alternate theme
-* Theme preference is persisted across sessions
+* Theme preference is **persisted across sessions**
 
 Examples:
 * `toggle` switches from light to dark mode (or vice versa)
@@ -231,12 +231,12 @@ Examples:
   ![result for 'toggle' in dark mode](images/toggleresultdark.png)
 
 Tips:
-* Switch to dark mode when working in low-light environments to reduce eye strain
-* Use light mode during presentations or when sharing your screen for better visibility
-* The theme switches immediately without requiring a restart
+* Switch to **dark mode** when working in low-light environments to reduce eye strain
+* Use **light mode** during presentations or when sharing your screen for better visibility
+* The theme switches **immediately** without requiring a restart
 
 Warnings:
-* The theme change applies immediately and affects the entire application interface
+* The theme change applies **immediately** and affects the **entire application interface**
 
 ### Exiting the program : `exit`
 
@@ -244,15 +244,15 @@ Exits the program and closes the application window.
 
 Format: `exit`
 
-* The application will close immediately without confirmation
-* All data is automatically saved before exit
+* The application will close **immediately** without confirmation
+* All data is **automatically saved** before exit
 * You can also close the application using the window close button (X)
 
 Examples:
 * `exit` closes the application
 
 Warnings:
-* Be careful when typing - any command starting with `exit` will close the application
+* Be careful when typing - **any command starting with `exit` will close the application**
 
 ### Saving the data
 
