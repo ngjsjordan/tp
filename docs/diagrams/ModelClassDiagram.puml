@@ -20,6 +20,13 @@ Class Name
 Class Phone
 Class Tag
 
+Class AddressType
+Class PropertyType <<enumeration>>
+
+Class UniqueAppointmentList
+Class Appointment
+Class AppointmentDatetime
+
 Class I #FFFFFF
 }
 
@@ -35,20 +42,29 @@ ModelManager -left-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList --> "~* all" Person
+AddressBook *-left-> "1" UniqueAppointmentList
+UniqueAppointmentList --> "*" Appointment
+Appointment *--> AppointmentDatetime
+Appointment *-right-> "seller" Person
+Appointment *--> "buyer" Person
+
+AddressBook *-down-> "1" UniquePersonList
+UniquePersonList --> "~*" Person : all
 Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
 
+Address -down-> AddressType
+AddressType *-right-> PropertyType
+
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Phone -[hidden]right-> Email
+Email -[hidden]right-> Address
 
-ModelManager --> "~* filtered" Person
+ModelManager --> "~*" Person : filtered
 @enduml
