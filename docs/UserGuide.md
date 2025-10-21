@@ -227,6 +227,14 @@ Format: `toggle`
 Examples:
 * `toggle` switches from light to dark mode (or vice versa)
 
+Tips:
+* Switch to dark mode when working in low-light environments to reduce eye strain
+* Use light mode during presentations or when sharing your screen for better visibility
+* The theme switches immediately without requiring a restart
+
+Warnings:
+* The theme change applies immediately and affects the entire application interface
+
 ### Exiting the program : `exit`
 
 Exits the program and closes the application window.
