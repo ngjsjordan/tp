@@ -119,6 +119,18 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/
 A person can have any number of tags (including 0)
 </div>
 
+> :information_source:
+<br>
+> **Valid roles** are `buyer` and `seller`.  
+> **Valid property types** are 
+<br>
+> `HDB_2`, `HDB_3`, `HDB_4`, `HDB_5`, `HDB_J`, 
+<br>
+> `CONDO_2`, `CONDO_3`, `CONDO_4`, `CONDO_5`, `CONDO_J`,
+<br>
+> `EXECUTIVE`, `LANDED_LH`, `LANDED_FH`, `COMMERCIAL_LH` and `COMMERCIAL_FH`.
+
+
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com r/buyer a/John street, block 123, #01-01 pt/HDB_4`
 ![result for 'add n/John Doe p/98765432 e/johnd@example.com r/buyer a/John street, block 123, #01-01 pt/HDB_4'](images/addJohnDoeResult.png)
@@ -173,6 +185,18 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] 
   values i.e address and property type cannot be edited independently
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
+
+> :information_source:
+<br>
+> **Valid roles** are `buyer` and `seller`.  
+> **Valid property types** are
+<br>
+> `HDB_2`, `HDB_3`, `HDB_4`, `HDB_5`, `HDB_J`,
+<br>
+> `CONDO_2`, `CONDO_3`, `CONDO_4`, `CONDO_5`, `CONDO_J`,
+<br>
+> `EXECUTIVE`, `LANDED_LH`, `LANDED_FH`, `COMMERCIAL_LH` and `COMMERCIAL_FH`.
+
 
 Examples:
 * Before the following `edit` commands
@@ -302,8 +326,8 @@ Format: `toggle`
 Examples:
 * `toggle` switches from light to dark mode (or vice versa)
 
-  ![result for 'toggle' in light mode](images/toggleresultlight.png)
-  ![result for 'toggle' in dark mode](images/toggleresultdark.png)
+  ![result for 'toggle' in light mode](images/ToggleResultLight.png)
+  ![result for 'toggle' in dark mode](images/ToggleResultDark.png)
 
 Tips:
 * Switch to **dark mode** when working in low-light environments to reduce eye strain
