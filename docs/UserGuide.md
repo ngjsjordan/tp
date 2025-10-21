@@ -14,31 +14,55 @@ By **typing commands** instead of clicking through menus, you'll be able to comp
 
 ## Quick start
 
-1. Ensure you have Java `17` or above installed in your Computer.<br>
-   **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+Set up ClientSquare and start managing your clients within minutes!
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. **Install Java 17 or later**
 
-1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+   ClientSquare runs on Java, so make sure your computer has **Java 17 or newer** installed. To check if Java is installed, you will have to open a command terminal. You may follow the respective instructions for your operating system to do so.
+   
+   **Windows:**
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
-   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   1. Press Windows + R to open the Run window. 
+   2. Type cmd and press Enter.
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
-   Some example commands you can try:
+   **macOS:**
+   1. Open Spotlight Search by pressing Command + Space. 
+   2. Type Terminal and press Enter.
+
+   **Linux:**
+   1. Press Ctrl + Alt + T to open the Terminal.
+   
+   Now, run `java -version`. If you see a version number lower than 17, download and install the latest version.  
+
+   **Mac users:** Follow the step-by-step guide [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to install the correct JDK version.
+
+2. **Download ClientSquare**  
+   Go to the [releases page](https://github.com/AY2526S1-CS2103T-F08a-3/tp/releases) and download the latest `.jar` file. This file contains everything you need to run the app.
+
+3. **Choose where to keep the app**  
+   Move the downloaded file into any folder where you want ClientSquare to store your data.  
+   This will be your **home folder** for ClientSquare.
+
+4. **Open and run the app**  
+   Open your command terminal and go to the folder where you saved the file using the `cd` command.  
+   Then, **start ClientSquare** by typing: `java -jar clientsquare.jar`. Alternatively, you may double-click the jar file to launch the application. <br>
+   Within a few seconds, the app window will appear with some sample client data for you to explore. <br>
+   ![Ui](images/QuickStartUI.png)
+5. **Try a few basic commands**  
+   Type a command in the command box and press **Enter** to see it in action.  
+   Here are a few examples:
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/Jane Smith p/92345768 e/janesmith@example.com r/buyer a/239, Hougang Ave 2, #01-13 pt/HDB_3 t/friends t/Neighbour` : Adds a contact named `Jane Smith` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
    * `clear` : Deletes all contacts.
 
    * `exit` : Exits the app.
-
-1. Refer to the [Features](#features) below for details of each command.
+6. **Explore more features**  
+   Once you’re comfortable with the basics, check out the [Features](#features) section below to learn more about what ClientSquare can do!
 
 --------------------------------------------------------------------------------------------------------------------
 
