@@ -52,7 +52,7 @@ Set up ClientSquare and start managing your clients within minutes!
 
    * `list` : Lists all contacts.
 
-   * `add n/Jane Smith p/92345768 e/janesmith@example.com r/buyer a/239, Hougang Ave 2, #01-13 pt/HDB_3 t/friends t/owesMoney` : Adds a contact named `Jane Smith` to the Address Book.
+   * `add n/Jane Smith p/92345768 e/janesmith@example.com r/buyer a/239, Hougang Ave 2, #01-13 pt/HDB_3 t/friends t/Neighbour` : Adds a contact named `Jane Smith` to the Address Book.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
