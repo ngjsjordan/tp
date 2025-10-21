@@ -16,8 +16,21 @@ Set up ClientSquare and start managing your clients within minutes!
 
 1. **Install Java 17 or later**
 
-   ClientSquare runs on Java, so make sure your computer has **Java 17 or newer** installed. To check if Java is installed, open a command terminal and run:
-   `java -version`. If you see a version number lower than 17, download and install the latest version.  
+   ClientSquare runs on Java, so make sure your computer has **Java 17 or newer** installed. To check if Java is installed, you will have to open a command terminal. You may follow the respective instructions for your operating system to do so.
+   
+   **Windows:**
+
+   1. Press Windows + R to open the Run window. 
+   2. Type cmd and press Enter.
+
+   **macOS:**
+   1. Open Spotlight Search by pressing Command + Space. 
+   2. Type Terminal and press Enter.
+
+   **Linux:**
+   1. Press Ctrl + Alt + T to open the Terminal.
+   
+   Now, run `java -version`. If you see a version number lower than 17, download and install the latest version.  
 
    **Mac users:** Follow the step-by-step guide [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to install the correct JDK version.
 
@@ -30,7 +43,7 @@ Set up ClientSquare and start managing your clients within minutes!
 
 4. **Open and run the app**  
    Open your command terminal and go to the folder where you saved the file using the `cd` command.  
-   Then, **start ClientSquare** by typing: `java -jar clientsquare.jar`
+   Then, **start ClientSquare** by typing: `java -jar clientsquare.jar`. Alternatively, you may double-click the jar file to launch the application. <br>
    Within a few seconds, the app window will appear with some sample client data for you to explore. <br>
    ![Ui](images/QuickStartUI.png)
 5. **Try a few basic commands**  
