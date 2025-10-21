@@ -240,9 +240,9 @@ Furthermore, certain edits can cause the ClientSquare to behave in unexpected wa
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClientSquare home folder.<br>
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClientSquare home folder.<br><br>
 **Q**: How do I backup my data?<br>
-**A**: Simply copy the ClientSquare.json file from your data folder to a safe location. This file contains all your client and appointment information.<br>
+**A**: Simply copy the `data/ClientSquare.json` file from your data folder to a safe location. This file contains all your client and appointment information.<br><br>
 **Q**: Can I have multiple appointments with the same client?<br>
 **A**: Yes, you can schedule multiple appointments with the same buyer or seller. Each appointment is tracked separately by date and time.
 
@@ -257,16 +257,16 @@ Furthermore, certain edits can cause the ClientSquare to behave in unexpected wa
 
 ## Command summary
 
-Action | Format | Examples
---------|------------------ |------------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS p/PROPERTY_TYPE [t/TAG]…​` | `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 p/HDB_3 t/VIP`
-**List** | `list` | 
-**Find** | `find KEYWORD [MORE_KEYWORDS]` | `find Jake HDB_3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [p/PROPERTY_TYPE] [t/TAG]…​` | edit 2 n/James Lee e/jameslee@example.com`
-**Delete** | `delete INDEX` | `delete 3`
-**Add Appointment** | `ap SELLER_INDEX d/DATETIME b/BUYER_INDEX` | `ap 1 d/2025-01-01:12:00`
-**List Appointments** | `lap` |
-**Search Appointments** | `sap KEYWORD [MORE_KEYWORDS]` | `sap Jake`
-**Delete Appointment** | `dap INDEX d/DATETIME`  | `dap 1 d/2025-01-01:12:00`
-**Clear** | `clear` | 
-**Help** | `help`| 
+Action | Format | Examples | Description
+--------|------------------ | ------------------------ | -------------------
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS p/PROPERTY_TYPE [t/TAG]…​` | `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 p/HDB_3 t/VIP` | Adds a client's contact details into ClientSquare
+**List** | `list` | - | List all the clients you have
+**Find** | `find KEYWORD [MORE_KEYWORDS]` | `find Jake HDB_3` | Find all clients named 'Jake' OR has property type 'HDB_3'
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [p/PROPERTY_TYPE] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com` | Change the name and email of the second index client.
+**Delete** | `delete INDEX` | `delete 3` | Delete the third indexed client
+**Clear** | `clear` | - | Clears all current clients 
+**Add Appointment** | `ap SELLER_INDEX d/DATETIME b/BUYER_INDEX` | `ap 1 d/2025-01-01:12:00 b/3` | Adds a appointment between seller(indexed 1) and buyer(indexed 3) at that specific timing
+**List Appointments** | `lap` | - | List all appointments you have made in chronological order
+**Search Appointments** | `sap KEYWORD [MORE_KEYWORDS]` | `sap Jake` | Searches all appointments with 'Jake'
+**Delete Appointment** | `dap INDEX d/DATETIME`  | `dap 1 d/2025-01-01:12:00` | Deletes appointment with the seller at index 1 at that timing
+**Help** | `help`| - | A popup with the link to the user guide will show up
