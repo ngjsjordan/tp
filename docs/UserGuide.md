@@ -11,6 +11,7 @@ By **typing commands** instead of clicking through menus, you'll be able to comp
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Quick start
 
@@ -65,6 +66,7 @@ Set up ClientSquare and start managing your clients within minutes!
    Once you’re comfortable with the basics, check out the [Features](#features) section below to learn more about what ClientSquare can do!
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Features
 
@@ -98,6 +100,7 @@ Shows a message explaining how to access the help page.
 
 Format: `help`
 
+<div style="page-break-after: always;"></div>
 
 ### Adding a person: `add`
 
@@ -124,6 +127,8 @@ Examples:
 * `add n/Betsy Crowe p/87654321 e/betsycrowe@example.com r/seller a/Clementi Ave 1, Block 442 #19-203 pt/HDB_5`
 ![result for 'add n/Betsy Crowe p/87654321 e/betsycrowe@example.com r/seller a/Clementi Ave 1, Block 442 #19-203 pt/HDB_5'](images/addBetsyCroweResult.png)
 
+<div style="page-break-after: always;"></div>
+
 ### Listing all persons : `list`
 
 Shows a list of all clients in the client square app.
@@ -133,6 +138,8 @@ Format: `list`
 Example:
 * `list`
   ![result for 'list'](images/listAllClients.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Listing all appointments : `lap`
 
@@ -150,6 +157,8 @@ Example:
 * `lap` displays all appointments sorted by date and time
 ![result for 'lap'](images/lapResult.png)
 
+<div style="page-break-after: always;"></div>
+
 ### Editing a person : `edit`
 
 Edits an existing person in the client square app.
@@ -165,7 +174,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] 
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
-Example:
+Examples:
 * Before the following `edit` commands
 ![Before the following 'edit' commands](images/editCommandInputs.png)
 <br>
@@ -178,6 +187,8 @@ Example:
 <br>
 * After the above `edit` commands
 ![After the above 'edit' commands](images/editCommandOutput.png)
+
+<div style="page-break-after: always;"></div>
 
 ### Locating persons by name: `find`
 
@@ -201,6 +212,8 @@ Examples:
 
 Tips:
 * After using the `find` command, you can use the new index numbers shown on screen for commands that require index as an input, such as [`edit`](#editing-a-person--edit) or [`ap`](#adding-an-appointment--ap).
+
+<div style="page-break-after: always;"></div>
 
 ### Deleting a person : `delete`
 
@@ -226,6 +239,8 @@ Warnings:
 Tips:
 * Use the [`find`](#locating-persons-by-name-find) command to easily locate the contact that you wish to delete.
 
+<div style="page-break-after: always;"></div>
+
 ### Adding an appointment : `ap`
 
 Adds an appointment with a seller and a buyer. 
@@ -245,6 +260,8 @@ Examples:
 Tips:
 * Use the [`find`](#locating-persons-by-name-find) command with multiple keywords (such as `find Alex David`) to easily index the contacts you wish to create an appointment for.
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting an appointment : `dap`
 
 Deletes an appointment.
@@ -259,6 +276,7 @@ Format: `dap INDEX d/DATETIME`
 Examples:
 *  `dap 1 d/2025-01-01T12:00` Deletes an appointment to the 1st person on 1 Jan 2025 at 12pm.
 
+<div style="page-break-after: always;"></div>
 
 ### Clearing all entries : `clear`
 
@@ -268,6 +286,8 @@ Format: `clear`
 
 Warnings:
 * This action is irreversible. Please be certain before executing this command.
+
+<div style="page-break-after: always;"></div>
 
 ### Toggling UI theme : `toggle`
 
@@ -293,6 +313,8 @@ Tips:
 Warnings:
 * The theme change applies **immediately** and affects the **entire application interface**
 
+<div style="page-break-after: always;"></div>
+
 ### Exiting the program : `exit`
 
 Exits the program and closes the application window.
@@ -305,6 +327,8 @@ Format: `exit`
 
 Examples:
 * `exit` closes the application
+
+<div style="page-break-after: always;"></div>
 
 ### Saving the data
 
@@ -320,6 +344,7 @@ Furthermore, certain edits can cause the ClientSquare to behave in unexpected wa
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## FAQ
 
@@ -338,6 +363,7 @@ Furthermore, certain edits can cause the ClientSquare to behave in unexpected wa
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
+<div style="page-break-after: always;"></div>
 
 ## Command summary
 
