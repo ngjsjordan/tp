@@ -290,3 +290,5 @@ Action | Format, Examples
 **List** | `list`
 **List Appointments** | `lap`
 **Help** | `help`
+**Toggle Theme** | `toggle`
+**Exit** | `exit`
