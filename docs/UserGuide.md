@@ -110,7 +110,8 @@ Example:
 
 ### Listing all appointments : `lap`
 
-Shows a list of all appointments in the client square app, sorted by date and time (present to future).
+Shows a list of all appointments in the client square app, sorted by date and time 
+(earliest at the top to latest at the bottom).
 
 Format: `lap`
 
@@ -284,12 +285,12 @@ _Details coming soon ..._
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 pt/HDB_5 t/friend t/colleague`
 **Add Appointment** | `ap INDEX d/DATETIME` <br> e.g., `ap 1 d/2025-01-01:12:00`
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Delete Appointment** | `dap INDEX d/DATETIME` <br> e.g., `dap 1 d/2025-01-01:12:00`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com` <br> e.g.,`edit 4 a/59 Jalan Besar Road pt/COMMERCIAL_FH`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List** | `list`
 **List Appointments** | `lap`
