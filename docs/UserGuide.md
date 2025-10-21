@@ -332,20 +332,16 @@ Examples:
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+ClientSquare data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+ClientSquare data are saved automatically as a JSON file `[JAR file location]/data/ClientSquare.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file makes its format invalid, ClientSquare will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause the ClientSquare to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -353,7 +349,11 @@ _Details coming soon ..._
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ClientSquare home folder.<br><br>
+**Q**: How do I backup my data?<br>
+**A**: Simply copy the `data/ClientSquare.json` file from your data folder to a safe location. This file contains all your client and appointment information.<br><br>
+**Q**: Can I have multiple appointments with the same client?<br>
+**A**: Yes, you can schedule multiple appointments with the same buyer or seller. Each appointment is tracked separately by date and time.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -367,17 +367,16 @@ _Details coming soon ..._
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 pt/HDB_5 t/friend t/colleague`
-**Add Appointment** | `ap SELLER_INDEX d/DATETIME b/BUYER_INDEX` <br> e.g., `ap 1 d/2025-01-01T12:00 b/4`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Delete Appointment** | `dap SELLER_INDEX d/DATETIME` <br> e.g., `dap 1 d/2025-01-01:12:00`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/PROPERTY_TYPE] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com` <br> e.g.,`edit 4 a/59 Jalan Besar Road pt/COMMERCIAL_FH`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**List Appointments** | `lap`
-**Help** | `help`
-**Toggle Theme** | `toggle`
-**Exit** | `exit`
+Action | Format | Examples | Description
+--------|------------------ | ------------------------ | -------------------
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​` | `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 pt/HDB_3 t/VIP` | Adds a client's contact details into ClientSquare
+**List** | `list` | - | List all the clients you have
+**Find** | `find KEYWORD [MORE_KEYWORDS]` | `find Jake HDB_3` | Find all clients named 'Jake' OR has property type 'HDB_3'
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/PROPERTY_TYPE] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com` <br> `edit 4 a/59 Jalan Besar Road pt/COMMERCIAL_FH` | Change the name and email of the second index client. <br> Change the address and property type of the fourth index client.
+**Delete** | `delete INDEX` | `delete 3` | Delete the third indexed client
+**Clear** | `clear` | - | Clears all current clients 
+**Add Appointment** | `ap SELLER_INDEX d/DATETIME b/BUYER_INDEX` | `ap 1 d/2025-01-01:12:00 b/3` | Adds a appointment between seller(indexed 1) and buyer(indexed 3) at that specific timing
+**List Appointments** | `lap` | - | List all appointments you have made in chronological order
+**Search Appointments** | `sap KEYWORD [MORE_KEYWORDS]` | `sap Jake` | Searches all appointments with 'Jake'
+**Delete Appointment** | `dap INDEX d/DATETIME`  | `dap 1 d/2025-01-01:12:00` | Deletes appointment with the seller at index 1 at that timing
+**Help** | `help`| - | A popup with the link to the user guide will show up
