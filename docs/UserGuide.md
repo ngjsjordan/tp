@@ -227,6 +227,9 @@ Format: `toggle`
 Examples:
 * `toggle` switches from light to dark mode (or vice versa)
 
+  ![result for 'toggle' in light mode](images/toggleresultlight.png)
+  ![result for 'toggle' in dark mode](images/toggleresultdark.png)
+
 Tips:
 * Switch to dark mode when working in low-light environments to reduce eye strain
 * Use light mode during presentations or when sharing your screen for better visibility
