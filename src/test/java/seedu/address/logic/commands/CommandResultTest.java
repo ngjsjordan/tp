@@ -62,15 +62,18 @@ public class CommandResultTest {
     }
 
     @Test
-    public void toggle_showAppointsAndPersonList_flag_works() {
-        CommandResult showAppointmentsResults = new CommandResult("Show appointments", false, false, false, true, false);
-        CommandResult showPersonListResults = new CommandResult("Show persons", false, false, false, false, true);
+    public void toggleShowAppointmentsAndPersonList_flag_works() {
+        CommandResult showAppointmentsResults = new CommandResult(
+                "Show appointments", false, false, false, true, false);
+        CommandResult showPersonListResults = new CommandResult(
+                "Show persons", false, false, false, false, true);
 
         assertTrue(showAppointmentsResults.isShowAppointmentList());
         assertFalse(showAppointmentsResults.isShowPersonList());
 
         assertTrue(showPersonListResults.isShowPersonList());
         assertFalse(showPersonListResults.isShowAppointmentList());
+
     }
 
     @Test
