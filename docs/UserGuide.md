@@ -3,7 +3,9 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+ClientSquare is a **desktop app built for freelance property agents**. It helps you **track buyers and sellers, manage appointments, and organize appointments with your clients** - all in one place!
+
+By **typing commands** instead of clicking through menus, you'll be able to complete your tasks faster, allowing you to **manage more clients in less time.**
 
 * Table of Contents
 {:toc}
