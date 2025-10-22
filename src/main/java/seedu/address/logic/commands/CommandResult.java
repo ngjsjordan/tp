@@ -19,6 +19,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should switch themes. */
+    private final boolean toggleTheme;
+
     /** The application should show appointment list view. */
     private final boolean showAppointmentList;
 
@@ -28,11 +31,12 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean toggleTheme,
                          boolean showAppointmentList, boolean showPersonList) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.toggleTheme = toggleTheme;
         this.showAppointmentList = showAppointmentList;
         this.showPersonList = showPersonList;
     }
@@ -42,14 +46,22 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false);
+        this(feedbackToUser, false, false, false, false, false);
     }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields for backwards compatibility.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
-        this(feedbackToUser, showHelp, exit, false, false);
+        this(feedbackToUser, showHelp, exit, false, false, false);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields for backwards compatibility.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean showAppointmentList, boolean showPersonList) {
+        this(feedbackToUser, showHelp, exit, false, showAppointmentList, showPersonList);
     }
 
     public String getFeedbackToUser() {
@@ -62,6 +74,10 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isToggleTheme() {
+        return toggleTheme;
     }
 
     public boolean isShowAppointmentList() {
@@ -87,13 +103,14 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
+                && toggleTheme == otherCommandResult.toggleTheme
                 && showAppointmentList == otherCommandResult.showAppointmentList
                 && showPersonList == otherCommandResult.showPersonList;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, showAppointmentList, showPersonList);
+        return Objects.hash(feedbackToUser, showHelp, exit, toggleTheme, showAppointmentList, showPersonList);
     }
 
     @Override
@@ -102,6 +119,7 @@ public class CommandResult {
                 .add("feedbackToUser", feedbackToUser)
                 .add("showHelp", showHelp)
                 .add("exit", exit)
+                .add("darkTheme", toggleTheme)
                 .add("showAppointmentList", showAppointmentList)
                 .add("showPersonList", showPersonList)
                 .toString();

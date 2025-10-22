@@ -52,14 +52,40 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
     }
 
+
+    @Test
+    public void toggleTheme_flag_works() {
+        CommandResult result = new CommandResult("Toggle UI...", false, false, true, false, false);
+        assertTrue(result.isToggleTheme());
+        assertFalse(result.isShowAppointmentList());
+        assertFalse(result.isShowPersonList());
+    }
+
+    @Test
+    public void toggleShowAppointmentsAndPersonList_flag_works() {
+        CommandResult showAppointmentsResults = new CommandResult(
+                "Show appointments", false, false, false, true, false);
+        CommandResult showPersonListResults = new CommandResult(
+                "Show persons", false, false, false, false, true);
+
+        assertTrue(showAppointmentsResults.isShowAppointmentList());
+        assertFalse(showAppointmentsResults.isShowPersonList());
+
+        assertTrue(showPersonListResults.isShowPersonList());
+        assertFalse(showPersonListResults.isShowAppointmentList());
+
+    }
+
     @Test
     public void toStringMethod() {
         CommandResult commandResult = new CommandResult("feedback");
-        String expected = CommandResult.class.getCanonicalName() + "{feedbackToUser="
-                + commandResult.getFeedbackToUser() + ", showHelp=" + commandResult.isShowHelp()
-                + ", exit=" + commandResult.isExit() + ", showAppointmentList="
-                + commandResult.isShowAppointmentList() + ", showPersonList="
-                + commandResult.isShowPersonList() + "}";
+        String expected = CommandResult.class.getCanonicalName()
+                + "{feedbackToUser=" + commandResult.getFeedbackToUser()
+                + ", showHelp=" + commandResult.isShowHelp()
+                + ", exit=" + commandResult.isExit()
+                + ", darkTheme=" + commandResult.isToggleTheme()
+                + ", showAppointmentList=" + commandResult.isShowAppointmentList()
+                + ", showPersonList=" + commandResult.isShowPersonList() + "}";
         assertEquals(expected, commandResult.toString());
     }
 }

@@ -29,7 +29,7 @@ public class Role {
     }
 
     /**
-     * Returns if a given string is a valid email.
+     * Returns if a given string is a valid role.
      */
     public static boolean isValidRole(String test) {
         return test.matches(VALIDATION_REGEX);
