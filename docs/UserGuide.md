@@ -115,20 +115,23 @@ Adds a client to the client square app. Details to include when adding a client:
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​`
 
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Valid inputs for Roles and Property Type:**<br>
+
+**Valid roles** are `buyer` and `seller`.  
+**Valid property types** are
+`HDB_2`, `HDB_3`, `HDB_4`, `HDB_5`, `HDB_J`,
+<br>
+`CONDO_2`, `CONDO_3`, `CONDO_4`, `CONDO_5`, `CONDO_J`,
+<br>
+`EXECUTIVE`, `LANDED_LH`, `LANDED_FH`, `COMMERCIAL_LH` and `COMMERCIAL_FH`.
+
+</div>
+
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A person can have any number of tags (including 0)
 </div>
-
-> :information_source:
-<br>
-> **Valid roles** are `buyer` and `seller`.  
-> **Valid property types** are 
-<br>
-> `HDB_2`, `HDB_3`, `HDB_4`, `HDB_5`, `HDB_J`, 
-<br>
-> `CONDO_2`, `CONDO_3`, `CONDO_4`, `CONDO_5`, `CONDO_J`,
-<br>
-> `EXECUTIVE`, `LANDED_LH`, `LANDED_FH`, `COMMERCIAL_LH` and `COMMERCIAL_FH`.
 
 
 Examples:
@@ -186,17 +189,19 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] 
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
 
-> :information_source:
-<br>
-> **Valid roles** are `buyer` and `seller`.  
-> **Valid property types** are
-<br>
-> `HDB_2`, `HDB_3`, `HDB_4`, `HDB_5`, `HDB_J`,
-<br>
-> `CONDO_2`, `CONDO_3`, `CONDO_4`, `CONDO_5`, `CONDO_J`,
-<br>
-> `EXECUTIVE`, `LANDED_LH`, `LANDED_FH`, `COMMERCIAL_LH` and `COMMERCIAL_FH`.
+<div markdown="block" class="alert alert-info">
 
+**:information_source: Valid inputs for Roles and Property Type:**<br>
+
+**Valid roles** are `buyer` and `seller`.  
+**Valid property types** are
+`HDB_2`, `HDB_3`, `HDB_4`, `HDB_5`, `HDB_J`,
+<br>
+`CONDO_2`, `CONDO_3`, `CONDO_4`, `CONDO_5`, `CONDO_J`,
+<br>
+`EXECUTIVE`, `LANDED_LH`, `LANDED_FH`, `COMMERCIAL_LH` and `COMMERCIAL_FH`.
+
+</div>
 
 Examples:
 * Before the following `edit` commands
