@@ -10,10 +10,10 @@ import seedu.address.commons.util.ToStringBuilder;
  * Tests that a {@code Person}'s details match any of the keywords given.
  * Searches across name, role, address, email, phone, and tags.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Person> {
+public class DetailsContainKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public DetailsContainKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -44,12 +44,12 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NameContainsKeywordsPredicate)) {
+        if (!(other instanceof DetailsContainKeywordsPredicate)) {
             return false;
         }
 
-        NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
-        return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
+        DetailsContainKeywordsPredicate otherDetailsContainKeywordsPredicate = (DetailsContainKeywordsPredicate) other;
+        return keywords.equals(otherDetailsContainKeywordsPredicate.keywords);
     }
 
     @Override
