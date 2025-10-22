@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_APPOINTMENTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.FIONA_ELLE_1;
-import static seedu.address.testutil.TypicalPersons.FIONA_ELLE_2;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -86,9 +84,11 @@ public class SearchAppointmentCommandTest {
 
     @Test
     public void toStringMethod() {
-        AppointmentContainsKeywordsPredicate predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("keyword"));
+        AppointmentContainsKeywordsPredicate predicate = new AppointmentContainsKeywordsPredicate(
+                Arrays.asList("keyword"));
         SearchAppointmentCommand searchAppointmentCommand = new SearchAppointmentCommand(predicate);
-        String expected = SearchAppointmentCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
+        String expected = SearchAppointmentCommand.class.getCanonicalName()
+                + "{predicate=" + predicate + "}";
         assertEquals(expected, searchAppointmentCommand.toString());
     }
 

@@ -20,7 +20,7 @@ public class SearchAppointmentCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
-        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+        assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SearchAppointmentCommand.MESSAGE_USAGE));
     }
 

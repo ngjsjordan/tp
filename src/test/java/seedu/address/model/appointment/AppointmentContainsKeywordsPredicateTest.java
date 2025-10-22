@@ -19,16 +19,16 @@ public class AppointmentContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        AppointmentContainsKeywordsPredicate firstPredicate = 
+        AppointmentContainsKeywordsPredicate firstPredicate =
             new AppointmentContainsKeywordsPredicate(firstPredicateKeywordList);
-        AppointmentContainsKeywordsPredicate secondPredicate = 
+        AppointmentContainsKeywordsPredicate secondPredicate =
             new AppointmentContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        AppointmentContainsKeywordsPredicate firstPredicateCopy = 
+        AppointmentContainsKeywordsPredicate firstPredicateCopy =
             new AppointmentContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
@@ -48,7 +48,7 @@ public class AppointmentContainsKeywordsPredicateTest {
             new AppointmentDatetime("2025-01-01T12:00"), ALICE, BOB);
 
         // One keyword matching seller name
-        AppointmentContainsKeywordsPredicate predicate = 
+        AppointmentContainsKeywordsPredicate predicate =
             new AppointmentContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(testAppointment));
 
@@ -87,7 +87,7 @@ public class AppointmentContainsKeywordsPredicateTest {
             new AppointmentDatetime("2025-01-01T12:00"), ALICE, BOB);
 
         // Zero keywords
-        AppointmentContainsKeywordsPredicate predicate = 
+        AppointmentContainsKeywordsPredicate predicate =
             new AppointmentContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(testAppointment));
 
@@ -112,7 +112,7 @@ public class AppointmentContainsKeywordsPredicateTest {
     public void test_emptyKeywordList_returnsFalse() {
         Appointment testAppointment = new Appointment(
             new AppointmentDatetime("2025-01-01T12:00"), ALICE, BOB);
-        AppointmentContainsKeywordsPredicate predicate = 
+        AppointmentContainsKeywordsPredicate predicate =
             new AppointmentContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(testAppointment));
     }
@@ -120,7 +120,7 @@ public class AppointmentContainsKeywordsPredicateTest {
     @Test
     public void toStringMethod() {
         List<String> keywords = List.of("keyword1", "keyword2");
-        AppointmentContainsKeywordsPredicate predicate = 
+        AppointmentContainsKeywordsPredicate predicate =
             new AppointmentContainsKeywordsPredicate(keywords);
 
         String expected = AppointmentContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=" + keywords + "}";

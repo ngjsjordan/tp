@@ -10,7 +10,6 @@ import seedu.address.model.person.Person;
 public class AppointmentBuilder {
 
     public static final String DEFAULT_APPOINTMENT_DATETIME = "2024-12-31 14:30";
-    
     private AppointmentDatetime appointmentDatetime;
     private Person seller;
     private Person buyer;
