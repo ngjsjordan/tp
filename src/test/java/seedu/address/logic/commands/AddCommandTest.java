@@ -184,6 +184,16 @@ public class AddCommandTest {
         public void deleteAppointment(Appointment target) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public ObservableList<Appointment> getFilteredAppointmentList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -220,6 +230,48 @@ public class AddCommandTest {
         public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
+    }
+
+    /**
+     * A Model stub that contains a single appointment.
+     */
+    private class ModelStubWithAppointment extends ModelStub {
+        private final Appointment appointment;
+
+        ModelStubWithAppointment(Appointment appointment) {
+            requireNonNull(appointment);
+            this.appointment = appointment;
+        }
+
+        @Override
+        public boolean hasAppointment(Appointment appointment) {
+            requireNonNull(appointment);
+            return this.appointment.equals(appointment);
+        }
+    }
+
+    /**
+     * A Model stub that always accept the appointment being added.
+     */
+    private class ModelStubAcceptingAppointmentAdded extends ModelStub {
+        final ArrayList<Appointment> appointmentsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasAppointment(Appointment appointment) {
+            requireNonNull(appointment);
+            return appointmentsAdded.stream().anyMatch(appointment::equals);
+        }
+
+        @Override
+        public void addAppointment(Appointment appointment) {
+            requireNonNull(appointment);
+            appointmentsAdded.add(appointment);
         }
 
         @Override
