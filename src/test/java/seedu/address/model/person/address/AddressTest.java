@@ -5,12 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
 
 import org.junit.jupiter.api.Test;
 
 public class AddressTest {
 
     private static final AddressType VALID_PROPERTY_TYPE = new AddressType(BENSON.getAddressType().toString());
+    private static final AddressType VALID_PROPERTY_TYPE_2 = new AddressType(CARL.getAddressType().toString());
 
     // valid value
     private static final String VALID_TYPE = "HDB_4";
@@ -104,6 +106,7 @@ public class AddressTest {
 
         // different values -> returns false
         assertFalse(address.equals(new Address("Other Valid Address", VALID_PROPERTY_TYPE)));
+        assertFalse(address.equals(new Address("Valid Address", VALID_PROPERTY_TYPE_2)));
 
         // same type values -> true
         assertTrue(type1.equals(type2));

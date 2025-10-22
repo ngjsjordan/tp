@@ -5,6 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.FIONA_DANIEL;
+import static seedu.address.testutil.TypicalPersons.FIONA_ELLE_1;
+import static seedu.address.testutil.TypicalPersons.FIONA_ELLE_2;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,6 +45,25 @@ public class UniqueAppointmentListTest {
     public void add_duplicateAppointment_throwsDuplicateAppointmentException() {
         uniqueAppointmentList.add(FIONA_DANIEL);
         assertThrows(DuplicateAppointmentException.class, () -> uniqueAppointmentList.add(FIONA_DANIEL));
+    }
+
+    @Test
+    public void set_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
+        uniqueAppointmentList.add(FIONA_ELLE_1);
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        expectedUniqueAppointmentList.add(FIONA_ELLE_2);
+        uniqueAppointmentList.setAppointments(expectedUniqueAppointmentList);
+        assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
+    }
+
+    @Test
+    public void set_nonUniqueAppointmentList_failure() {
+        uniqueAppointmentList.add(FIONA_ELLE_1);
+        List<Appointment> expectedAppointmentList = new ArrayList<>();
+        expectedAppointmentList.add(FIONA_ELLE_2);
+        expectedAppointmentList.add(FIONA_ELLE_2);
+        assertThrows(DuplicateAppointmentException.class, () ->
+                uniqueAppointmentList.setAppointments(expectedAppointmentList));
     }
 
     @Test

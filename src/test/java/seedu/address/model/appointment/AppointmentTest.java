@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,8 +34,15 @@ public class AppointmentTest {
         // different types -> returns false
         assertFalse(appointment.equals(5.0f));
 
-        // different values -> returns false
+        // different datetime -> returns false
         appointmentDatetime = new AppointmentDatetime("2025-02-01T00:00");
         assertFalse(appointment.equals(new Appointment(appointmentDatetime, BENSON, ALICE)));
+
+        // different seller -> returns false
+        appointmentDatetime = new AppointmentDatetime("2025-01-01T00:00");
+        assertFalse(appointment.equals(new Appointment(appointmentDatetime, CARL, ALICE)));
+
+        // different buyer -> returns false
+        assertFalse(appointment.equals(new Appointment(appointmentDatetime, BENSON, CARL)));
     }
 }
