@@ -79,8 +79,7 @@ public class Appointment implements Comparable<Appointment> {
         Appointment otherAppointment = (Appointment) other;
         return appointmentDatetime.equals(otherAppointment.appointmentDatetime)
                 && seller.equals(otherAppointment.seller)
-                && ((buyer != null && buyer.equals(otherAppointment.buyer))
-                    || buyer == otherAppointment.buyer);
+                && Objects.equals(buyer, otherAppointment.buyer);
     }
 
     @Override

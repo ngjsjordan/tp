@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -143,8 +144,7 @@ public class AddAppointmentCommand extends Command {
         AddAppointmentCommand otherAddAppointmentCommand = (AddAppointmentCommand) other;
         return appointmentDatetime.equals(otherAddAppointmentCommand.appointmentDatetime)
                 && sellerIndex.equals(otherAddAppointmentCommand.sellerIndex)
-                && (buyerIndex != null && buyerIndex.equals(otherAddAppointmentCommand.buyerIndex)
-                    || buyerIndex == otherAddAppointmentCommand.buyerIndex);
+                && Objects.equals(buyerIndex, otherAddAppointmentCommand.buyerIndex);
     }
 
     @Override
