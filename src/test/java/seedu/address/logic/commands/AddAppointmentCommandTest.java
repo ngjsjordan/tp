@@ -8,6 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DAT
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SIXTH_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
@@ -51,10 +52,19 @@ public class AddAppointmentCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_invalidSellerIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
-                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), outOfBoundIndex, outOfBoundIndex);
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), outOfBoundIndex, INDEX_FIRST_PERSON);
+
+        assertCommandFailure(addAppointmentCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_invalidBuyerIndexUnfilteredList_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, outOfBoundIndex);
 
         assertCommandFailure(addAppointmentCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -85,6 +95,19 @@ public class AddAppointmentCommandTest {
     }
 
     @Test
+    public void execute_appointmentAlreadyExists_failure() {
+        Person seller = new PersonBuilder(model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased())).build();
+        Person buyer = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased())).build();
+        model.addAppointment(new Appointment(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), seller, buyer));
+
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_FIRST_PERSON);
+
+        assertCommandFailure(addAppointmentCommand, model, AddAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT);
+    }
+
+    @Test
     public void equals() {
         final AddAppointmentCommand standardCommand = new AddAppointmentCommand(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_FIRST_PERSON);
@@ -103,9 +126,13 @@ public class AddAppointmentCommandTest {
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
 
-        // different index -> returns false
+        // different seller index -> returns false
         assertFalse(standardCommand.equals(new AddAppointmentCommand(
-                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_THIRD_PERSON)));
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_SIXTH_PERSON, INDEX_FIRST_PERSON)));
+
+        // different buyer index -> returns false
+        assertFalse(standardCommand.equals(new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_SECOND_PERSON)));
 
         // different datetime -> returns false
         assertFalse(standardCommand.equals(new AddAppointmentCommand(

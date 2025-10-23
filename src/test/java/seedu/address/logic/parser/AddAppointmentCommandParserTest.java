@@ -37,6 +37,9 @@ public class AddAppointmentCommandParserTest {
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+
+        // no buyer specified
+        assertParseFailure(parser, "1" + APPOINTMENT_DESC_JAN_1, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
