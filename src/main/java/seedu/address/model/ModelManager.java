@@ -155,19 +155,11 @@ public class ModelManager implements Model {
     //=========== Appointment List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code AppointmentEntry} representing all
-     * appointments from all persons, sorted by datetime (present to future).
+     * Returns an unmodifiable view of the list of {@code Appointment}.
      */
     @Override
-    public ObservableList<AppointmentEntry> getAppointmentList() {
-
-        // Collect all appointments from all sellers
-        List<AppointmentEntry> appointmentEntries = addressBook.getAppointmentList().stream()
-                .map(appointment -> new AppointmentEntry(appointment, appointment.getSeller()))
-                .sorted(Comparator.comparing(AppointmentEntry::getAppointment))
-                .toList();
-
-        return FXCollections.observableArrayList(appointmentEntries);
+    public ObservableList<Appointment> getAppointmentList() {
+        return addressBook.getAppointmentList();
     }
 
     @Override

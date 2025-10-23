@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -142,10 +145,21 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switches the view to display the appointment list.
      * This method will be called by the list appointments command.
-     *
-     * @param appointmentList The observable list of appointment entries to display.
      */
-    public void showAppointmentList(javafx.collections.ObservableList<AppointmentEntry> appointmentList) {
+    public void showAppointmentList() {
+        // Get raw appointments from logic layer
+        javafx.collections.ObservableList<seedu.address.model.appointment.Appointment> appointments =
+                logic.getAppointmentList();
+
+        // Create AppointmentEntry objects in the UI layer
+        List<AppointmentEntry> appointmentEntries = appointments.stream()
+                .map(appointment -> new AppointmentEntry(appointment, appointment.getSeller()))
+                .sorted(Comparator.comparing(AppointmentEntry::getAppointment))
+                .toList();
+
+        javafx.collections.ObservableList<AppointmentEntry> appointmentList =
+                FXCollections.observableArrayList(appointmentEntries);
+
         personListPanelPlaceholder.getChildren().clear();
         appointmentListPanel = new AppointmentListPanel(appointmentList);
         personListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
@@ -252,7 +266,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowAppointmentList()) {
-                showAppointmentList(logic.getAppointmentList());
+                showAppointmentList();
             }
 
             if (commandResult.isShowPersonList()) {
