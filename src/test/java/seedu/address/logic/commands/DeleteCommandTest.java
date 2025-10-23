@@ -19,6 +19,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 
+import java.util.Optional;
+
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
  * {@code DeleteCommand}.
@@ -85,13 +87,14 @@ public class DeleteCommandTest {
         Person fiona = model.getFilteredPersonList().stream()
                 .filter(person -> person.getName().fullName.equals("Fiona Kunz"))
                 .findFirst()
-                .orElse(null);
+                .get();
         int fionaIndex = model.getFilteredPersonList().indexOf(fiona);
         DeleteCommand deleteCommand = new DeleteCommand(Index.fromZeroBased(fionaIndex));
 
         // Count appointments where FIONA is buyer or seller
         long appointmentsWithFionaBefore = model.getAddressBook().getAppointmentList().stream()
-                .filter(appointment -> appointment.getSeller().equals(fiona) || appointment.getBuyer().equals(fiona))
+                .filter(appointment -> appointment.getSeller().equals(fiona)
+                        || appointment.getBuyer().equals(Optional.of(fiona)))
                 .count();
         assertTrue(appointmentsWithFionaBefore > 0);
 
@@ -106,7 +109,8 @@ public class DeleteCommandTest {
 
         // Verify appointments with FIONA are deleted
         long appointmentsWithFionaAfter = model.getAddressBook().getAppointmentList().stream()
-                .filter(appointment -> appointment.getSeller().equals(fiona) || appointment.getBuyer().equals(fiona))
+                .filter(appointment -> appointment.getSeller().equals(fiona)
+                        || appointment.getBuyer().equals(Optional.of(fiona)))
                 .count();
         assertEquals(0, appointmentsWithFionaAfter);
     }

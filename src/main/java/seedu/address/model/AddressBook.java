@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
@@ -109,7 +110,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
 
         appointments.asUnmodifiableObservableList().stream()
-                .filter(appointment -> appointment.getSeller().equals(key) || appointment.getBuyer().equals(key))
+                .filter(appointment ->
+                        appointment.getSeller().equals(key) || appointment.getBuyer().equals(Optional.of(key)))
                 .toList()
                 .forEach(appointments::remove);
     }

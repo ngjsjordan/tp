@@ -63,16 +63,4 @@ public class SampleDataUtil {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
-
-    /**
-     * Returns an appointment set containing the list of datetimes given.
-     * No error checking is done.
-     */
-    public static Set<Appointment> getAppointmentSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(AppointmentDatetime::new)
-                .map(a -> new Appointment(a, null, null))
-                .collect(Collectors.toSet());
-    }
-
 }

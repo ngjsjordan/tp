@@ -89,11 +89,12 @@ class JsonSerializableAddressBook {
     public Appointment toModelAppointment(JsonAdaptedAppointment jsonAdaptedAppointment, AddressBook addressBook)
             throws IllegalValueException {
         Person seller = addressBook.findPerson(jsonAdaptedAppointment.getSeller());
-        Person buyer = addressBook.findPerson(jsonAdaptedAppointment.getBuyer());
 
-        if (seller == null || buyer == null) {
+        if (seller == null) {
             throw new IllegalValueException(MESSAGE_INVALID_APPOINTMENT);
         }
+
+        Person buyer = addressBook.findPerson(jsonAdaptedAppointment.getBuyer());
 
         return jsonAdaptedAppointment.toModelType(seller, buyer);
     }

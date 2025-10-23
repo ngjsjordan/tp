@@ -3,6 +3,7 @@ package seedu.address.model.appointment;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.model.person.Person;
 
@@ -18,7 +19,7 @@ public class Appointment implements Comparable<Appointment> {
     public final Person buyer;
 
     /**
-     * Constructs an {@code Appointment}.
+     * Constructs an {@code Appointment} with a buyer.
      *
      * @param appointmentDatetime An AppointmentDatetime object representing the datetime of the appointment.
      * @param seller A Person object representing the seller.
@@ -33,6 +34,20 @@ public class Appointment implements Comparable<Appointment> {
         this.buyer = buyer;
     }
 
+    /**
+     * Constructs an {@code Appointment} without a buyer.
+     *
+     * @param appointmentDatetime An AppointmentDatetime object representing the datetime of the appointment.
+     * @param seller A Person object representing the seller.
+     */
+    public Appointment(AppointmentDatetime appointmentDatetime, Person seller) {
+        requireNonNull(appointmentDatetime);
+        requireNonNull(seller);
+        this.appointmentDatetime = appointmentDatetime;
+        this.seller = seller;
+        this.buyer = null;
+    }
+
     public AppointmentDatetime getAppointmentDatetime() {
         return appointmentDatetime;
     }
@@ -41,8 +56,8 @@ public class Appointment implements Comparable<Appointment> {
         return seller;
     }
 
-    public Person getBuyer() {
-        return buyer;
+    public Optional<Person> getBuyer() {
+        return Optional.ofNullable(buyer);
     }
 
     @Override
@@ -64,7 +79,8 @@ public class Appointment implements Comparable<Appointment> {
         Appointment otherAppointment = (Appointment) other;
         return appointmentDatetime.equals(otherAppointment.appointmentDatetime)
                 && seller.equals(otherAppointment.seller)
-                && buyer.equals(otherAppointment.buyer);
+                && ((buyer != null && buyer.equals(otherAppointment.buyer))
+                    || buyer == otherAppointment.buyer);
     }
 
     @Override

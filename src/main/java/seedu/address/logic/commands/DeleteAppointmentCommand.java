@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -62,7 +63,9 @@ public class DeleteAppointmentCommand extends Command {
         // Find the appointment by datetime
         Appointment actualAppointment = model.getAddressBook().getAppointmentList().stream()
                 .filter(apt -> apt.appointmentDatetime.equals(appointmentDatetime))
-                .filter(apt -> apt.getSeller().equals(referencedPerson) || apt.getBuyer().equals(referencedPerson))
+                .filter(apt ->
+                        apt.getSeller().equals(referencedPerson) ||
+                        apt.getBuyer().equals(Optional.of(referencedPerson)))
                 .findFirst()
                 .orElse(null);
 

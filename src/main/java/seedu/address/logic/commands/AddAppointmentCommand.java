@@ -44,9 +44,11 @@ public class AddAppointmentCommand extends Command {
     private final Index buyerIndex;
 
     /**
+     * Constructor for AddAppointmentCommand with buyer.
+     *
      * @param appointmentDatetime datetime of appointment to be added
      * @param sellerIndex index of the seller in the appointment
-     * @param buyerIndex index of the buyer in the appointment
+     * @param buyerIndex index of the buyer in the appointment.
      */
     public AddAppointmentCommand(AppointmentDatetime appointmentDatetime, Index sellerIndex, Index buyerIndex) {
         requireNonNull(appointmentDatetime);
@@ -56,6 +58,21 @@ public class AddAppointmentCommand extends Command {
         this.appointmentDatetime = appointmentDatetime;
         this.sellerIndex = sellerIndex;
         this.buyerIndex = buyerIndex;
+    }
+
+    /**
+     * Constructor for AddAppointmentCommand without buyer.
+     *
+     * @param appointmentDatetime datetime of appointment to be added
+     * @param sellerIndex index of the seller in the appointment
+     */
+    public AddAppointmentCommand(AppointmentDatetime appointmentDatetime, Index sellerIndex) {
+        requireNonNull(appointmentDatetime);
+        requireNonNull(sellerIndex);
+
+        this.appointmentDatetime = appointmentDatetime;
+        this.sellerIndex = sellerIndex;
+        this.buyerIndex = null;
     }
 
     @Override
@@ -86,26 +103,30 @@ public class AddAppointmentCommand extends Command {
         if (sellerIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        if (buyerIndex.getZeroBased() >= lastShownList.size()) {
+        if (buyerIndex != null && buyerIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person seller = lastShownList.get(sellerIndex.getZeroBased());
-        Person buyer = lastShownList.get(buyerIndex.getZeroBased());
-
-        if (seller.equals(buyer)) {
-            throw new CommandException(MESSAGE_SAME_PERSON);
-        }
 
         if (!seller.getRole().isSeller()) {
             throw new CommandException(MESSAGE_INVALID_SELLER_ROLE);
         }
 
+        if (buyerIndex == null) {
+            return new Appointment(appointmentDatetime, seller);
+        }
+
+        Person buyer = lastShownList.get(buyerIndex.getZeroBased());
+
         if (!buyer.getRole().isBuyer()) {
             throw new CommandException(MESSAGE_INVALID_BUYER_ROLE);
         }
 
+        assert !buyer.isSamePerson(seller);
+
         return new Appointment(appointmentDatetime, seller, buyer);
+
     }
 
     @Override
@@ -122,7 +143,8 @@ public class AddAppointmentCommand extends Command {
         AddAppointmentCommand otherAddAppointmentCommand = (AddAppointmentCommand) other;
         return appointmentDatetime.equals(otherAddAppointmentCommand.appointmentDatetime)
                 && sellerIndex.equals(otherAddAppointmentCommand.sellerIndex)
-                && buyerIndex.equals(otherAddAppointmentCommand.buyerIndex);
+                && (buyerIndex != null && buyerIndex.equals(otherAddAppointmentCommand.buyerIndex)
+                    || buyerIndex == otherAddAppointmentCommand.buyerIndex);
     }
 
     @Override

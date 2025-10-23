@@ -36,7 +36,7 @@ class JsonAdaptedAppointment {
     public JsonAdaptedAppointment(Appointment source) {
         appointmentDateTime = source.getAppointmentDatetime().toString();
         seller = source.getSeller().getPhone().value;
-        buyer = source.getBuyer().getPhone().value;
+        buyer = source.getBuyer().map(b -> b.getPhone().value).orElse(null);
     }
 
     public String getSeller() {
@@ -52,7 +52,7 @@ class JsonAdaptedAppointment {
      * references to the buyer and seller objects.
      *
      * @param seller the Person object representing the seller of the appointment
-     * @param buyer the Person object representing the buyer of the appointment
+     * @param buyer the Person object representing the buyer of the appointment. Can be null.
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Appointment toModelType(Person seller, Person buyer) throws IllegalValueException {
@@ -65,11 +65,15 @@ class JsonAdaptedAppointment {
             throw new IllegalValueException(AppointmentDatetime.MESSAGE_CONSTRAINTS);
         }
 
-        if (seller == null || buyer == null) {
+        if (seller == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Person.class.getSimpleName()));
         }
-        return new Appointment(new AppointmentDatetime(appointmentDateTime), seller, buyer);
-    }
 
+        if (buyer == null) {
+            return new Appointment(new AppointmentDatetime(appointmentDateTime), seller);
+        } else {
+            return new Appointment(new AppointmentDatetime(appointmentDateTime), seller, buyer);
+        }
+    }
 }
