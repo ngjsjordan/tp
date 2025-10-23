@@ -4,12 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.Comparator;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -17,7 +14,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.ui.AppointmentEntry;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -161,18 +157,11 @@ public class ModelManager implements Model {
     //=========== Appointment List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code AppointmentEntry} representing filtered
-     * appointments, sorted by datetime (present to future).
+     * Returns an unmodifiable view of the list of {@code Appointment}.
      */
     @Override
-    public ObservableList<AppointmentEntry> getAppointmentList() {
-        // Use filtered appointments instead of all appointments
-        List<AppointmentEntry> appointmentEntries = filteredAppointments.stream()
-                .map(appointment -> new AppointmentEntry(appointment, appointment.getSeller()))
-                .sorted(Comparator.comparing(AppointmentEntry::getAppointment))
-                .toList();
-
-        return FXCollections.observableArrayList(appointmentEntries);
+    public ObservableList<Appointment> getAppointmentList() {
+        return addressBook.getAppointmentList();
     }
 
     @Override

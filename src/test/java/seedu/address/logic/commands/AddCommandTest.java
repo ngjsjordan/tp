@@ -166,7 +166,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<seedu.address.ui.AppointmentEntry> getAppointmentList() {
+        public ObservableList<Appointment> getAppointmentList() {
             throw new AssertionError("This method should not be called.");
         }
 
