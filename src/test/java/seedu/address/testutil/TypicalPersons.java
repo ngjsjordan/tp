@@ -69,8 +69,6 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withRole(VALID_ROLE_BOB).withAddress(VALID_ADDRESS_BOB, VALID_PROPERTY_TYPE_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
-
     // Appointments
     public static final Appointment FIONA_ELLE_1 = new Appointment(
             new AppointmentDatetime("2025-01-01T12:00"), FIONA, ELLE);
@@ -80,6 +78,8 @@ public class TypicalPersons {
             new AppointmentDatetime("2025-01-02T12:00"), FIONA, DANIEL);
     public static final Appointment GEORGE_BENSON = new Appointment(
             new AppointmentDatetime("2025-01-01T18:00"), GEORGE, BENSON);
+    public static final Appointment FIONA_NOBUYER = new Appointment(
+            new AppointmentDatetime("2025-01-03T12:00"), FIONA);
 
     private TypicalPersons() {} // prevents instantiation
 

@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -63,16 +61,4 @@ public class SampleDataUtil {
                 .map(Tag::new)
                 .collect(Collectors.toSet());
     }
-
-    /**
-     * Returns an appointment set containing the list of datetimes given.
-     * No error checking is done.
-     */
-    public static Set<Appointment> getAppointmentSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(AppointmentDatetime::new)
-                .map(a -> new Appointment(a, null, null))
-                .collect(Collectors.toSet());
-    }
-
 }

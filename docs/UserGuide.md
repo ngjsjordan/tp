@@ -272,14 +272,15 @@ Tips:
 
 ### Adding an appointment : `ap`
 
-Adds an appointment with a seller and a buyer. 
+Adds an appointment with a seller and an optional buyer. 
 
-Format: `ap SELLER_INDEX d/DATETIME b/BUYER_INDEX`
+Format: `ap SELLER_INDEX d/DATETIME [b/BUYER_INDEX]`
 
 * Adds an appointment with the seller being the person specified by `SELLER_INDEX` and the buyer being the person specified by `BUYER_INDEX`. 
+* For an appointment with only a seller, simply omit the `b/` tag. 
 * The indices refer to the index numbers shown in the displayed person list. This will be a positive whole number, such as 1, 2, 3, ...
 * Datetime should be in an ISO 8601-compliant format (e.g. `yyyy-MM-ddTHH:mm:ss`) and must be provided.
-* The location will be displayed as the seller's address.
+* The location will be displayed as the seller's address. 
 
 Examples:
 *  `ap 4 d/2025-12-01T12:00 b/1` adds an appointment with seller (index 4: David) and buyer (index 1: Alex) on 1 Dec 2025 at 12pm. `lap` can be used to view appointments after adding.
@@ -396,16 +397,16 @@ Furthermore, certain edits can cause the ClientSquare to behave in unexpected wa
 
 ## Command summary
 
-Action | Format | Examples | Description
---------|------------------ | ------------------------ | -------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​` | `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 pt/HDB_3 t/VIP` | Adds a client's contact details into ClientSquare
-**List** | `list` | - | List all the clients you have
-**Find** | `find KEYWORD [MORE_KEYWORDS]` | `find Jake HDB_3` | Find all clients named 'Jake' OR has property type 'HDB_3'
+Action | Format                                                                                             | Examples | Description
+--------|----------------------------------------------------------------------------------------------------| ------------------------ | -------------------
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​`                    | `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 pt/HDB_3 t/VIP` | Adds a client's contact details into ClientSquare
+**List** | `list`                                                                                             | - | List all the clients you have
+**Find** | `find KEYWORD [MORE_KEYWORDS]`                                                                     | `find Jake HDB_3` | Find all clients named 'Jake' OR has property type 'HDB_3'
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/PROPERTY_TYPE] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com` <br> `edit 4 a/59 Jalan Besar Road pt/COMMERCIAL_FH` | Change the name and email of the second index client. <br> Change the address and property type of the fourth index client.
-**Delete** | `delete INDEX` | `delete 3` | Delete the third indexed client
-**Clear** | `clear` | - | Clears all current clients 
-**Add Appointment** | `ap SELLER_INDEX d/DATETIME b/BUYER_INDEX` | `ap 1 d/2025-01-01:12:00 b/3` | Adds a appointment between seller(indexed 1) and buyer(indexed 3) at that specific timing
-**List Appointments** | `lap` | - | List all appointments you have made in chronological order
-**Search Appointments** | `sap KEYWORD [MORE_KEYWORDS]` | `sap Jake` | Searches all appointments with 'Jake'
-**Delete Appointment** | `dap INDEX d/DATETIME`  | `dap 1 d/2025-01-01:12:00` | Deletes appointment with the seller at index 1 at that timing
-**Help** | `help`| - | A popup with the link to the user guide will show up
+**Delete** | `delete INDEX`                                                                                     | `delete 3` | Delete the third indexed client
+**Clear** | `clear`                                                                                            | - | Clears all current clients 
+**Add Appointment** | `ap SELLER_INDEX d/DATETIME [b/BUYER_INDEX]`                                                       | `ap 1 d/2025-01-01:12:00 b/3` | Adds a appointment between seller(indexed 1) and buyer(indexed 3) at that specific timing
+**List Appointments** | `lap`                                                                                              | - | List all appointments you have made in chronological order
+**Search Appointments** | `sap KEYWORD [MORE_KEYWORDS]`                                                                      | `sap Jake` | Searches all appointments with 'Jake'
+**Delete Appointment** | `dap INDEX d/DATETIME`                                                                             | `dap 1 d/2025-01-01:12:00` | Deletes appointment with the seller at index 1 at that timing
+**Help** | `help`                                                                                             | - | A popup with the link to the user guide will show up

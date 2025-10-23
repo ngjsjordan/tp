@@ -10,6 +10,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -85,13 +87,14 @@ public class DeleteCommandTest {
         Person fiona = model.getFilteredPersonList().stream()
                 .filter(person -> person.getName().fullName.equals("Fiona Kunz"))
                 .findFirst()
-                .orElse(null);
+                .get();
         int fionaIndex = model.getFilteredPersonList().indexOf(fiona);
         DeleteCommand deleteCommand = new DeleteCommand(Index.fromZeroBased(fionaIndex));
 
         // Count appointments where FIONA is buyer or seller
         long appointmentsWithFionaBefore = model.getAddressBook().getAppointmentList().stream()
-                .filter(appointment -> appointment.getSeller().equals(fiona) || appointment.getBuyer().equals(fiona))
+                .filter(appointment -> appointment.getSeller().equals(fiona)
+                        || appointment.getBuyer().equals(Optional.of(fiona)))
                 .count();
         assertTrue(appointmentsWithFionaBefore > 0);
 
@@ -106,7 +109,8 @@ public class DeleteCommandTest {
 
         // Verify appointments with FIONA are deleted
         long appointmentsWithFionaAfter = model.getAddressBook().getAppointmentList().stream()
-                .filter(appointment -> appointment.getSeller().equals(fiona) || appointment.getBuyer().equals(fiona))
+                .filter(appointment -> appointment.getSeller().equals(fiona)
+                        || appointment.getBuyer().equals(Optional.of(fiona)))
                 .count();
         assertEquals(0, appointmentsWithFionaAfter);
     }

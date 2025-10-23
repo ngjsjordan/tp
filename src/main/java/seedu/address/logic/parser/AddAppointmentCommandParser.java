@@ -42,16 +42,20 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
                     AddAppointmentCommand.MESSAGE_USAGE));
         }
 
-        if (!argMultimap.getValue(PREFIX_BUYER).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddAppointmentCommand.MESSAGE_USAGE));
+        if (argMultimap.getValue(PREFIX_BUYER).isPresent()) {
+            buyerIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_BUYER).get());
+        } else {
+            buyerIndex = null;
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DATETIME, PREFIX_BUYER);
 
         appointmentDatetime = ParserUtil.parseAppointmentDatetime(argMultimap.getValue(PREFIX_DATETIME).get());
-        buyerIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_BUYER).get());
 
-        return new AddAppointmentCommand(appointmentDatetime, sellerIndex, buyerIndex);
+        if (buyerIndex != null) {
+            return new AddAppointmentCommand(appointmentDatetime, sellerIndex, buyerIndex);
+        } else {
+            return new AddAppointmentCommand(appointmentDatetime, sellerIndex);
+        }
     }
 }
