@@ -142,12 +142,10 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switches the view to display the appointment list.
      * This method will be called by the list appointments command.
-     *
-     * @param appointmentList The observable list of appointment entries to display.
      */
-    public void showAppointmentList(javafx.collections.ObservableList<AppointmentEntry> appointmentList) {
+    public void showAppointmentList() {
         personListPanelPlaceholder.getChildren().clear();
-        appointmentListPanel = new AppointmentListPanel(appointmentList);
+        appointmentListPanel = new AppointmentListPanel(logic.getAppointmentList());
         personListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
     }
 
@@ -252,7 +250,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowAppointmentList()) {
-                showAppointmentList(logic.getAppointmentList());
+                showAppointmentList();
             }
 
             if (commandResult.isShowPersonList()) {

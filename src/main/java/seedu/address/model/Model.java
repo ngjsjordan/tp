@@ -8,7 +8,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.ui.AppointmentEntry;
 
 /**
  * The API of the Model component.
@@ -105,7 +104,7 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /** Returns an unmodifiable view of the appointment list */
-    ObservableList<AppointmentEntry> getAppointmentList();
+    ObservableList<Appointment> getAppointmentList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
