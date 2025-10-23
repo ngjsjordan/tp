@@ -1,10 +1,7 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -147,21 +144,8 @@ public class MainWindow extends UiPart<Stage> {
      * This method will be called by the list appointments command.
      */
     public void showAppointmentList() {
-        // Get raw appointments from logic layer
-        javafx.collections.ObservableList<seedu.address.model.appointment.Appointment> appointments =
-                logic.getAppointmentList();
-
-        // Create AppointmentEntry objects in the UI layer
-        List<AppointmentEntry> appointmentEntries = appointments.stream()
-                .map(appointment -> new AppointmentEntry(appointment, appointment.getSeller()))
-                .sorted(Comparator.comparing(AppointmentEntry::getAppointment))
-                .toList();
-
-        javafx.collections.ObservableList<AppointmentEntry> appointmentList =
-                FXCollections.observableArrayList(appointmentEntries);
-
         personListPanelPlaceholder.getChildren().clear();
-        appointmentListPanel = new AppointmentListPanel(appointmentList);
+        appointmentListPanel = new AppointmentListPanel(logic.getAppointmentList());
         personListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
     }
 
