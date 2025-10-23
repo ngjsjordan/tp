@@ -18,6 +18,7 @@ Class Address
 Class Email
 Class Name
 Class Phone
+Class Role
 Class Tag
 
 Class AddressType
@@ -52,6 +53,7 @@ AddressBook *-down-> "1" UniquePersonList
 UniquePersonList --> "~*" Person : all
 Person *--> Name
 Person *--> Phone
+Person *--> Role
 Person *--> Email
 Person *--> Address
 Person *--> "*" Tag
@@ -64,7 +66,8 @@ UniquePersonList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Email
-Email -[hidden]right-> Address
+Email -[hidden]right-> Role
+Role -[hidden]right-> Address
 
 ModelManager --> "~*" Person : filtered
 @enduml
