@@ -21,42 +21,41 @@ public class AppointmentListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(AppointmentListPanel.class);
 
     @FXML
-    private ListView<AppointmentEntry> appointmentListView;
+    private ListView<Appointment> appointmentListView;
 
     /**
      * Creates an {@code AppointmentListPanel} with the given {@code ObservableList} of appointments.
-     * Transforms appointments to AppointmentEntry objects and sorts them by datetime.
+     * Sorts appointments by datetime.
      */
     public AppointmentListPanel(ObservableList<Appointment> appointments) {
         super(FXML);
 
-        // Transform appointments to AppointmentEntry objects and sort by datetime
-        List<AppointmentEntry> appointmentEntries = appointments.stream()
-                .map(appointment -> new AppointmentEntry(appointment, appointment.getSeller()))
-                .sorted(Comparator.comparing(AppointmentEntry::getAppointment))
+        // Sort appointments by datetime
+        List<Appointment> sortedAppointments = appointments.stream()
+                .sorted(Comparator.naturalOrder())
                 .toList();
 
-        ObservableList<AppointmentEntry> appointmentList =
-                FXCollections.observableArrayList(appointmentEntries);
+        ObservableList<Appointment> appointmentList =
+                FXCollections.observableArrayList(sortedAppointments);
 
         appointmentListView.setItems(appointmentList);
         appointmentListView.setCellFactory(listView -> new AppointmentListViewCell());
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of an {@code AppointmentEntry}
+     * Custom {@code ListCell} that displays the graphics of an {@code Appointment}
      * using an {@code AppointmentCard}.
      */
-    class AppointmentListViewCell extends ListCell<AppointmentEntry> {
+    class AppointmentListViewCell extends ListCell<Appointment> {
         @Override
-        protected void updateItem(AppointmentEntry appointmentEntry, boolean empty) {
-            super.updateItem(appointmentEntry, empty);
+        protected void updateItem(Appointment appointment, boolean empty) {
+            super.updateItem(appointment, empty);
 
-            if (empty || appointmentEntry == null) {
+            if (empty || appointment == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new AppointmentCard(appointmentEntry, getIndex() + 1).getRoot());
+                setGraphic(new AppointmentCard(appointment, getIndex() + 1).getRoot());
             }
         }
     }
