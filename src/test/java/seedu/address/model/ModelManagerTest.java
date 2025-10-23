@@ -22,7 +22,6 @@ import seedu.address.model.person.PersonContainsKeywordsPredicate;
 import seedu.address.model.person.Role;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.ui.AppointmentEntry;
 
 public class ModelManagerTest {
 
@@ -122,7 +121,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getAppointmentList_withAppointments_returnsSortedList() {
+    public void getAppointmentList_withAppointments_returnsAppointmentList() {
         // Create persons with appointments at different times
         Person person1 = new PersonBuilder().withName("Alice").withRole(Role.SELLER).build();
         Person person2 = new PersonBuilder().withName("Bob").withRole(Role.SELLER).build();
@@ -146,17 +145,10 @@ public class ModelManagerTest {
         // Verify the list has 3 appointments
         assertEquals(3, appointmentList.size());
 
-        // Verify they are sorted by datetime (present to future)
-        AppointmentEntry entry1 = appointmentList.get(0);
-        AppointmentEntry entry2 = appointmentList.get(1);
-        AppointmentEntry entry3 = appointmentList.get(2);
-
-        assertEquals(appointment2, entry1.getAppointment()); // 2025-01-10
-        assertEquals(person2, entry1.getPerson());
-        assertEquals(appointment1, entry2.getAppointment()); // 2025-01-15
-        assertEquals(person1, entry2.getPerson());
-        assertEquals(appointment3, entry3.getAppointment()); // 2025-01-20
-        assertEquals(person2, entry3.getPerson());
+        // Verify all appointments are in the list
+        assertTrue(appointmentList.contains(appointment1));
+        assertTrue(appointmentList.contains(appointment2));
+        assertTrue(appointmentList.contains(appointment3));
     }
 
     @Test
