@@ -67,7 +67,7 @@ public class Appointment implements Comparable<Appointment> {
      */
     public boolean containsKeyword(String keyword) {
         return seller.containsKeyword(keyword)
-                || buyer.containsKeyword(keyword)
+                || (buyer != null && buyer.containsKeyword(keyword))
                 || StringUtil.containsWordIgnoreCase(appointmentDatetime.toString(), keyword);
     }
 
