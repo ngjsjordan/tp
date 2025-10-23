@@ -37,9 +37,6 @@ public class AddAppointmentCommandParserTest {
 
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
-
-        // no buyer specified
-        assertParseFailure(parser, "1" + APPOINTMENT_DESC_JAN_1, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -64,12 +61,23 @@ public class AddAppointmentCommandParserTest {
     }
 
     @Test
-    public void parse_appointmentAccepted_success() {
+    public void parse_appointmentWithBuyerAccepted_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1 + BUYER_DESC_2;
 
         AddAppointmentCommand expectedCommand = new AddAppointmentCommand(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_appointmentWithoutBuyerAccepted_success() {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1;
+
+        AddAppointmentCommand expectedCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

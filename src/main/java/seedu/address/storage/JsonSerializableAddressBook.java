@@ -91,10 +91,6 @@ class JsonSerializableAddressBook {
         Person seller = addressBook.findPerson(jsonAdaptedAppointment.getSeller());
         Person buyer = addressBook.findPerson(jsonAdaptedAppointment.getBuyer());
 
-        if (seller == null || buyer == null) {
-            throw new IllegalValueException(MESSAGE_INVALID_APPOINTMENT);
-        }
-
         return jsonAdaptedAppointment.toModelType(seller, buyer);
     }
 

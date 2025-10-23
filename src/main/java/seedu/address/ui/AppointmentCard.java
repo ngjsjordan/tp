@@ -16,6 +16,8 @@ public class AppointmentCard extends UiPart<Region> {
     private static final String FXML = "AppointmentListCard.fxml";
     private static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    private static final String NO_BUYER_TEXT = "-";
+
     public final Appointment appointment;
 
     @FXML
@@ -42,7 +44,8 @@ public class AppointmentCard extends UiPart<Region> {
         appointmentLocation.setText(appointment.getSeller().getAddress().value);
 
         // Display buyer AND seller information
-        buyer.setText("Buyer: " + appointment.getBuyer().getName().fullName);
+        buyer.setText("Buyer: " + appointment.getBuyer().map(b ->
+                        b.getName().fullName).orElse(NO_BUYER_TEXT));
         seller.setText("Seller: " + appointment.getSeller().getName().fullName);
     }
 }
