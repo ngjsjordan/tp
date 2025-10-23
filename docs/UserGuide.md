@@ -311,6 +311,27 @@ Examples:
 
 <div style="page-break-after: always;"></div>
 
+### Searching an appointment: `sap`
+
+Finds appointments whose details contain any of the keywords you provide. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
+
+Format `sap KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+Examples:
+* `sap John` returns all appointments with 'John' 
+![](images/searchAppointmentJohnResult.png)
+
+* `sap John Dane` returns all appointments with `John` or `Dane`
+![](images/searchAppointmentJohnDaneResult.png)
+
+<div style="page-break-after: always;"></div>
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book, including both contacts and appointments.
