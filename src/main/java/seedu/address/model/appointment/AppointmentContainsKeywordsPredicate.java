@@ -3,7 +3,6 @@ package seedu.address.model.appointment;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
@@ -27,10 +26,7 @@ public class AppointmentContainsKeywordsPredicate implements Predicate<Appointme
      * Checks if the keyword matches any field of the appointment.
      */
     private boolean matchesAnyField(Appointment appointment, String keyword) {
-        return StringUtil.containsWordIgnoreCase(appointment.getSeller().getName().fullName, keyword)
-                || StringUtil.containsWordIgnoreCase(appointment.getBuyer().getName().fullName, keyword)
-                || StringUtil.containsWordIgnoreCase(appointment.getSeller().getAddress().value, keyword)
-                || StringUtil.containsWordIgnoreCase(appointment.getAppointmentDatetime().toString(), keyword);
+        return appointment.containsKeyword(keyword);
     }
 
     @Override

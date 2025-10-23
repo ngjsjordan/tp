@@ -47,37 +47,17 @@ public class AppointmentContainsKeywordsPredicateTest {
         Appointment testAppointment = new Appointment(
             new AppointmentDatetime("2025-01-01T12:00"), ALICE, BOB);
 
-        // One keyword matching seller name
+        // Single keyword - delegates to Appointment.containsKeyword()
         AppointmentContainsKeywordsPredicate predicate =
             new AppointmentContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(testAppointment));
 
-        // One keyword matching buyer name
-        predicate = new AppointmentContainsKeywordsPredicate(Collections.singletonList("Bob"));
+        // Multiple keywords - should return true if ANY keyword matches
+        predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("Alice", "NonExistent"));
         assertTrue(predicate.test(testAppointment));
 
-        // One keyword matching datetime
-        predicate = new AppointmentContainsKeywordsPredicate(Collections.singletonList("2025-01-01T12:00"));
-        assertTrue(predicate.test(testAppointment));
-
-        // One keyword matching seller address
-        predicate = new AppointmentContainsKeywordsPredicate(Collections.singletonList("Jurong"));
-        assertTrue(predicate.test(testAppointment));
-
-        // Multiple keywords
+        // All keywords match
         predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(testAppointment));
-
-        // Mixed-case keywords
-        predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(testAppointment));
-
-        // Partial keyword matching seller name
-        predicate = new AppointmentContainsKeywordsPredicate(Collections.singletonList("Ali"));
-        assertFalse(predicate.test(testAppointment));
-
-        // Keywords matching different fields
-        predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("Alice", "Jurong", "2025-01-01T12:00"));
         assertTrue(predicate.test(testAppointment));
     }
 
@@ -86,34 +66,17 @@ public class AppointmentContainsKeywordsPredicateTest {
         Appointment testAppointment = new Appointment(
             new AppointmentDatetime("2025-01-01T12:00"), ALICE, BOB);
 
-        // Zero keywords
+        // Empty keyword list - should always return false
         AppointmentContainsKeywordsPredicate predicate =
             new AppointmentContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(testAppointment));
 
-        // Non-matching keyword
-        predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("Carol"));
+        // No matching keywords - delegates to Appointment.containsKeyword()
+        predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("NonExistent"));
         assertFalse(predicate.test(testAppointment));
 
-        // Keywords that don't match any field
+        // Multiple non-matching keywords - should return false if NONE match
         predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("NonExistent", "NotFound"));
-        assertFalse(predicate.test(testAppointment));
-
-        // Keyword that doesn't match datetime
-        predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("2024-12-31"));
-        assertFalse(predicate.test(testAppointment));
-
-        // Keyword that doesn't match address
-        predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("Downtown"));
-        assertFalse(predicate.test(testAppointment));
-    }
-
-    @Test
-    public void test_emptyKeywordList_returnsFalse() {
-        Appointment testAppointment = new Appointment(
-            new AppointmentDatetime("2025-01-01T12:00"), ALICE, BOB);
-        AppointmentContainsKeywordsPredicate predicate =
-            new AppointmentContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(testAppointment));
     }
 
