@@ -313,7 +313,7 @@ Examples:
 
 ### Searching an appointment: `sap`
 
-Finds persons whose details contain any of the keywords you provide. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
+Finds appointments whose details contain any of the keywords you provide. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
 
 Format `sap KEYWORD [MORE_KEYWORDS]`
 
@@ -324,10 +324,10 @@ Format `sap KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns all appointments with 'John' 
+* `sap John` returns all appointments with 'John' 
 ![](images/searchAppointmentJohnResult.png)
 
-* `find John Dane` returns all appointments with `John` or `Dane`
+* `sap John Dane` returns all appointments with `John` or `Dane`
 ![](images/searchAppointmentJohnDaneResult.png)
 
 <div style="page-break-after: always;"></div>
