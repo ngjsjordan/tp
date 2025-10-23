@@ -10,10 +10,10 @@ import seedu.address.commons.util.ToStringBuilder;
  * Tests that a {@code Person}'s details match any of the keywords given.
  * Searches across name, role, address, email, phone, and tags.
  */
-public class NameContainsKeywordsPredicate implements Predicate<Person> {
+public class PersonContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
-    public NameContainsKeywordsPredicate(List<String> keywords) {
+    public PersonContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -34,7 +34,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
                 || StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword)
                 || StringUtil.containsWordIgnoreCase(person.getAddressType().toString(), keyword)
                 || person.getTags().stream()
-                    .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword));
+                        .anyMatch(tag -> StringUtil.containsWordIgnoreCase(tag.tagName, keyword));
     }
 
     @Override
@@ -44,12 +44,12 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NameContainsKeywordsPredicate)) {
+        if (!(other instanceof PersonContainsKeywordsPredicate)) {
             return false;
         }
 
-        NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
-        return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
+        PersonContainsKeywordsPredicate otherPersonContainsKeywordsPredicate = (PersonContainsKeywordsPredicate) other;
+        return keywords.equals(otherPersonContainsKeywordsPredicate.keywords);
     }
 
     @Override
