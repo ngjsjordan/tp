@@ -23,8 +23,8 @@ public class Appointment implements Comparable<Appointment> {
      * Constructs an {@code Appointment} with a buyer.
      *
      * @param appointmentDatetime An AppointmentDatetime object representing the datetime of the appointment.
-     * @param seller A Person object representing the seller.
-     * @param buyer A Person object representing the buyer.
+     * @param seller              A Person object representing the seller.
+     * @param buyer               A Person object representing the buyer.
      */
     public Appointment(AppointmentDatetime appointmentDatetime, Person seller, Person buyer) {
         requireNonNull(appointmentDatetime);
@@ -39,7 +39,7 @@ public class Appointment implements Comparable<Appointment> {
      * Constructs an {@code Appointment} without a buyer.
      *
      * @param appointmentDatetime An AppointmentDatetime object representing the datetime of the appointment.
-     * @param seller A Person object representing the seller.
+     * @param seller              A Person object representing the seller.
      */
     public Appointment(AppointmentDatetime appointmentDatetime, Person seller) {
         requireNonNull(appointmentDatetime);
@@ -67,7 +67,7 @@ public class Appointment implements Comparable<Appointment> {
      */
     public boolean containsKeyword(String keyword) {
         return seller.containsKeyword(keyword)
-                || buyer.containsKeyword(keyword)
+                || (buyer != null && buyer.containsKeyword(keyword))
                 || StringUtil.containsWordIgnoreCase(appointmentDatetime.toString(), keyword);
     }
 
