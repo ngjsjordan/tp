@@ -41,7 +41,8 @@ public class AppointmentCard extends UiPart<Region> {
         appointmentLocation.setText(appointmentEntry.getPerson().getAddress().value);
 
         // Display buyer AND seller information directly from the appointment
-        buyer.setText("Buyer: " + appointmentEntry.getAppointment().getBuyer().map(b -> b.getName().fullName).orElse(""));
+        buyer.setText("Buyer: " + appointmentEntry.getAppointment().getBuyer().map(b ->
+                        b.getName().fullName).orElse(""));
         seller.setText("Seller: " + appointmentEntry.getAppointment().getSeller().getName().fullName);
     }
 }

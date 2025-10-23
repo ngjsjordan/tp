@@ -64,8 +64,8 @@ public class DeleteAppointmentCommand extends Command {
         Appointment actualAppointment = model.getAddressBook().getAppointmentList().stream()
                 .filter(apt -> apt.appointmentDatetime.equals(appointmentDatetime))
                 .filter(apt ->
-                        apt.getSeller().equals(referencedPerson) ||
-                        apt.getBuyer().equals(Optional.of(referencedPerson)))
+                        apt.getSeller().equals(referencedPerson)
+                                || apt.getBuyer().equals(Optional.of(referencedPerson)))
                 .findFirst()
                 .orElse(null);
 
