@@ -154,6 +154,14 @@ Shows a list of all clients in the client square app.
 
 Format: `list`
 
+Example:
+* `list`
+<div style="text-align:center;">
+  <img src="images/listAllClients.png" alt="result for 'list'" width="95%">
+</div>
+
+<div style="page-break-after: always;"></div>
+
 ### Listing all appointments : `lap`
 
 Shows a list of all appointments in the client square app, sorted by date and time 
