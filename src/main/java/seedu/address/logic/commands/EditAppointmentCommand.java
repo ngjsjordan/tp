@@ -93,50 +93,104 @@ public class EditAppointmentCommand extends Command {
         AppointmentDatetime updatedDatetime = editAppointmentDescriptor.getAppointmentDatetime()
                 .orElse(appointmentToEdit.getAppointmentDatetime());
 
-        Person updatedSeller;
-        if (editAppointmentDescriptor.getSellerIndex().isPresent()) {
-            Index sellerIndex = editAppointmentDescriptor.getSellerIndex().get();
-            List<Person> personList = model.getFilteredPersonList();
+        Person updatedSeller = getUpdatedSeller(appointmentToEdit, editAppointmentDescriptor, model);
+        Person updatedBuyer = getUpdatedBuyer(appointmentToEdit, editAppointmentDescriptor, model);
 
-            if (sellerIndex.getZeroBased() >= personList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
+        validateSellerAndBuyerAreDifferent(updatedSeller, updatedBuyer);
 
-            updatedSeller = personList.get(sellerIndex.getZeroBased());
+        return createAppointment(updatedDatetime, updatedSeller, updatedBuyer);
+    }
 
-            if (!updatedSeller.getRole().isSeller()) {
-                throw new CommandException(MESSAGE_INVALID_SELLER_ROLE);
-            }
-        } else {
-            updatedSeller = appointmentToEdit.getSeller();
+    /**
+     * Returns the updated seller for the appointment.
+     * If a new seller index is provided, retrieves and validates the seller from the model.
+     * Otherwise, returns the original seller from the appointment.
+     */
+    private static Person getUpdatedSeller(Appointment appointmentToEdit,
+            EditAppointmentDescriptor editAppointmentDescriptor, Model model) throws CommandException {
+        if (!editAppointmentDescriptor.getSellerIndex().isPresent()) {
+            return appointmentToEdit.getSeller();
         }
 
-        Person updatedBuyer;
-        if (editAppointmentDescriptor.getBuyerIndex().isPresent()) {
-            Index buyerIndex = editAppointmentDescriptor.getBuyerIndex().get();
-            List<Person> personList = model.getFilteredPersonList();
+        Index sellerIndex = editAppointmentDescriptor.getSellerIndex().get();
+        Person seller = getPersonFromIndex(sellerIndex, model);
+        validateSellerRole(seller);
+        return seller;
+    }
 
-            if (buyerIndex.getZeroBased() >= personList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
-
-            updatedBuyer = personList.get(buyerIndex.getZeroBased());
-
-            if (!updatedBuyer.getRole().isBuyer()) {
-                throw new CommandException(MESSAGE_INVALID_BUYER_ROLE);
-            }
-        } else {
-            updatedBuyer = appointmentToEdit.getBuyer().orElse(null);
+    /**
+     * Returns the updated buyer for the appointment.
+     * If a new buyer index is provided, retrieves and validates the buyer from the model.
+     * Otherwise, returns the original buyer from the appointment (which may be null).
+     */
+    private static Person getUpdatedBuyer(Appointment appointmentToEdit,
+            EditAppointmentDescriptor editAppointmentDescriptor, Model model) throws CommandException {
+        if (!editAppointmentDescriptor.getBuyerIndex().isPresent()) {
+            return appointmentToEdit.getBuyer().orElse(null);
         }
 
-        if (updatedBuyer != null && updatedSeller.equals(updatedBuyer)) {
+        Index buyerIndex = editAppointmentDescriptor.getBuyerIndex().get();
+        Person buyer = getPersonFromIndex(buyerIndex, model);
+        validateBuyerRole(buyer);
+        return buyer;
+    }
+
+    /**
+     * Retrieves a person from the model at the specified index.
+     *
+     * @throws CommandException if the index is invalid
+     */
+    private static Person getPersonFromIndex(Index index, Model model) throws CommandException {
+        List<Person> personList = model.getFilteredPersonList();
+
+        if (index.getZeroBased() >= personList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        return personList.get(index.getZeroBased());
+    }
+
+    /**
+     * Validates that the person has a seller role.
+     *
+     * @throws CommandException if the person does not have a seller role
+     */
+    private static void validateSellerRole(Person seller) throws CommandException {
+        if (!seller.getRole().isSeller()) {
+            throw new CommandException(MESSAGE_INVALID_SELLER_ROLE);
+        }
+    }
+
+    /**
+     * Validates that the person has a buyer role.
+     *
+     * @throws CommandException if the person does not have a buyer role
+     */
+    private static void validateBuyerRole(Person buyer) throws CommandException {
+        if (!buyer.getRole().isBuyer()) {
+            throw new CommandException(MESSAGE_INVALID_BUYER_ROLE);
+        }
+    }
+
+    /**
+     * Validates that the seller and buyer are different persons.
+     *
+     * @throws CommandException if the seller and buyer are the same person
+     */
+    private static void validateSellerAndBuyerAreDifferent(Person seller, Person buyer) throws CommandException {
+        if (seller.equals(buyer)) {
             throw new CommandException(MESSAGE_SAME_PERSON);
         }
+    }
 
-        if (updatedBuyer != null) {
-            return new Appointment(updatedDatetime, updatedSeller, updatedBuyer);
+    /**
+     * Creates an Appointment with the given datetime, seller, and optional buyer.
+     */
+    private static Appointment createAppointment(AppointmentDatetime datetime, Person seller, Person buyer) {
+        if (buyer != null) {
+            return new Appointment(datetime, seller, buyer);
         } else {
-            return new Appointment(updatedDatetime, updatedSeller);
+            return new Appointment(datetime, seller);
         }
     }
 
