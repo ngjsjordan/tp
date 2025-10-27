@@ -63,8 +63,7 @@ public class EditAppointmentCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // TODO: Change to getFilteredAppointmentList() when filtered appointment infrastructure is added
-        List<Appointment> lastShownList = model.getAppointmentList();
+        List<Appointment> lastShownList = model.getFilteredAppointmentList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
