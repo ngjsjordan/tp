@@ -5,11 +5,14 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.SearchAppointmentCommand;
 import seedu.address.model.appointment.AppointmentContainsKeywordsPredicate;
+import seedu.address.model.appointment.TimeFrame;
 
 /**
  * Contains unit tests for SearchAppointmentCommandParser.
@@ -28,7 +31,8 @@ public class SearchAppointmentCommandParserTest {
     public void parse_validArgs_returnsSearchAppointmentCommand() {
         // no leading and trailing whitespaces
         SearchAppointmentCommand expectedSearchAppointmentCommand =
-                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
+                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
+                        Arrays.asList("Alice", "Bob"), Optional.empty()));
         assertParseSuccess(parser, "Alice Bob", expectedSearchAppointmentCommand);
 
         // multiple whitespaces between keywords
@@ -38,7 +42,8 @@ public class SearchAppointmentCommandParserTest {
     @Test
     public void parse_singleKeyword_returnsSearchAppointmentCommand() {
         SearchAppointmentCommand expectedSearchAppointmentCommand =
-                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(Arrays.asList("Fiona")));
+                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
+                        Arrays.asList("Fiona"), Optional.empty()));
         assertParseSuccess(parser, "Fiona", expectedSearchAppointmentCommand);
     }
 
@@ -46,7 +51,7 @@ public class SearchAppointmentCommandParserTest {
     public void parse_multipleKeywords_returnsSearchAppointmentCommand() {
         SearchAppointmentCommand expectedSearchAppointmentCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("Alice", "Bob", "Charlie")));
+                        Arrays.asList("Alice", "Bob", "Charlie"), Optional.empty()));
         assertParseSuccess(parser, "Alice Bob Charlie", expectedSearchAppointmentCommand);
     }
 
@@ -54,7 +59,7 @@ public class SearchAppointmentCommandParserTest {
     public void parse_dateTimeKeyword_returnsSearchAppointmentCommand() {
         SearchAppointmentCommand expectedSearchAppointmentCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("2025-01-01T12:00")));
+                        Arrays.asList("2025-01-01T12:00"), Optional.empty()));
         assertParseSuccess(parser, "2025-01-01T12:00", expectedSearchAppointmentCommand);
     }
 
@@ -62,7 +67,7 @@ public class SearchAppointmentCommandParserTest {
     public void parse_mixedKeywords_returnsSearchAppointmentCommand() {
         SearchAppointmentCommand expectedSearchAppointmentCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("Alice", "2025-01-01", "tokyo")));
+                        Arrays.asList("Alice", "2025-01-01", "tokyo"), Optional.empty()));
         assertParseSuccess(parser, "Alice 2025-01-01 tokyo", expectedSearchAppointmentCommand);
     }
 
@@ -70,7 +75,76 @@ public class SearchAppointmentCommandParserTest {
     public void parse_specialCharacters_returnsSearchAppointmentCommand() {
         SearchAppointmentCommand expectedSearchAppointmentCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("Block", "123,", "Street")));
+                        Arrays.asList("Block", "123,", "Street"), Optional.empty()));
         assertParseSuccess(parser, "Block 123, Street", expectedSearchAppointmentCommand);
+    }
+
+    @Test
+    public void parse_onlyTimeFrame_returnsSearchAppointmentCommand() {
+        // only past appointments
+        SearchAppointmentCommand expectedPastCommand =
+                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
+                        Collections.emptyList(), Optional.of(TimeFrame.PAST)));
+        assertParseSuccess(parser, " time/past", expectedPastCommand);
+
+        // only today appointments
+        SearchAppointmentCommand expectedTodayCommand =
+                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
+                        Collections.emptyList(), Optional.of(TimeFrame.TODAY)));
+        assertParseSuccess(parser, " time/today", expectedTodayCommand);
+
+        // only upcoming appointments
+        SearchAppointmentCommand expectedUpcomingCommand =
+                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
+                        Collections.emptyList(), Optional.of(TimeFrame.UPCOMING)));
+        assertParseSuccess(parser, " time/upcoming", expectedUpcomingCommand);
+    }
+
+    @Test
+    public void parse_keywordsWithTimeFrame_returnsSearchAppointmentCommand() {
+        // keywords before time/
+        SearchAppointmentCommand expectedCommand1 =
+                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
+                        Arrays.asList("Alice", "Bob"), Optional.of(TimeFrame.TODAY)));
+        assertParseSuccess(parser, "Alice Bob time/today", expectedCommand1);
+
+        // keywords after time/
+        SearchAppointmentCommand expectedCommand2 =
+                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
+                        Arrays.asList("Alice", "Bob"), Optional.of(TimeFrame.UPCOMING)));
+        assertParseSuccess(parser, " time/upcoming Alice Bob", expectedCommand2);
+
+        // keywords before and after time/
+        SearchAppointmentCommand expectedCommand3 =
+                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
+                        Arrays.asList("Alice", "Bob"), Optional.of(TimeFrame.PAST)));
+        assertParseSuccess(parser, "Alice time/past Bob", expectedCommand3);
+    }
+
+    @Test
+    public void parse_invalidTimeFrame_throwsParseException() {
+        assertParseFailure(parser, " time/invalid", TimeFrame.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " time/tomorrow", TimeFrame.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_caseInsensitiveTimeFrame_returnsSearchAppointmentCommand() {
+        // lowercase
+        SearchAppointmentCommand expectedCommand1 =
+                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
+                        Collections.emptyList(), Optional.of(TimeFrame.PAST)));
+        assertParseSuccess(parser, " time/past", expectedCommand1);
+
+        // uppercase
+        SearchAppointmentCommand expectedCommand2 =
+                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
+                        Collections.emptyList(), Optional.of(TimeFrame.TODAY)));
+        assertParseSuccess(parser, " time/TODAY", expectedCommand2);
+
+        // mixed case
+        SearchAppointmentCommand expectedCommand3 =
+                new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
+                        Collections.emptyList(), Optional.of(TimeFrame.UPCOMING)));
+        assertParseSuccess(parser, " time/UpCoMiNg", expectedCommand3);
     }
 }

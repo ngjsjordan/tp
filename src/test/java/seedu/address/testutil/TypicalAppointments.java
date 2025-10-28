@@ -25,11 +25,11 @@ public class TypicalAppointments {
     public static final String MOCK_TODAY_DATE = "2025-10-29";
 
     // Appointments - Past (before mock today: 2025-10-29)
-    public static final Appointment FIONA_ELLE_1 = new Appointment(
+    public static final Appointment FIONA_ELLE_PAST = new Appointment(
             new AppointmentDatetime("2025-01-01T12:00"), FIONA, ELLE);
-    public static final Appointment FIONA_DANIEL = new Appointment(
+    public static final Appointment FIONA_DANIEL_PAST = new Appointment(
             new AppointmentDatetime("2025-01-02T12:00"), FIONA, DANIEL);
-    public static final Appointment FIONA_NOBUYER = new Appointment(
+    public static final Appointment FIONA_NOBUYER_PAST = new Appointment(
             new AppointmentDatetime("2025-01-03T12:00"), FIONA);
     public static final Appointment CARL_ALICE_PAST = new Appointment(
             new AppointmentDatetime("2025-10-15T10:00"), CARL, ALICE);
@@ -53,7 +53,7 @@ public class TypicalAppointments {
      */
     public static List<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(
-                FIONA_ELLE_1, FIONA_DANIEL, FIONA_NOBUYER, CARL_ALICE_PAST,
+                FIONA_ELLE_PAST, FIONA_DANIEL_PAST, FIONA_NOBUYER_PAST, CARL_ALICE_PAST,
                 FIONA_BENSON_TODAY, CARL_ELLE_UPCOMING, GEORGE_ALICE_UPCOMING));
     }
 }

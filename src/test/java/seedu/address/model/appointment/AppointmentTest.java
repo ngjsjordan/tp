@@ -3,10 +3,10 @@ package seedu.address.model.appointment;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalAppointments.FIONA_ELLE_PAST;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.FIONA_ELLE_1;
 
 import org.junit.jupiter.api.Test;
 
@@ -66,8 +66,7 @@ public class AppointmentTest {
 
     @Test
     public void containsKeyword() {
-        // Use existing appointment from TypicalPersons
-        Appointment appointment = FIONA_ELLE_1; // FIONA (seller) and ELLE (buyer) at 2025-01-01T12:00
+        Appointment appointment = FIONA_ELLE_PAST; // FIONA (seller) and ELLE (buyer) at 2025-01-01T12:00
 
         // Seller name matching (Fiona Kunz)
         assertTrue(appointment.containsKeyword("Fiona"));
