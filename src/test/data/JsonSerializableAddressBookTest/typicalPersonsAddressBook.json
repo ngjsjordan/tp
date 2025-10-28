@@ -63,15 +63,26 @@
     "appointmentDateTime" : "2025-01-01T12:00"
   }, {
     "seller" : "9482427",
-    "buyer" : "9482224",
-    "appointmentDateTime" : "2025-01-02T14:00"
-  }, {
-    "seller" : "9482427",
     "buyer" : "87652533",
     "appointmentDateTime" : "2025-01-02T12:00"
   }, {
-    "seller" : "9482442",
+    "seller" : "9482427",
+    "appointmentDateTime" : "2025-01-03T12:00"
+  }, {
+    "seller" : "95352563",
+    "buyer" : "94351253",
+    "appointmentDateTime" : "2025-10-15T10:00"
+  }, {
+    "seller" : "9482427",
     "buyer" : "98765432",
-    "appointmentDateTime" : "2025-01-01T18:00"
+    "appointmentDateTime" : "2025-10-29T15:30"
+  }, {
+    "seller" : "95352563",
+    "buyer" : "9482224",
+    "appointmentDateTime" : "2025-11-01T14:00"
+  }, {
+    "seller" : "9482442",
+    "buyer" : "94351253",
+    "appointmentDateTime" : "2025-12-15T11:00"
   } ]
 }

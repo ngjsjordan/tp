@@ -14,6 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalAppointments.getTypicalAppointments;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +22,6 @@ import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Person;
 
 /**
@@ -69,18 +69,6 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withRole(VALID_ROLE_BOB).withAddress(VALID_ADDRESS_BOB, VALID_PROPERTY_TYPE_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
-    // Appointments
-    public static final Appointment FIONA_ELLE_1 = new Appointment(
-            new AppointmentDatetime("2025-01-01T12:00"), FIONA, ELLE);
-    public static final Appointment FIONA_ELLE_2 = new Appointment(
-            new AppointmentDatetime("2025-01-02T14:00"), FIONA, ELLE);
-    public static final Appointment FIONA_DANIEL = new Appointment(
-            new AppointmentDatetime("2025-01-02T12:00"), FIONA, DANIEL);
-    public static final Appointment GEORGE_BENSON = new Appointment(
-            new AppointmentDatetime("2025-01-01T18:00"), GEORGE, BENSON);
-    public static final Appointment FIONA_NOBUYER = new Appointment(
-            new AppointmentDatetime("2025-01-03T12:00"), FIONA);
-
     private TypicalPersons() {} // prevents instantiation
 
     /**
@@ -99,9 +87,5 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-    }
-
-    public static List<Appointment> getTypicalAppointments() {
-        return new ArrayList<>(Arrays.asList(FIONA_ELLE_1, FIONA_ELLE_2, FIONA_DANIEL, GEORGE_BENSON));
     }
 }
