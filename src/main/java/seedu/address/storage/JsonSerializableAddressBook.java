@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -23,6 +25,20 @@ class JsonSerializableAddressBook {
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedAppointment> appointments = new ArrayList<>();
+
+    /**
+     * Constructs a {@code JsonSerializableAddressBook} with the given persons and appointments;
+     */
+    @JsonCreator
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                       @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
+        if (persons != null) {
+            this.persons.addAll(persons);
+        }
+        if (appointments != null) {
+            this.appointments.addAll(appointments);
+        }
+    }
 
     /**
      * Converts a given {@code ReadOnlyAddressBook} into this class for Json use.
