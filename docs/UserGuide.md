@@ -48,7 +48,9 @@ Set up ClientSquare and start managing your clients within minutes!
    Open your command terminal and go to the folder where you saved the file using the `cd` command.  
    Then, **start ClientSquare** by typing: `java -jar clientsquare.jar`. Alternatively, you may double-click the jar file to launch the application. <br>
    Within a few seconds, the app window will appear with some sample client data for you to explore. <br>
-   ![Ui](images/QuickStartUI.png)
+    ![Ui](images/QuickStartUI.png)
+<br>
+
 5. **Try a few basic commands**  
    Type a command in the command box and press **Enter** to see it in action.  
    Here are a few examples:
@@ -96,9 +98,11 @@ Set up ClientSquare and start managing your clients within minutes!
 
 Shows a message explaining how to access the help page.
 
-![help message](images/helpMessage.png)
-
 Format: `help`
+<div style="text-align:center;">
+  <img src="images/helpMessage.png" alt="help message" width="90%">
+</div>
+
 
 <div style="page-break-after: always;"></div>
 
@@ -136,11 +140,11 @@ A person can have any number of tags (including 0)
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com r/buyer a/John street, block 123, #01-01 pt/HDB_4`
-![result for 'add n/John Doe p/98765432 e/johnd@example.com r/buyer a/John street, block 123, #01-01 pt/HDB_4'](images/addJohnDoeResult.png)
-<br>
-<br>
 * `add n/Betsy Crowe p/87654321 e/betsycrowe@example.com r/seller a/Clementi Ave 1, Block 442 #19-203 pt/HDB_5`
-![result for 'add n/Betsy Crowe p/87654321 e/betsycrowe@example.com r/seller a/Clementi Ave 1, Block 442 #19-203 pt/HDB_5'](images/addBetsyCroweResult.png)
+
+<div style="text-align:center;">
+  <img src="images/addJohnDoeBetsyCroweResult.png" alt="result for 'add n/Betsy Crowe p/87654321 e/betsycrowe@example.com r/seller a/Clementi Ave 1, Block 442 #19-203 pt/HDB_5'" width="90%">
+</div>
 
 <div style="page-break-after: always;"></div>
 
@@ -152,7 +156,9 @@ Format: `list`
 
 Example:
 * `list`
-  ![result for 'list'](images/listAllClients.png)
+<div style="text-align:center;">
+  <img src="images/listAllClients.png" alt="result for 'list'" width="95%">
+</div>
 
 <div style="page-break-after: always;"></div>
 
@@ -170,8 +176,9 @@ Format: `lap`
 
 Example:
 * `lap` displays all appointments sorted by date and time
-![result for 'lap'](images/lapResult.png)
-
+<div style="text-align:center;">
+  <img src="images/lapResult.png" alt="result for 'lap'" width="90%">
+</div>
 <div style="page-break-after: always;"></div>
 
 ### Editing a person : `edit`
@@ -204,18 +211,15 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] 
 </div>
 
 Examples:
-* Before the following `edit` commands
-![Before the following 'edit' commands](images/editCommandInputs.png)
-<br>
-<br>
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 *  `edit 3 r/seller` Edits the role of the 3rd person to `seller`
-*  `edit 4 a/59 Jalan Besar Road pt/COMMERCIAL_FH` Edits the address and property type of the 4th person to `59 Jalan Besar Road` and `COMMERCIAL_FH` respectively.
-<br>
-<br>
-* After the above `edit` commands
-![After the above 'edit' commands](images/editCommandOutput.png)
+*  `edit 3 a/59 Jalan Besar Road pt/COMMERCIAL_FH` Edits the address and property type of the 3th person to `59 Jalan Besar Road` and `COMMERCIAL_FH` respectively.
+
+<p float="left">
+  <img src="images/editCommandInputs.png" alt="before the edits" width="49%" />
+  <img src="images/editCommandOutput.png" alt="after the edits" width="49%" />
+</p>
 
 <div style="page-break-after: always;"></div>
 
@@ -233,12 +237,20 @@ Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 Examples:
 * `find Alex` returns all persons named 'Alex' (and anyone with 'Alex' in other details)
-![result for 'find Alex'](images/findAlexResult.png)
-* `find Alex John` returns all persons named 'Alex' **or** 'John' (and anyone with 'Alex' or 'John' in other details)
-![result for 'find Alex'](images/findAlexResult.png)
+<div style="text-align:center;">
+  <img src="images/findAlexResult.png" alt="result for 'find Alex'" width="90%">
+</div>
+<br>
+* `find Alex David` returns all persons named 'Alex' **or** 'David' (and anyone with 'Alex' or 'David' in other details)
+<div style="text-align:center;">
+  <img src="images/findAlexDavidResult.png" alt="result for 'find Alex David'" width="90%">
+</div>
+<br>
 * `find buyer` returns all buyers (and anyone with 'buyer' in other details)
-![result for 'find buyer'](images/findBuyerResult.png)
-
+<div style="text-align:center;">
+  <img src="images/findBuyerResult.png" alt="result for 'find buyer'" width="90%">
+</div>
+<br>
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 After using the `find` command, you can use the new index numbers shown on screen for commands that require index as an input, such as [`edit`](#editing-a-person--edit) or [`ap`](#adding-an-appointment--ap).
 </div>
@@ -257,14 +269,21 @@ Format: `delete INDEX`
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book. 
-![result for 'list'](images/listResult.png)
-![result for 'delete 2'](images/delete2Result.png)
-* `find irfan` followed by `delete 1` deletes the 1st person in the results of the `find` command.
-![result for `find irfan`](images/findIrfanResult.png)
-![result for `delete 1`](images/delete1AfterFindIrfanResult.png)
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="images/listResult.png" alt="result for 'list'" width="49%">
+  <img src="images/delete2Result.png" alt="result for 'delete 2'" width="49%">
+</div>
+<br>
 
-Warnings:
-* The `INDEX` is the index number shown in the current or most recently displayed person list. This may be different from the index number in the full person list. If you wish to use the index from the full person list, don't forget to use `list` before using `delete`.
+* `find irfan` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="images/findIrfanResult.png" alt="result for `find irfan`" width="49%">
+  <img src="images/delete1AfterFindIrfanResult.png" alt="result for `delete 1`" width="49%">
+</div>
+<br>
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+The `INDEX` is the index number shown in the current or most recently displayed person list. This may be different from the index number in the full person list. If you wish to use the index from the full person list, don't forget to use `list` before using `delete`.
+</div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use the [`find`](#locating-persons-by-name-find) command to easily locate the contact that you wish to delete.
@@ -285,9 +304,11 @@ Format: `ap SELLER_INDEX d/DATETIME [b/BUYER_INDEX]`
 * The location will be displayed as the seller's address. 
 
 Examples:
-*  `ap 4 d/2025-12-01T12:00 b/1` adds an appointment with seller (index 4: David) and buyer (index 1: Alex) on 1 Dec 2025 at 12pm. `lap` can be used to view appointments after adding.
-![result for `ap 1 d/2025-12-01T12:00 b/4`](images/apResult.png)
-![result for `lap`](images/lapAfterApResult.png)
+*  `ap 4 d/2025-12-01T12:00 b/1` adds an appointment with seller (index 4: Roy) and buyer (index 1: Alex) on 1 Dec 2025 at 12pm. `lap` can be used to view appointments after adding.
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="images/apResult.png" alt="result for `ap 1 d/2025-12-01T12:00 b/4`" width="49%">
+  <img src="images/lapAfterApResult.png" alt="result for `lap`" width="49%">
+</div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use the [`find`](#locating-persons-by-name-find) command with multiple keywords (such as `find Alex David`) to easily index the contacts you wish to create an appointment for.
@@ -311,14 +332,36 @@ Examples:
 
 <div style="page-break-after: always;"></div>
 
+### Searching an appointment: `sap`
+
+Finds appointments whose details contain any of the keywords you provide. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
+
+Format `sap KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+Examples:
+* `sap John` returns all appointments with 'John' 
+![](images/searchAppointmentJohnResult.png)
+
+* `sap Alex John` returns all appointments with `Alex` or `John`
+![](images/searchAppointmentAlexJohnResult.png)
+
+<div style="page-break-after: always;"></div>
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the address book, including both contacts and appointments.
 
 Format: `clear`
 
-Warnings:
-* This action is irreversible. Please be certain before executing this command.
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+This action is irreversible. Please be certain before executing this command.
+</div>
 
 <div style="page-break-after: always;"></div>
 
@@ -335,9 +378,11 @@ Format: `toggle`
 Examples:
 * `toggle` switches from light to dark mode (or vice versa)
 
-![result for 'toggle' in light mode](images/ToggleResultLight.png)
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="images/ToggleResultLight.png" alt="Light mode" width="49%">
+  <img src="images/ToggleResultDark.png" alt="Dark mode" width="49%">
+</div>
 <br>
-![result for 'toggle' in dark mode](images/ToggleResultDark.png)
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 * Switch to **dark mode** when working in low-light environments to reduce eye strain
