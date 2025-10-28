@@ -42,7 +42,6 @@ public class EditAppointmentCommand extends Command {
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book.";
     public static final String MESSAGE_INVALID_SELLER_ROLE = "The person assigned as seller must have a seller role.";
     public static final String MESSAGE_INVALID_BUYER_ROLE = "The person assigned as buyer must have a buyer role.";
-    public static final String MESSAGE_SAME_PERSON = "The same person cannot be both buyer and seller.";
 
     private final Index index;
     private final EditAppointmentDescriptor editAppointmentDescriptor;
@@ -95,7 +94,7 @@ public class EditAppointmentCommand extends Command {
         Person updatedSeller = getUpdatedSeller(appointmentToEdit, editAppointmentDescriptor, model);
         Person updatedBuyer = getUpdatedBuyer(appointmentToEdit, editAppointmentDescriptor, model);
 
-        validateSellerAndBuyerAreDifferent(updatedSeller, updatedBuyer);
+        assert !updatedSeller.equals(updatedBuyer) : "Seller and buyer should be different persons";
 
         return createAppointment(updatedDatetime, updatedSeller, updatedBuyer);
     }
@@ -155,7 +154,7 @@ public class EditAppointmentCommand extends Command {
      * @throws CommandException if the person does not have a seller role
      */
     private static void validateSellerRole(Person seller) throws CommandException {
-        if (!seller.getRole().isSeller()) {
+        if (!seller.isSeller()) {
             throw new CommandException(MESSAGE_INVALID_SELLER_ROLE);
         }
     }
@@ -166,19 +165,8 @@ public class EditAppointmentCommand extends Command {
      * @throws CommandException if the person does not have a buyer role
      */
     private static void validateBuyerRole(Person buyer) throws CommandException {
-        if (!buyer.getRole().isBuyer()) {
+        if (!buyer.isBuyer()) {
             throw new CommandException(MESSAGE_INVALID_BUYER_ROLE);
-        }
-    }
-
-    /**
-     * Validates that the seller and buyer are different persons.
-     *
-     * @throws CommandException if the seller and buyer are the same person
-     */
-    private static void validateSellerAndBuyerAreDifferent(Person seller, Person buyer) throws CommandException {
-        if (seller.equals(buyer)) {
-            throw new CommandException(MESSAGE_SAME_PERSON);
         }
     }
 

@@ -58,6 +58,20 @@ public class Person {
         return role;
     }
 
+    /**
+     * Returns true if this person has a seller role.
+     */
+    public boolean isSeller() {
+        return role.isSeller();
+    }
+
+    /**
+     * Returns true if this person has a buyer role.
+     */
+    public boolean isBuyer() {
+        return role.isBuyer();
+    }
+
     public Address getAddress() {
         return address;
     }
