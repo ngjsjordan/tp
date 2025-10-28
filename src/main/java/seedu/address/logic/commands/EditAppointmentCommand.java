@@ -98,7 +98,11 @@ public class EditAppointmentCommand extends Command {
 
         assert !updatedSeller.equals(updatedBuyer) : "Seller and buyer should be different persons";
 
-        return createAppointment(updatedDatetime, updatedSeller, updatedBuyer);
+        if (updatedBuyer != null) {
+            return new Appointment(updatedDatetime, updatedSeller, updatedBuyer);
+        } else {
+            return new Appointment(updatedDatetime, updatedSeller);
+        }
     }
 
     /**
@@ -169,17 +173,6 @@ public class EditAppointmentCommand extends Command {
     private static void validateBuyerRole(Person buyer) throws CommandException {
         if (!buyer.isBuyer()) {
             throw new CommandException(MESSAGE_INVALID_BUYER_ROLE);
-        }
-    }
-
-    /**
-     * Creates an Appointment with the given datetime, seller, and optional buyer.
-     */
-    private static Appointment createAppointment(AppointmentDatetime datetime, Person seller, Person buyer) {
-        if (buyer != null) {
-            return new Appointment(datetime, seller, buyer);
-        } else {
-            return new Appointment(datetime, seller);
         }
     }
 
