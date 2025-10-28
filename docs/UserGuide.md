@@ -46,7 +46,7 @@ Set up ClientSquare and start managing your clients within minutes!
 
 4. **Open and run the app**  
    Open your command terminal and go to the folder where you saved the file using the `cd` command.  
-   Then, **start ClientSquare** by typing: `java -jar clientsquare.jar`. Alternatively, you may double-click the jar file to launch the application. <br>
+   Then, **start ClientSquare** by typing: `java -jar ClientSquare.jar`. Alternatively, you may double-click the jar file to launch the application. <br>
    Within a few seconds, the app window will appear with some sample client data for you to explore. <br>
     ![Ui](images/QuickStartUI.png)
 <br>
