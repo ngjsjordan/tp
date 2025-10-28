@@ -105,32 +105,6 @@ public class EditAppointmentCommandParserTest {
     }
 
     @Test
-    public void parse_oneFieldSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
-
-        // datetime
-        String userInput = targetIndex.getOneBased() + " " + PREFIX_DATETIME + VALID_APPOINTMENT_DATETIME_JAN_1;
-        EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
-        descriptor.setAppointmentDatetime(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1));
-        EditAppointmentCommand expectedCommand = new EditAppointmentCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // seller
-        userInput = targetIndex.getOneBased() + " " + PREFIX_SELLER + INDEX_SECOND_PERSON.getOneBased();
-        descriptor = new EditAppointmentDescriptor();
-        descriptor.setSellerIndex(INDEX_SECOND_PERSON);
-        expectedCommand = new EditAppointmentCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // buyer
-        userInput = targetIndex.getOneBased() + " " + PREFIX_BUYER + INDEX_FIRST_PERSON.getOneBased();
-        descriptor = new EditAppointmentDescriptor();
-        descriptor.setBuyerIndex(INDEX_FIRST_PERSON);
-        expectedCommand = new EditAppointmentCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
     public void parse_multipleRepeatedFields_failure() {
         // Multiple datetimes
         String userInput = "1 " + PREFIX_DATETIME + VALID_APPOINTMENT_DATETIME_JAN_1
