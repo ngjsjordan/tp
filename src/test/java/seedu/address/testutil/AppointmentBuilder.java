@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Role;
 
 /**
  * A utility class to help with building Appointment objects.
@@ -19,8 +20,8 @@ public class AppointmentBuilder {
      */
     public AppointmentBuilder() {
         appointmentDatetime = new AppointmentDatetime(DEFAULT_APPOINTMENT_DATETIME);
-        seller = new PersonBuilder().withName("Default Seller").withRole("seller").build();
-        buyer = new PersonBuilder().withName("Default Buyer").withRole("buyer").build();
+        seller = new PersonBuilder().withName("Default Seller").withRole(Role.SELLER).build();
+        buyer = new PersonBuilder().withName("Default Buyer").withRole(Role.BUYER).build();
     }
 
     /**
@@ -30,7 +31,7 @@ public class AppointmentBuilder {
         appointmentDatetime = appointmentToCopy.getAppointmentDatetime();
         seller = appointmentToCopy.getSeller();
         buyer = appointmentToCopy.getBuyer().orElse(
-                new PersonBuilder().withName("Default Buyer").withRole("buyer").build());
+                new PersonBuilder().withName("Default Buyer").withRole(Role.BUYER).build());
     }
 
     /**
@@ -53,7 +54,7 @@ public class AppointmentBuilder {
      * Sets the seller {@code Person} of the {@code Appointment} that we are building using a name.
      */
     public AppointmentBuilder withSellerName(String sellerName) {
-        this.seller = new PersonBuilder().withName(sellerName).withRole("seller").build();
+        this.seller = new PersonBuilder().withName(sellerName).withRole(Role.SELLER).build();
         return this;
     }
 
@@ -69,7 +70,7 @@ public class AppointmentBuilder {
      * Sets the buyer {@code Person} of the {@code Appointment} that we are building using a name.
      */
     public AppointmentBuilder withBuyerName(String buyerName) {
-        this.buyer = new PersonBuilder().withName(buyerName).withRole("buyer").build();
+        this.buyer = new PersonBuilder().withName(buyerName).withRole(Role.BUYER).build();
         return this;
     }
 
