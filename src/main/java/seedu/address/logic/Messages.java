@@ -64,10 +64,9 @@ public class Messages {
                 .append("; Seller: ")
                 .append(appointment.getSeller().getName());
 
-        if (appointment.getBuyer().isPresent()) {
-            builder.append("; Buyer: ")
-                    .append(appointment.getBuyer().get().getName());
-        }
+        appointment.getBuyer().ifPresent(buyer ->
+                builder.append("; Buyer: ").append(buyer.getName())
+        );
 
         return builder.toString();
     }
