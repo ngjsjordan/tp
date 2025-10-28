@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DAT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DATETIME_JAN_1;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SIXTH_PERSON;
@@ -52,6 +53,8 @@ public class EditAppointmentCommandTest {
     public void execute_allFieldsSpecified_success() {
         Person newSeller = model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased());
         Person newBuyer = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        Appointment appointmentToEdit = model.getFilteredAppointmentList()
+                .get(INDEX_FIRST_APPOINTMENT.getZeroBased());
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
         descriptor.setAppointmentDatetime(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_DEC_31));
@@ -67,14 +70,17 @@ public class EditAppointmentCommandTest {
                 Messages.format(editedAppointment));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.setAppointment(model.getAppointmentList().get(0), editedAppointment);
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        expectedModel.setAppointment(appointmentToEdit, editedAppointment);
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
         assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_onlyDatetimeSpecified_success() {
-        Appointment appointmentToEdit = model.getAppointmentList().get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        Appointment appointmentToEdit = model.getFilteredAppointmentList()
+                .get(INDEX_FIRST_APPOINTMENT.getZeroBased());
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
         descriptor.setAppointmentDatetime(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_DEC_31));
@@ -90,14 +96,17 @@ public class EditAppointmentCommandTest {
                 Messages.format(editedAppointment));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         expectedModel.setAppointment(appointmentToEdit, editedAppointment);
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
         assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_onlySellerSpecified_success() {
-        Appointment appointmentToEdit = model.getAppointmentList().get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        Appointment appointmentToEdit = model.getFilteredAppointmentList()
+                .get(INDEX_FIRST_APPOINTMENT.getZeroBased());
         Person newSeller = model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased());
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
@@ -114,14 +123,17 @@ public class EditAppointmentCommandTest {
                 Messages.format(editedAppointment));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         expectedModel.setAppointment(appointmentToEdit, editedAppointment);
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
         assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_onlyBuyerSpecified_success() {
-        Appointment appointmentToEdit = model.getAppointmentList().get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        Appointment appointmentToEdit = model.getFilteredAppointmentList()
+                .get(INDEX_FIRST_APPOINTMENT.getZeroBased());
         Person newBuyer = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
@@ -138,14 +150,16 @@ public class EditAppointmentCommandTest {
                 Messages.format(editedAppointment));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         expectedModel.setAppointment(appointmentToEdit, editedAppointment);
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
         assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidAppointmentIndex_failure() {
-        Index outOfBoundIndex = Index.fromZeroBased(model.getAppointmentList().size());
+        Index outOfBoundIndex = Index.fromZeroBased(model.getFilteredAppointmentList().size());
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
         descriptor.setAppointmentDatetime(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_DEC_31));
 
@@ -202,11 +216,14 @@ public class EditAppointmentCommandTest {
         Appointment appointmentWithoutBuyer = new Appointment(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), sellerWithoutBuyer);
         model.addAppointment(appointmentWithoutBuyer);
+        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
         descriptor.setAppointmentDatetime(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_DEC_31));
 
-        Index indexOfAppointmentWithoutBuyer = Index.fromZeroBased(model.getAppointmentList().size() - 1);
+        int indexOfNewAppointment = model.getFilteredAppointmentList().indexOf(appointmentWithoutBuyer);
+        assertTrue(indexOfNewAppointment >= 0);
+        Index indexOfAppointmentWithoutBuyer = Index.fromZeroBased(indexOfNewAppointment);
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(indexOfAppointmentWithoutBuyer,
                 descriptor);
 
@@ -217,9 +234,9 @@ public class EditAppointmentCommandTest {
                 Messages.format(editedAppointment));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        Appointment targetAppointment = expectedModel.getAppointmentList()
-                .get(indexOfAppointmentWithoutBuyer.getZeroBased());
-        expectedModel.setAppointment(targetAppointment, editedAppointment);
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        expectedModel.setAppointment(appointmentWithoutBuyer, editedAppointment);
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
         assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
     }
