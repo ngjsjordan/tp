@@ -98,6 +98,29 @@ public class PersonTest {
     }
 
     @Test
+    public void isSeller() {
+        Person seller = new PersonBuilder().withRole(Role.SELLER).build();
+        Person buyer = new PersonBuilder().withRole(Role.BUYER).build();
+        // is a seller -> returns true
+        assertTrue(seller.isSeller());
+
+        // is not a seller -> returns false
+        assertFalse(buyer.isSeller());
+    }
+
+    @Test
+    public void isBuyer() {
+        Person seller = new PersonBuilder().withRole(Role.SELLER).build();
+        Person buyer = new PersonBuilder().withRole(Role.BUYER).build();
+
+        // is a buyer -> returns true
+        assertTrue(buyer.isBuyer());
+
+        // is not a buyer -> returns false
+        assertFalse(seller.isBuyer());
+    }
+
+    @Test
     public void toStringMethod() {
         String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail() + ", role=" + ALICE.getRole() + ", address=" + ALICE.getAddress()

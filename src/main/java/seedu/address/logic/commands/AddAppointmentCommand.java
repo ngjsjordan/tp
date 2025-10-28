@@ -27,18 +27,16 @@ public class AddAppointmentCommand extends Command {
             + "by the index number used in the displayed person list.\n"
             + "Parameters: SELLER_INDEX (must be a positive integer) "
             + PREFIX_DATETIME + "DATETIME "
-            + PREFIX_BUYER + "BUYER_INDEX (must be a positive integer) \n"
+            + "[" + PREFIX_BUYER + "BUYER_INDEX] (must be a positive integer) \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_DATETIME + "2025-01-01T12:00 "
             + PREFIX_BUYER + "2";
 
     public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS =
             "Appointment added with seller %1$s.";
-    public static final String MESSAGE_APPOINTMENT_NOT_ADDED = "Time of appointment must be provided.";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "That appointment already exists.";
     public static final String MESSAGE_INVALID_SELLER_ROLE = "The person assigned as seller must have a seller role.";
     public static final String MESSAGE_INVALID_BUYER_ROLE = "The person assigned as buyer must have a buyer role.";
-    public static final String MESSAGE_SAME_PERSON = "The same person cannot be both buyer and seller.";
 
     private final AppointmentDatetime appointmentDatetime;
     private final Index sellerIndex;
@@ -101,16 +99,15 @@ public class AddAppointmentCommand extends Command {
      * @throws CommandException if indices are invalid or if roles are wrong.
      */
     private Appointment getAppointment(List<Person> lastShownList) throws CommandException {
-        if (sellerIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-        if (buyerIndex != null && buyerIndex.getZeroBased() >= lastShownList.size()) {
+        boolean isInvalidSellerIndex = sellerIndex.getZeroBased() >= lastShownList.size();
+        boolean isInvalidBuyerIndex = buyerIndex != null && buyerIndex.getZeroBased() >= lastShownList.size();
+        if (isInvalidSellerIndex || isInvalidBuyerIndex) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person seller = lastShownList.get(sellerIndex.getZeroBased());
 
-        if (!seller.getRole().isSeller()) {
+        if (!seller.isSeller()) {
             throw new CommandException(MESSAGE_INVALID_SELLER_ROLE);
         }
 
@@ -120,14 +117,13 @@ public class AddAppointmentCommand extends Command {
 
         Person buyer = lastShownList.get(buyerIndex.getZeroBased());
 
-        if (!buyer.getRole().isBuyer()) {
+        if (!buyer.isBuyer()) {
             throw new CommandException(MESSAGE_INVALID_BUYER_ROLE);
         }
 
         assert !buyer.isSamePerson(seller);
 
         return new Appointment(appointmentDatetime, seller, buyer);
-
     }
 
     @Override

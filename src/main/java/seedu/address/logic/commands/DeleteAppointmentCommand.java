@@ -32,7 +32,6 @@ public class DeleteAppointmentCommand extends Command {
     public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Appointment %1$s deleted from person: %2$s";
     public static final String MESSAGE_NO_APPOINTMENT_TO_DELETE = "%1$s: No such appointment to delete from %2$s";
 
-
     private final Index personIndex;
     private final AppointmentDatetime appointmentDatetime;
 
