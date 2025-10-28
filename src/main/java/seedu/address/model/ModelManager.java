@@ -174,9 +174,13 @@ public class ModelManager implements Model {
         return addressBook.getAppointmentList();
     }
 
+    /**
+     * Returns an unmodifiable view of the sorted and filtered list of {@code Appointment}.
+     * Appointments are sorted in chronological order by datetime.
+     */
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {
-        return filteredAppointments;
+        return sortedAppointments;
     }
 
     @Override
