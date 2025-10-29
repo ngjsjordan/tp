@@ -58,6 +58,20 @@ public class Person {
         return role;
     }
 
+    /**
+     * Returns true if this person has a seller role.
+     */
+    public boolean isSeller() {
+        return role.isSeller();
+    }
+
+    /**
+     * Returns true if this person has a buyer role.
+     */
+    public boolean isBuyer() {
+        return role.isBuyer();
+    }
+
     public Address getAddress() {
         return address;
     }
@@ -72,20 +86,6 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
-    }
-
-    /**
-     * Returns true if this person is a seller.
-     */
-    public boolean isSeller() {
-        return role.isSeller();
-    }
-
-    /**
-     * Returns true if this person is a buyer.
-     */
-    public boolean isBuyer() {
-        return role.isBuyer();
     }
 
     /**
