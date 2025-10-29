@@ -55,46 +55,53 @@ public class UniqueAppointmentListTest {
     }
 
     @Test
-    public void setAppointment_appointmentInList_success() {
+    public void setAppointment_nullTarget_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                uniqueAppointmentList.setAppointment(null, FIONA_DANIEL));
+    }
+
+    @Test
+    public void setAppointment_nullEditedAppointment_throwsNullPointerException() {
+        uniqueAppointmentList.add(FIONA_DANIEL);
+        assertThrows(NullPointerException.class, () ->
+                uniqueAppointmentList.setAppointment(FIONA_DANIEL, null));
+    }
+
+    @Test
+    public void setAppointment_targetNotFound_throwsAppointmentNotFoundException() {
         uniqueAppointmentList.add(FIONA_ELLE_1);
+        assertThrows(AppointmentNotFoundException.class, () ->
+                uniqueAppointmentList.setAppointment(FIONA_DANIEL, FIONA_ELLE_2));
+    }
+
+    @Test
+    public void setAppointment_duplicateAppointment_throwsDuplicateAppointmentException() {
+        uniqueAppointmentList.add(FIONA_ELLE_1);
+        uniqueAppointmentList.add(GEORGE_BENSON);
+        assertThrows(DuplicateAppointmentException.class, () ->
+                uniqueAppointmentList.setAppointment(FIONA_ELLE_1, GEORGE_BENSON));
+    }
+
+    @Test
+    public void setAppointment_sameAppointment_success() {
+        uniqueAppointmentList.add(FIONA_DANIEL);
+        uniqueAppointmentList.setAppointment(FIONA_DANIEL, FIONA_DANIEL);
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        expectedUniqueAppointmentList.add(FIONA_DANIEL);
+        assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
+    }
+
+    @Test
+    public void setAppointment_replacesAppointment_success() {
+        uniqueAppointmentList.add(FIONA_ELLE_1);
+        uniqueAppointmentList.setAppointment(FIONA_ELLE_1, FIONA_ELLE_2);
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
         expectedUniqueAppointmentList.add(FIONA_ELLE_2);
-        uniqueAppointmentList.setAppointment(FIONA_ELLE_1, FIONA_ELLE_2);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }
 
     @Test
-    public void setAppointment_appointmentNotInList_throwsAppointmentNotFoundException() {
-        assertThrows(AppointmentNotFoundException.class, () ->
-                uniqueAppointmentList.setAppointment(FIONA_ELLE_1, FIONA_ELLE_2));
-    }
-
-    @Test
-    public void setAppointment_duplicateAppointmentInList_throwsDuplicateAppointmentException() {
-        uniqueAppointmentList.add(FIONA_ELLE_1);
-        uniqueAppointmentList.add(FIONA_ELLE_2);
-        assertThrows(DuplicateAppointmentException.class, () ->
-                uniqueAppointmentList.setAppointment(FIONA_ELLE_1, FIONA_ELLE_2));
-    }
-
-    @Test
-    public void setAppointment_noChange_success() {
-        uniqueAppointmentList.add(FIONA_ELLE_1);
-        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
-        expectedUniqueAppointmentList.add(FIONA_ELLE_1);
-        uniqueAppointmentList.setAppointment(FIONA_ELLE_1, FIONA_ELLE_1);
-        assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
-    }
-
-    @Test
-    public void setAppointment_nullAppointment_throwsNullPointerException() {
-        uniqueAppointmentList.add(FIONA_ELLE_1);
-        assertThrows(NullPointerException.class, () -> uniqueAppointmentList.setAppointment(FIONA_ELLE_1, null));
-        assertThrows(NullPointerException.class, () -> uniqueAppointmentList.setAppointment(null, FIONA_ELLE_1));
-    }
-
-    @Test
-    public void setAppointments_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
+    public void set_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
         uniqueAppointmentList.add(FIONA_ELLE_1);
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
         expectedUniqueAppointmentList.add(FIONA_ELLE_2);
