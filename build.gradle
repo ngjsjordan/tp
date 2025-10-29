@@ -66,7 +66,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveFileName = 'clientsquare.jar'
+    archiveFileName = 'ClientSquare.jar'
 }
 
 run {
