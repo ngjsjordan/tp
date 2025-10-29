@@ -26,14 +26,14 @@ public class AppointmentContainsKeywordsPredicate implements Predicate<Appointme
     }
 
     /**
-     * Constructs a predicate with keywords and an optional timeframe filter.
+     * Constructs a predicate with keywords and a timeframe filter.
      *
      * @param keywords The list of keywords to search for.
-     * @param timeFrame The optional timeframe to filter by.
+     * @param timeFrame The timeframe to filter by.
      */
-    public AppointmentContainsKeywordsPredicate(List<String> keywords, Optional<TimeFrame> timeFrame) {
+    public AppointmentContainsKeywordsPredicate(List<String> keywords, TimeFrame timeFrame) {
         this.keywords = keywords;
-        this.timeFrame = timeFrame;
+        this.timeFrame = Optional.of(timeFrame);
     }
 
     @Override

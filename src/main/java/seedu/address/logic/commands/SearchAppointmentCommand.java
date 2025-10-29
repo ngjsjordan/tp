@@ -20,7 +20,7 @@ public class SearchAppointmentCommand extends Command {
             + "Searches across seller name, buyer name, seller address and appointment datetime.\n"
             + "Can optionally filter by timeframe using tf/ prefix.\n"
             + "Parameters: [KEYWORD [MORE_KEYWORDS]...] [tf/TIMEFRAME]\n"
-            + "Timeframe options: past, today, upcoming\n"
+            + "TimeFrame options: past, today, upcoming\n"
             + "Examples:\n"
             + "  " + COMMAND_WORD + " alice (finds all appointments with seller or buyer named alice)\n"
             + "  " + COMMAND_WORD + " 2025-01-01T12:00 (finds all appointments on January 1st, 2025)\n"

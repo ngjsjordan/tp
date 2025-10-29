@@ -1,12 +1,12 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import seedu.address.logic.commands.SearchAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -19,53 +19,74 @@ import seedu.address.model.appointment.TimeFrame;
 public class SearchAppointmentCommandParser implements Parser<SearchAppointmentCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SearchAppointmentCommand
+     * Parses the given {@code String} of arguments in the context of the
+     * SearchAppointmentCommand
      * and returns a SearchAppointmentCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchAppointmentCommand parse(String args) throws ParseException {
+        requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TIME);
 
-        String preamble = argMultimap.getPreamble().trim();
-        Optional<String> timeFrameValue = argMultimap.getValue(PREFIX_TIME);
+        String preamble;
+        TimeFrame timeFrame;
+        List<String> keywords;
 
-        // Parse timeframe and extract any additional keywords from tf/ value
-        Optional<TimeFrame> timeFrame = Optional.empty();
-        List<String> additionalKeywords = Arrays.asList();
+        preamble = argMultimap.getPreamble().trim();
 
-        if (timeFrameValue.isPresent()) {
-            String timeValueStr = timeFrameValue.get().trim();
-            String[] timeValueParts = timeValueStr.split("\\s+", 2); // Split into max 2 parts
-            String timeFrameStr = timeValueParts[0];
+        if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
+            String timeValueStr = argMultimap.getValue(PREFIX_TIME).get().trim();
+            String[] timeValueParts = timeValueStr.split("\\s+");
 
-            if (!TimeFrame.isValidTimeFrame(timeFrameStr)) {
-                throw new ParseException(TimeFrame.MESSAGE_CONSTRAINTS);
-            }
-            timeFrame = Optional.of(TimeFrame.fromString(timeFrameStr));
-
-            // If there are words after the timeframe, treat them as keywords
-            if (timeValueParts.length > 1 && !timeValueParts[1].trim().isEmpty()) {
-                additionalKeywords = Arrays.asList(timeValueParts[1].trim().split("\\s+"));
-            }
+            timeFrame = ParserUtil.parseTimeFrame(timeValueParts[0]);
+            keywords = combineKeywords(preamble, extractAdditionalKeywords(timeValueParts));
+        } else {
+            timeFrame = null;
+            keywords = combineKeywords(preamble, new ArrayList<>());
         }
 
-        // Combine preamble keywords with any additional keywords from tf/ value
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TIME);
+
+        if (keywords.isEmpty() && timeFrame == null) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchAppointmentCommand.MESSAGE_USAGE));
+        }
+
+        if (timeFrame != null) {
+            return new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(keywords, timeFrame));
+        } else {
+            return new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(keywords));
+        }
+    }
+
+    /**
+     * Extracts additional keywords from the timeframe value parts.
+     * If there are words after the timeframe, they are treated as keywords.
+     * 
+     * @param timeValueParts The parts of the timeframe value split by whitespace
+     * @return A list of additional keywords
+     */
+    private List<String> extractAdditionalKeywords(String[] timeValueParts) {
+        if (timeValueParts.length > 1) {
+            return Arrays.asList(Arrays.copyOfRange(timeValueParts, 1, timeValueParts.length));
+        }
+        return new ArrayList<>();
+    }
+
+    /**
+     * Combines preamble keywords with additional keywords from the timeframe value.
+     * 
+     * @param preamble           The preamble string containing keywords
+     * @param additionalKeywords Additional keywords from the timeframe value
+     * @return A list of all combined keywords
+     */
+    private List<String> combineKeywords(String preamble, List<String> additionalKeywords) {
         List<String> allKeywords = new ArrayList<>();
         if (!preamble.isEmpty()) {
             allKeywords.addAll(Arrays.asList(preamble.split("\\s+")));
         }
         allKeywords.addAll(additionalKeywords);
-
-        // Validate that at least keywords or timeframe is provided
-        if (allKeywords.isEmpty() && timeFrame.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchAppointmentCommand.MESSAGE_USAGE));
-        }
-
-        // Verify no duplicate tf/ prefix
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TIME);
-
-        return new SearchAppointmentCommand(
-                new AppointmentContainsKeywordsPredicate(allKeywords, timeFrame));
+        return allKeywords;
     }
 }
