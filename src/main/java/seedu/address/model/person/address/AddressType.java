@@ -26,7 +26,7 @@ public class AddressType {
     public AddressType(String type) {
         requireNonNull(type);
         checkArgument(isValidType(type), MESSAGE_CONSTRAINTS);
-        this.type = PropertyType.valueOf(type);
+        this.type = PropertyType.valueOf(type.toUpperCase()); // Set the type to all uppercase to match enum constant
     }
 
     /**
