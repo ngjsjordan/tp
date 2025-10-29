@@ -1,21 +1,16 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_DESC_JAN_1;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DATETIME_DEC_31;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DATETIME_JAN_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.DeleteAppointmentCommand;
-import seedu.address.model.appointment.AppointmentDatetime;
+import seedu.address.testutil.TypicalIndexes;
 
 public class DeleteAppointmentCommandParserTest {
 
@@ -26,10 +21,10 @@ public class DeleteAppointmentCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        String userInput = INDEX_FIRST_PERSON.getOneBased() + APPOINTMENT_DESC_JAN_1;
+        String userInput = String.valueOf(TypicalIndexes.INDEX_FIRST_PERSON.getOneBased());
 
         DeleteAppointmentCommand expectedCommand = new DeleteAppointmentCommand(
-                INDEX_FIRST_PERSON, new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1));
+                INDEX_FIRST_PERSON);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -43,41 +38,25 @@ public class DeleteAppointmentCommandParserTest {
     @Test
     public void parse_missingField_failure() {
         // no field
-        assertParseFailure(parser, "2", MESSAGE_INVALID_FORMAT);
-    }
-
-    @Test
-    public void parse_missingIndexAndField_failure() {
-        // no index and no field
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_whitespacePreamble_success() throws Exception {
         // allows leading whitespace
-        String userInput = PREAMBLE_WHITESPACE + INDEX_FIRST_PERSON.getOneBased() + " "
-                + PREFIX_DATETIME + VALID_APPOINTMENT_DATETIME_JAN_1;
+        String userInput = PREAMBLE_WHITESPACE + INDEX_FIRST_PERSON.getOneBased();
 
         DeleteAppointmentCommand expectedCommand = new DeleteAppointmentCommand(
-                INDEX_FIRST_PERSON, new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1));
+                INDEX_FIRST_PERSON);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
-    public void parse_missingDatetimePrefix_failure() {
-        String userInput = INDEX_FIRST_PERSON.getOneBased() + " " + VALID_APPOINTMENT_DATETIME_JAN_1;
-        assertParseFailure(parser, userInput,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteAppointmentCommand.MESSAGE_USAGE));
-    }
-
-    @Test
     public void parse_duplicatePrefixes_failure() {
         String userInput = INDEX_FIRST_PERSON.getOneBased() + " "
-                + PREFIX_DATETIME + VALID_APPOINTMENT_DATETIME_JAN_1 + " "
-                + PREFIX_DATETIME + VALID_APPOINTMENT_DATETIME_DEC_31;
+                + INDEX_FIRST_PERSON.getOneBased();
 
-        assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATETIME));
+        assertParseFailure(parser, userInput, MESSAGE_INVALID_FORMAT);
     }
 }

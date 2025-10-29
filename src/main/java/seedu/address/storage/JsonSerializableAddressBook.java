@@ -22,7 +22,6 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointments list contains duplicate appointment(s).";
-    public static final String MESSAGE_INVALID_APPOINTMENT = "Appointments list contains entries with invalid persons.";
 
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
     private final List<JsonAdaptedAppointment> appointments = new ArrayList<>();
@@ -32,7 +31,7 @@ class JsonSerializableAddressBook {
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
-            @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
+                                       @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
         if (persons != null) {
             this.persons.addAll(persons);
         }
