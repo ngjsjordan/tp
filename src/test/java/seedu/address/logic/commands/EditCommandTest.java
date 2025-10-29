@@ -15,6 +15,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SIXTH_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -167,9 +168,6 @@ public class EditCommandTest {
         // The expected result should have updated the appointment to be between the edited and first person
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(INDEX_SIXTH_PERSON.getZeroBased()), editedPerson);
-        expectedModel.deleteAppointment(addedAppointment);
-        expectedModel.addAppointment(new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1),
-                editedPerson, firstPerson));
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -183,7 +181,7 @@ public class EditCommandTest {
         model.addAppointment(addedAppointment);
 
         Person editedPerson = new PersonBuilder(firstPerson).withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = new EditCommand(INDEX_SIXTH_PERSON,
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
@@ -191,9 +189,28 @@ public class EditCommandTest {
         // The expected result should have updated the appointment to be between the sixth and edited person
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
-        expectedModel.deleteAppointment(addedAppointment);
-        expectedModel.addAppointment(new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1),
-                sixthPerson, editedPerson));
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_personNotInvolvedInAppointment_success() {
+        Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Person thirdPerson = model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased());
+        Person sixthPerson = model.getFilteredPersonList().get(INDEX_SIXTH_PERSON.getZeroBased());
+        Appointment addedAppointment = new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1),
+                sixthPerson, firstPerson);
+        model.addAppointment(addedAppointment);
+
+        Person editedPerson = new PersonBuilder(thirdPerson).withName(VALID_NAME_BOB).build();
+        EditCommand editCommand = new EditCommand(INDEX_THIRD_PERSON,
+                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, Messages.format(editedPerson));
+
+        // The expected result should have updated the appointment to be between the sixth and edited person
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased()), editedPerson);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
