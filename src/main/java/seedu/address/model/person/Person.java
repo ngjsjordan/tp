@@ -75,6 +75,20 @@ public class Person {
     }
 
     /**
+     * Returns true if this person is a seller.
+     */
+    public boolean isSeller() {
+        return role.isSeller();
+    }
+
+    /**
+     * Returns true if this person is a buyer.
+     */
+    public boolean isBuyer() {
+        return role.isBuyer();
+    }
+
+    /**
      * Returns true if any field of this person contains the given keyword (case-insensitive).
      * Searches across name, role, address, property type, email, phone, and tags.
      */
@@ -99,6 +113,15 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
+    }
+
+    /**
+     * Returns a String of this person's phone number, to be used as an identifier for Storage.
+     *
+     * @return String of phone number, to be used as storage identifier.
+     */
+    public String getStorageIdentifier() {
+        return phone.value;
     }
 
     /**

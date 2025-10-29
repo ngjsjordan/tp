@@ -1,8 +1,11 @@
 package seedu.address.storage;
 
+import java.util.logging.Logger;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDatetime;
@@ -14,6 +17,7 @@ import seedu.address.model.person.Person;
 class JsonAdaptedAppointment {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appointment's %s field is missing!";
+    private static final Logger logger = LogsCenter.getLogger(JsonAdaptedAppointment.class);
 
     private final String appointmentDateTime;
     private final String seller;
@@ -35,8 +39,8 @@ class JsonAdaptedAppointment {
      */
     public JsonAdaptedAppointment(Appointment source) {
         appointmentDateTime = source.getAppointmentDatetime().toString();
-        seller = source.getSeller().getPhone().value;
-        buyer = source.getBuyer().map(b -> b.getPhone().value).orElse(null);
+        seller = source.getSellerStorageIdentifier();
+        buyer = source.getBuyerStorageIdentifier().orElse(null);
     }
 
     public String getSeller() {
@@ -56,6 +60,9 @@ class JsonAdaptedAppointment {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Appointment toModelType(Person seller, Person buyer) throws IllegalValueException {
+        logger.fine("Converting JsonAdaptedAppointment to Model Appointment with seller: " + seller
+                + " and buyer: " + buyer + " at " + appointmentDateTime);
+
         if (appointmentDateTime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     AppointmentDatetime.class.getSimpleName()));

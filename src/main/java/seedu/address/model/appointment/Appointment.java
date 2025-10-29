@@ -62,6 +62,24 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     /**
+     * Returns the storage identifier of the seller.
+     *
+     * @return String representing the storage identifier of the seller.
+     */
+    public String getSellerStorageIdentifier() {
+        return seller.getStorageIdentifier();
+    }
+
+    /**
+     * Returns the storage identifier of the buyer, if present.
+     *
+     * @return Optional string representing the storage identifier of the buyer.
+     */
+    public Optional<String> getBuyerStorageIdentifier() {
+        return Optional.ofNullable(buyer).map(Person::getStorageIdentifier);
+    }
+
+    /**
      * Returns true if any field of this appointment contains the given keyword (case-insensitive).
      * Searches across seller details, buyer details, and appointment datetime.
      */

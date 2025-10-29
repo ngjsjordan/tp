@@ -1,0 +1,28 @@
+{
+  "persons": [ {
+    "name": "Alice Pauline",
+    "phone": "94351253",
+    "email": "alice@example.com",
+    "role": "buyer",
+    "address": "123, Jurong West Ave 6, #08-111",
+    "addressType" : "HDB_2",
+    "tags": [ "friends" ]
+  }, {
+    "name" : "Carl Kurz",
+    "phone" : "95352563",
+    "email" : "heinz@example.com",
+    "role": "seller",
+    "address" : "wall street",
+    "addressType" : "HDB_3",
+    "tags" : [ ]
+  } ],
+  "appointments" : [ {
+    "seller" : "95352563",
+    "buyer" : "94351253",
+    "appointmentDateTime" : "2025-01-01T12:00"
+  }, {
+    "seller" : "95352563",
+    "buyer" : "94351253",
+    "appointmentDateTime" : "2025-01-01T12:00"
+  } ]
+}
