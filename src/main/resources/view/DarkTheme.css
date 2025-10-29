@@ -128,6 +128,7 @@ cell {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
+    -fx-text-overrun: ellipsis;
 }
 
 .role_label {
@@ -184,6 +185,12 @@ cell {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
+    -fx-text-overrun: ellipsis;
+}
+
+.tag_label {
+    -fx-max-width: 80px;
+    -fx-text-overrun: ellipsis;
 }
 
 .stack-pane {
