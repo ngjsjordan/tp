@@ -101,7 +101,7 @@ public class UniqueAppointmentListTest {
     }
 
     @Test
-    public void set_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
+    public void setAppointments_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
         uniqueAppointmentList.add(FIONA_ELLE_1);
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
         expectedUniqueAppointmentList.add(FIONA_ELLE_2);
