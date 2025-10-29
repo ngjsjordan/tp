@@ -139,11 +139,11 @@
     -fx-translate-x: 10;
 }
 
-.role_buyer {
+.buyer {
     -fx-background-color: derive(#CE4A50, 75%);
 }
 
-.role_seller {
+.seller {
     -fx-background-color: derive(#377375, 75%);
 }
 

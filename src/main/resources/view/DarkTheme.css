@@ -139,11 +139,11 @@ cell {
     -fx-translate-x: 10;
 }
 
-.role_buyer {
+.buyer {
     -fx-background-color: #CE4A50;
 }
 
-.role_seller {
+.seller {
     -fx-background-color: #377375;
 }
 
