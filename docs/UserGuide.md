@@ -318,15 +318,13 @@ Examples:
 
 Deletes an appointment.
 
-Format: `dap INDEX d/DATETIME`
+Format: `dap INDEX`
 
-* Deletes an appointment with the **seller** specified by `INDEX`, and the specified `DATETIME`.
-* The index refers to the index number shown in the displayed person list. This will be a positive whole number, such as 1, 2, 3, ...
-* Datetime should match exactly with the appointment's datetime in an ISO 8601-compliant format (e.g. `yyyy-MM-ddTHH:mm:ss`) and must be provided.
-* If there are multiple appointments with the same seller at the same datetime, they will all be deleted.
+* Deletes the appointment specified by `INDEX`.
+* The index refers to the index number shown in the displayed appointment list. This will be a positive whole number, such as 1, 2, 3, ...
 
 Examples:
-*  `dap 1 d/2025-01-01T12:00` Deletes an appointment to the 1st person on 1 Jan 2025 at 12pm.
+*  `dap 1` Deletes the first appointment shown in the appointment list.
 
 <div style="page-break-after: always;"></div>
 
