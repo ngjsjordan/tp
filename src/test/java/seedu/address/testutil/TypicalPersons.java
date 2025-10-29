@@ -90,6 +90,8 @@ public class TypicalPersons {
             new AppointmentDatetime("2025-01-01T18:00"), GEORGE, BENSON);
     public static final Appointment FIONA_NOBUYER = new Appointment(
             new AppointmentDatetime("2025-01-03T12:00"), FIONA);
+    public static final Appointment FIONA_EDITED_NOBUYER = new Appointment(
+            new AppointmentDatetime("2025-01-03T12:00"), FIONA_EDITED);
 
     private TypicalPersons() {} // prevents instantiation
 

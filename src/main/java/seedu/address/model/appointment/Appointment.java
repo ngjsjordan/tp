@@ -72,10 +72,11 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     /**
-     * Returns true if the given {@code person} is the buyer of this appointment.
+     * Returns true if the given {@code person} is the buyer of this appointment. If person is null, will return false,
+     * even if the appointment has no buyer.
      *
      * @param person Person to compare.
-     * @return true if {@code person} is the buyer, otherwise false.
+     * @return true if {@code person} is the buyer, otherwise false. If person is null, also returns false.
      */
     public boolean isPersonBuyer(Person person) {
         return buyer != null && buyer.equals(person);

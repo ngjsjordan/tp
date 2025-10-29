@@ -1,12 +1,24 @@
 package seedu.address.model.appointment;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPersons.DANIEL_EDITED;
+import static seedu.address.testutil.TypicalPersons.ELLE;
+import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPersons.FIONA_DANIEL;
+import static seedu.address.testutil.TypicalPersons.FIONA_DANIEL_EDITED;
+import static seedu.address.testutil.TypicalPersons.FIONA_EDITED;
+import static seedu.address.testutil.TypicalPersons.FIONA_EDITED_DANIEL;
+import static seedu.address.testutil.TypicalPersons.FIONA_EDITED_NOBUYER;
 import static seedu.address.testutil.TypicalPersons.FIONA_ELLE_1;
+import static seedu.address.testutil.TypicalPersons.FIONA_NOBUYER;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +27,67 @@ public class AppointmentTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Appointment(null, null, null));
+    }
+
+    @Test
+    public void isPersonSeller() {
+        Appointment appointment = FIONA_ELLE_1;
+        assertTrue(appointment.isPersonSeller(FIONA));
+
+        // null is false
+        assertFalse(appointment.isPersonSeller(null));
+
+        // Elle is the buyer, not the seller
+        assertFalse(appointment.isPersonSeller(ELLE));
+
+        // George is not involved in this appointment
+        assertFalse(appointment.isPersonSeller(GEORGE));
+    }
+
+    @Test
+    public void isPersonBuyer() {
+        Appointment appointment = FIONA_ELLE_1;
+        assertTrue(appointment.isPersonBuyer(ELLE));
+
+        // null is false
+        assertFalse(appointment.isPersonBuyer(null));
+
+        // Fiona is the seller, not the buyer
+        assertFalse(appointment.isPersonBuyer(FIONA));
+
+        // George is not involved in this appointment
+        assertFalse(appointment.isPersonBuyer(GEORGE));
+    }
+
+    @Test
+    public void updatedWithEditedPerson_personIsSeller_returnsAppointment() {
+        // Test with buyer
+        Appointment appointment = FIONA_DANIEL;
+        Appointment newAppointment = appointment.updatedWithEditedPerson(FIONA, FIONA_EDITED);
+        assertEquals(FIONA_EDITED_DANIEL, newAppointment);
+        assertEquals(FIONA_DANIEL, appointment);
+
+        // Test without buyer
+        appointment = FIONA_NOBUYER;
+        newAppointment = appointment.updatedWithEditedPerson(FIONA, FIONA_EDITED);
+        assertEquals(FIONA_EDITED_NOBUYER, newAppointment);
+        assertEquals(FIONA_NOBUYER, appointment);
+    }
+
+    @Test
+    public void updatedWithEditedPerson_personIsBuyer_returnsAppointment() {
+        Appointment appointment = FIONA_DANIEL;
+        Appointment newAppointment = appointment.updatedWithEditedPerson(DANIEL, DANIEL_EDITED);
+        assertEquals(FIONA_DANIEL_EDITED, newAppointment);
+        assertEquals(FIONA_DANIEL, appointment);
+    }
+
+    @Test
+    public void updatedWithEditedPerson_personIsNotParticipant_returnsSameAppointment() {
+        Appointment appointment = FIONA_ELLE_1;
+        Appointment newAppointment = appointment.updatedWithEditedPerson(DANIEL, DANIEL_EDITED);
+        assertEquals(FIONA_ELLE_1, newAppointment);
+        assertEquals(FIONA_ELLE_1, appointment);
     }
 
     @Test
@@ -110,4 +183,5 @@ public class AppointmentTest {
         assertFalse(appointment.containsKeyword("Fio"));
         assertFalse(appointment.containsKeyword("Mey"));
     }
+
 }
