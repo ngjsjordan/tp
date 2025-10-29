@@ -29,7 +29,7 @@ public class SearchAppointmentCommandParser implements Parser<SearchAppointmentC
         String preamble = argMultimap.getPreamble().trim();
         Optional<String> timeFrameValue = argMultimap.getValue(PREFIX_TIME);
 
-        // Parse timeframe and extract any additional keywords from time/ value
+        // Parse timeframe and extract any additional keywords from tf/ value
         Optional<TimeFrame> timeFrame = Optional.empty();
         List<String> additionalKeywords = Arrays.asList();
 
@@ -49,7 +49,7 @@ public class SearchAppointmentCommandParser implements Parser<SearchAppointmentC
             }
         }
 
-        // Combine preamble keywords with any additional keywords from time/ value
+        // Combine preamble keywords with any additional keywords from tf/ value
         List<String> allKeywords = new ArrayList<>();
         if (!preamble.isEmpty()) {
             allKeywords.addAll(Arrays.asList(preamble.split("\\s+")));
@@ -62,7 +62,7 @@ public class SearchAppointmentCommandParser implements Parser<SearchAppointmentC
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchAppointmentCommand.MESSAGE_USAGE));
         }
 
-        // Verify no duplicate time/ prefix
+        // Verify no duplicate tf/ prefix
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TIME);
 
         return new SearchAppointmentCommand(

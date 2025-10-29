@@ -85,46 +85,46 @@ public class SearchAppointmentCommandParserTest {
         SearchAppointmentCommand expectedPastCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
                         Collections.emptyList(), Optional.of(TimeFrame.PAST)));
-        assertParseSuccess(parser, " time/past", expectedPastCommand);
+        assertParseSuccess(parser, " tf/past", expectedPastCommand);
 
         // only today appointments
         SearchAppointmentCommand expectedTodayCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
                         Collections.emptyList(), Optional.of(TimeFrame.TODAY)));
-        assertParseSuccess(parser, " time/today", expectedTodayCommand);
+        assertParseSuccess(parser, " tf/today", expectedTodayCommand);
 
         // only upcoming appointments
         SearchAppointmentCommand expectedUpcomingCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
                         Collections.emptyList(), Optional.of(TimeFrame.UPCOMING)));
-        assertParseSuccess(parser, " time/upcoming", expectedUpcomingCommand);
+        assertParseSuccess(parser, " tf/upcoming", expectedUpcomingCommand);
     }
 
     @Test
     public void parse_keywordsWithTimeFrame_returnsSearchAppointmentCommand() {
-        // keywords before time/
+        // keywords before tf/
         SearchAppointmentCommand expectedCommand1 =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
                         Arrays.asList("Alice", "Bob"), Optional.of(TimeFrame.TODAY)));
-        assertParseSuccess(parser, "Alice Bob time/today", expectedCommand1);
+        assertParseSuccess(parser, "Alice Bob tf/today", expectedCommand1);
 
-        // keywords after time/
+        // keywords after tf/
         SearchAppointmentCommand expectedCommand2 =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
                         Arrays.asList("Alice", "Bob"), Optional.of(TimeFrame.UPCOMING)));
-        assertParseSuccess(parser, " time/upcoming Alice Bob", expectedCommand2);
+        assertParseSuccess(parser, " tf/upcoming Alice Bob", expectedCommand2);
 
-        // keywords before and after time/
+        // keywords before and after tf/
         SearchAppointmentCommand expectedCommand3 =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
                         Arrays.asList("Alice", "Bob"), Optional.of(TimeFrame.PAST)));
-        assertParseSuccess(parser, "Alice time/past Bob", expectedCommand3);
+        assertParseSuccess(parser, "Alice tf/past Bob", expectedCommand3);
     }
 
     @Test
     public void parse_invalidTimeFrame_throwsParseException() {
-        assertParseFailure(parser, " time/invalid", TimeFrame.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, " time/tomorrow", TimeFrame.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " tf/invalid", TimeFrame.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, " tf/tomorrow", TimeFrame.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -133,18 +133,18 @@ public class SearchAppointmentCommandParserTest {
         SearchAppointmentCommand expectedCommand1 =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
                         Collections.emptyList(), Optional.of(TimeFrame.PAST)));
-        assertParseSuccess(parser, " time/past", expectedCommand1);
+        assertParseSuccess(parser, " tf/past", expectedCommand1);
 
         // uppercase
         SearchAppointmentCommand expectedCommand2 =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
                         Collections.emptyList(), Optional.of(TimeFrame.TODAY)));
-        assertParseSuccess(parser, " time/TODAY", expectedCommand2);
+        assertParseSuccess(parser, " tf/TODAY", expectedCommand2);
 
         // mixed case
         SearchAppointmentCommand expectedCommand3 =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
                         Collections.emptyList(), Optional.of(TimeFrame.UPCOMING)));
-        assertParseSuccess(parser, " time/UpCoMiNg", expectedCommand3);
+        assertParseSuccess(parser, " tf/UpCoMiNg", expectedCommand3);
     }
 }
