@@ -48,7 +48,7 @@ public class AppointmentContainsKeywordsPredicate implements Predicate<Appointme
                 || keywords.stream().anyMatch(keyword -> matchesAnyField(appointment, keyword));
 
         // Check timeframe matching (if timeframe is provided)
-        boolean matchesTimeFrame = timeFrame.map(tf -> tf.test(appointment)).orElse(true);
+        boolean matchesTimeFrame = timeFrame.map(tf -> tf.matches(appointment)).orElse(true);
 
         // Both conditions must be satisfied
         return matchesKeywords && matchesTimeFrame;

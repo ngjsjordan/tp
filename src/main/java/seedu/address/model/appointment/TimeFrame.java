@@ -1,5 +1,7 @@
 package seedu.address.model.appointment;
 
+import static java.util.Objects.requireNonNull;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -46,9 +48,12 @@ public enum TimeFrame {
      * @param appointment The appointment to test.
      * @return true if the appointment falls within this timeframe.
      */
-    public boolean test(Appointment appointment) {
+    public boolean matches(Appointment appointment) {
+        requireNonNull(appointment);
+        
         LocalDateTime appointmentDateTime = appointment.getAppointmentDatetime().datetime;
-        LocalDateTime now = LocalDateTime.now();
+        requireNonNull(appointmentDateTime);
+        
         LocalDate today = LocalDate.now();
         LocalDateTime startOfToday = today.atStartOfDay();
         LocalDateTime endOfToday = today.atTime(LocalTime.MAX);
