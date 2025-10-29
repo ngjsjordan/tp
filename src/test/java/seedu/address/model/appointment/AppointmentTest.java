@@ -66,7 +66,7 @@ public class AppointmentTest {
 
     @Test
     public void containsKeyword() {
-        Appointment appointment = FIONA_ELLE_PAST; // FIONA (seller) and ELLE (buyer) at 2025-01-01T12:00
+        Appointment appointment = FIONA_ELLE_PAST; // FIONA (seller) and ELLE (buyer), date is 1 month ago
 
         // Seller name matching (Fiona Kunz)
         assertTrue(appointment.containsKeyword("Fiona"));
@@ -90,10 +90,12 @@ public class AppointmentTest {
         assertTrue(appointment.containsKeyword("HDB_5")); // Elle's property type
         assertTrue(appointment.containsKeyword("buyer")); // Elle's role
 
-        // Appointment datetime matching
-        assertTrue(appointment.containsKeyword("2025-01-01T12:00"));
-        assertFalse(appointment.containsKeyword("2025-01-01")); // Partial datetime should not match
-        assertFalse(appointment.containsKeyword("12:00")); // Partial datetime should not match
+        // Appointment datetime matching - use the actual datetime from the appointment
+        String appointmentDatetimeString = appointment.appointmentDatetime.toString();
+        assertTrue(appointment.containsKeyword(appointmentDatetimeString));
+        // Partial datetime should not match
+        assertFalse(appointment.containsKeyword(appointmentDatetimeString.substring(0, 10))); // Date only
+        assertFalse(appointment.containsKeyword("12:00")); // Time only
 
         // Case insensitive matching
         assertTrue(appointment.containsKeyword("FIONA"));
