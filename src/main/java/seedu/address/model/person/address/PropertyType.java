@@ -67,7 +67,7 @@ public enum PropertyType {
      */
     public static boolean contains(String test) {
         for (PropertyType type : PropertyType.values()) {
-            if (type.name().equals(test)) { // Case-sensitive
+            if (type.name().equalsIgnoreCase(test)) { // Case-insensitive
                 return true;
             }
         }
