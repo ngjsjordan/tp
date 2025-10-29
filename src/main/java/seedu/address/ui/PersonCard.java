@@ -64,7 +64,11 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> {
+                    Label tagLabel = new Label(tag.tagName);
+                    tagLabel.getStyleClass().add("tag_label");
+                    tags.getChildren().add(tagLabel);
+                });
 
         if (roleLowerCase.equals(Role.BUYER)) {
             role.getStyleClass().add(Role.BUYER);
