@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Role;
+import seedu.address.model.person.address.PropertyType;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -66,47 +67,15 @@ public class PersonCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
         if (roleLowerCase.equals(Role.BUYER)) {
-            role.getStyleClass().add("role_buyer");
+            role.getStyleClass().add(Role.BUYER);
         } else if (roleLowerCase.equals(Role.SELLER)) {
-            role.getStyleClass().add("role_seller");
+            role.getStyleClass().add(Role.SELLER);
         }
-
-        switch (propertyTypeCapitalised) {
-        case "HDB_2":
-        case "HDB_3":
-        case "HDB_4":
-        case "HDB_5":
-        case "HDB_J":
-            propertyType.getStyleClass().add("property_hdb");
-            break;
-        case "EM":
-        case "EC":
-            propertyType.getStyleClass().add("property_executive");
-            break;
-        case "CONDO_2":
-        case "CONDO_3":
-        case "CONDO_4":
-        case "CONDO_5":
-        case "CONDO_J":
-            propertyType.getStyleClass().add("property_condo");
-            break;
-
-        case "LANDED_LH":
-        case "LANDED_FH":
-            propertyType.getStyleClass().add("property_landed");
-            break;
-
-        case "COMMERCIAL_LH":
-        case "COMMERCIAL_FH":
-            propertyType.getStyleClass().add("property_commercial");
-            break;
-
-        default:
+        try {
+            PropertyType type = PropertyType.fromString(propertyTypeCapitalised);
+            propertyType.getStyleClass().add(type.getCssClass());
+        } catch (IllegalArgumentException e) {
             propertyType.getStyleClass().add("property_unknown");
-            break;
         }
-
     }
-
-
 }
