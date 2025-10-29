@@ -7,9 +7,9 @@ title: ClientSquare
 
 ![Ui](images/QuickStartUI.png)
 
-**ClientSquare** is a one-stop **desktop application for freelance property agents** to help you **manage your client, appointments and listings efficiently**.
+**ClientSquare** is a one-stop **desktop application for freelance property agents** to help you **manage your clients, appointments and listings efficiently**.
 
-ClientSquare provides a **Command Line Interface (CLI)** for users who prefer typing while providing an intuitive **Graphical User Interface (GUI)** for the visual lovers.
+**Command Line Interface (CLI)** is the primary way to **interact** with our application, **allowing agents to manage** clients and appointments **faster than** traditional Graphical User Interface (GUI).
 
 **Key Features**
 
