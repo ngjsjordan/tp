@@ -207,18 +207,20 @@ public class MainWindow extends UiPart<Stage> {
         applyTheme(isDarkTheme);
     }
 
-    private void applyTheme(boolean dark) {
+    private void applyTheme(boolean isDarkTheme) {
         if (scene == null) {
             return;
         }
-        if (dark) {
-            scene.getStylesheets().remove("view/DarkTheme.css");
-            scene.getStylesheets().add("view/LightTheme.css");
-            themeMenuItem.setText("Dark");
-        } else {
+        if (isDarkTheme) {
+            //implement Dark theme
             scene.getStylesheets().remove("view/LightTheme.css");
             scene.getStylesheets().add("view/DarkTheme.css");
             themeMenuItem.setText("Light");
+        } else {
+            //implement Light theme
+            scene.getStylesheets().remove("view/DarkTheme.css");
+            scene.getStylesheets().add("view/LightTheme.css");
+            themeMenuItem.setText("Dark");
         }
     }
 
