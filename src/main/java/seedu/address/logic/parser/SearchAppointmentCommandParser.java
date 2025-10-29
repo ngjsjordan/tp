@@ -19,10 +19,8 @@ import seedu.address.model.appointment.TimeFrame;
 public class SearchAppointmentCommandParser implements Parser<SearchAppointmentCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the
-     * SearchAppointmentCommand
+     * Parses the given {@code String} of arguments in the context of the SearchAppointmentCommand
      * and returns a SearchAppointmentCommand object for execution.
-     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchAppointmentCommand parse(String args) throws ParseException {
@@ -63,7 +61,6 @@ public class SearchAppointmentCommandParser implements Parser<SearchAppointmentC
     /**
      * Extracts additional keywords from the timeframe value parts.
      * If there are words after the timeframe, they are treated as keywords.
-     * 
      * @param timeValueParts The parts of the timeframe value split by whitespace
      * @return A list of additional keywords
      */
@@ -76,8 +73,7 @@ public class SearchAppointmentCommandParser implements Parser<SearchAppointmentC
 
     /**
      * Combines preamble keywords with additional keywords from the timeframe value.
-     * 
-     * @param preamble           The preamble string containing keywords
+     * @param preamble The preamble string containing keywords
      * @param additionalKeywords Additional keywords from the timeframe value
      * @return A list of all combined keywords
      */

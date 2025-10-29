@@ -12,7 +12,6 @@ import static seedu.address.testutil.TypicalAppointments.GEORGE_ALICE_UPCOMING;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,16 +23,16 @@ public class AppointmentContainsKeywordsPredicateTest {
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
         AppointmentContainsKeywordsPredicate firstPredicate =
-            new AppointmentContainsKeywordsPredicate(firstPredicateKeywordList, Optional.empty());
+            new AppointmentContainsKeywordsPredicate(firstPredicateKeywordList);
         AppointmentContainsKeywordsPredicate secondPredicate =
-            new AppointmentContainsKeywordsPredicate(secondPredicateKeywordList, Optional.empty());
+            new AppointmentContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
         AppointmentContainsKeywordsPredicate firstPredicateCopy =
-            new AppointmentContainsKeywordsPredicate(firstPredicateKeywordList, Optional.empty());
+            new AppointmentContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -52,20 +51,20 @@ public class AppointmentContainsKeywordsPredicateTest {
 
         // Single keyword matching seller - delegates to Appointment.containsKeyword()
         AppointmentContainsKeywordsPredicate predicate =
-            new AppointmentContainsKeywordsPredicate(Collections.singletonList("Fiona"), Optional.empty());
+            new AppointmentContainsKeywordsPredicate(Collections.singletonList("Fiona"));
         assertTrue(predicate.test(testAppointment));
 
         // Single keyword matching buyer
-        predicate = new AppointmentContainsKeywordsPredicate(Collections.singletonList("Elle"), Optional.empty());
+        predicate = new AppointmentContainsKeywordsPredicate(Collections.singletonList("Elle"));
         assertTrue(predicate.test(testAppointment));
 
         // Multiple keywords - should return true if ANY keyword matches
         predicate = new AppointmentContainsKeywordsPredicate(
-                Arrays.asList("Fiona", "NonExistent"), Optional.empty());
+                Arrays.asList("Fiona", "NonExistent"));
         assertTrue(predicate.test(testAppointment));
 
         // All keywords match
-        predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("Fiona", "Elle"), Optional.empty());
+        predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("Fiona", "Elle"));
         assertTrue(predicate.test(testAppointment));
     }
 
@@ -75,16 +74,16 @@ public class AppointmentContainsKeywordsPredicateTest {
 
         // Empty keyword list - should always return false
         AppointmentContainsKeywordsPredicate predicate =
-            new AppointmentContainsKeywordsPredicate(Collections.emptyList(), Optional.empty());
+            new AppointmentContainsKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(testAppointment));
 
         // No matching keywords - delegates to Appointment.containsKeyword()
-        predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("NonExistent"), Optional.empty());
+        predicate = new AppointmentContainsKeywordsPredicate(Arrays.asList("NonExistent"));
         assertFalse(predicate.test(testAppointment));
 
         // Multiple non-matching keywords - should return false if NONE match
         predicate = new AppointmentContainsKeywordsPredicate(
-                Arrays.asList("NonExistent", "NotFound"), Optional.empty());
+                Arrays.asList("NonExistent", "NotFound"));
         assertFalse(predicate.test(testAppointment));
     }
 
@@ -93,7 +92,7 @@ public class AppointmentContainsKeywordsPredicateTest {
         Appointment pastAppointment = CARL_ALICE_PAST;
 
         AppointmentContainsKeywordsPredicate predicate =
-            new AppointmentContainsKeywordsPredicate(Collections.emptyList(), Optional.of(TimeFrame.PAST));
+            new AppointmentContainsKeywordsPredicate(Collections.emptyList(), TimeFrame.PAST);
         assertTrue(predicate.test(pastAppointment));
     }
 
@@ -102,7 +101,7 @@ public class AppointmentContainsKeywordsPredicateTest {
         Appointment todayAppointment = FIONA_BENSON_TODAY;
 
         AppointmentContainsKeywordsPredicate predicate =
-            new AppointmentContainsKeywordsPredicate(Collections.emptyList(), Optional.of(TimeFrame.TODAY));
+            new AppointmentContainsKeywordsPredicate(Collections.emptyList(), TimeFrame.TODAY);
         assertTrue(predicate.test(todayAppointment));
     }
 
@@ -111,7 +110,7 @@ public class AppointmentContainsKeywordsPredicateTest {
         Appointment futureAppointment = CARL_ELLE_UPCOMING;
 
         AppointmentContainsKeywordsPredicate predicate =
-            new AppointmentContainsKeywordsPredicate(Collections.emptyList(), Optional.of(TimeFrame.UPCOMING));
+            new AppointmentContainsKeywordsPredicate(Collections.emptyList(), TimeFrame.UPCOMING);
         assertTrue(predicate.test(futureAppointment));
 
         Appointment todayAppointment = FIONA_BENSON_TODAY;
@@ -125,12 +124,12 @@ public class AppointmentContainsKeywordsPredicateTest {
         // Both keyword and timeframe match (matches seller GEORGE)
         AppointmentContainsKeywordsPredicate predicate =
             new AppointmentContainsKeywordsPredicate(
-                    Collections.singletonList("George"), Optional.of(TimeFrame.UPCOMING));
+                    Collections.singletonList("George"), TimeFrame.UPCOMING);
         assertTrue(predicate.test(futureAppointment));
 
         // Both keyword and timeframe match (matches buyer ALICE)
         predicate = new AppointmentContainsKeywordsPredicate(
-                    Collections.singletonList("Alice"), Optional.of(TimeFrame.UPCOMING));
+                    Collections.singletonList("Alice"), TimeFrame.UPCOMING);
         assertTrue(predicate.test(futureAppointment));
     }
 
@@ -141,7 +140,7 @@ public class AppointmentContainsKeywordsPredicateTest {
         // Keyword matches (ALICE) but timeframe doesn't (looking for upcoming, but it's past)
         AppointmentContainsKeywordsPredicate predicate =
             new AppointmentContainsKeywordsPredicate(
-                    Collections.singletonList("Alice"), Optional.of(TimeFrame.UPCOMING));
+                    Collections.singletonList("Alice"), TimeFrame.UPCOMING);
         assertFalse(predicate.test(pastAppointment));
     }
 
@@ -152,7 +151,7 @@ public class AppointmentContainsKeywordsPredicateTest {
         // Timeframe matches (upcoming) but keyword doesn't (NonExistent person)
         AppointmentContainsKeywordsPredicate predicate =
             new AppointmentContainsKeywordsPredicate(
-                    Collections.singletonList("NonExistent"), Optional.of(TimeFrame.UPCOMING));
+                    Collections.singletonList("NonExistent"), TimeFrame.UPCOMING);
         assertFalse(predicate.test(futureAppointment));
     }
 
@@ -160,7 +159,7 @@ public class AppointmentContainsKeywordsPredicateTest {
     public void toStringMethod() {
         List<String> keywords = List.of("keyword1", "keyword2");
         AppointmentContainsKeywordsPredicate predicate =
-            new AppointmentContainsKeywordsPredicate(keywords, Optional.of(TimeFrame.TODAY));
+            new AppointmentContainsKeywordsPredicate(keywords, TimeFrame.TODAY);
 
         String expected = AppointmentContainsKeywordsPredicate.class.getCanonicalName()
                 + "{keywords=" + keywords + ", timeFrame=Optional[today]}";

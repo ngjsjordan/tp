@@ -9,7 +9,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,9 +28,9 @@ public class SearchAppointmentCommandTest {
     @Test
     public void equals() {
         AppointmentContainsKeywordsPredicate firstPredicate =
-                new AppointmentContainsKeywordsPredicate(Collections.singletonList("first"), Optional.empty());
+                new AppointmentContainsKeywordsPredicate(Collections.singletonList("first"));
         AppointmentContainsKeywordsPredicate secondPredicate =
-                new AppointmentContainsKeywordsPredicate(Collections.singletonList("second"), Optional.empty());
+                new AppointmentContainsKeywordsPredicate(Collections.singletonList("second"));
 
         SearchAppointmentCommand searchFirstCommand = new SearchAppointmentCommand(firstPredicate);
         SearchAppointmentCommand searchSecondCommand = new SearchAppointmentCommand(secondPredicate);
@@ -96,7 +95,7 @@ public class SearchAppointmentCommandTest {
         // Should find 4 "past" appointments: FIONA_ELLE_PAST, FIONA_DANIEL_PAST, FIONA_NOBUYER_PAST, BENSON_CARL_PAST
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 4);
         AppointmentContainsKeywordsPredicate predicate = new AppointmentContainsKeywordsPredicate(
-                Collections.emptyList(), Optional.of(TimeFrame.PAST));
+                Collections.emptyList(), TimeFrame.PAST);
         SearchAppointmentCommand command = new SearchAppointmentCommand(predicate);
         expectedModel.updateFilteredAppointmentList(predicate);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, true, false);
@@ -108,7 +107,7 @@ public class SearchAppointmentCommandTest {
         // Should find 1 "today" appointment: FIONA_BENSON_TODAY
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 1);
         AppointmentContainsKeywordsPredicate predicate = new AppointmentContainsKeywordsPredicate(
-                Collections.emptyList(), Optional.of(TimeFrame.TODAY));
+                Collections.emptyList(), TimeFrame.TODAY);
         SearchAppointmentCommand command = new SearchAppointmentCommand(predicate);
         expectedModel.updateFilteredAppointmentList(predicate);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, true, false);
@@ -120,7 +119,7 @@ public class SearchAppointmentCommandTest {
         // Should find 3 (all) "upcoming" appointments: FIONA_BENSON_TODAY, CARL_ELLE_UPCOMING, GEORGE_ALICE_UPCOMING
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 3);
         AppointmentContainsKeywordsPredicate predicate = new AppointmentContainsKeywordsPredicate(
-                Collections.emptyList(), Optional.of(TimeFrame.UPCOMING));
+                Collections.emptyList(), TimeFrame.UPCOMING);
         SearchAppointmentCommand command = new SearchAppointmentCommand(predicate);
         expectedModel.updateFilteredAppointmentList(predicate);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, true, false);
@@ -132,7 +131,7 @@ public class SearchAppointmentCommandTest {
         // Should find 1 "upcoming" "George" appointment: GEORGE_ALICE_UPCOMING
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 1);
         AppointmentContainsKeywordsPredicate predicate = new AppointmentContainsKeywordsPredicate(
-                Collections.singletonList("George"), Optional.of(TimeFrame.UPCOMING));
+                Collections.singletonList("George"), TimeFrame.UPCOMING);
         SearchAppointmentCommand command = new SearchAppointmentCommand(predicate);
         expectedModel.updateFilteredAppointmentList(predicate);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, true, false);
@@ -145,7 +144,7 @@ public class SearchAppointmentCommandTest {
         // Should find 3 appointments: FIONA_ELLE_PAST, FIONA_DANIEL_PAST, FIONA_NOBUYER_PAST
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 3);
         AppointmentContainsKeywordsPredicate predicate = new AppointmentContainsKeywordsPredicate(
-                Collections.singletonList("Fiona"), Optional.of(TimeFrame.PAST));
+                Collections.singletonList("Fiona"), TimeFrame.PAST);
         SearchAppointmentCommand command = new SearchAppointmentCommand(predicate);
         expectedModel.updateFilteredAppointmentList(predicate);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, true, false);
@@ -158,7 +157,7 @@ public class SearchAppointmentCommandTest {
         // Should find: CARL_ELLE_UPCOMING (1 appointment - has both Carl and Elle)
         String expectedMessage = String.format(MESSAGE_APPOINTMENTS_LISTED_OVERVIEW, 1);
         AppointmentContainsKeywordsPredicate predicate = new AppointmentContainsKeywordsPredicate(
-                Arrays.asList("Carl", "Elle"), Optional.of(TimeFrame.UPCOMING));
+                Arrays.asList("Carl", "Elle"), TimeFrame.UPCOMING);
         SearchAppointmentCommand command = new SearchAppointmentCommand(predicate);
         expectedModel.updateFilteredAppointmentList(predicate);
         CommandResult expectedCommandResult = new CommandResult(expectedMessage, false, false, true, false);
@@ -168,7 +167,7 @@ public class SearchAppointmentCommandTest {
     @Test
     public void toStringMethod() {
         AppointmentContainsKeywordsPredicate predicate = new AppointmentContainsKeywordsPredicate(
-                Arrays.asList("keyword"), Optional.empty());
+                Arrays.asList("keyword"));
         SearchAppointmentCommand searchAppointmentCommand = new SearchAppointmentCommand(predicate);
         String expected = SearchAppointmentCommand.class.getCanonicalName()
                 + "{predicate=" + predicate + "}";
@@ -179,6 +178,6 @@ public class SearchAppointmentCommandTest {
      * Parses {@code userInput} into a {@code AppointmentContainsKeywordsPredicate}.
      */
     private AppointmentContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new AppointmentContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), Optional.empty());
+        return new AppointmentContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

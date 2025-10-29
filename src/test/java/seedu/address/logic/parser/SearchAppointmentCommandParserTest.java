@@ -6,10 +6,10 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.SearchAppointmentCommand;
 import seedu.address.model.appointment.AppointmentContainsKeywordsPredicate;
 import seedu.address.model.appointment.TimeFrame;
@@ -32,7 +32,7 @@ public class SearchAppointmentCommandParserTest {
         // no leading and trailing whitespaces
         SearchAppointmentCommand expectedSearchAppointmentCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("Alice", "Bob"), Optional.empty()));
+                        Arrays.asList("Alice", "Bob")));
         assertParseSuccess(parser, "Alice Bob", expectedSearchAppointmentCommand);
 
         // multiple whitespaces between keywords
@@ -43,7 +43,7 @@ public class SearchAppointmentCommandParserTest {
     public void parse_singleKeyword_returnsSearchAppointmentCommand() {
         SearchAppointmentCommand expectedSearchAppointmentCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("Fiona"), Optional.empty()));
+                        Arrays.asList("Fiona")));
         assertParseSuccess(parser, "Fiona", expectedSearchAppointmentCommand);
     }
 
@@ -51,7 +51,7 @@ public class SearchAppointmentCommandParserTest {
     public void parse_multipleKeywords_returnsSearchAppointmentCommand() {
         SearchAppointmentCommand expectedSearchAppointmentCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("Alice", "Bob", "Charlie"), Optional.empty()));
+                        Arrays.asList("Alice", "Bob", "Charlie")));
         assertParseSuccess(parser, "Alice Bob Charlie", expectedSearchAppointmentCommand);
     }
 
@@ -59,7 +59,7 @@ public class SearchAppointmentCommandParserTest {
     public void parse_dateTimeKeyword_returnsSearchAppointmentCommand() {
         SearchAppointmentCommand expectedSearchAppointmentCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("2025-01-01T12:00"), Optional.empty()));
+                        Arrays.asList("2025-01-01T12:00")));
         assertParseSuccess(parser, "2025-01-01T12:00", expectedSearchAppointmentCommand);
     }
 
@@ -67,7 +67,7 @@ public class SearchAppointmentCommandParserTest {
     public void parse_mixedKeywords_returnsSearchAppointmentCommand() {
         SearchAppointmentCommand expectedSearchAppointmentCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("Alice", "2025-01-01", "tokyo"), Optional.empty()));
+                        Arrays.asList("Alice", "2025-01-01", "tokyo")));
         assertParseSuccess(parser, "Alice 2025-01-01 tokyo", expectedSearchAppointmentCommand);
     }
 
@@ -75,7 +75,7 @@ public class SearchAppointmentCommandParserTest {
     public void parse_specialCharacters_returnsSearchAppointmentCommand() {
         SearchAppointmentCommand expectedSearchAppointmentCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("Block", "123,", "Street"), Optional.empty()));
+                        Arrays.asList("Block", "123,", "Street")));
         assertParseSuccess(parser, "Block 123, Street", expectedSearchAppointmentCommand);
     }
 
@@ -84,19 +84,19 @@ public class SearchAppointmentCommandParserTest {
         // only past appointments
         SearchAppointmentCommand expectedPastCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Collections.emptyList(), Optional.of(TimeFrame.PAST)));
+                        Collections.emptyList(), TimeFrame.PAST));
         assertParseSuccess(parser, " tf/past", expectedPastCommand);
 
         // only today appointments
         SearchAppointmentCommand expectedTodayCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Collections.emptyList(), Optional.of(TimeFrame.TODAY)));
+                        Collections.emptyList(), TimeFrame.TODAY));
         assertParseSuccess(parser, " tf/today", expectedTodayCommand);
 
         // only upcoming appointments
         SearchAppointmentCommand expectedUpcomingCommand =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Collections.emptyList(), Optional.of(TimeFrame.UPCOMING)));
+                        Collections.emptyList(), TimeFrame.UPCOMING));
         assertParseSuccess(parser, " tf/upcoming", expectedUpcomingCommand);
     }
 
@@ -105,19 +105,19 @@ public class SearchAppointmentCommandParserTest {
         // keywords before tf/
         SearchAppointmentCommand expectedCommand1 =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("Alice", "Bob"), Optional.of(TimeFrame.TODAY)));
+                        Arrays.asList("Alice", "Bob"), TimeFrame.TODAY));
         assertParseSuccess(parser, "Alice Bob tf/today", expectedCommand1);
 
         // keywords after tf/
         SearchAppointmentCommand expectedCommand2 =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("Alice", "Bob"), Optional.of(TimeFrame.UPCOMING)));
+                        Arrays.asList("Alice", "Bob"), TimeFrame.UPCOMING));
         assertParseSuccess(parser, " tf/upcoming Alice Bob", expectedCommand2);
 
         // keywords before and after tf/
         SearchAppointmentCommand expectedCommand3 =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Arrays.asList("Alice", "Bob"), Optional.of(TimeFrame.PAST)));
+                        Arrays.asList("Alice", "Bob"), TimeFrame.PAST));
         assertParseSuccess(parser, "Alice tf/past Bob", expectedCommand3);
     }
 
@@ -132,19 +132,25 @@ public class SearchAppointmentCommandParserTest {
         // lowercase
         SearchAppointmentCommand expectedCommand1 =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Collections.emptyList(), Optional.of(TimeFrame.PAST)));
+                        Collections.emptyList(), TimeFrame.PAST));
         assertParseSuccess(parser, " tf/past", expectedCommand1);
 
         // uppercase
         SearchAppointmentCommand expectedCommand2 =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Collections.emptyList(), Optional.of(TimeFrame.TODAY)));
+                        Collections.emptyList(), TimeFrame.TODAY));
         assertParseSuccess(parser, " tf/TODAY", expectedCommand2);
 
         // mixed case
         SearchAppointmentCommand expectedCommand3 =
                 new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(
-                        Collections.emptyList(), Optional.of(TimeFrame.UPCOMING)));
+                        Collections.emptyList(), TimeFrame.UPCOMING));
         assertParseSuccess(parser, " tf/UpCoMiNg", expectedCommand3);
+    }
+
+    @Test
+    public void parse_duplicateTimeFramePrefix_throwsParseException() {
+        assertParseFailure(parser, " tf/past tf/today",
+                Messages.getErrorMessageForDuplicatePrefixes(CliSyntax.PREFIX_TIME));
     }
 }

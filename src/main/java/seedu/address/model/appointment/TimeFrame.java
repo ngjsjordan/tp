@@ -50,10 +50,10 @@ public enum TimeFrame {
      */
     public boolean matches(Appointment appointment) {
         requireNonNull(appointment);
-        
+
         LocalDateTime appointmentDateTime = appointment.getAppointmentDatetime().datetime;
         requireNonNull(appointmentDateTime);
-        
+
         LocalDate today = LocalDate.now();
         LocalDateTime startOfToday = today.atStartOfDay();
         LocalDateTime endOfToday = today.atTime(LocalTime.MAX);
