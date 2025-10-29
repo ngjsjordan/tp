@@ -48,7 +48,11 @@ Set up ClientSquare and start managing your clients within minutes!
    Open your command terminal and go to the folder where you saved the file using the `cd` command.  
    Then, **start ClientSquare** by typing: `java -jar ClientSquare.jar`. Alternatively, you may double-click the jar file to launch the application. <br>
    Within a few seconds, the app window will appear with some sample client data for you to explore. <br>
-    ![Ui](images/QuickStartUI.png)
+
+<div style="page-break-after: always;"></div>
+
+![Ui](images/QuickStartUI.png)
+<br>
 <br>
 
 5. **Try a few basic commands**  
@@ -311,8 +315,6 @@ Examples:
   <img src="images/lapAfterApResult.png" alt="result for `lap`" width="49%">
 </div>
 <br>
-
-<div style="page-break-after: always;"></div>
 
 ### Deleting an appointment : `dap`
 
