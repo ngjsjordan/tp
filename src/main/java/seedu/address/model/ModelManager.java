@@ -5,12 +5,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.appointment.Appointment;
@@ -27,7 +28,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Appointment> filteredAppointments;
-    private final SortedList<Appointment> sortedAppointments;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -41,7 +41,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredAppointments = new FilteredList<>(this.addressBook.getAppointmentList());
-        sortedAppointments = new SortedList<>(filteredAppointments, Comparator.naturalOrder());
     }
 
     public ModelManager() {
@@ -181,7 +180,12 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {
-        return sortedAppointments;
+        // Sort appointments by datetime
+        List<Appointment> sortedAppointments = filteredAppointments.stream()
+                .sorted(Comparator.naturalOrder())
+                .toList();
+
+        return FXCollections.observableArrayList(sortedAppointments);
     }
 
     @Override
