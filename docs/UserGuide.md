@@ -8,7 +8,7 @@ ClientSquare is a **desktop app built for freelance property agents**. It helps 
 By **typing commands** instead of clicking through menus, you can complete your tasks faster, allowing you to **manage more clients in less time.**
 
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -20,20 +20,20 @@ Set up ClientSquare and start managing your clients within minutes!
 1. **Install Java 17 or later**
 
    ClientSquare runs on Java, so make sure your computer has **Java 17 or newer** installed. To check if Java is installed, open a command terminal. You may follow the respective instructions for your operating system to do so.
-   
+
    **Windows:**
 
-   1. Press Windows + R to open the Run window. 
-   2. Type cmd and press Enter.
+    1. Press Windows + R to open the Run window.
+    2. Type cmd and press Enter.
 
    **macOS:**
-   1. Open Spotlight Search by pressing Command + Space. 
-   2. Type Terminal and press Enter.
+    1. Open Spotlight Search by pressing Command + Space.
+    2. Type Terminal and press Enter.
 
    **Linux:**
-   1. Press Ctrl + Alt + T to open the Terminal.
-   
-   Now, run `java -version`. If you see a version number lower than 17, download and install the latest version.  
+    1. Press Ctrl + Alt + T to open the Terminal.
+
+   Now, run `java -version`. If you see a version number lower than 17, download and install the latest version.
 
    **Mac users:** Follow the step-by-step guide [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to install the correct JDK version.
 
@@ -57,21 +57,21 @@ Set up ClientSquare and start managing your clients within minutes!
 <br>
 
 **Try a few basic commands**  
-   Type a command in the command box and press **Enter** to see it in action.  
-   Here are a few examples:
+Type a command in the command box and press **Enter** to see it in action.  
+Here are a few examples:
 
-   * `list` : Lists all contacts.
+* `list` : Lists all contacts.
 
-   * `add n/Jane Smith p/92345768 e/janesmith@example.com r/buyer a/239, Hougang Ave 2, #01-13 pt/HDB_3 t/friends t/Neighbour` : Adds a contact named `Jane Smith` to the Address Book.
+* `add n/Jane Smith p/92345768 e/janesmith@example.com r/buyer a/239, Hougang Ave 2, #01-13 pt/HDB_3 t/friends t/Neighbour` : Adds a contact named `Jane Smith` to the Address Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+* `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all contacts.
+* `clear` : Deletes all contacts.
 
-   * `exit` : Exits the app.
+* `exit` : Exits the app.
 
 **Explore more features**  
-   Once you’re comfortable with the basics, check out the [Features](#features) section below to learn more about what ClientSquare can do!
+Once you’re comfortable with the basics, check out the [Features](#features) section below to learn more about what ClientSquare can do!
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -114,7 +114,7 @@ Format: `help`
 
 ### Adding a person: `add`
 
-Adds a client to the ClientSquare app. 
+Adds a client to the ClientSquare app.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​`
 
@@ -161,23 +161,41 @@ Example:
 
 <div style="page-break-after: always;"></div>
 
-### Listing all appointments : `lap`
+### Locating persons by name: `find`
 
-Shows a list of all appointments in the ClientSquare app, sorted by date and time 
-(earliest at the top to latest at the bottom).
+Finds clients whose details contain any of the keywords you provide. Details include (i) name, (ii) role, (iii) email, (iv) address, (v) address type, or (vi) phone number.
 
-Format: `lap`
+Format: `find KEYWORD [MORE_KEYWORDS]...`
 
-* Displays all appointments from all clients
-* Each appointment shows the date/time, location (seller client's address), and the buyer/seller names
-* Appointments are sorted chronologically from present to future
-* Use `list` to switch back to the person list view
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
-Example:
-* `lap` displays all appointments sorted by date and time
-<div style="text-align:center;">
-  <img src="images/lapResult.png" alt="result for 'lap'" width="90%">
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+After using the `find` command, you can use the new index numbers shown on screen for commands that require index as an input, such as [`edit`](#editing-a-person--edit) or [`ap`](#adding-an-appointment--ap).
 </div>
+
+Examples:
+* `find Alex` returns all persons named 'Alex' (and anyone with 'Alex' in other details)
+<div style="text-align:center;">
+  <img src="images/findAlexResult.png" alt="result for 'find Alex'" width="90%">
+</div>
+<br>
+
+<div style="page-break-after: always;"></div>
+
+* `find Alex David` returns all persons named 'Alex' **or** 'David' (and anyone with 'Alex' or 'David' in other details)
+<div style="text-align:center;">
+  <img src="images/findAlexDavidResult.png" alt="result for 'find Alex David'" width="90%">
+</div>
+<br>
+* `find buyer` returns all buyers (and anyone with 'buyer' in other details)
+<div style="text-align:center;">
+  <img src="images/findBuyerResult.png" alt="result for 'find buyer'" width="90%">
+</div>
+
 <div style="page-break-after: always;"></div>
 
 ### Editing a person : `edit`
@@ -190,7 +208,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] 
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
+  specifying any tags after it.
 
 <div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
 * Adding of tags is not cumulative. When editing tags, the existing tags of the person will be removed
@@ -231,43 +249,6 @@ Examples:
 
 <div style="page-break-after: always;"></div>
 
-### Locating persons by name: `find`
-
-Finds clients whose details contain any of the keywords you provide. Details include (i) name, (ii) role, (iii) email, (iv) address, (v) address type, or (vi) phone number.
-
-Format: `find KEYWORD [MORE_KEYWORDS]...`
-
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-After using the `find` command, you can use the new index numbers shown on screen for commands that require index as an input, such as [`edit`](#editing-a-person--edit) or [`ap`](#adding-an-appointment--ap).
-</div>
-
-Examples:
-* `find Alex` returns all persons named 'Alex' (and anyone with 'Alex' in other details)
-<div style="text-align:center;">
-  <img src="images/findAlexResult.png" alt="result for 'find Alex'" width="90%">
-</div>
-<br>
-
-<div style="page-break-after: always;"></div>
-
-* `find Alex David` returns all persons named 'Alex' **or** 'David' (and anyone with 'Alex' or 'David' in other details)
-<div style="text-align:center;">
-  <img src="images/findAlexDavidResult.png" alt="result for 'find Alex David'" width="90%">
-</div>
-<br>
-* `find buyer` returns all buyers (and anyone with 'buyer' in other details)
-<div style="text-align:center;">
-  <img src="images/findBuyerResult.png" alt="result for 'find buyer'" width="90%">
-</div>
-
-<div style="page-break-after: always;"></div>
-
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
@@ -290,7 +271,7 @@ Use the [`find`](#locating-persons-by-name-find) command to easily locate the co
 <div style="page-break-after: always;"></div>
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book. 
+* `list` followed by `delete 2` deletes the 2nd person in the address book.
 <div style="display: flex; justify-content: center; gap: 5px;">
   <img src="images/listResult.png" alt="result for 'list'" width="49%">
   <img src="images/delete2Result.png" alt="result for 'delete 2'" width="49%">
@@ -307,16 +288,16 @@ Examples:
 
 ### Adding an appointment : `ap`
 
-Adds an appointment with a seller and an optional buyer. 
+Adds an appointment with a seller and an optional buyer.
 
 Format: `ap d/DATETIME s/SELLER_INDEX [b/BUYER_INDEX]`
 
-* Adds an appointment with the seller being the person specified by `SELLER_INDEX` and the buyer being the person specified by `BUYER_INDEX`. 
-* To create an appointment with only a seller, simply omit the `b/` tag. 
+* Adds an appointment with the seller being the person specified by `SELLER_INDEX` and the buyer being the person specified by `BUYER_INDEX`.
+* To create an appointment with only a seller, simply omit the `b/` tag.
 * The indices refer to the index numbers shown in the displayed person list which will be a positive whole number (e.g. 1, 2, 3, ...)
 * Provide a client that has the role `seller` and an optional client that has the role `buyer`.
 * Provide the datetime in an ISO 8601-compliant format. (e.g. `yyyy-MM-ddTHH:mm`)
-* The seller's location is automatically displayed as the appointment location. 
+* The seller's location is automatically displayed as the appointment location.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
 It is possible to add multiple appointments at the same time. Appointments will only be regarded as duplicate if they have the same datetime, seller, and buyer (or lack of buyer).
@@ -336,57 +317,23 @@ Examples:
 
 <div style="page-break-after: always;"></div>
 
-### Deleting an appointment : `dap`
+### Listing all appointments : `lap`
 
-Deletes an appointment.
+Shows a list of all appointments in the ClientSquare app, sorted by date and time
+(earliest at the top to latest at the bottom).
 
-Format: `dap INDEX`
+Format: `lap`
 
-* Deletes the appointment specified by `INDEX`.
-* The index refers to the index number shown in the displayed appointment list. This will be a positive whole number, such as 1, 2, 3, ...
+* Displays all appointments from all clients
+* Each appointment shows the date/time, location (seller client's address), and the buyer/seller names
+* Appointments are sorted chronologically from present to future
+* Use `list` to switch back to the person list view
 
-Examples:
-*  `dap 1` Deletes the first appointment shown in the appointment list.
-
-### Searching an appointment: `sap`
-
-Finds appointments whose details contain any of the keywords you provide. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
-
-Format `sap [tf/TIMEFRAME] KEYWORD [MORE_KEYWORDS]`
-
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The valid timeframes consist of `past`, `today` and `upcoming` (case-insensitive)
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Valid timeframes** consist of `past`, `today` and `upcoming` (case-insensitive)<br>
-
-</div>
-
-<div style="page-break-after: always;"></div>
-
-Examples:
-* `sap John` returns all appointments with 'John'
+Example:
+* `lap` displays all appointments sorted by date and time
 <div style="text-align:center;">
-  <img src="images/searchAppointmentJohnResult.png" alt="result for 'sap John'" width="90%">
+  <img src="images/lapResult.png" alt="result for 'lap'" width="90%">
 </div>
-<br>
-
-* `sap Alex John` returns all appointments with `Alex` or `John`
-<div style="text-align:center;">
-  <img src="images/searchAppointmentAlexJohnResult.png" alt="result for 'sap Alex John'" width="90%">
-</div>
-<br>
-
-*  `sap tf/today Bernice` returns today's appointments with `Bernice Yu`(for illustration purposes, assume the date to be 2025-10-30)
-<div style="text-align:center;">
-  <img src="images/searchAppointmentAlexDavidToday.png" alt="result for 'sap tf/today Bernice'" width="90%">
-</div>
-
 <div style="page-break-after: always;"></div>
 
 ### Editing an appointment : `eap`
@@ -413,6 +360,59 @@ Examples:
 Tips:
 * Use [`lap`](#listing-all-appointments-lap) first to see the appointment indices.
 
+
+<div style="page-break-after: always;"></div>
+
+### Searching an appointment: `sap`
+
+Finds appointments whose details contain any of the keywords you provide. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
+
+Format `sap [tf/TIMEFRAME] KEYWORD [MORE_KEYWORDS]`
+
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* The valid timeframes consist of `past`, `today` and `upcoming` (case-insensitive)
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Valid timeframes** consist of `past`, `today` and `upcoming` (case-insensitive)<br>
+
+</div>
+
+Examples:
+* `sap John` returns all appointments with 'John'
+<div style="text-align:center;">
+  <img src="images/searchAppointmentJohnResult.png" alt="result for 'sap John'" width="90%">
+</div>
+<br>
+
+<div style="page-break-after: always;"></div>
+
+* `sap Alex John` returns all appointments with `Alex` or `John`
+<div style="text-align:center;">
+  <img src="images/searchAppointmentAlexJohnResult.png" alt="result for 'sap Alex John'" width="90%">
+</div>
+<br>
+
+*  `sap tf/today Bernice` returns today's appointments with `Bernice Yu`(for illustration purposes, assume the date to be 2025-10-30)
+<div style="text-align:center;">
+  <img src="images/searchAppointmentAlexDavidToday.png" alt="result for 'sap tf/today Bernice'" width="90%">
+</div>
+
+### Deleting an appointment : `dap`
+
+Deletes an appointment.
+
+Format: `dap INDEX`
+
+* Deletes the appointment specified by `INDEX`.
+* The index refers to the index number shown in the displayed appointment list. This will be a positive whole number, such as 1, 2, 3, ...
+
+Examples:
+*  `dap 1` Deletes the first appointment shown in the appointment list.
 
 <div style="page-break-after: always;"></div>
 
