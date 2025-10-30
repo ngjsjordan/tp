@@ -46,8 +46,8 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 AddressBook *-left-> "1" UniqueAppointmentList
 UniqueAppointmentList --> "*" Appointment
 Appointment *--> AppointmentDatetime
-Appointment *-right-> "seller" Person
-Appointment *--> "buyer" Person
+Appointment -right-> "1 seller" Person
+Appointment --> "0..1 buyer" Person
 
 AddressBook *-down-> "1" UniquePersonList
 UniquePersonList --> "~*" Person : lists all >
