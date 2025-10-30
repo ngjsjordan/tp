@@ -194,6 +194,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] 
 * Adding of tags is not cumulative. When editing tags, the existing tags of the person will be removed
 * Address and property type cannot be edited independently. When editing address or property type, it is compulsory to provide both address and property type input 
   values.
+* When changing a person's `ROLE`, previous appointments where the person had their previous role will not be changed.
 </div>
 
 <div markdown="block" class="alert alert-info">
@@ -301,6 +302,7 @@ Format: `ap SELLER_INDEX d/DATETIME [b/BUYER_INDEX]`
 * Adds an appointment with the seller being the person specified by `SELLER_INDEX` and the buyer being the person specified by `BUYER_INDEX`. 
 * To create an appointment with only a seller, simply omit the `b/` tag. 
 * The indices refer to the index numbers shown in the displayed person list which will be a positive whole number (e.g. 1, 2, 3, ...)
+* Provide a seller that has the role seller and a buyer that has the role buyer.
 * Provide Datetime in an ISO 8601-compliant format. (e.g. `yyyy-MM-ddTHH:mm`)
 * The seller's location is automatically displayed as the appointment location. 
 
