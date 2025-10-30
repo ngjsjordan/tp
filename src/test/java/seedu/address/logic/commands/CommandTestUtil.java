@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PROPERTY_TYPE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -63,9 +64,11 @@ public class CommandTestUtil {
             + PREFIX_PROPERTY_TYPE + VALID_PROPERTY_TYPE_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
-    public static final String APPOINTMENT_DESC_JAN_1 = " " + PREFIX_DATETIME + VALID_APPOINTMENT_DATETIME_JAN_1;
+    public static final String DATETIME_DESC_JAN_1 = " " + PREFIX_DATETIME + VALID_APPOINTMENT_DATETIME_JAN_1;
     public static final String BUYER_DESC_1 = " " + PREFIX_BUYER + INDEX_FIRST_PERSON.getOneBased();
     public static final String BUYER_DESC_2 = " " + PREFIX_BUYER + INDEX_SECOND_PERSON.getOneBased();
+    public static final String SELLER_DESC_1 = " " + PREFIX_SELLER + INDEX_FIRST_PERSON.getOneBased();
+    public static final String SELLER_DESC_2 = " " + PREFIX_SELLER + INDEX_SECOND_PERSON.getOneBased();
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -76,7 +79,9 @@ public class CommandTestUtil {
     public static final String INVALID_PROPERTY_TYPE = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY + " "
             + PREFIX_PROPERTY_TYPE + "HDB_10"; // HDB_10 not valid type
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-    public static final String INVALID_APPOINTMENT_DESC = " " + PREFIX_DATETIME + "2024-13-01T12:00"; // invalid month
+    public static final String INVALID_DATETIME_DESC = " " + PREFIX_DATETIME + "2024-13-01T12:00"; // invalid month
+    public static final String INVALID_SELLER_DESC_SKELETON = " " + PREFIX_SELLER + "%s";
+    public static final String INVALID_BUYER_DESC_SKELETON = " " + PREFIX_BUYER + "%s";
 
     //public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_WHITESPACE = "\t  \n";

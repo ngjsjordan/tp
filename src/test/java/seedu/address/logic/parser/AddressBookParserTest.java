@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.BUYER_DESC_2;
+import static seedu.address.logic.commands.CommandTestUtil.DATETIME_DESC_JAN_1;
+import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DATETIME_JAN_1;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -19,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
-// import seedu.address.logic.commands.DeleteAppointmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditAppointmentCommand;
 import seedu.address.logic.commands.EditAppointmentCommand.EditAppointmentDescriptor;
@@ -33,7 +35,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SearchAppointmentCommand;
 import seedu.address.logic.commands.ToggleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-// import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentContainsKeywordsPredicate;
 import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Person;
@@ -121,12 +122,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_ap() throws Exception {
-        String datetime = "2025-01-01T12:00";
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(
-                AddAppointmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
-                        + "d/" + datetime + BUYER_DESC_2);
-        assertEquals(new AddAppointmentCommand(new AppointmentDatetime(datetime), INDEX_FIRST_PERSON,
-                INDEX_SECOND_PERSON), command);
+                AddAppointmentCommand.COMMAND_WORD + DATETIME_DESC_JAN_1 + SELLER_DESC_1 + BUYER_DESC_2);
+        assertEquals(new AddAppointmentCommand(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1),
+                INDEX_FIRST_PERSON, INDEX_SECOND_PERSON), command);
     }
 
     @Test
