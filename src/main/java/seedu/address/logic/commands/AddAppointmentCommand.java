@@ -24,7 +24,7 @@ public class AddAppointmentCommand extends Command {
 
     public static final String COMMAND_WORD = "ap";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment with the seller and optional buyer"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment with the seller and optional buyer "
             + "specified by the index number used in the displayed person list.\n"
             + "Parameters: "
             + PREFIX_DATETIME + "DATETIME "
