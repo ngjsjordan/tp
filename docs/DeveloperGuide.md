@@ -531,6 +531,19 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `ap d/2025-01-01T00:00 s/4 b/5` <br>
       Expected: An error will be shown as the referenced buyer does not have the buyer role.
 
+### Deleting an appointment
+
+1. Deleting an appointment while all appointments are shown. To verify that an appointment has been deleted, use the `lap` command to show all appointments.
+   1. Prerequisites: List all appointments using the `lap` command. Multiple appointments in the list. 
+   2. Test case: `dap 1` <br>
+      Expected: First appointment is deleted from the list. Details of the deleted appointment shown in the status message. 
+
+   3. Test case: `dap 0` <br>
+      Expected: No appointment is deleted. An error will be shown as the appointment index must be greater than 0.
+
+   4. Test case: `dap` <br>
+      Expected: No appointment is deleted. An error will be shown as the appointment index is missing. 
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
