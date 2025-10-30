@@ -336,33 +336,6 @@ Example:
 </div>
 <div style="page-break-after: always;"></div>
 
-### Editing an appointment : `eap`
-
-Edits an existing appointment in the displayed appointment list.
-
-Format: `eap APPOINTMENT_INDEX [d/DATETIME] [s/SELLER_INDEX] [b/BUYER_INDEX]`
-
-* Edits the appointment at the specified `APPOINTMENT_INDEX`.
-* The appointment index refers to the index number shown in the displayed appointment list (shown after using [`lap`](#listing-all-appointments-lap) or `sap`).
-* The seller and buyer indices refer to the index numbers shown in the displayed person list.
-* At least one of the optional fields must be provided.
-* All indices must be positive whole numbers, such as 1, 2, 3, ...
-* Provide the datetime in an ISO 8601-compliant format. (e.g. `yyyy-MM-ddTHH:mm`)
-* Existing values will be updated to the input values.
-* When editing seller or buyer, the new person must have the appropriate role (seller role for seller, buyer role for buyer).
-* The seller and buyer cannot be the same person.
-
-Examples:
-* `lap` followed by `eap 1 d/2025-01-15T14:00` changes the datetime of the 1st appointment to 15 Jan 2025 at 2pm.
-* `lap` followed by `eap 2 s/3` changes the seller of the 2nd appointment to the 3rd person in the person list.
-* `lap` followed by `eap 1 d/2025-02-01T10:00 b/4` changes both the datetime and buyer of the 1st appointment.
-
-Tips:
-* Use [`lap`](#listing-all-appointments-lap) first to see the appointment indices.
-
-
-<div style="page-break-after: always;"></div>
-
 ### Searching an appointment: `sap`
 
 Finds appointments whose details contain any of the keywords you provide. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
@@ -401,6 +374,33 @@ Examples:
 <div style="text-align:center;">
   <img src="images/searchAppointmentAlexDavidToday.png" alt="result for 'sap tf/today Bernice'" width="90%">
 </div>
+
+<div style="page-break-after: always;"></div>
+
+### Editing an appointment : `eap`
+
+Edits an existing appointment in the displayed appointment list.
+
+Format: `eap APPOINTMENT_INDEX [d/DATETIME] [s/SELLER_INDEX] [b/BUYER_INDEX]`
+
+* Edits the appointment at the specified `APPOINTMENT_INDEX`.
+* The appointment index refers to the index number shown in the displayed appointment list (shown after using [`lap`](#listing-all-appointments-lap) or `sap`).
+* The seller and buyer indices refer to the index numbers shown in the displayed person list.
+* At least one of the optional fields must be provided.
+* All indices must be positive whole numbers, such as 1, 2, 3, ...
+* Provide the datetime in an ISO 8601-compliant format. (e.g. `yyyy-MM-ddTHH:mm`)
+* Existing values will be updated to the input values.
+* When editing seller or buyer, the new person must have the appropriate role (seller role for seller, buyer role for buyer).
+* The seller and buyer cannot be the same person.
+
+Examples:
+* `lap` followed by `eap 1 d/2025-01-15T14:00` changes the datetime of the 1st appointment to 15 Jan 2025 at 2pm.
+* `lap` followed by `eap 2 s/3` changes the seller of the 2nd appointment to the 3rd person in the person list.
+* `lap` followed by `eap 1 d/2025-02-01T10:00 b/4` changes both the datetime and buyer of the 1st appointment.
+
+Tips:
+* Use [`lap`](#listing-all-appointments-lap) first to see the appointment indices.
+
 
 <div style="page-break-after: always;"></div>
 
@@ -525,10 +525,11 @@ Action | Format                                                                 
 **Find** | `find KEYWORD [MORE_KEYWORDS]`                                                                    | `find Jake HDB_3` | Find all clients named 'Jake' OR has property type 'HDB_3'
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/PROPERTY_TYPE] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com` <br> `edit 4 a/59 Jalan Besar Road pt/COMMERCIAL_FH` | Change the name and email of the second index client. <br> Change the address and property type of the fourth index client.
 **Delete** | `delete INDEX`                                                                                    | `delete 3` | Delete the third indexed client
-**Clear** | `clear`                                                                                           | - | Clears all current clients and appointments from the app
 **Add Appointment** | `ap d/DATETIME s/SELLER_INDEX [b/BUYER_INDEX]`                                                                | `ap 1 d/2025-01-01:12:00 b/3` | Adds a appointment between seller(indexed 1) and buyer(indexed 3) at that specific timing
 **List Appointments** | `lap`                                                                                             | - | List all appointments you have made in chronological order
 **Search Appointments** | `sap [tf/TIMEFRAME] KEYWORD [MORE_KEYWORDS]`                                                                     | `sap Jake` | Searches all appointments with 'Jake'
 **Edit Appointment** | `eap APPOINTMENT_INDEX [d/DATETIME] [s/SELLER_INDEX] [b/BUYER_INDEX]`                             | `eap 1 d/2025-01-15T14:00` <br> `eap 2 s/3 b/4` | Changes the datetime of appointment 1 to 15 Jan 2025 at 2pm. <br> Changes the seller and buyer of appointment 2 to person indices 3 and 4.
 **Delete Appointment** | `dap INDEX`                                                                             | `dap 1` | Deletes appointment at index 1 at that specific timing
+**Clear** | `clear`                                                                                           | - | Clears all current clients and appointments from the app
+**Toggle** | `toggle`                                                                                         | - | Toggles between light and dark themes instantly
 **Help** | `help`                                                                                            | - | A popup with the link to the user guide will show up
