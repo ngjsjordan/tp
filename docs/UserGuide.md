@@ -8,7 +8,7 @@ ClientSquare is a **desktop app built for freelance property agents**. It helps 
 By **typing commands** instead of clicking through menus, you can complete your tasks faster, allowing you to **manage more clients in less time.**
 
 * Table of Contents
-  {:toc}
+{:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -401,6 +401,8 @@ Examples:
 <div style="text-align:center;">
   <img src="images/searchAppointmentAlexDavidToday.png" alt="result for 'sap tf/today Bernice'" width="90%">
 </div>
+
+<div style="page-break-after: always;"></div>
 
 ### Deleting an appointment : `dap`
 
