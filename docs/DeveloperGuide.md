@@ -531,6 +531,27 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `ap d/2025-01-01T00:00 s/4 b/5` <br>
       Expected: An error will be shown as the referenced buyer does not have the buyer role.
 
+### Searching for an appointment
+
+1. Searching for appointments using keywords and/or timeframes.
+
+   1. Prerequisites: Have some appointments in the appointment list. Use the `lap` command to view all appointments. The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the `data/ClientSquare.json` file to regenerate it.
+
+   1. Test case: `sap Bernice` <br>
+      Expected: 2 appointment(s) listed!, with 2 appointments showing up in the UI.
+
+   1. Test case: `sap tf/upcoming` <br>
+      Expected: 4 appointment(s) listed!, with 4 appointments showing up in the UI.
+
+   1. Test case: `sap tf/past Bernice` <br>
+      Expected: 1 appointment(s) listed!, with 1 appointment showing up in the UI.
+
+   1. Test case: `sap` <br>
+      Expected: An error message will be shown which shows the correct use of the command.
+
+   1. Test case: `sap tf/invalid` <br>
+      Expected: Timeframe should be one of: past, today, upcoming (case-insensitive)
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
