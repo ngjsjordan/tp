@@ -6,6 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalAppointments.FIONA_DANIEL_PAST;
 import static seedu.address.testutil.TypicalAppointments.FIONA_ELLE_PAST;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPersons.DANIEL_EDITED;
+import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPersons.FIONA_EDITED;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,27 +73,38 @@ public class UniqueAppointmentListTest {
 
     @Test
     public void updateAppointmentsWithPerson_updateBuyer_success() {
-        uniqueAppointmentList.add(FIONA_DANIEL);
+        AppointmentDatetime datetime = new AppointmentDatetime("2025-01-01T00:00");
+        Appointment fionaDaniel = new Appointment(datetime, FIONA, DANIEL);
+        Appointment fionaDanielEdited = new Appointment(datetime, FIONA, DANIEL_EDITED);
+
+        uniqueAppointmentList.add(fionaDaniel);
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
-        expectedUniqueAppointmentList.add(FIONA_DANIEL_EDITED);
+        expectedUniqueAppointmentList.add(fionaDanielEdited);
         uniqueAppointmentList.updateAppointmentsWithEditedPerson(DANIEL, DANIEL_EDITED);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }
 
     @Test
     public void updateAppointmentsWithPerson_updateSeller_success() {
-        uniqueAppointmentList.add(FIONA_DANIEL);
+        AppointmentDatetime datetime = new AppointmentDatetime("2025-01-01T00:00");
+        Appointment fionaDaniel = new Appointment(datetime, FIONA, DANIEL);
+        Appointment fionaEditedDaniel = new Appointment(datetime, FIONA_EDITED, DANIEL);
+
+        uniqueAppointmentList.add(fionaDaniel);
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
-        expectedUniqueAppointmentList.add(FIONA_EDITED_DANIEL);
+        expectedUniqueAppointmentList.add(fionaEditedDaniel);
         uniqueAppointmentList.updateAppointmentsWithEditedPerson(FIONA, FIONA_EDITED);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }
 
     @Test
     public void updateAppointmentsWithPerson_updateNone_success() {
-        uniqueAppointmentList.add(GEORGE_BENSON);
+        AppointmentDatetime datetime = new AppointmentDatetime("2025-01-01T00:00");
+        Appointment georgeBenson = new Appointment(datetime, GEORGE, BENSON);
+
+        uniqueAppointmentList.add(georgeBenson);
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
-        expectedUniqueAppointmentList.add(GEORGE_BENSON);
+        expectedUniqueAppointmentList.add(georgeBenson);
         uniqueAppointmentList.updateAppointmentsWithEditedPerson(FIONA, FIONA_EDITED);
         assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
     }

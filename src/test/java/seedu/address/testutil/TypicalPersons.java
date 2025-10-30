@@ -71,6 +71,16 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withRole(VALID_ROLE_BOB).withAddress(VALID_ADDRESS_BOB, VALID_PROPERTY_TYPE_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
+    // Edited persons for testing appointment updates
+    public static final Person DANIEL_EDITED = new PersonBuilder().withName(VALID_NAME_DANIEL_EDITED)
+            .withPhone("87652533")
+            .withEmail("cornelia@example.com").withRole("buyer").withAddress("10th street", "HDB_4")
+            .withTags("friends").build();
+    public static final Person FIONA_EDITED = new PersonBuilder().withName(VALID_NAME_FIONA_EDITED)
+            .withPhone("9482427")
+            .withEmail("lydia@example.com").withRole("seller").withAddress("little tokyo", "HDB_J")
+            .build();
+
     private TypicalPersons() {} // prevents instantiation
 
     /**
