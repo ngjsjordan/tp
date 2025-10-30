@@ -53,7 +53,6 @@ Set up ClientSquare and start managing your clients within minutes!
 
 ![Ui](images/QuickStartUI.png)
 <br>
-<br>
 
 **Try a few basic commands**  
    Type a command in the command box and press **Enter** to see it in action.  
@@ -215,6 +214,8 @@ When changing a person's `ROLE`, previous appointments where the person had thei
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
@@ -249,7 +250,9 @@ Examples:
 <div style="text-align:center;">
   <img src="images/findAlexResult.png" alt="result for 'find Alex'" width="90%">
 </div>
-<br>
+
+<div style="page-break-after: always;"></div>
+
 * `find Alex David` returns all persons named 'Alex' **or** 'David' (and anyone with 'Alex' or 'David' in other details)
 <div style="text-align:center;">
   <img src="images/findAlexDavidResult.png" alt="result for 'find Alex David'" width="90%">
@@ -280,6 +283,8 @@ Format: `delete INDEX`
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use the [`find`](#locating-persons-by-name-find) command to easily locate the contact that you wish to delete.
 </div>
+
+<div style="page-break-after: always;"></div>
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book. 
@@ -326,6 +331,8 @@ Examples:
 </div>
 <br>
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting an appointment : `dap`
 
 Deletes an appointment.
@@ -337,8 +344,6 @@ Format: `dap INDEX`
 
 Examples:
 *  `dap 1` Deletes the first appointment shown in the appointment list.
-
-<div style="page-break-after: always;"></div>
 
 ### Searching an appointment: `sap`
 
@@ -364,19 +369,21 @@ Examples:
 <div style="text-align:center;">
   <img src="images/searchAppointmentJohnResult.png" alt="result for 'sap John'" width="90%">
 </div>
-<br>
+
+<div style="page-break-after: always;"></div>
 
 * `sap Alex John` returns all appointments with `Alex` or `John`
 <div style="text-align:center;">
   <img src="images/searchAppointmentAlexJohnResult.png" alt="result for 'sap Alex John'" width="90%">
 </div>
-<div style="page-break-after: always;"></div>
+<br>
 
-*  `sap tf/today Bernice` returns today's (for illustration purposes, assume the date to be 2025-10-30) appointments with `Bernice Yu`
+*  `sap tf/today Bernice` returns today's appointments with `Bernice Yu`(for illustration purposes, assume the date to be 2025-10-30)
 <div style="text-align:center;">
   <img src="images/searchAppointmentAlexDavidToday.png" alt="result for 'sap tf/today Bernice'" width="90%">
 </div>
-<br>
+
+<div style="page-break-after: always;"></div>
 
 ### Editing an appointment : `eap`
 
