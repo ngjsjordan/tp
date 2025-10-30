@@ -451,16 +451,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to find appointments by keyword(s)
+1.  User requests to find appointments by keyword(s) and/or timeframe
 2.  ClientSquare shows a list of matching appointments
 
     Use case ends.
 
 **Extensions**
 
-* 1a. Keyword is missing.
+* 1a. Both keyword and timeframe are missing.
 
     * 1a1. ClientSquare shows an error message.
+
+      Step 1 is repeated until the input is valid.
+      Use case resumes from step 2.
+
+* 1b. Invalid timeframe is provided.
+
+    * 1b1. ClientSquare shows an error message.
 
       Step 1 is repeated until the input is valid.
       Use case resumes from step 2.
