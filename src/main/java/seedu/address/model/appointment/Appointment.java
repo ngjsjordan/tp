@@ -62,6 +62,45 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     /**
+     * Returns true if the given {@code person} is the seller of this appointment.
+     *
+     * @param person Person to compare.
+     * @return true if {@code person} is the seller, otherwise false.
+     */
+    public boolean isPersonSeller(Person person) {
+        return seller.equals(person);
+    }
+
+    /**
+     * Returns true if the given {@code person} is the buyer of this appointment. If person is null, will return false,
+     * even if the appointment has no buyer.
+     *
+     * @param person Person to compare.
+     * @return true if {@code person} is the buyer, otherwise false. If person is null, also returns false.
+     */
+    public boolean isPersonBuyer(Person person) {
+        return buyer != null && buyer.equals(person);
+    }
+
+    /**
+     * Returns a new appointment with the details of this one, but with {code target} replaced by {@code editedPerson}.
+     *
+     * @param target Person object to be replaced.
+     * @param editedPerson Person object to replace with.
+     * @return A new Appointment object which replaces {@code target} with {@code editedPerson}.
+     */
+    public Appointment updatedWithEditedPerson(Person target, Person editedPerson) {
+        Person updatedSeller = isPersonSeller(target) ? editedPerson : seller;
+        Person updatedBuyer = isPersonBuyer(target) ? editedPerson : buyer;
+
+        if (updatedBuyer == null) {
+            return new Appointment(appointmentDatetime, updatedSeller);
+        } else {
+            return new Appointment(appointmentDatetime, updatedSeller, updatedBuyer);
+        }
+    }
+
+    /**
      * Returns the storage identifier of the seller.
      *
      * @return String representing the storage identifier of the seller.

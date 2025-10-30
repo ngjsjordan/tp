@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 
 import java.util.List;
 import java.util.Objects;
@@ -23,13 +24,15 @@ public class AddAppointmentCommand extends Command {
 
     public static final String COMMAND_WORD = "ap";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment to the client specified "
-            + "by the index number used in the displayed person list.\n"
-            + "Parameters: SELLER_INDEX (must be a positive integer) "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment with the seller and optional buyer"
+            + "specified by the index number used in the displayed person list.\n"
+            + "Parameters: "
             + PREFIX_DATETIME + "DATETIME "
+            + PREFIX_SELLER + "SELLER_INDEX "
             + "[" + PREFIX_BUYER + "BUYER_INDEX] (must be a positive integer) \n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " "
             + PREFIX_DATETIME + "2025-01-01T12:00 "
+            + PREFIX_SELLER + "4 "
             + PREFIX_BUYER + "2";
 
     public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS =
@@ -121,7 +124,7 @@ public class AddAppointmentCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_BUYER_ROLE);
         }
 
-        assert !buyer.isSamePerson(seller);
+        assert !buyer.hasSameIdentifier(seller);
 
         return new Appointment(appointmentDatetime, seller, buyer);
     }

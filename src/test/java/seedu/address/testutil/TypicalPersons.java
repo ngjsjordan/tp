@@ -6,6 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_DANIEL_EDITED;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FIONA_EDITED;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PROPERTY_TYPE_AMY;
@@ -69,6 +71,10 @@ public class TypicalPersons {
             .withEmail(VALID_EMAIL_BOB).withRole(VALID_ROLE_BOB).withAddress(VALID_ADDRESS_BOB, VALID_PROPERTY_TYPE_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
+    // Manually added - for testing editing
+    public static final Person DANIEL_EDITED = new PersonBuilder(DANIEL).withName(VALID_NAME_DANIEL_EDITED).build();
+    public static final Person FIONA_EDITED = new PersonBuilder(FIONA).withName(VALID_NAME_FIONA_EDITED).build();
+
     // Appointments
     public static final Appointment FIONA_ELLE_1 = new Appointment(
             new AppointmentDatetime("2025-01-01T12:00"), FIONA, ELLE);
@@ -76,10 +82,16 @@ public class TypicalPersons {
             new AppointmentDatetime("2025-01-02T14:00"), FIONA, ELLE);
     public static final Appointment FIONA_DANIEL = new Appointment(
             new AppointmentDatetime("2025-01-02T12:00"), FIONA, DANIEL);
+    public static final Appointment FIONA_DANIEL_EDITED = new Appointment(
+            new AppointmentDatetime("2025-01-02T12:00"), FIONA, DANIEL_EDITED);
+    public static final Appointment FIONA_EDITED_DANIEL = new Appointment(
+            new AppointmentDatetime("2025-01-02T12:00"), FIONA_EDITED, DANIEL);
     public static final Appointment GEORGE_BENSON = new Appointment(
             new AppointmentDatetime("2025-01-01T18:00"), GEORGE, BENSON);
     public static final Appointment FIONA_NOBUYER = new Appointment(
             new AppointmentDatetime("2025-01-03T12:00"), FIONA);
+    public static final Appointment FIONA_EDITED_NOBUYER = new Appointment(
+            new AppointmentDatetime("2025-01-03T12:00"), FIONA_EDITED);
 
     private TypicalPersons() {} // prevents instantiation
 

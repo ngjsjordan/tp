@@ -4,7 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPersons.DANIEL_EDITED;
+import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.FIONA_DANIEL;
+import static seedu.address.testutil.TypicalPersons.FIONA_DANIEL_EDITED;
+import static seedu.address.testutil.TypicalPersons.FIONA_EDITED;
+import static seedu.address.testutil.TypicalPersons.FIONA_EDITED_DANIEL;
 import static seedu.address.testutil.TypicalPersons.FIONA_ELLE_1;
 import static seedu.address.testutil.TypicalPersons.FIONA_ELLE_2;
 import static seedu.address.testutil.TypicalPersons.GEORGE_BENSON;
@@ -95,7 +101,7 @@ public class UniqueAppointmentListTest {
     }
 
     @Test
-    public void set_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
+    public void setAppointments_uniqueAppointmentList_replacesOwnListWithProvidedUniqueAppointmentList() {
         uniqueAppointmentList.add(FIONA_ELLE_1);
         UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
         expectedUniqueAppointmentList.add(FIONA_ELLE_2);
@@ -104,13 +110,48 @@ public class UniqueAppointmentListTest {
     }
 
     @Test
-    public void set_nonUniqueAppointmentList_failure() {
+    public void setAppointments_nonUniqueAppointmentList_failure() {
         uniqueAppointmentList.add(FIONA_ELLE_1);
         List<Appointment> expectedAppointmentList = new ArrayList<>();
         expectedAppointmentList.add(FIONA_ELLE_2);
         expectedAppointmentList.add(FIONA_ELLE_2);
         assertThrows(DuplicateAppointmentException.class, () ->
                 uniqueAppointmentList.setAppointments(expectedAppointmentList));
+    }
+
+    @Test
+    public void updateAppointmentsWithPerson_updateBuyer_success() {
+        uniqueAppointmentList.add(FIONA_DANIEL);
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        expectedUniqueAppointmentList.add(FIONA_DANIEL_EDITED);
+        uniqueAppointmentList.updateAppointmentsWithEditedPerson(DANIEL, DANIEL_EDITED);
+        assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
+    }
+
+    @Test
+    public void updateAppointmentsWithPerson_updateSeller_success() {
+        uniqueAppointmentList.add(FIONA_DANIEL);
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        expectedUniqueAppointmentList.add(FIONA_EDITED_DANIEL);
+        uniqueAppointmentList.updateAppointmentsWithEditedPerson(FIONA, FIONA_EDITED);
+        assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
+    }
+
+    @Test
+    public void updateAppointmentsWithPerson_updateNone_success() {
+        uniqueAppointmentList.add(GEORGE_BENSON);
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        expectedUniqueAppointmentList.add(GEORGE_BENSON);
+        uniqueAppointmentList.updateAppointmentsWithEditedPerson(FIONA, FIONA_EDITED);
+        assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
+    }
+
+    @Test
+    public void updateAppointmentsWithPerson_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                uniqueAppointmentList.updateAppointmentsWithEditedPerson(null, FIONA_EDITED));
+        assertThrows(NullPointerException.class, () ->
+                uniqueAppointmentList.updateAppointmentsWithEditedPerson(FIONA, null));
     }
 
     @Test

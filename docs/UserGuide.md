@@ -297,7 +297,7 @@ Examples:
 
 Adds an appointment with a seller and an optional buyer. 
 
-Format: `ap SELLER_INDEX d/DATETIME [b/BUYER_INDEX]`
+Format: `ap d/DATETIME s/SELLER_INDEX [b/BUYER_INDEX]`
 
 * Adds an appointment with the seller being the person specified by `SELLER_INDEX` and the buyer being the person specified by `BUYER_INDEX`. 
 * To create an appointment with only a seller, simply omit the `b/` tag. 
@@ -311,9 +311,9 @@ Use the [`find`](#locating-persons-by-name-find) command with multiple keywords 
 </div>
 
 Examples:
-*  `ap 4 d/2025-12-01T12:00 b/1` adds an appointment with seller (index 4: Roy) and buyer (index 1: Alex) on 1 Dec 2025 at 12pm. `lap` can be used to view appointments after adding.
+*  `ap d/2025-12-01T12:00 s/4 b/1` adds an appointment with seller (index 4: Roy) and buyer (index 1: Alex) on 1 Dec 2025 at 12pm. `lap` can be used to view appointments after adding.
 <div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="images/apResult.png" alt="result for `ap 1 d/2025-12-01T12:00 b/4`" width="49%">
+  <img src="images/apResult.png" alt="result for `ap d/2025-12-01T12:00 s/4 b/1`" width="49%">
   <img src="images/lapAfterApResult.png" alt="result for `lap`" width="49%">
 </div>
 <br>

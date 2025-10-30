@@ -123,8 +123,8 @@ public class ModelManagerTest {
     @Test
     public void getAppointmentList_withAppointments_returnsAppointmentList() {
         // Create persons with appointments at different times
-        Person person1 = new PersonBuilder().withName("Alice").withRole(Role.SELLER).build();
-        Person person2 = new PersonBuilder().withName("Bob").withRole(Role.SELLER).build();
+        Person person1 = new PersonBuilder().withPhone("111").withRole(Role.SELLER).build();
+        Person person2 = new PersonBuilder().withPhone("222").withRole(Role.SELLER).build();
 
         modelManager.addPerson(person1);
         modelManager.addPerson(person2);
