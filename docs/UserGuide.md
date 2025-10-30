@@ -344,9 +344,10 @@ Examples:
 
 Finds appointments whose details contain any of the keywords you provide. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
 
-Format `sap KEYWORD [MORE_KEYWORDS]`
+Format `sap [tf/TIMEFRAME] KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
+* The valid timeframes consist of `past`, `today` and `upcoming` (case-insensitive)
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned
@@ -364,6 +365,12 @@ Examples:
   <img src="images/searchAppointmentAlexJohnResult.png" alt="result for 'sap Alex John'" width="90%">
 </div>
 <div style="page-break-after: always;"></div>
+
+*  `sap tf/today John` returns today's appointments with `Alex`
+<div style="text-align:center;">
+  <img src="images/searchAppointmentAlexDavidToday.png" alt="result for 'sap John'" width="90%">
+</div>
+<br>
 
 ### Editing an appointment : `eap`
 
