@@ -124,7 +124,7 @@ public class AddAppointmentCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_BUYER_ROLE);
         }
 
-        assert !buyer.isSamePerson(seller);
+        assert !buyer.hasSameIdentifier(seller);
 
         return new Appointment(appointmentDatetime, seller, buyer);
     }
