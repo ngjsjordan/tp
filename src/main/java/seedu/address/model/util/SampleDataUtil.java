@@ -52,6 +52,11 @@ public class SampleDataUtil {
         Person[] persons = getSamplePersons();
 
         return new Appointment[] {
+            // Today appointment: Alex Yeoh (buyer) with David Li (seller)
+            new Appointment(
+                new AppointmentDatetime(LocalDate.now().toString() + "T09:00"),
+                persons[0], persons[3]
+            ),
             // Upcoming appointment: David Li (seller) with Alex Yeoh (buyer)
             new Appointment(
                 new AppointmentDatetime(LocalDate.now().plusDays(3).toString() + "T14:00"),
