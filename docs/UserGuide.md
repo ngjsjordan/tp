@@ -51,7 +51,9 @@ Set up ClientSquare and start managing your clients within minutes!
 
 <div style="page-break-after: always;"></div>
 
-![Ui](images/QuickStartUI.png)
+<div style="text-align:center;">
+  <img src="images/QuickStartUI.png" alt="QuickStartUI" width="90%">
+</div>
 <br>
 
 **Try a few basic commands**  
@@ -250,6 +252,7 @@ Examples:
 <div style="text-align:center;">
   <img src="images/findAlexResult.png" alt="result for 'find Alex'" width="90%">
 </div>
+<br>
 
 <div style="page-break-after: always;"></div>
 
@@ -364,13 +367,14 @@ Format `sap [tf/TIMEFRAME] KEYWORD [MORE_KEYWORDS]`
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 Examples:
 * `sap John` returns all appointments with 'John'
 <div style="text-align:center;">
   <img src="images/searchAppointmentJohnResult.png" alt="result for 'sap John'" width="90%">
 </div>
-
-<div style="page-break-after: always;"></div>
+<br>
 
 * `sap Alex John` returns all appointments with `Alex` or `John`
 <div style="text-align:center;">
