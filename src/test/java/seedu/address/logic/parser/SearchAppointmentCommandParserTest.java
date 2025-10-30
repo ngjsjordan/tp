@@ -151,6 +151,6 @@ public class SearchAppointmentCommandParserTest {
     @Test
     public void parse_duplicateTimeFramePrefix_throwsParseException() {
         assertParseFailure(parser, " tf/past tf/today",
-                Messages.getErrorMessageForDuplicatePrefixes(CliSyntax.PREFIX_TIME));
+                Messages.getErrorMessageForDuplicatePrefixes(CliSyntax.PREFIX_TIMEFRAME));
     }
 }

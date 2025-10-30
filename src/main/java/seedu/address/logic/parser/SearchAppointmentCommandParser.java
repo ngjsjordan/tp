@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TIMEFRAME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +25,7 @@ public class SearchAppointmentCommandParser implements Parser<SearchAppointmentC
      */
     public SearchAppointmentCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TIME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TIMEFRAME);
 
         String preamble;
         TimeFrame timeFrame;
@@ -33,8 +33,8 @@ public class SearchAppointmentCommandParser implements Parser<SearchAppointmentC
 
         preamble = argMultimap.getPreamble().trim();
 
-        if (argMultimap.getValue(PREFIX_TIME).isPresent()) {
-            String timeValueStr = argMultimap.getValue(PREFIX_TIME).get().trim();
+        if (argMultimap.getValue(PREFIX_TIMEFRAME).isPresent()) {
+            String timeValueStr = argMultimap.getValue(PREFIX_TIMEFRAME).get().trim();
             String[] timeValueParts = timeValueStr.split("\\s+");
 
             timeFrame = ParserUtil.parseTimeFrame(timeValueParts[0]);
@@ -44,7 +44,7 @@ public class SearchAppointmentCommandParser implements Parser<SearchAppointmentC
             keywords = combineKeywords(preamble, new ArrayList<>());
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TIME);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TIMEFRAME);
 
         if (keywords.isEmpty() && timeFrame == null) {
             throw new ParseException(
