@@ -46,9 +46,13 @@ Set up ClientSquare and start managing your clients within minutes!
 
 4. **Open and run the app**  
    Open your command terminal and go to the folder where you saved the file using the `cd` command.  
-   Then, **start ClientSquare** by typing: `java -jar clientsquare.jar`. Alternatively, you may double-click the jar file to launch the application. <br>
+   Then, **start ClientSquare** by typing: `java -jar ClientSquare.jar`. Alternatively, you may double-click the jar file to launch the application. <br>
    Within a few seconds, the app window will appear with some sample client data for you to explore. <br>
-    ![Ui](images/QuickStartUI.png)
+
+<div style="page-break-after: always;"></div>
+
+![Ui](images/QuickStartUI.png)
+<br>
 <br>
 
 5. **Try a few basic commands**  
@@ -108,14 +112,7 @@ Format: `help`
 
 ### Adding a person: `add`
 
-Adds a client to the client square app. Details to include when adding a client:
-<br>(i) Name,
-<br>(ii) Phone Number,
-<br>(iii) Email,
-<br>(iv) Role,
-<br>(v) Address,
-<br>(vi) Property Type,
-<br>(vii) Tags (Optional)
+Adds a client to the client square app. 
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​`
 
@@ -190,11 +187,19 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* When editing address or property type, it is compulsory to provide both address and property type input 
-  values i.e address and property type cannot be edited independently
 * You can remove all the person’s tags by typing `t/` without
     specifying any tags after it.
+*
+
+<div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
+* Adding of tags is not cumulative. When editing tags, the existing tags of the person will be removed
+* Address and property type cannot be edited independently. When editing address or property type, it is compulsory to provide both address and property type input 
+  values.
+</div>
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+When changing a person's `ROLE`, previous appointments where the person had their previous role will not be changed. This is to support realistic use cases where a former seller has become a buyer and vice-versa, while retaining their previous appointments without issue. 
+</div>
 
 <div markdown="block" class="alert alert-info">
 
@@ -235,6 +240,10 @@ Format: `find KEYWORD [MORE_KEYWORDS]...`
 * Persons matching at least one keyword will be returned
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+After using the `find` command, you can use the new index numbers shown on screen for commands that require index as an input, such as [`edit`](#editing-a-person--edit) or [`ap`](#adding-an-appointment--ap).
+</div>
+
 Examples:
 * `find Alex` returns all persons named 'Alex' (and anyone with 'Alex' in other details)
 <div style="text-align:center;">
@@ -250,10 +259,6 @@ Examples:
 <div style="text-align:center;">
   <img src="images/findBuyerResult.png" alt="result for 'find buyer'" width="90%">
 </div>
-<br>
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-After using the `find` command, you can use the new index numbers shown on screen for commands that require index as an input, such as [`edit`](#editing-a-person--edit) or [`ap`](#adding-an-appointment--ap).
-</div>
 
 <div style="page-break-after: always;"></div>
 
@@ -266,6 +271,15 @@ Format: `delete INDEX`
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list. This will be a positive whole number, such as 1, 2, 3, ...
 * Deleting a person will also delete all their associated appointments.
+
+<div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
+* The `INDEX` is the index number shown in the current or most recently displayed person list. This may be different from the index number in the full person list. If you wish to use the index from the full person list, don't forget to use `list` before using `delete`.
+* Deleting a person will also delete all their associated appointments.
+</div>
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+Use the [`find`](#locating-persons-by-name-find) command to easily locate the contact that you wish to delete.
+</div>
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the address book. 
@@ -280,14 +294,6 @@ Examples:
   <img src="images/findIrfanResult.png" alt="result for `find irfan`" width="49%">
   <img src="images/delete1AfterFindIrfanResult.png" alt="result for `delete 1`" width="49%">
 </div>
-<br>
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-The `INDEX` is the index number shown in the current or most recently displayed person list. This may be different from the index number in the full person list. If you wish to use the index from the full person list, don't forget to use `list` before using `delete`.
-</div>
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Use the [`find`](#locating-persons-by-name-find) command to easily locate the contact that you wish to delete.
-</div>
 
 <div style="page-break-after: always;"></div>
 
@@ -295,43 +301,46 @@ Use the [`find`](#locating-persons-by-name-find) command to easily locate the co
 
 Adds an appointment with a seller and an optional buyer. 
 
-Format: `ap SELLER_INDEX d/DATETIME [b/BUYER_INDEX]`
+Format: `ap d/DATETIME s/SELLER_INDEX [b/BUYER_INDEX]`
 
 * Adds an appointment with the seller being the person specified by `SELLER_INDEX` and the buyer being the person specified by `BUYER_INDEX`. 
-* For an appointment with only a seller, simply omit the `b/` tag. 
-* The indices refer to the index numbers shown in the displayed person list. This will be a positive whole number, such as 1, 2, 3, ...
-* Datetime should be in an ISO 8601-compliant format (e.g. `yyyy-MM-ddTHH:mm:ss`) and must be provided.
-* The location will be displayed as the seller's address. 
-
-Examples:
-*  `ap 4 d/2025-12-01T12:00 b/1` adds an appointment with seller (index 4: Roy) and buyer (index 1: Alex) on 1 Dec 2025 at 12pm. `lap` can be used to view appointments after adding.
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="images/apResult.png" alt="result for `ap 1 d/2025-12-01T12:00 b/4`" width="49%">
-  <img src="images/lapAfterApResult.png" alt="result for `lap`" width="49%">
+* To create an appointment with only a seller, simply omit the `b/` tag. 
+* The indices refer to the index numbers shown in the displayed person list which will be a positive whole number (e.g. 1, 2, 3, ...)
+* Provide a seller that has the role `seller` and a `buyer` that has the role buyer.
+* Provide Datetime in an ISO 8601-compliant format. (e.g. `yyyy-MM-ddTHH:mm`)
+* The seller's location is automatically displayed as the appointment location. 
+* 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+It is possible to add multiple appointments at the same time. Appointments will only be regarded as duplicate if they have the same datetime, seller, and buyer (or lack of buyer).
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 Use the [`find`](#locating-persons-by-name-find) command with multiple keywords (such as `find Alex David`) to easily index the contacts you wish to create an appointment for.
 </div>
 
-<div style="page-break-after: always;"></div>
+Examples:
+*  `ap d/2025-12-01T12:00 s/4 b/1` adds an appointment with seller (index 4: Roy) and buyer (index 1: Alex) on 1 Dec 2025 at 12pm. `lap` can be used to view appointments after adding.
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="images/apResult.png" alt="result for `ap d/2025-12-01T12:00 s/4 b/1`" width="49%">
+  <img src="images/lapAfterApResult.png" alt="result for `lap`" width="49%">
+</div>
+<br>
 
 ### Deleting an appointment : `dap`
 
 Deletes an appointment.
 
-Format: `dap INDEX d/DATETIME`
+Format: `dap INDEX`
 
-* Deletes an appointment with the **seller** specified by `INDEX`, and the specified `DATETIME`.
-* The index refers to the index number shown in the displayed person list. This will be a positive whole number, such as 1, 2, 3, ...
-* Datetime should match exactly with the appointment's datetime in an ISO 8601-compliant format (e.g. `yyyy-MM-ddTHH:mm:ss`) and must be provided.
-* If there are multiple appointments with the same seller at the same datetime, they will all be deleted.
+* Deletes the appointment specified by `INDEX`.
+* The index refers to the index number shown in the displayed appointment list. This will be a positive whole number, such as 1, 2, 3, ...
 
 Examples:
-*  `dap 1 d/2025-01-01T12:00` Deletes an appointment to the 1st person on 1 Jan 2025 at 12pm.
+*  `dap 1` Deletes the first appointment shown in the appointment list.
 
 <div style="page-break-after: always;"></div>
 
+<<<<<<< HEAD
 ### Searching an appointment: `sap`
 
 Finds appointments whose details contain any of the keywords you provide. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
@@ -345,11 +354,42 @@ Format `sap KEYWORD [MORE_KEYWORDS]`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `sap John` returns all appointments with 'John' 
-![](images/searchAppointmentJohnResult.png)
+* `sap John` returns all appointments with 'John'
+<div style="text-align:center;">
+  <img src="images/searchAppointmentJohnResult.png" alt="result for 'sap John'" width="90%">
+</div>
+<br>
 
 * `sap Alex John` returns all appointments with `Alex` or `John`
-![](images/searchAppointmentAlexJohnResult.png)
+<div style="text-align:center;">
+  <img src="images/searchAppointmentAlexJohnResult.png" alt="result for 'sap Alex John'" width="90%">
+</div>
+<div style="page-break-after: always;"></div>
+
+### Editing an appointment : `eap`
+
+Edits an existing appointment in the displayed appointment list.
+
+Format: `eap APPOINTMENT_INDEX [d/DATETIME] [s/SELLER_INDEX] [b/BUYER_INDEX]`
+
+* Edits the appointment at the specified `APPOINTMENT_INDEX`.
+* The appointment index refers to the index number shown in the displayed appointment list (shown after using [`lap`](#listing-all-appointments-lap) or `sap`).
+* The seller and buyer indices refer to the index numbers shown in the displayed person list.
+* At least one of the optional fields must be provided.
+* All indices must be positive whole numbers, such as 1, 2, 3, ...
+* Datetime should be in an ISO 8601-compliant format (e.g. `yyyy-MM-ddTHH:mm:ss`).
+* Existing values will be updated to the input values.
+* When editing seller or buyer, the new person must have the appropriate role (seller role for seller, buyer role for buyer).
+* The seller and buyer cannot be the same person.
+
+Examples:
+* `lap` followed by `eap 1 d/2025-01-15T14:00` changes the datetime of the 1st appointment to 15 Jan 2025 at 2pm.
+* `lap` followed by `eap 2 s/3` changes the seller of the 2nd appointment to the 3rd person in the person list.
+* `lap` followed by `eap 1 d/2025-02-01T10:00 b/4` changes both the datetime and buyer of the 1st appointment.
+
+Tips:
+* Use [`lap`](#listing-all-appointments-lap) first to see the appointment indices.
+
 
 <div style="page-break-after: always;"></div>
 
@@ -361,6 +401,12 @@ Format: `clear`
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 This action is irreversible. Please be certain before executing this command.
+</div>
+
+Example:
+* `clear`
+<div style="text-align:center;">
+  <img src="images/clearCommandResult.png" alt="result for 'list'" width="95%">
 </div>
 
 <div style="page-break-after: always;"></div>
@@ -375,14 +421,9 @@ Format: `toggle`
 * Each execution switches to the alternate theme
 * Theme preference is **persisted across sessions**
 
-Examples:
-* `toggle` switches from light to dark mode (or vice versa)
-
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="images/ToggleResultLight.png" alt="Light mode" width="49%">
-  <img src="images/ToggleResultDark.png" alt="Dark mode" width="49%">
+<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+The theme change applies **immediately** and affects the **entire application interface**
 </div>
-<br>
 
 <div markdown="block" class="alert alert-primary">:bulb: **Tip:**
 * Switch to **dark mode** when working in low-light environments to reduce eye strain
@@ -390,8 +431,12 @@ Examples:
 * The theme switches **immediately** without requiring a restart
 </div>
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-The theme change applies **immediately** and affects the **entire application interface**
+Examples:
+* `toggle` switches from light to dark mode (or vice versa)
+
+<div style="display: flex; justify-content: center; gap: 5px;">
+  <img src="images/ToggleResultLight.png" alt="Light mode" width="49%">
+  <img src="images/ToggleResultDark.png" alt="Dark mode" width="49%">
 </div>
 
 <div style="page-break-after: always;"></div>
@@ -408,8 +453,6 @@ Format: `exit`
 
 Examples:
 * `exit` closes the application
-
-<div style="page-break-after: always;"></div>
 
 ### Saving the data
 
@@ -461,5 +504,6 @@ Action | Format                                                                 
 **Add Appointment** | `ap SELLER_INDEX d/DATETIME [b/BUYER_INDEX]`                                                       | `ap 1 d/2025-01-01:12:00 b/3` | Adds a appointment between seller(indexed 1) and buyer(indexed 3) at that specific timing
 **List Appointments** | `lap`                                                                                              | - | List all appointments you have made in chronological order
 **Search Appointments** | `sap KEYWORD [MORE_KEYWORDS]`                                                                      | `sap Jake` | Searches all appointments with 'Jake'
+**Edit Appointment** | `eap APPOINTMENT_INDEX [d/DATETIME] [s/SELLER_INDEX] [b/BUYER_INDEX]`                            | `eap 1 d/2025-01-15T14:00` <br> `eap 2 s/3 b/4` | Changes the datetime of appointment 1 to 15 Jan 2025 at 2pm. <br> Changes the seller and buyer of appointment 2 to person indices 3 and 4.
 **Delete Appointment** | `dap INDEX d/DATETIME`                                                                             | `dap 1 d/2025-01-01:12:00` | Deletes appointment with the seller at index 1 at that timing
 **Help** | `help`                                                                                             | - | A popup with the link to the user guide will show up

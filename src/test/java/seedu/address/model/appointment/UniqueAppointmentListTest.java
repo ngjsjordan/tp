@@ -66,6 +66,41 @@ public class UniqueAppointmentListTest {
     }
 
     @Test
+    public void updateAppointmentsWithPerson_updateBuyer_success() {
+        uniqueAppointmentList.add(FIONA_DANIEL);
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        expectedUniqueAppointmentList.add(FIONA_DANIEL_EDITED);
+        uniqueAppointmentList.updateAppointmentsWithEditedPerson(DANIEL, DANIEL_EDITED);
+        assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
+    }
+
+    @Test
+    public void updateAppointmentsWithPerson_updateSeller_success() {
+        uniqueAppointmentList.add(FIONA_DANIEL);
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        expectedUniqueAppointmentList.add(FIONA_EDITED_DANIEL);
+        uniqueAppointmentList.updateAppointmentsWithEditedPerson(FIONA, FIONA_EDITED);
+        assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
+    }
+
+    @Test
+    public void updateAppointmentsWithPerson_updateNone_success() {
+        uniqueAppointmentList.add(GEORGE_BENSON);
+        UniqueAppointmentList expectedUniqueAppointmentList = new UniqueAppointmentList();
+        expectedUniqueAppointmentList.add(GEORGE_BENSON);
+        uniqueAppointmentList.updateAppointmentsWithEditedPerson(FIONA, FIONA_EDITED);
+        assertEquals(expectedUniqueAppointmentList, uniqueAppointmentList);
+    }
+
+    @Test
+    public void updateAppointmentsWithPerson_nullPerson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                uniqueAppointmentList.updateAppointmentsWithEditedPerson(null, FIONA_EDITED));
+        assertThrows(NullPointerException.class, () ->
+                uniqueAppointmentList.updateAppointmentsWithEditedPerson(FIONA, null));
+    }
+
+    @Test
     public void remove_nullAppointment_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueAppointmentList.remove(null));
     }

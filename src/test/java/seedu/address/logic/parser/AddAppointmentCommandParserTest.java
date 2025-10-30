@@ -1,21 +1,22 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.APPOINTMENT_DESC_JAN_1;
 import static seedu.address.logic.commands.CommandTestUtil.BUYER_DESC_2;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DATETIME_DESC_JAN_1;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_BUYER_DESC_SKELETON;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATETIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_SELLER_DESC_SKELETON;
+import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DATETIME_JAN_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.model.appointment.AppointmentDatetime;
@@ -29,41 +30,51 @@ public class AddAppointmentCommandParserTest {
 
     @Test
     public void parse_missingParts_failure() {
-        // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        // no datetime specified
+        assertParseFailure(parser, SELLER_DESC_1 + BUYER_DESC_2, MESSAGE_INVALID_FORMAT);
 
-        // no field specified
-        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
+        // no seller specified
+        assertParseFailure(parser, DATETIME_DESC_JAN_1 + BUYER_DESC_2, MESSAGE_INVALID_FORMAT);
 
-        // no index and no field specified
+        // no datetime and no seller specified
+        assertParseFailure(parser, BUYER_DESC_2, MESSAGE_INVALID_FORMAT);
+
+        // no datetime, seller or buyer specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
-    public void parse_invalidPreamble_failure() {
-        // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
-
-        // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
-
-        // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
-
-        // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 i/ string", MESSAGE_INVALID_FORMAT);
-    }
-
-    @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_APPOINTMENT_DESC + BUYER_DESC_2,
+        // invalid datetime
+        assertParseFailure(parser, INVALID_DATETIME_DESC + SELLER_DESC_1 + BUYER_DESC_2,
                 AppointmentDatetime.MESSAGE_CONSTRAINTS);
+
+        // invalid seller
+        // negative index
+        assertParseFailure(parser, DATETIME_DESC_JAN_1 + String.format(INVALID_SELLER_DESC_SKELETON, "-1")
+                        + BUYER_DESC_2, MESSAGE_INVALID_INDEX);
+        // zero index
+        assertParseFailure(parser, DATETIME_DESC_JAN_1 + String.format(INVALID_SELLER_DESC_SKELETON, "0")
+                        + BUYER_DESC_2, MESSAGE_INVALID_INDEX);
+        // non-number index
+        assertParseFailure(parser, DATETIME_DESC_JAN_1 + String.format(INVALID_SELLER_DESC_SKELETON, "hi")
+                        + BUYER_DESC_2, MESSAGE_INVALID_INDEX);
+
+        // invalid buyer
+        // negative index
+        assertParseFailure(parser, DATETIME_DESC_JAN_1 + SELLER_DESC_1
+                        + String.format(INVALID_BUYER_DESC_SKELETON, "-1"), MESSAGE_INVALID_INDEX);
+        // zero index
+        assertParseFailure(parser, DATETIME_DESC_JAN_1 + SELLER_DESC_1
+                        + String.format(INVALID_BUYER_DESC_SKELETON, "0"), MESSAGE_INVALID_INDEX);
+        // non-number index
+        assertParseFailure(parser, DATETIME_DESC_JAN_1 + SELLER_DESC_1
+                        + String.format(INVALID_BUYER_DESC_SKELETON, "hi"), MESSAGE_INVALID_INDEX);
     }
 
     @Test
     public void parse_appointmentWithBuyerAccepted_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1 + BUYER_DESC_2;
+        String userInput = DATETIME_DESC_JAN_1 + SELLER_DESC_1 + BUYER_DESC_2;
 
         AddAppointmentCommand expectedCommand = new AddAppointmentCommand(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_SECOND_PERSON);
@@ -73,8 +84,7 @@ public class AddAppointmentCommandParserTest {
 
     @Test
     public void parse_appointmentWithoutBuyerAccepted_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1;
+        String userInput = DATETIME_DESC_JAN_1 + SELLER_DESC_1;
 
         AddAppointmentCommand expectedCommand = new AddAppointmentCommand(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON);
@@ -85,24 +95,23 @@ public class AddAppointmentCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_failure() {
         // valid followed by invalid
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1 + INVALID_APPOINTMENT_DESC + BUYER_DESC_2;
+        String userInput = DATETIME_DESC_JAN_1 + INVALID_DATETIME_DESC + SELLER_DESC_1 + BUYER_DESC_2;
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATETIME));
 
         // invalid followed by valid
-        userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1 + INVALID_APPOINTMENT_DESC + BUYER_DESC_2;
+        userInput = INVALID_DATETIME_DESC + DATETIME_DESC_JAN_1 + SELLER_DESC_1 + BUYER_DESC_2;
 
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATETIME));
 
         // multiple valid fields repeated
-        userInput = targetIndex.getOneBased() + APPOINTMENT_DESC_JAN_1 + APPOINTMENT_DESC_JAN_1 + BUYER_DESC_2;
+        userInput = DATETIME_DESC_JAN_1 + DATETIME_DESC_JAN_1 + SELLER_DESC_1 + BUYER_DESC_2;
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATETIME));
 
         // multiple invalid values
-        userInput = targetIndex.getOneBased() + INVALID_APPOINTMENT_DESC + INVALID_APPOINTMENT_DESC + BUYER_DESC_2;
+        userInput = INVALID_DATETIME_DESC + INVALID_DATETIME_DESC + SELLER_DESC_1 + BUYER_DESC_2;
 
         assertParseFailure(parser, userInput,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_DATETIME));

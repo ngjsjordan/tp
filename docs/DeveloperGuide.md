@@ -51,7 +51,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `ap 2 d/2025-01-01T12:00 b/1` in order to add an appointment.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1` in order to delete the first person in the displayed list.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -239,11 +239,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -263,7 +258,7 @@ _{Explain here how the data archiving feature will be implemented}_
 **Target user profile**:
 
 * freelance property agents
-* interacts regularly with many clients looking to buy/rent/sell properties
+* interacts regularly with many clients looking to buy/sell properties
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
@@ -277,7 +272,7 @@ _{Explain here how the data archiving feature will be implemented}_
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
 | Priority | As a …​                                     | I want to …​                    | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
+|----------| ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
 | `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
 | `* * *`  | user                                       | add a new buyer/seller         | remember client details                                                |
 | `* * *`  | user                                       | tag sellers' property details  | easily note and view an important piece of information                 |
@@ -290,7 +285,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | new user                                   | import contacts from my phone  | get set up quickly                                                     |
 | `* *`    | user                                       | edit client information        | update details when they change                                        |
 | `* *`    | user                                       | filter properties              | find properties to recommend to buyers                                 |
-| `* *`    | user                                       | track transaction progress     | keep track of deals involving buyers/sellers                           |
+| `*`      | user                                       | track transaction progress     | keep track of deals involving buyers/sellers                           |
 | `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
 | `*`      | user with many persons in the address book | find a person with similar name| find the client I'm looking for amidst many similar names              |
 | `*`      | user who is a co-broking agent             | add partner agents             | keep track of others involved in a deal                                |
@@ -358,7 +353,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to find a contact/property by keyword
+1.  User requests to find contacts/properties by keyword(s)
 2.  ClientSquare shows a list of matching contacts/properties
 
     Use case ends.
@@ -423,7 +418,52 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**Use case: UC08 - Edit an appointment**
+
+**MSS**
+
+1.  User requests to list appointments (UC06)
+2.  User requests to edit a specific appointment in the list.
+3.  ClientSquare edits the appointment
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. User is unable to find the desired appointment
+
+    * 1a1. User searches for the desired appointment (UC09)    
+    
+      Use case resumes from step 2.
+
+* 1b. There are no appointments in the list.
+  
+  Use case ends.
+
+* 2a. The requested edits are invalid.
+  
+    * 2a1. ClientSquare shows an error message.
+
+      Step 2 is repeated until the input is valid.
+      Use case resumes from step 3.
+
+**Use case: UC09 - Search for appointment**
+
+**MSS**
+
+1.  User requests to find appointments by keyword(s)
+2.  ClientSquare shows a list of matching appointments
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. Keyword is missing.
+
+    * 1a1. ClientSquare shows an error message.
+
+      Step 1 is repeated until the input is valid.
+      Use case resumes from step 2.
 
 ### Non-Functional Requirements
 
@@ -470,22 +510,26 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Adding an appointment
 
-1. Deleting a person while all persons are being shown
+1. Adding an appointment while all persons are shown. To verify that an appointment has been added, use the `lap` command to show all appointments.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all persons using the `list` command. Multiple persons should be in the list. The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the json file to regenerate it.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `ap d/2025-01-01T00:00 s/4 b/3` <br>
+      Expected: A new appointment is added at datetime 2025-01-01T00:00, with seller being the person at index 4, and buyer the person at index 3. 
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   1. Test case: `ap d/2025-01-01T00:00 s/5` <br>
+      Expected: A new appointment is added at datetime 2025-01-01T00:00, with seller being the person at index 5, and no buyer. 
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+   1. Test case: `ap d/2025-01-01T00:00 b/3` <br>
+      Expected: An error will be shown as it is not possible to add appointments without a seller.
 
-1. _{ more test cases …​ }_
+   1. Test case: `ap d/2025-01-01T00:00 s/3` <br>
+      Expected: An error will be shown as the referenced seller does not have the seller role.
+   
+   1. Test case: `ap d/2025-01-01T00:00 s/4 b/5` <br>
+      Expected: An error will be shown as the referenced buyer does not have the buyer role.
 
 ### Saving data
 
@@ -494,3 +538,15 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+Team Size: 5
+1. **Support multiple properties per seller**. Currently, each seller only has one associated property (stored in the `Address` field), limiting the app's functionality for agents managing seller portfolios with multiple properties.
+   - We plan to enhance the feature to support multiple properties per seller by modifying `Person` to hold a `List` of `Address` in a separate `Property` field.
+   - ...

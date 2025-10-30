@@ -37,7 +37,6 @@ public class AddressTest {
     @Test
     public void constructor_invalidType_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> new AddressType(INVALID_TYPE));
-        assertThrows(IllegalArgumentException.class, () -> new AddressType(LOWERCASE_TYPE));
         assertThrows(IllegalArgumentException.class, () -> new AddressType(EMPTY_TYPE));
         assertThrows(IllegalArgumentException.class, () -> new AddressType(SPACED_TYPE));
     }
@@ -73,12 +72,13 @@ public class AddressTest {
         assertFalse(AddressType.isValidType(" ")); // spaces only
         assertFalse(AddressType.isValidType("random"));
         assertFalse(AddressType.isValidType("HDB-4")); // wrong delimiter
-        assertFalse(AddressType.isValidType("hdb_4")); // lowercase
         assertFalse(AddressType.isValidType("LANDED")); // incomplete type
 
         // valid types
         assertTrue(AddressType.isValidType("HDB_2"));
         assertTrue(AddressType.isValidType("HDB_3"));
+        assertTrue(AddressType.isValidType("hdb_4")); // lowercase
+        assertTrue(AddressType.isValidType("hDB_5")); // mix of lowercase and uppercase
         assertTrue(AddressType.isValidType("EC"));
         assertTrue(AddressType.isValidType("CONDO_J"));
         assertTrue(AddressType.isValidType("COMMERCIAL_FH"));

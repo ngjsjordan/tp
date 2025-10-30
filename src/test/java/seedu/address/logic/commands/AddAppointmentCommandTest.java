@@ -51,7 +51,7 @@ public class AddAppointmentCommandTest {
         assertCommandSuccess(addAppointmentCommand, model, expectedMessage, expectedModel);
     }
 
-
+    @Test
     public void execute_appointmentWithoutBuyerAcceptedByModel_success() {
         Person seller = new PersonBuilder(model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased())).build();
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(

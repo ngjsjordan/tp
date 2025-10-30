@@ -5,9 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.BUYER_DESC_2;
+import static seedu.address.logic.commands.CommandTestUtil.DATETIME_DESC_JAN_1;
+import static seedu.address.logic.commands.CommandTestUtil.SELLER_DESC_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DATETIME_JAN_1;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +22,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
-// import seedu.address.logic.commands.DeleteAppointmentCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditAppointmentCommand;
+import seedu.address.logic.commands.EditAppointmentCommand.EditAppointmentDescriptor;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
@@ -30,7 +35,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SearchAppointmentCommand;
 import seedu.address.logic.commands.ToggleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-// import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentContainsKeywordsPredicate;
 import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Person;
@@ -118,12 +122,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_ap() throws Exception {
-        String datetime = "2025-01-01T12:00";
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(
-                AddAppointmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
-                        + "d/" + datetime + BUYER_DESC_2);
-        assertEquals(new AddAppointmentCommand(new AppointmentDatetime(datetime), INDEX_FIRST_PERSON,
-                INDEX_SECOND_PERSON), command);
+                AddAppointmentCommand.COMMAND_WORD + DATETIME_DESC_JAN_1 + SELLER_DESC_1 + BUYER_DESC_2);
+        assertEquals(new AddAppointmentCommand(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1),
+                INDEX_FIRST_PERSON, INDEX_SECOND_PERSON), command);
     }
 
     @Test
@@ -132,6 +134,22 @@ public class AddressBookParserTest {
         SearchAppointmentCommand command = (SearchAppointmentCommand) parser.parseCommand(
                 SearchAppointmentCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new SearchAppointmentCommand(new AppointmentContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_eap() throws Exception {
+        String datetime = "2025-02-02T10:30";
+        String userInput = EditAppointmentCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                + " d/" + datetime + " s/" + INDEX_THIRD_PERSON.getOneBased()
+                + " b/" + INDEX_SECOND_PERSON.getOneBased();
+        EditAppointmentCommand command = (EditAppointmentCommand) parser.parseCommand(userInput);
+
+        EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
+        descriptor.setAppointmentDatetime(new AppointmentDatetime(datetime));
+        descriptor.setSellerIndex(INDEX_THIRD_PERSON);
+        descriptor.setBuyerIndex(INDEX_SECOND_PERSON);
+
+        assertEquals(new EditAppointmentCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
     /*

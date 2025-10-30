@@ -83,6 +83,7 @@ public interface Model {
      * Replaces the given person {@code target} with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * All appointments involving {@code target} are also updated to involve {@code editedPerson}.
      */
     void setPerson(Person target, Person editedPerson);
 
@@ -102,6 +103,14 @@ public interface Model {
      * The appointment must exist in the address book.
      */
     void deleteAppointment(Appointment target);
+
+    /**
+     * Replaces the given appointment {@code target} with {@code editedAppointment}.
+     * {@code target} must exist in the address book.
+     * The appointment identity of {@code editedAppointment} must not be the same as another existing appointment
+     * in the address book.
+     */
+    void setAppointment(Appointment target, Appointment editedAppointment);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

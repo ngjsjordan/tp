@@ -58,6 +58,20 @@ public class Person {
         return role;
     }
 
+    /**
+     * Returns true if this person has a seller role.
+     */
+    public boolean isSeller() {
+        return role.isSeller();
+    }
+
+    /**
+     * Returns true if this person has a buyer role.
+     */
+    public boolean isBuyer() {
+        return role.isBuyer();
+    }
+
     public Address getAddress() {
         return address;
     }
@@ -89,16 +103,25 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same name.
+     * Returns true if both persons have the same identifier (phone number).
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
+    public boolean hasSameIdentifier(Person otherPerson) {
         if (otherPerson == this) {
             return true;
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+                && otherPerson.getStorageIdentifier().equals(getStorageIdentifier());
+    }
+
+    /**
+     * Returns a String of this person's phone number, to be used as an identifier for Storage.
+     *
+     * @return String of phone number, to be used as storage identifier.
+     */
+    public String getStorageIdentifier() {
+        return phone.value;
     }
 
     /**

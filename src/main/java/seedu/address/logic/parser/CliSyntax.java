@@ -16,4 +16,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_PROPERTY_TYPE = new Prefix("pt/");
     public static final Prefix PREFIX_BUYER = new Prefix("b/");
     public static final Prefix PREFIX_TIME = new Prefix("tf/");
+    public static final Prefix PREFIX_SELLER = new Prefix("s/");
 }
