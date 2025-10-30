@@ -353,7 +353,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to find a contact/property by keyword
+1.  User requests to find contacts/properties by keyword(s)
 2.  ClientSquare shows a list of matching contacts/properties
 
     Use case ends.
@@ -418,7 +418,52 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**Use case: UC08 - Edit an appointment**
+
+**MSS**
+
+1.  User requests to list appointments (UC06)
+2.  User requests to edit a specific appointment in the list.
+3.  ClientSquare edits the appointment
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. User is unable to find the desired appointment
+
+    * 1a1. User searches for the desired appointment (UC09)    
+    
+      Use case resumes from step 2.
+
+* 1b. There are no appointments in the list.
+  
+  Use case ends.
+
+* 2a. The requested edits are invalid.
+  
+    * 2a1. ClientSquare shows an error message.
+
+      Step 2 is repeated until the input is valid.
+      Use case resumes from step 3.
+
+**Use case: UC09 - Search for appointment**
+
+**MSS**
+
+1.  User requests to find appointments by keyword(s)
+2.  ClientSquare shows a list of matching appointments
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. Keyword is missing.
+
+    * 1a1. ClientSquare shows an error message.
+
+      Step 1 is repeated until the input is valid.
+      Use case resumes from step 2.
 
 ### Non-Functional Requirements
 
