@@ -1,11 +1,14 @@
 package seedu.address.model.util;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -45,10 +48,45 @@ public class SampleDataUtil {
         };
     }
 
+    public static Appointment[] getSampleAppointments() {
+        Person[] persons = getSamplePersons();
+
+        return new Appointment[] {
+            // Upcoming appointment: David Li (seller) with Alex Yeoh (buyer)
+            new Appointment(
+                new AppointmentDatetime(LocalDate.now().plusDays(3).toString() + "T14:00"),
+                persons[3], persons[0]
+            ),
+            // Upcoming appointment: Irfan Ibrahim (seller) with Bernice Yu (buyer)
+            new Appointment(
+                new AppointmentDatetime(LocalDate.now().plusDays(7).toString() + "T10:30"),
+                persons[4], persons[1]
+            ),
+            // Upcoming appointment: Roy Balakrishnan (seller) with Charlotte Oliveiro (buyer)
+            new Appointment(
+                new AppointmentDatetime(LocalDate.now().plusDays(14).toString() + "T15:00"),
+                persons[5], persons[2]
+            ),
+            // Past appointment: David Li (seller) with Bernice Yu (buyer)
+            new Appointment(
+                new AppointmentDatetime(LocalDate.now().minusDays(7).toString() + "T11:00"),
+                persons[3], persons[1]
+            ),
+            // Appointment without buyer: Irfan Ibrahim (seller) only
+            new Appointment(
+                new AppointmentDatetime(LocalDate.now().plusDays(10).toString() + "T16:00"),
+                persons[4]
+            )
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+        for (Appointment sampleAppointment : getSampleAppointments()) {
+            sampleAb.addAppointment(sampleAppointment);
         }
         return sampleAb;
     }
