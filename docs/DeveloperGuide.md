@@ -51,7 +51,7 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `ap 2 d/2025-01-01T12:00 b/1` in order to add an appointment.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1` in order to delete the first person in the displayed list.
 
 <img src="images/ArchitectureSequenceDiagram.png" width="574" />
 
@@ -239,11 +239,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -263,7 +258,7 @@ _{Explain here how the data archiving feature will be implemented}_
 **Target user profile**:
 
 * freelance property agents
-* interacts regularly with many clients looking to buy/rent/sell properties
+* interacts regularly with many clients looking to buy/sell properties
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
@@ -277,7 +272,7 @@ _{Explain here how the data archiving feature will be implemented}_
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
 | Priority | As a …​                                     | I want to …​                    | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
+|----------| ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
 | `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
 | `* * *`  | user                                       | add a new buyer/seller         | remember client details                                                |
 | `* * *`  | user                                       | tag sellers' property details  | easily note and view an important piece of information                 |
@@ -290,7 +285,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | new user                                   | import contacts from my phone  | get set up quickly                                                     |
 | `* *`    | user                                       | edit client information        | update details when they change                                        |
 | `* *`    | user                                       | filter properties              | find properties to recommend to buyers                                 |
-| `* *`    | user                                       | track transaction progress     | keep track of deals involving buyers/sellers                           |
+| `*`      | user                                       | track transaction progress     | keep track of deals involving buyers/sellers                           |
 | `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
 | `*`      | user with many persons in the address book | find a person with similar name| find the client I'm looking for amidst many similar names              |
 | `*`      | user who is a co-broking agent             | add partner agents             | keep track of others involved in a deal                                |
@@ -494,3 +489,15 @@ testers are expected to do more *exploratory* testing.
    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Effort**
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+Team Size: 5
+1. **Support multiple properties per seller**. Currently, each seller only has one associated property (stored in the `Address` field), limiting the app's functionality for agents managing seller portfolios with multiple properties.
+   - We plan to enhance the feature to support multiple properties per seller by modifying `Person` to hold a `List` of `Address` in a separate `Property` field.
+   - ... 

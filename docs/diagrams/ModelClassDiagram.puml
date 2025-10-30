@@ -50,7 +50,7 @@ Appointment *-right-> "seller" Person
 Appointment *--> "buyer" Person
 
 AddressBook *-down-> "1" UniquePersonList
-UniquePersonList --> "~*" Person : all
+UniquePersonList --> "~*" Person : lists all >
 Person *--> Name
 Person *--> Phone
 Person *--> Role
@@ -69,5 +69,5 @@ Phone -[hidden]right-> Email
 Email -[hidden]right-> Role
 Role -[hidden]right-> Address
 
-ModelManager --> "~*" Person : filtered
+ModelManager --> "~*" Person : lists filtered >
 @enduml
