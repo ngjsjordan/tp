@@ -514,7 +514,7 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding an appointment while all persons are shown. To verify that an appointment has been added, use the `lap` command to show all appointments.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+   1. Prerequisites: List all persons using the `list` command. Multiple persons should be in the list. The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the json file to regenerate it.
 
    1. Test case: `ap d/2025-01-01T00:00 s/4 b/3` <br>
       Expected: A new appointment is added at datetime 2025-01-01T00:00, with seller being the person at index 4, and buyer the person at index 3. 
@@ -527,7 +527,9 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: `ap d/2025-01-01T00:00 s/3` <br>
       Expected: An error will be shown as the referenced seller does not have the seller role.
-
+   
+   1. Test case: `ap d/2025-01-01T00:00 s/4 b/5` <br>
+      Expected: An error will be shown as the referenced buyer does not have the buyer role.
 
 ### Saving data
 
