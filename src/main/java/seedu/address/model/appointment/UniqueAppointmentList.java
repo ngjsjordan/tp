@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.address.model.appointment.exceptions.DuplicateAppointmentException;
+import seedu.address.model.person.Person;
 
 /**
  * A list of appointments that enforces uniqueness between its elements and does not allow nulls.
@@ -94,6 +95,21 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
         }
 
         internalList.setAll(appointments);
+    }
+
+    /**
+     * Updates all appointments involving {@code target} to reference {@code editedPerson} instead.
+     *
+     * @param target Person object to be replaced.
+     * @param editedPerson Person object to replace with.
+     */
+    public void updateAppointmentsWithEditedPerson(Person target, Person editedPerson) {
+        requireAllNonNull(target, editedPerson);
+
+        internalList.stream()
+                .filter(appointment -> appointment.isPersonSeller(target) || appointment.isPersonBuyer(target))
+                .forEach(appointment ->
+                        setAppointment(appointment, appointment.updatedWithEditedPerson(target, editedPerson)));
     }
 
     /**
