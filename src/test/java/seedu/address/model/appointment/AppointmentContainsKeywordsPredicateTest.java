@@ -162,7 +162,7 @@ public class AppointmentContainsKeywordsPredicateTest {
             new AppointmentContainsKeywordsPredicate(keywords, TimeFrame.TODAY);
 
         String expected = AppointmentContainsKeywordsPredicate.class.getCanonicalName()
-                + "{keywords=" + keywords + ", timeFrame=Optional[today]}";
+                + "{keywords=" + keywords + ", timeFrame=today}";
         assertEquals(expected, predicate.toString());
     }
 }

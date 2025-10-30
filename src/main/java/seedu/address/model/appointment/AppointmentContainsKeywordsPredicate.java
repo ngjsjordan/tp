@@ -1,7 +1,7 @@
 package seedu.address.model.appointment;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
@@ -13,7 +13,7 @@ import seedu.address.commons.util.ToStringBuilder;
  */
 public class AppointmentContainsKeywordsPredicate implements Predicate<Appointment> {
     private final List<String> keywords;
-    private final Optional<TimeFrame> timeFrame;
+    private final TimeFrame timeFrame;
 
     /**
      * Constructs a predicate with keywords only.
@@ -22,7 +22,7 @@ public class AppointmentContainsKeywordsPredicate implements Predicate<Appointme
      */
     public AppointmentContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
-        this.timeFrame = Optional.empty();
+        this.timeFrame = null;
     }
 
     /**
@@ -33,13 +33,13 @@ public class AppointmentContainsKeywordsPredicate implements Predicate<Appointme
      */
     public AppointmentContainsKeywordsPredicate(List<String> keywords, TimeFrame timeFrame) {
         this.keywords = keywords;
-        this.timeFrame = Optional.of(timeFrame);
+        this.timeFrame = timeFrame;
     }
 
     @Override
     public boolean test(Appointment appointment) {
         // If both keywords and timeframe are empty/not present, return false (no criteria to match)
-        if (keywords.isEmpty() && timeFrame.isEmpty()) {
+        if (keywords.isEmpty() && timeFrame == null) {
             return false;
         }
 
@@ -48,7 +48,7 @@ public class AppointmentContainsKeywordsPredicate implements Predicate<Appointme
                 || keywords.stream().anyMatch(keyword -> matchesAnyField(appointment, keyword));
 
         // Check timeframe matching (if timeframe is provided)
-        boolean matchesTimeFrame = timeFrame.map(tf -> tf.matches(appointment)).orElse(true);
+        boolean matchesTimeFrame = timeFrame == null || timeFrame.matches(appointment);
 
         // Both conditions must be satisfied
         return matchesKeywords && matchesTimeFrame;
@@ -74,7 +74,7 @@ public class AppointmentContainsKeywordsPredicate implements Predicate<Appointme
 
         AppointmentContainsKeywordsPredicate otherPredicate = (AppointmentContainsKeywordsPredicate) other;
         return keywords.equals(otherPredicate.keywords)
-                && timeFrame.equals(otherPredicate.timeFrame);
+                && Objects.equals(timeFrame, otherPredicate.timeFrame);
     }
 
     @Override
