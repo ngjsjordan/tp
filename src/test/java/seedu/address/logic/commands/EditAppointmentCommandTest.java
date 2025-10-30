@@ -216,13 +216,13 @@ public class EditAppointmentCommandTest {
     @Test
     public void execute_sameSellerBuyer_failure() throws CommandException {
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
-        descriptor.setBuyerIndex(INDEX_SIXTH_PERSON);
+        descriptor.setSellerIndex(INDEX_FIRST_PERSON);
 
-        // update sixth person from seller to buyer
-        Person fiona = model.getFilteredPersonList().get(INDEX_SIXTH_PERSON.getZeroBased());
-        model.setPerson(fiona, new PersonBuilder(fiona).withRole(Role.BUYER).build());
+        // update first person (Alice) from buyer to seller
+        Person alice = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        model.setPerson(alice, new PersonBuilder(alice).withRole(Role.SELLER).build());
 
-        // attempt to update the appointment (with seller as fiona) to also have buyer as fiona
+        // attempt to update the appointment's seller to Alice (who is also the buyer)
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
 
         assertCommandFailure(editAppointmentCommand, model, EditAppointmentCommand.MESSAGE_SAME_SELLER_BUYER);
