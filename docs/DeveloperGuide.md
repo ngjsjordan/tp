@@ -488,6 +488,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Client**: A buyer or seller listed as a contact, or is intended to be listed as a contact
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **Appointment**: A scheduled meeting between a property agent and client(s) (seller and/or buyer)
+* **Tag**: A user-defined label used to categorise clients
+* **Property Type**: Classification of property according to Singapore's industry norms (HDB, Executive Flats, Condo, Landed Commercial)
+* **JSON**: A lightweight text format for data persistence and consistency
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -534,6 +538,46 @@ testers are expected to do more *exploratory* testing.
    1. Test case: Use `File > Exit` menu option <br>
       Expected: The application closes gracefully. All data is saved to `data/ClientSquare.json`. Window preferences are saved.
 
+### Adding a client
+
+1. Adding a client while all persons are shown. 
+
+    1. Prerequisites: List all persons using the `list` command. The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the json file to regenerate it.
+
+    1. Test case: `add n/Rahul Dravid p/99262658 e/rahuldravid@example.com r/buyer a/Block 72 Clementi Road, #12-34 pt/HDB_3` <br>
+       Expected: A new client is added at index 7 of the clients' list.
+
+    1. Test case: `add n/David Li p/89252558 e/rahulsachien@example.com r/buyer a/Block 262 Bukit Batok Road, #33-34 pt/CONDO_5` <br>
+       Expected: A new client is added at index 8 of the clients' list.
+
+    1. Test case: `add n/Sam Lee p/89252558 e/samlee@example.com r/seller a/Block 31 Bukit Merah Road, #01-02 pt/COMMERCIAL_LH` <br>
+       Expected: An error will be shown as it is not possible to add two clients with the same phone number.
+
+    1. Test case: `add n/Sam Lee p/89252558 e/samlee@example.com r/seller a/Block 31 Bukit Merah Road, #01-02 pt/COMMERICAL_LH` <br>
+       Expected: An error will be shown as there is a typo in the property type and therefore it is not follow any one of this defined types.
+
+    1. Test case: `add n/Sam Lee p/89252558 e/samlee@example.com r/sell a/Block 31 Bukit Merah Road, #01-02 pt/COMMERICAL_LH` <br>
+       Expected: An error will be shown as the role must either be a 'buyer' or 'seller'.
+       
+### Editing a client's address 
+
+1. Editing a person's address while all persons are shown. To verify that a person has been edited, use the `list` command to show all persons.
+   1. Prerequisites: List all persons using the `list` command. Have at least 1 person in the list. 
+   2. Test case: `edit 1 a/123 New Address pt/HDB_4` <br>
+      Expected: First person in the list now has a new address with the property type HDB_4. Details of the edited person will be shown in the status message. 
+
+   3. Test case: `edit 1 a/123` <br>
+      Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
+
+   4. Test case: `edit 1 pt/HDB_4` <br>
+      Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
+   
+   5. Test case: `edit 1` <br>
+      Expected: First person in the list is not edited. An error message is shown indicating that at least one field must be provided.
+   
+   6. Test case: `edit` <br>
+      Expected: No person in the list is not edited. An error message is shown indicating that the command format is invalid.
+
 ### Adding an appointment
 
 1. Adding an appointment while all persons are shown. To verify that an appointment has been added, use the `lap` command to show all appointments.
@@ -554,25 +598,6 @@ testers are expected to do more *exploratory* testing.
    
    1. Test case: `ap d/2025-01-01T00:00 s/4 b/5` <br>
       Expected: An error will be shown as the referenced buyer does not have the buyer role.
-
-### Editing a person's address 
-
-1. Editing a person's address while all persons are shown. To verify that a person has been edited, use the `list` command to show all persons.
-   1. Prerequisites: List all persons using the `list` command. Have at least 1 person in the list. 
-   2. Test case: `edit 1 a/123 New Address pt/HDB_4` <br>
-      Expected: First person in the list now has a new address with the property type HDB_4. Details of the edited person will be shown in the status message. 
-
-   3. Test case: `edit 1 a/123` <br>
-      Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
-
-   4. Test case: `edit 1 pt/HDB_4` <br>
-      Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
-   
-   5. Test case: `edit 1`
-      Expected: First person in the list is not edited. An error message is shown indicating that at least one field must be provided.
-   
-   6. Test case: `edit`
-      Expected: No person in the list is edited. An error message is shown indicating that the command format is invalid.
 
 ### Searching for an appointment
 
@@ -652,6 +677,13 @@ testers are expected to do more *exploratory* testing.
    1. Test case: Edit an appointment to have the exact same datetime, seller, and buyer as another existing appointment <br>
       Expected: No appointment is edited. An error message is shown: "This appointment already exists in the address book."
 
+### Toggling the UI
+1. Switching between Light theme and Dark theme
+   1. Test case: `toggle` <br>
+      Expected: The UI will change theme (Light -> Dark or Dark -> Light)
+   2. Test case: `toggle 123` <br>
+   3. Expected: The UI will change theme (`Light -> Dark` or `Dark -> Light`)
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
@@ -660,21 +692,21 @@ testers are expected to do more *exploratory* testing.
       1. Navigate to the `data` folder in the same directory as the jar file.
       2. Delete the `ClientSquare.json` file if it exists.
       3. Launch the application by double-clicking the jar file.<br>
-         Expected: The application starts successfully with sample data (6 persons and 6 appointments). A new `ClientSquare.json` file is created in the `data` folder.
+      Expected: The application starts successfully with sample data (6 persons and 6 appointments). A new `ClientSquare.json` file is created in the `data` folder.
 
    1. Test case: Corrupted data file (invalid JSON format)
       1. Navigate to the `data` folder.
       2. Open `ClientSquare.json` with a text editor.
       3. Delete a random character or add invalid text (e.g., remove a closing brace `}` or add random text like `corrupted data`).
       4. Save the file and launch the application.<br>
-         Expected: The application starts with an empty address book (no persons or appointments). The application log will show a warning about the corrupted data file. The corrupted file remains unchanged at startup, but will be overwritten with an empty address book when you perform any action (e.g., list or add a person).
+      Expected: The application starts with an empty address book (no persons or appointments). The application log will show a warning about the corrupted data file. The corrupted file remains unchanged at startup, but will be overwritten with an empty address book when you perform any action (e.g., list or add a person).
 
    1. Test case: Data file with missing required fields
       1. Navigate to the `data` folder.
       2. Open `ClientSquare.json` with a text editor.
       3. Find a person entry and remove a required field (e.g., delete the `"name"` field and its value from a person object).
       4. Save the file and launch the application.<br>
-         Expected: The application starts with an empty address book. The application log will show an error indicating which field is missing (e.g., "Illegal values found in data\ClientSquare.json: Person's Name field is missing!").
+      Expected: The application starts with an empty address book. The application log will show an error indicating which field is missing (e.g., "Illegal values found in data\ClientSquare.json: Person's Name field is missing!").
 
 1. Saving data automatically
 
@@ -683,21 +715,21 @@ testers are expected to do more *exploratory* testing.
       2. Add a new person using the command: `add n/Test Person p/91234567 e/test@example.com r/buyer a/123 Test St pt/hdb_3`
       3. Close the application.
       4. Navigate to the `data` folder and open `ClientSquare.json` with a text editor.<br>
-         Expected: The JSON file contains the newly added person with all their details.
+      Expected: The JSON file contains the newly added person with all their details.
 
    1. Test case: Data is saved after adding an appointment
       1. Launch the application with existing data.
       2. Add a new appointment using the command: `ap d/2025-12-25T14:00 s/4 b/1` (indexes based on sample data, adjust indexes based on your data).
       3. Close the application.
       4. Navigate to the `data` folder and open `ClientSquare.json` with a text editor.<br>
-         Expected: The JSON file contains the newly added appointment with the correct datetime, seller's phone number, and buyer's phone number.
+      Expected: The JSON file contains the newly added appointment with the correct datetime, seller's phone number, and buyer's phone number.
 
    1. Test case: Data is saved after deleting an person
       1. Launch the application with existing data.
       2. Delete a person using the command: `delete 1`
       3. Close the application.
       4. Navigate to the `data` folder and open `ClientSquare.json` with a text editor.<br>
-         Expected: The deleted person does not appear in the person list as well as all appointments related to that person.
+      Expected: The deleted person does not appear in the person list as well as all appointments related to that person.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -709,4 +741,7 @@ testers are expected to do more *exploratory* testing.
 Team Size: 5
 1. **Support multiple properties per seller**. Currently, each seller only has one associated property (stored in the `Address` field), limiting the app's functionality for agents managing seller portfolios with multiple properties.
    - We plan to enhance the feature to support multiple properties per seller by modifying `Person` to hold a `List` of `Address` in a separate `Property` field.
-   - ...
+2. **Filter appointments by custom time range**. Currently, users can only filter appointments by predefined timeframes (`past`, `today`, `upcoming`) using the `sap` command. This limits flexibility when agents need to view appointments within a specific date or time range.
+   - We plan to enhance the search appointment feature to allow users to specify custom time ranges using parameters like `from/` and `to/`.
+   - Example usage: `sap from/2025-11-01T00:00 to/2025-11-30T23:59` to list all appointments in November 2025.
+   - This will provide agents with more precise control over viewing appointments for specific periods, such as weekly schedules, monthly reviews, or custom date ranges for reports. 
