@@ -510,7 +510,8 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file <br>
+      Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -519,7 +520,23 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+1. Launching with existing data
+
+   1. Prerequisites: Have previously launched the app and added/modified some data. The `data/ClientSquare.json` file exists with your custom data.
+
+   1. Double-click the jar file.<br>
+      Expected: The application starts with your previously saved data (persons and appointments). No sample data is loaded.
+
+1. Shutting down the application
+
+   1. Test case: Close using the window's close button (X) <br>
+      Expected: The application closes gracefully. All data is saved to `data/ClientSquare.json`. Window preferences are saved.
+
+   1. Test case: Use the `exit` command in the command box <br>
+      Expected: The application closes gracefully. All data is saved to `data/ClientSquare.json`. Window preferences are saved.
+
+   1. Test case: Use `File > Exit` menu option <br>
+      Expected: The application closes gracefully. All data is saved to `data/ClientSquare.json`. Window preferences are saved.
 
 ### Adding a client
 
@@ -541,7 +558,25 @@ testers are expected to do more *exploratory* testing.
 
     1. Test case: `add n/Sam Lee p/89252558 e/samlee@example.com r/sell a/Block 31 Bukit Merah Road, #01-02 pt/COMMERICAL_LH` <br>
        Expected: An error will be shown as the role must either be a 'buyer' or 'seller'.
+       
+### Editing a cleint's address 
 
+1. Editing a person's address while all persons are shown. To verify that a person has been edited, use the `list` command to show all persons.
+   1. Prerequisites: List all persons using the `list` command. Have at least 1 person in the list. 
+   2. Test case: `edit 1 a/123 New Address pt/HDB_4` <br>
+      Expected: First person in the list now has a new address with the property type HDB_4. Details of the edited person will be shown in the status message. 
+
+   3. Test case: `edit 1 a/123` <br>
+      Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
+
+   4. Test case: `edit 1 pt/HDB_4` <br>
+      Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
+   
+   5. Test case: `edit 1`
+      Expected: First person in the list is not edited. An error message is shown indicating that at least one field must be provided.
+   
+   6. Test case: `edit`
+      Expected: No person in the list is not edited. An error message is shown indicating that the command format is invalid.
 
 ### Adding an appointment
 
@@ -564,6 +599,84 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `ap d/2025-01-01T00:00 s/4 b/5` <br>
       Expected: An error will be shown as the referenced buyer does not have the buyer role.
 
+### Searching for an appointment
+
+1. Searching for appointments using keywords and/or timeframes.
+
+   1. Prerequisites: Have some appointments in the appointment list. Use the `lap` command to view all appointments. The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the `data/ClientSquare.json` file to regenerate it.
+
+   1. Test case: `sap Bernice` <br>
+      Expected: 2 appointment(s) listed!, with 2 appointments showing up in the UI.
+
+   1. Test case: `sap tf/upcoming` <br>
+      Expected: 4 appointment(s) listed!, with 4 appointments showing up in the UI.
+
+   1. Test case: `sap tf/past Bernice` <br>
+      Expected: 1 appointment(s) listed!, with 1 appointment showing up in the UI.
+
+   1. Test case: `sap` <br>
+      Expected: No appointments are listed. An error message is shown indicating the invalid command format and shows the correct usage.
+
+   1. Test case: `sap tf/invalid` <br>
+      Expected: Timeframe should be one of: past, today, upcoming (case-insensitive)
+
+### Deleting an appointment
+
+1. Deleting an appointment while appointments are being shown.
+
+   1. Prerequisites: Have some appointments in the appointment list. Use the `lap` command to view all appointments. The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the `data/ClientSquare.json` file to regenerate it.
+
+   1. Test case: `dap 1` <br>
+      Expected: The first appointment in the displayed list is deleted. Details of the deleted appointment are shown in the result message, including the appointment datetime and seller name. The appointment is removed from the appointment list.
+
+   1. Test case: `dap 100` (considering user have less than 100 appointments) <br> 
+      Expected: No appointment is deleted. An error message is shown indicating that the appointment index provided is invalid.
+
+   1. Test case: `dap 0` <br>
+      Expected: No appointment is deleted. An error message is shown indicating the invalid command format and shows the correct usage.
+
+   1. Test case: `dap` <br>
+      Expected: No appointment is deleted. An error message is shown indicating the invalid command format and shows the correct usage.
+
+1. Deleting an appointment after filtering
+
+   1. Prerequisites: Filter the appointments list using `sap` command. For example, use `sap tf/upcoming` to show only upcoming appointments.
+
+   1. Test case: `dap 1` after filtering <br>
+      Expected: The first appointment in the **filtered** list is deleted (not necessarily the first appointment in the full list). The deleted appointment's details are shown in the result message.
+
+### Editing an appointment
+
+1. Editing an appointment while appointments are being shown.
+
+   1. Prerequisites: Have some appointments in the appointment list. Use the `lap` command to view all appointments. The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the `data/ClientSquare.json` file to regenerate it.
+
+   1. Test case: `eap 1 d/2025-12-31T15:00` <br>
+      Expected: The datetime of the first appointment is updated to 2025-12-31 at 3:00 PM. The edited appointment details are shown in the result message.
+
+   1. Test case: `eap 1 d/2025-06-15T10:30 s/4 b/1` <br>
+      Expected: Multiple fields are updated - datetime, seller (index 4), and buyer (index 1). The edited appointment details are shown in the result message.
+
+   1. Test case: `eap 1 ` (no fields provided) <br>
+      Expected: No appointment is edited. An error message is shown: "At least one field to edit must be provided."
+
+1. Editing with role validation
+
+   1. Prerequisites: Know which persons in your list are buyers and which are sellers. Use the `list` command to view all persons.
+
+   1. Test case: `eap 1 s/3` where person at index 3 is a buyer (not a seller) <br>
+      Expected: No appointment is edited. An error message is shown: "The person assigned as seller must have a seller role."
+
+   1. Test case: `eap 1 b/4` where person at index 4 is a seller (not a buyer) <br>
+      Expected: No appointment is edited. An error message is shown: "The person assigned as buyer must have a buyer role."
+
+1. Editing to create duplicate appointment
+
+   1. Prerequisites: Have at least 2 appointments in the list with different details.
+
+   1. Test case: Edit an appointment to have the exact same datetime, seller, and buyer as another existing appointment <br>
+      Expected: No appointment is edited. An error message is shown: "This appointment already exists in the address book."
+
 ### Toggling the UI
 1. Switching between Light theme and Dark theme
    1. Test case: `toggle` <br>
@@ -575,9 +688,48 @@ testers are expected to do more *exploratory* testing.
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Test case: Missing data file
+      1. Navigate to the `data` folder in the same directory as the jar file.
+      2. Delete the `ClientSquare.json` file if it exists.
+      3. Launch the application by double-clicking the jar file.<br>
+      Expected: The application starts successfully with sample data (6 persons and 6 appointments). A new `ClientSquare.json` file is created in the `data` folder.
 
-1. _{ more test cases …​ }_
+   1. Test case: Corrupted data file (invalid JSON format)
+      1. Navigate to the `data` folder.
+      2. Open `ClientSquare.json` with a text editor.
+      3. Delete a random character or add invalid text (e.g., remove a closing brace `}` or add random text like `corrupted data`).
+      4. Save the file and launch the application.<br>
+      Expected: The application starts with an empty address book (no persons or appointments). The application log will show a warning about the corrupted data file. The corrupted file remains unchanged at startup, but will be overwritten with an empty address book when you perform any action (e.g., list or add a person).
+
+   1. Test case: Data file with missing required fields
+      1. Navigate to the `data` folder.
+      2. Open `ClientSquare.json` with a text editor.
+      3. Find a person entry and remove a required field (e.g., delete the `"name"` field and its value from a person object).
+      4. Save the file and launch the application.<br>
+      Expected: The application starts with an empty address book. The application log will show an error indicating which field is missing (e.g., "Illegal values found in data\ClientSquare.json: Person's Name field is missing!").
+
+1. Saving data automatically
+
+   1. Test case: Data is saved after adding a person
+      1. Launch the application with existing data.
+      2. Add a new person using the command: `add n/Test Person p/91234567 e/test@example.com r/buyer a/123 Test St pt/hdb_3`
+      3. Close the application.
+      4. Navigate to the `data` folder and open `ClientSquare.json` with a text editor.<br>
+      Expected: The JSON file contains the newly added person with all their details.
+
+   1. Test case: Data is saved after adding an appointment
+      1. Launch the application with existing data.
+      2. Add a new appointment using the command: `ap d/2025-12-25T14:00 s/4 b/1` (indexes based on sample data, adjust indexes based on your data).
+      3. Close the application.
+      4. Navigate to the `data` folder and open `ClientSquare.json` with a text editor.<br>
+      Expected: The JSON file contains the newly added appointment with the correct datetime, seller's phone number, and buyer's phone number.
+
+   1. Test case: Data is saved after deleting an person
+      1. Launch the application with existing data.
+      2. Delete a person using the command: `delete 1`
+      3. Close the application.
+      4. Navigate to the `data` folder and open `ClientSquare.json` with a text editor.<br>
+      Expected: The deleted person does not appear in the person list as well as all appointments related to that person.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -589,4 +741,7 @@ testers are expected to do more *exploratory* testing.
 Team Size: 5
 1. **Support multiple properties per seller**. Currently, each seller only has one associated property (stored in the `Address` field), limiting the app's functionality for agents managing seller portfolios with multiple properties.
    - We plan to enhance the feature to support multiple properties per seller by modifying `Person` to hold a `List` of `Address` in a separate `Property` field.
-   - ...
+2. **Filter appointments by custom time range**. Currently, users can only filter appointments by predefined timeframes (`past`, `today`, `upcoming`) using the `sap` command. This limits flexibility when agents need to view appointments within a specific date or time range.
+   - We plan to enhance the search appointment feature to allow users to specify custom time ranges using parameters like `from/` and `to/`.
+   - Example usage: `sap from/2025-11-01T00:00 to/2025-11-30T23:59` to list all appointments in November 2025.
+   - This will provide agents with more precise control over viewing appointments for specific periods, such as weekly schedules, monthly reviews, or custom date ranges for reports. 
