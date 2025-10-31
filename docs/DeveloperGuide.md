@@ -576,7 +576,7 @@ testers are expected to do more *exploratory* testing.
       Expected: First person in the list is not edited. An error message is shown indicating that at least one field must be provided.
    
    6. Test case: `edit` <br>
-      Expected: No person in the list is not edited. An error message is shown indicating that the command format is invalid.
+      Expected: No person in the list is edited. An error message is shown indicating that the command format is invalid.
 
 ### Adding an appointment
 
