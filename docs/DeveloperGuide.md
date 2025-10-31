@@ -531,18 +531,25 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `ap d/2025-01-01T00:00 s/4 b/5` <br>
       Expected: An error will be shown as the referenced buyer does not have the buyer role.
 
-### Deleting an appointment
+### Editing a person's address 
 
-1. Deleting an appointment while all appointments are shown. To verify that an appointment has been deleted, use the `lap` command to show all appointments.
-   1. Prerequisites: List all appointments using the `lap` command. Multiple appointments in the list. 
-   2. Test case: `dap 1` <br>
-      Expected: First appointment is deleted from the list. Details of the deleted appointment shown in the status message. 
+1. Editing a person's address while all persons are shown. To verify that a person has been edited, use the `list` command to show all persons.
+   1. Prerequisites: List all persons using the `list` command. Have at least 1 person in the list. 
+   2. Test case: `edit 1 a/123 New Address pt/HDB_4` <br>
+      Expected: First person in the list now has a new address with the property type HDB_4. Details of the edited person will be shown in the status message. 
 
-   3. Test case: `dap 0` <br>
-      Expected: No appointment is deleted. An error will be shown as the appointment index must be greater than 0.
+   3. Test case: `edit 1 a/123` <br>
+      Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
 
-   4. Test case: `dap` <br>
-      Expected: No appointment is deleted. An error will be shown as the appointment index is missing. 
+   4. Test case: `edit 1 pt/HDB_4` <br>
+      Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
+   
+   5. Test case: `edit 1`
+      Expected: First person in the list is not edited. An error message is shown indicating that at least one field must be provided.
+   
+   6. Test case: `edit`
+      Expected: No person in the list is not edited. An error message is shown indicating that the command format is invalid.
+
 
 ### Saving data
 
