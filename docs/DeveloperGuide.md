@@ -555,6 +555,25 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `ap d/2025-01-01T00:00 s/4 b/5` <br>
       Expected: An error will be shown as the referenced buyer does not have the buyer role.
 
+### Editing a person's address 
+
+1. Editing a person's address while all persons are shown. To verify that a person has been edited, use the `list` command to show all persons.
+   1. Prerequisites: List all persons using the `list` command. Have at least 1 person in the list. 
+   2. Test case: `edit 1 a/123 New Address pt/HDB_4` <br>
+      Expected: First person in the list now has a new address with the property type HDB_4. Details of the edited person will be shown in the status message. 
+
+   3. Test case: `edit 1 a/123` <br>
+      Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
+
+   4. Test case: `edit 1 pt/HDB_4` <br>
+      Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
+   
+   5. Test case: `edit 1`
+      Expected: First person in the list is not edited. An error message is shown indicating that at least one field must be provided.
+   
+   6. Test case: `edit`
+      Expected: No person in the list is not edited. An error message is shown indicating that the command format is invalid.
+
 ### Searching for an appointment
 
 1. Searching for appointments using keywords and/or timeframes.
