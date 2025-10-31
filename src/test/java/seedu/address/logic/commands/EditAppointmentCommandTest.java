@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.EditAppointmentCommand.EditAppointmentDescriptor;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -27,6 +28,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Role;
+import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditAppointmentCommand.
@@ -208,6 +211,21 @@ public class EditAppointmentCommandTest {
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
 
         assertCommandFailure(editAppointmentCommand, model, EditAppointmentCommand.MESSAGE_INVALID_BUYER_ROLE);
+    }
+
+    @Test
+    public void execute_sameSellerBuyer_failure() throws CommandException {
+        EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
+        descriptor.setSellerIndex(INDEX_FIRST_PERSON);
+
+        // update first person (Alice) from buyer to seller
+        Person alice = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        model.setPerson(alice, new PersonBuilder(alice).withRole(Role.SELLER).build());
+
+        // attempt to update the appointment's seller to Alice (who is also the buyer)
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
+
+        assertCommandFailure(editAppointmentCommand, model, EditAppointmentCommand.MESSAGE_SAME_SELLER_BUYER);
     }
 
     @Test
