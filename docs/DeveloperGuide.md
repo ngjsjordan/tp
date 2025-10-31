@@ -488,6 +488,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Client**: A buyer or seller listed as a contact, or is intended to be listed as a contact
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **Appointment**: A scheduled meeting between a property agent and client(s) (seller and/or buyer)
+* **Tag**: A user-defined label used to categorise clients
+* **Property Type**: Classification of property according to Singapore's industry norms (HDB, Executive Flats, Condo, Landed Commercial)
+* **JSON**: A lightweight text format for data persistence and consistency
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -517,6 +521,28 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Adding a client
+
+1. Adding a client while all persons are shown. 
+
+    1. Prerequisites: List all persons using the `list` command. The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the json file to regenerate it.
+
+    1. Test case: `add n/Rahul Dravid p/99262658 e/rahuldravid@example.com r/buyer a/Block 72 Clementi Road, #12-34 pt/HDB_3` <br>
+       Expected: A new client is added at index 7 of the clients' list.
+
+    1. Test case: `add n/David Li p/89252558 e/rahulsachien@example.com r/buyer a/Block 262 Bukit Batok Road, #33-34 pt/CONDO_5` <br>
+       Expected: A new client is added at index 8 of the clients' list.
+
+    1. Test case: `add n/Sam Lee p/89252558 e/samlee@example.com r/seller a/Block 31 Bukit Merah Road, #01-02 pt/COMMERCIAL_LH` <br>
+       Expected: An error will be shown as it is not possible to add two clients with the same phone number.
+
+    1. Test case: `add n/Sam Lee p/89252558 e/samlee@example.com r/seller a/Block 31 Bukit Merah Road, #01-02 pt/COMMERICAL_LH` <br>
+       Expected: An error will be shown as there is a typo in the property type and therefore it is not follow any one of this defined types.
+
+    1. Test case: `add n/Sam Lee p/89252558 e/samlee@example.com r/sell a/Block 31 Bukit Merah Road, #01-02 pt/COMMERICAL_LH` <br>
+       Expected: An error will be shown as the role must either be a 'buyer' or 'seller'.
+
+
 ### Adding an appointment
 
 1. Adding an appointment while all persons are shown. To verify that an appointment has been added, use the `lap` command to show all appointments.
@@ -537,6 +563,13 @@ testers are expected to do more *exploratory* testing.
    
    1. Test case: `ap d/2025-01-01T00:00 s/4 b/5` <br>
       Expected: An error will be shown as the referenced buyer does not have the buyer role.
+
+### Toggling the UI
+1. Switching between Light theme and Dark theme
+   1. Test case: `toggle` <br>
+      Expected: The UI will change theme (Light -> Dark or Dark -> Light)
+   2. Test case: `toggle 123` <br>
+   3. Expected: The UI will change theme (`Light -> Dark` or `Dark -> Light`)
 
 ### Saving data
 
