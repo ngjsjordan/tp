@@ -559,7 +559,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `add n/Sam Lee p/89252558 e/samlee@example.com r/sell a/Block 31 Bukit Merah Road, #01-02 pt/COMMERICAL_LH` <br>
        Expected: An error will be shown as the role must either be a 'buyer' or 'seller'.
        
-### Editing a cleint's address 
+### Editing a client's address 
 
 1. Editing a person's address while all persons are shown. To verify that a person has been edited, use the `list` command to show all persons.
    1. Prerequisites: List all persons using the `list` command. Have at least 1 person in the list. 
@@ -572,11 +572,11 @@ testers are expected to do more *exploratory* testing.
    4. Test case: `edit 1 pt/HDB_4` <br>
       Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
    
-   5. Test case: `edit 1`
+   5. Test case: `edit 1` <br>
       Expected: First person in the list is not edited. An error message is shown indicating that at least one field must be provided.
    
-   6. Test case: `edit`
-      Expected: No person in the list is not edited. An error message is shown indicating that the command format is invalid.
+   6. Test case: `edit` <br>
+      Expected: No person in the list is edited. An error message is shown indicating that the command format is invalid.
 
 ### Adding an appointment
 
