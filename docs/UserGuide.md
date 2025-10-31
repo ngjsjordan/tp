@@ -3,9 +3,9 @@ layout: page
 title: User Guide
 ---
 
-ClientSquare is a **desktop app built for freelance property agents**. It helps you **track buyers and sellers, manage appointments, and organize appointments with your clients** - all in one place!
+ClientSquare is a **desktop app built for freelance property agents**. It helps you **track buyers and sellers, manage and organize appointments with your clients** - all in one place!
 
-By **typing commands** instead of clicking through menus, you'll be able to complete your tasks faster, allowing you to **manage more clients in less time.**
+By **typing commands** instead of clicking through menus, you can complete your tasks faster, allowing you to **manage more clients in less time.**
 
 * Table of Contents
 {:toc}
@@ -19,21 +19,21 @@ Set up ClientSquare and start managing your clients within minutes!
 
 1. **Install Java 17 or later**
 
-   ClientSquare runs on Java, so make sure your computer has **Java 17 or newer** installed. To check if Java is installed, you will have to open a command terminal. You may follow the respective instructions for your operating system to do so.
-   
+   ClientSquare runs on Java, so make sure your computer has **Java 17 or newer** installed. To check if Java is installed, open a command terminal. You may follow the respective instructions for your operating system to do so.
+
    **Windows:**
 
-   1. Press Windows + R to open the Run window. 
-   2. Type cmd and press Enter.
+    1. Press Windows + R to open the Run window.
+    2. Type cmd and press Enter.
 
    **macOS:**
-   1. Open Spotlight Search by pressing Command + Space. 
-   2. Type Terminal and press Enter.
+    1. Open Spotlight Search by pressing Command + Space.
+    2. Type Terminal and press Enter.
 
    **Linux:**
-   1. Press Ctrl + Alt + T to open the Terminal.
-   
-   Now, run `java -version`. If you see a version number lower than 17, download and install the latest version.  
+    1. Press Ctrl + Alt + T to open the Terminal.
+
+   Now, run `java -version`. If you see a version number lower than 17, download and install the latest version.
 
    **Mac users:** Follow the step-by-step guide [here](https://se-education.org/guides/tutorials/javaInstallationMac.html) to install the correct JDK version.
 
@@ -41,35 +41,37 @@ Set up ClientSquare and start managing your clients within minutes!
    Go to the [releases page](https://github.com/AY2526S1-CS2103T-F08a-3/tp/releases) and download the latest `.jar` file. This file contains everything you need to run the app.
 
 3. **Choose where to keep the app**  
-   Move the downloaded file into any folder where you want ClientSquare to store your data.  
-   This will be your **home folder** for ClientSquare.
+   Move the downloaded file into any folder where you want ClientSquare to save your data.  
+   This folder will serve as your **ClientSquare home directory.**
 
 4. **Open and run the app**  
    Open your command terminal and go to the folder where you saved the file using the `cd` command.  
    Then, **start ClientSquare** by typing: `java -jar ClientSquare.jar`. Alternatively, you may double-click the jar file to launch the application. <br>
-   Within a few seconds, the app window will appear with some sample client data for you to explore. <br>
+   Within a few seconds, the app window will appear with sample client data for you to explore. <br>
 
 <div style="page-break-after: always;"></div>
 
-![Ui](images/QuickStartUI.png)
+<div style="text-align:center;">
+  <img src="images/QuickStartUI.png" alt="QuickStartUI" width="90%">
+</div>
 <br>
-<br>
 
-5. **Try a few basic commands**  
-   Type a command in the command box and press **Enter** to see it in action.  
-   Here are a few examples:
+**Try a few basic commands**  
+Type a command in the command box and press **Enter** to see it in action.  
+Here are a few examples:
 
-   * `list` : Lists all contacts.
+* `list` : Lists all contacts.
 
-   * `add n/Jane Smith p/92345768 e/janesmith@example.com r/buyer a/239, Hougang Ave 2, #01-13 pt/HDB_3 t/friends t/Neighbour` : Adds a contact named `Jane Smith` to the Address Book.
+* `add n/Jane Smith p/92345768 e/janesmith@example.com r/buyer a/239, Hougang Ave 2, #01-13 pt/HDB_3 t/friends t/Neighbour` : Adds a contact named `Jane Smith` to the Address Book.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+* `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all contacts.
+* `clear` : Deletes all contacts.
 
-   * `exit` : Exits the app.
-6. **Explore more features**  
-   Once you’re comfortable with the basics, check out the [Features](#features) section below to learn more about what ClientSquare can do!
+* `exit` : Exits the app.
+
+**Explore more features**  
+Once you’re comfortable with the basics, check out the [Features](#features) section below to learn more about what ClientSquare can do!
 
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
@@ -112,7 +114,7 @@ Format: `help`
 
 ### Adding a person: `add`
 
-Adds a client to the client square app. 
+Adds a client to the ClientSquare app.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​`
 
@@ -131,7 +133,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-A person can have any number of tags (including 0)
+A person can have any number of tags (including none)
 </div>
 
 
@@ -147,40 +149,58 @@ Examples:
 
 ### Listing all persons : `list`
 
-Shows a list of all clients in the client square app.
+Shows a list of all clients in the ClientSquare app.
 
 Format: `list`
 
 Example:
 * `list`
 <div style="text-align:center;">
-  <img src="images/listAllClients.png" alt="result for 'list'" width="95%">
+  <img src="images/listAllClients.png" alt="result for 'list'" width="90%">
 </div>
 
 <div style="page-break-after: always;"></div>
 
-### Listing all appointments : `lap`
+### Locating persons by name: `find`
 
-Shows a list of all appointments in the client square app, sorted by date and time 
-(earliest at the top to latest at the bottom).
+Finds clients whose details contain any of the keywords you provide. Details include (i) name, (ii) role, (iii) email, (iv) address, (v) address type, or (vi) phone number.
 
-Format: `lap`
+Format: `find KEYWORD [MORE_KEYWORDS]...`
 
-* Displays all appointments from all clients
-* Each appointment shows the date/time, location (seller client's address), and the buyer/seller names
-* Appointments are sorted chronologically from present to future
-* Use `list` to switch back to the person list view
+* The search is case-insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned
+  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
-Example:
-* `lap` displays all appointments sorted by date and time
-<div style="text-align:center;">
-  <img src="images/lapResult.png" alt="result for 'lap'" width="90%">
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+After using the `find` command, you can use the new index numbers shown on screen for commands that require index as an input, such as [`edit`](#editing-a-person--edit) or [`ap`](#adding-an-appointment--ap).
 </div>
+
+Examples:
+* `find Alex` returns all persons named 'Alex' (and anyone with 'Alex' in other details)
+<div style="text-align:center;">
+  <img src="images/findAlexResult.png" alt="result for 'find Alex'" width="90%">
+</div>
+<br>
+
+<div style="page-break-after: always;"></div>
+
+* `find Alex David` returns all persons named 'Alex' **or** 'David' (and anyone with 'Alex' or 'David' in other details)
+<div style="text-align:center;">
+  <img src="images/findAlexDavidResult.png" alt="result for 'find Alex David'" width="90%">
+</div>
+<br>
+* `find buyer` returns all buyers (and anyone with 'buyer' in other details)
+<div style="text-align:center;">
+  <img src="images/findBuyerResult.png" alt="result for 'find buyer'" width="90%">
+</div>
+
 <div style="page-break-after: always;"></div>
 
 ### Editing a person : `edit`
 
-Edits an existing person in the client square app.
+Edits an existing person in the ClientSquare app.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] [t/TAG]…​`
 
@@ -188,12 +208,11 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] 
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * You can remove all the person’s tags by typing `t/` without
-    specifying any tags after it.
-*
+  specifying any tags after it.
 
 <div markdown="block" class="alert alert-warning">:exclamation: **Caution:**
 * Adding of tags is not cumulative. When editing tags, the existing tags of the person will be removed
-* Address and property type cannot be edited independently. When editing address or property type, it is compulsory to provide both address and property type input 
+* Address and property type cannot be edited independently. When editing address or property type, you must provide both address and property type input 
   values.
 </div>
 
@@ -215,50 +234,18 @@ When changing a person's `ROLE`, previous appointments where the person had thei
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 *  `edit 3 r/seller` Edits the role of the 3rd person to `seller`
-*  `edit 3 a/59 Jalan Besar Road pt/COMMERCIAL_FH` Edits the address and property type of the 3th person to `59 Jalan Besar Road` and `COMMERCIAL_FH` respectively.
+*  `edit 3 a/59 Jalan Besar Road pt/COMMERCIAL_FH` Edits the address and property type of the 3rd person to `59 Jalan Besar Road` and `COMMERCIAL_FH` respectively.
 
 <p float="left">
   <img src="images/editCommandInputs.png" alt="before the edits" width="49%" />
   <img src="images/editCommandOutput.png" alt="after the edits" width="49%" />
 </p>
-
-<div style="page-break-after: always;"></div>
-
-### Locating persons by name: `find`
-
-Finds persons whose details contain any of the keywords you provide. Details include (i) name, (ii) role, (iii) email, (iv) address, (v) address type, or (vi) phone number.
-
-Format: `find KEYWORD [MORE_KEYWORDS]...`
-
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-After using the `find` command, you can use the new index numbers shown on screen for commands that require index as an input, such as [`edit`](#editing-a-person--edit) or [`ap`](#adding-an-appointment--ap).
-</div>
-
-Examples:
-* `find Alex` returns all persons named 'Alex' (and anyone with 'Alex' in other details)
-<div style="text-align:center;">
-  <img src="images/findAlexResult.png" alt="result for 'find Alex'" width="90%">
-</div>
-<br>
-* `find Alex David` returns all persons named 'Alex' **or** 'David' (and anyone with 'Alex' or 'David' in other details)
-<div style="text-align:center;">
-  <img src="images/findAlexDavidResult.png" alt="result for 'find Alex David'" width="90%">
-</div>
-<br>
-* `find buyer` returns all buyers (and anyone with 'buyer' in other details)
-<div style="text-align:center;">
-  <img src="images/findBuyerResult.png" alt="result for 'find buyer'" width="90%">
-</div>
 
 <div style="page-break-after: always;"></div>
 
@@ -281,8 +268,10 @@ Format: `delete INDEX`
 Use the [`find`](#locating-persons-by-name-find) command to easily locate the contact that you wish to delete.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book. 
+* `list` followed by `delete 2` deletes the 2nd person in the address book.
 <div style="display: flex; justify-content: center; gap: 5px;">
   <img src="images/listResult.png" alt="result for 'list'" width="49%">
   <img src="images/delete2Result.png" alt="result for 'delete 2'" width="49%">
@@ -299,17 +288,17 @@ Examples:
 
 ### Adding an appointment : `ap`
 
-Adds an appointment with a seller and an optional buyer. 
+Adds an appointment with a seller and an optional buyer.
 
 Format: `ap d/DATETIME s/SELLER_INDEX [b/BUYER_INDEX]`
 
-* Adds an appointment with the seller being the person specified by `SELLER_INDEX` and the buyer being the person specified by `BUYER_INDEX`. 
-* To create an appointment with only a seller, simply omit the `b/` tag. 
+* Adds an appointment with the seller being the person specified by `SELLER_INDEX` and the buyer being the person specified by `BUYER_INDEX`.
+* To create an appointment with only a seller, simply omit the `b/` tag.
 * The indices refer to the index numbers shown in the displayed person list which will be a positive whole number (e.g. 1, 2, 3, ...)
-* Provide a seller that has the role `seller` and a `buyer` that has the role buyer.
-* Provide Datetime in an ISO 8601-compliant format. (e.g. `yyyy-MM-ddTHH:mm`)
-* The seller's location is automatically displayed as the appointment location. 
-* 
+* Provide a client that has the role `seller` and an optional client that has the role `buyer`.
+* Provide the datetime in an ISO 8601-compliant format. (e.g. `yyyy-MM-ddTHH:mm`)
+* The seller's location is automatically displayed as the appointment location.
+
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
 It is possible to add multiple appointments at the same time. Appointments will only be regarded as duplicate if they have the same datetime, seller, and buyer (or lack of buyer).
 </div>
@@ -326,32 +315,45 @@ Examples:
 </div>
 <br>
 
-### Deleting an appointment : `dap`
-
-Deletes an appointment.
-
-Format: `dap INDEX`
-
-* Deletes the appointment specified by `INDEX`.
-* The index refers to the index number shown in the displayed appointment list. This will be a positive whole number, such as 1, 2, 3, ...
-
-Examples:
-*  `dap 1` Deletes the first appointment shown in the appointment list.
-
 <div style="page-break-after: always;"></div>
 
-<<<<<<< HEAD
+### Listing all appointments : `lap`
+
+Shows a list of all appointments in the ClientSquare app, sorted by date and time
+(earliest at the top to latest at the bottom).
+
+Format: `lap`
+
+* Displays all appointments from all clients
+* Each appointment shows the date/time, location (seller client's address), and the buyer/seller names
+* Appointments are sorted chronologically from present to future
+* Use `list` to switch back to the person list view
+
+Example:
+* `lap` displays all appointments sorted by date and time
+<div style="text-align:center;">
+  <img src="images/lapResult.png" alt="result for 'lap'" width="90%">
+</div>
+<div style="page-break-after: always;"></div>
+
 ### Searching an appointment: `sap`
 
 Finds appointments whose details contain any of the keywords you provide. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
 
-Format `sap KEYWORD [MORE_KEYWORDS]`
+Format `sap [tf/TIMEFRAME] KEYWORD [MORE_KEYWORDS]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
+* The valid timeframes consist of `past`, `today` and `upcoming` (case-insensitive)
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Valid timeframes** consist of `past`, `today` and `upcoming` (case-insensitive)<br>
+
+</div>
 
 Examples:
 * `sap John` returns all appointments with 'John'
@@ -360,10 +362,19 @@ Examples:
 </div>
 <br>
 
+<div style="page-break-after: always;"></div>
+
 * `sap Alex John` returns all appointments with `Alex` or `John`
 <div style="text-align:center;">
   <img src="images/searchAppointmentAlexJohnResult.png" alt="result for 'sap Alex John'" width="90%">
 </div>
+<br>
+
+*  `sap tf/today Bernice` returns today's appointments with `Bernice Yu`(for illustration purposes, assume the date to be 2025-10-30)
+<div style="text-align:center;">
+  <img src="images/searchAppointmentAlexDavidToday.png" alt="result for 'sap tf/today Bernice'" width="90%">
+</div>
+
 <div style="page-break-after: always;"></div>
 
 ### Editing an appointment : `eap`
@@ -377,7 +388,7 @@ Format: `eap APPOINTMENT_INDEX [d/DATETIME] [s/SELLER_INDEX] [b/BUYER_INDEX]`
 * The seller and buyer indices refer to the index numbers shown in the displayed person list.
 * At least one of the optional fields must be provided.
 * All indices must be positive whole numbers, such as 1, 2, 3, ...
-* Datetime should be in an ISO 8601-compliant format (e.g. `yyyy-MM-ddTHH:mm:ss`).
+* Provide the datetime in an ISO 8601-compliant format. (e.g. `yyyy-MM-ddTHH:mm`)
 * Existing values will be updated to the input values.
 * When editing seller or buyer, the new person must have the appropriate role (seller role for seller, buyer role for buyer).
 * The seller and buyer cannot be the same person.
@@ -390,6 +401,20 @@ Examples:
 Tips:
 * Use [`lap`](#listing-all-appointments-lap) first to see the appointment indices.
 
+
+<div style="page-break-after: always;"></div>
+
+### Deleting an appointment : `dap`
+
+Deletes an appointment.
+
+Format: `dap INDEX`
+
+* Deletes the appointment specified by `INDEX`.
+* The index refers to the index number shown in the displayed appointment list. This will be a positive whole number, such as 1, 2, 3, ...
+
+Examples:
+*  `dap 1` Deletes the first appointment shown in the appointment list.
 
 <div style="page-break-after: always;"></div>
 
@@ -406,14 +431,14 @@ This action is irreversible. Please be certain before executing this command.
 Example:
 * `clear`
 <div style="text-align:center;">
-  <img src="images/clearCommandResult.png" alt="result for 'list'" width="95%">
+  <img src="images/clearCommandResult.png" alt="result for 'list'" width="90%">
 </div>
 
 <div style="page-break-after: always;"></div>
 
 ### Toggling UI theme : `toggle`
 
-Switches the user interface theme between **light and dark modes**.
+Switches between **light** and **dark** themes instantly.
 
 Format: `toggle`
 
@@ -493,17 +518,18 @@ Furthermore, certain edits can cause the ClientSquare to behave in unexpected wa
 
 ## Command summary
 
-Action | Format                                                                                             | Examples | Description
---------|----------------------------------------------------------------------------------------------------| ------------------------ | -------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​`                    | `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 pt/HDB_3 t/VIP` | Adds a client's contact details into ClientSquare
-**List** | `list`                                                                                             | - | List all the clients you have
-**Find** | `find KEYWORD [MORE_KEYWORDS]`                                                                     | `find Jake HDB_3` | Find all clients named 'Jake' OR has property type 'HDB_3'
+Action | Format                                                                                            | Examples | Description
+--------|---------------------------------------------------------------------------------------------------| ----------------------- | -------------------
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​`                   | `add n/James Ho p/22224444 e/jamesho@example.com r/buyer a/123, Clementi Rd, 1234665 pt/HDB_3 t/VIP` | Adds a client's contact details into ClientSquare
+**List** | `list`                                                                                            | - | List all the clients you have
+**Find** | `find KEYWORD [MORE_KEYWORDS]`                                                                    | `find Jake HDB_3` | Find all clients named 'Jake' OR has property type 'HDB_3'
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/PROPERTY_TYPE] [t/TAG]…​` | `edit 2 n/James Lee e/jameslee@example.com` <br> `edit 4 a/59 Jalan Besar Road pt/COMMERCIAL_FH` | Change the name and email of the second index client. <br> Change the address and property type of the fourth index client.
-**Delete** | `delete INDEX`                                                                                     | `delete 3` | Delete the third indexed client
-**Clear** | `clear`                                                                                            | - | Clears all current clients 
-**Add Appointment** | `ap SELLER_INDEX d/DATETIME [b/BUYER_INDEX]`                                                       | `ap 1 d/2025-01-01:12:00 b/3` | Adds a appointment between seller(indexed 1) and buyer(indexed 3) at that specific timing
-**List Appointments** | `lap`                                                                                              | - | List all appointments you have made in chronological order
-**Search Appointments** | `sap KEYWORD [MORE_KEYWORDS]`                                                                      | `sap Jake` | Searches all appointments with 'Jake'
-**Edit Appointment** | `eap APPOINTMENT_INDEX [d/DATETIME] [s/SELLER_INDEX] [b/BUYER_INDEX]`                            | `eap 1 d/2025-01-15T14:00` <br> `eap 2 s/3 b/4` | Changes the datetime of appointment 1 to 15 Jan 2025 at 2pm. <br> Changes the seller and buyer of appointment 2 to person indices 3 and 4.
-**Delete Appointment** | `dap INDEX d/DATETIME`                                                                             | `dap 1 d/2025-01-01:12:00` | Deletes appointment with the seller at index 1 at that timing
-**Help** | `help`                                                                                             | - | A popup with the link to the user guide will show up
+**Delete** | `delete INDEX`                                                                                    | `delete 3` | Delete the third indexed client
+**Add Appointment** | `ap d/DATETIME s/SELLER_INDEX [b/BUYER_INDEX]`                                                                | `ap 1 d/2025-01-01:12:00 b/3` | Adds a appointment between seller(indexed 1) and buyer(indexed 3) at that specific timing
+**List Appointments** | `lap`                                                                                             | - | List all appointments you have made in chronological order
+**Search Appointments** | `sap [tf/TIMEFRAME] KEYWORD [MORE_KEYWORDS]`                                                                     | `sap Jake` | Searches all appointments with 'Jake'
+**Edit Appointment** | `eap APPOINTMENT_INDEX [d/DATETIME] [s/SELLER_INDEX] [b/BUYER_INDEX]`                             | `eap 1 d/2025-01-15T14:00` <br> `eap 2 s/3 b/4` | Changes the datetime of appointment 1 to 15 Jan 2025 at 2pm. <br> Changes the seller and buyer of appointment 2 to person indices 3 and 4.
+**Delete Appointment** | `dap INDEX`                                                                             | `dap 1` | Deletes appointment at index 1 at that specific timing
+**Clear** | `clear`                                                                                           | - | Clears all current clients and appointments from the app
+**Toggle** | `toggle`                                                                                         | - | Toggles between light and dark themes instantly
+**Help** | `help`                                                                                            | - | A popup with the link to the user guide will show up

@@ -43,6 +43,7 @@ public class EditAppointmentCommand extends Command {
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book.";
     public static final String MESSAGE_INVALID_SELLER_ROLE = "The person assigned as seller must have a seller role.";
     public static final String MESSAGE_INVALID_BUYER_ROLE = "The person assigned as buyer must have a buyer role.";
+    public static final String MESSAGE_SAME_SELLER_BUYER = "The seller and buyer must not be the same person.";
 
     private final Index index;
     private final EditAppointmentDescriptor editAppointmentDescriptor;
@@ -96,7 +97,9 @@ public class EditAppointmentCommand extends Command {
         Person updatedSeller = getUpdatedSeller(appointmentToEdit, editAppointmentDescriptor, model);
         Person updatedBuyer = getUpdatedBuyer(appointmentToEdit, editAppointmentDescriptor, model);
 
-        assert !updatedSeller.equals(updatedBuyer) : "Seller and buyer should be different persons";
+        if (updatedSeller.equals(updatedBuyer)) {
+            throw new CommandException(MESSAGE_SAME_SELLER_BUYER);
+        }
 
         if (updatedBuyer != null) {
             return new Appointment(updatedDatetime, updatedSeller, updatedBuyer);
