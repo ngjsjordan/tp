@@ -57,7 +57,7 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         String roleLowerCase = person.getRole().value.toLowerCase();
-        role.setText(roleLowerCase);
+        role.setText(roleLowerCase.toUpperCase());
         String propertyTypeCapitalised = person.getAddressType().toString().toUpperCase();
         propertyType.setText(propertyTypeCapitalised);
         address.setText(person.getAddress().value);
