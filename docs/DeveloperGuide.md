@@ -735,6 +735,14 @@ testers are expected to do more *exploratory* testing.
 
 ## **Appendix: Effort**
 
+**Difficulty Level**: Medium. The code base was not trivial, but was relatively easy to understand and extend once we got the hang of it. Most of the thought processes behind the features concerned not how they can be technically implemented, but rather how they should be designed in line with the code quality guidelines and existing architecture of AB3. Our codebase increases the complexity of the class structure by having a new entity type (Appointment) that creates relationships amongst the existing entity type (Person), the commands and fields to support those relationships, as well as additional fields and functionality for user convenience.
+
+**Challenges Faced**: The timeline was a bit challenging at times. The first few weeks coincided with the busy midterms period, increasing the overall workload (albeit the deadlines were more lax then). The fact that weekly deadlines fell on Thursday rather than a more conventional Sunday also increased the strain a bit, as it was more difficult to fit our individual schedules.
+
+**Effort Required**: On average, we spent about 10 hours per week on the project per person, slightly above average for a 4MC course including lecture and tutorials. We opted not to overextend ourselves implement features that would be too complex, instead implementing simple but useful features instead. Our product hence does not have an appearance that deviates too much from AB3, and we were roughly in accordance with the 50% iP effort guidelines.
+
+**Achievements**: We evolved AB3 into an application tailored for the use of a specific audience (property agents), by extending the existing contact management features with new ones that would be specifically useful for our audience, such as the ability to create and track appointments with clients, or the ability to store and search by more industry-specific information such as property type. 
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Planned Enhancements**
