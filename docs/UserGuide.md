@@ -118,6 +118,10 @@ Adds a client to the ClientSquare app.
 
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/TAG]…​`
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** 
+The role display is for your visual reference only, to track the general status of a client -- there are no restrictions on assigning a buyer as a seller of an appointment and vice-versa.  
+</div>
+
 <div markdown="block" class="alert alert-info">
 
 **:information_source: Valid inputs for Roles and Property Type:**<br>
@@ -131,10 +135,6 @@ A person is uniquely identified by their **phone number**. You may add clients w
 <br>
 `LANDED_LH`, `LANDED_FH`, `COMMERCIAL_LH` and `COMMERCIAL_FH`.
 
-</div>
-
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-The role display is for your visual reference only, to track the general status of a client -- there are no restrictions on assigning a buyer as a seller of an appointment and vice-versa.  
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -168,7 +168,7 @@ Example:
 
 ### Locating clients by name: `find`
 
-Finds clients whose details contain any of the keywords you provide. Details include (i) name, (ii) role, (iii) email, (iv) address, (v) address type, or (vi) phone number.
+Finds clients whose details contain any of the keywords you provide. Details include (i) name, (ii) role, (iii) email, (iv) address, (v) property type, or (vi) phone number.
 
 Format: `find KEYWORD [MORE_KEYWORDS]...`
 
@@ -207,7 +207,7 @@ Examples:
 
 Edits an existing client in the ClientSquare app.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/PROPERTY_TYPE] [t/TAG]…​`
 
 * Edits the client at the specified `INDEX`. The index refers to the index number shown in the displayed client list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -221,7 +221,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/TYPE] 
 </div>
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
-When changing a client's `ROLE`, previous appointments where the client had their previous role will not be changed. This is to support realistic use cases where a former seller has become a buyer and vice-versa, while retaining their previous appointments without issue. 
+The role display is for your visual reference only, to track the general status of a client -- there are no restrictions on assigning a buyer as a seller of an appointment and vice-versa.  
 </div>
 
 <div markdown="block" class="alert alert-info">
@@ -306,7 +306,7 @@ Format: `ap d/DATETIME s/SELLER_INDEX [b/BUYER_INDEX]`
 * The seller's location is automatically displayed as the appointment location.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
-It is possible to add multiple appointments at the same time. Appointments will only be regarded as duplicate if they have the same datetime, seller, and buyer (or lack of buyer).
+* It is possible to add multiple appointments at the same time. Appointments will only be regarded as duplicate if they have the same datetime, seller, and buyer (or lack of buyer).
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
