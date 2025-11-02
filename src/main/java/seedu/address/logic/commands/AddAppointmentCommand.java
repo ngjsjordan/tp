@@ -110,19 +110,11 @@ public class AddAppointmentCommand extends Command {
 
         Person seller = lastShownList.get(sellerIndex.getZeroBased());
 
-        if (!seller.isSeller()) {
-            throw new CommandException(MESSAGE_INVALID_SELLER_ROLE);
-        }
-
         if (buyerIndex == null) {
             return new Appointment(appointmentDatetime, seller);
         }
 
         Person buyer = lastShownList.get(buyerIndex.getZeroBased());
-
-        if (!buyer.isBuyer()) {
-            throw new CommandException(MESSAGE_INVALID_BUYER_ROLE);
-        }
 
         assert !buyer.hasSameIdentifier(seller);
 

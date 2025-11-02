@@ -120,9 +120,7 @@ public class EditAppointmentCommand extends Command {
         }
 
         Index sellerIndex = editAppointmentDescriptor.getSellerIndex().get();
-        Person seller = getPersonFromIndex(sellerIndex, model);
-        validateSellerRole(seller);
-        return seller;
+        return getPersonFromIndex(sellerIndex, model);
     }
 
     /**
@@ -137,9 +135,7 @@ public class EditAppointmentCommand extends Command {
         }
 
         Index buyerIndex = editAppointmentDescriptor.getBuyerIndex().get();
-        Person buyer = getPersonFromIndex(buyerIndex, model);
-        validateBuyerRole(buyer);
-        return buyer;
+        return getPersonFromIndex(buyerIndex, model);
     }
 
     /**
@@ -155,28 +151,6 @@ public class EditAppointmentCommand extends Command {
         }
 
         return personList.get(index.getZeroBased());
-    }
-
-    /**
-     * Validates that the person has a seller role.
-     *
-     * @throws CommandException if the person does not have a seller role
-     */
-    private static void validateSellerRole(Person seller) throws CommandException {
-        if (!seller.isSeller()) {
-            throw new CommandException(MESSAGE_INVALID_SELLER_ROLE);
-        }
-    }
-
-    /**
-     * Validates that the person has a buyer role.
-     *
-     * @throws CommandException if the person does not have a buyer role
-     */
-    private static void validateBuyerRole(Person buyer) throws CommandException {
-        if (!buyer.isBuyer()) {
-            throw new CommandException(MESSAGE_INVALID_BUYER_ROLE);
-        }
     }
 
     @Override
