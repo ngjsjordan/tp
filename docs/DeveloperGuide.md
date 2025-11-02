@@ -36,7 +36,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2526S1-CS2103T-F08a-3/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2526S1-CS2103T-F08a-3/tp/blob/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -68,13 +68,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2526S1-CS2103T-F08a-3/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S1-CS2103T-F08a-3/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S1-CS2103T-F08a-3/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -85,7 +85,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2526S1-CS2103T-F08a-3/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -115,7 +115,7 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2526S1-CS2103T-F08a-3/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
@@ -136,7 +136,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2526S1-CS2103T-F08a-3/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -321,8 +321,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list clients
-2.  ClientSquare shows a list of clients
+1.  User requests to list clients.
+2.  ClientSquare shows a list of clients.
 
     Use case ends.
 
@@ -330,10 +330,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list clients
-2.  ClientSquare shows a list of clients
-3.  User requests to delete a specific client in the list
-4.  ClientSquare deletes the person
+1.  User requests to list clients.
+2.  ClientSquare shows a list of clients.
+3.  User requests to delete a specific client in the list.
+4.  ClientSquare deletes the person.
 
     Use case ends.
 
@@ -391,15 +391,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Step 1 is repeated until the input is valid.
     Use case resumes from step 2.
-    **Use case: UC01 - Add a buyer/seller**
 
 **Use case: UC06 - Add an appointment**
 
 **MSS**
 
-1.  User finds the clients involved (UC04)
-2.  User requests to add an appointment
-3.  ClientSquare adds the appointment
+1.  User finds the clients involved (UC05).
+2.  User requests to add an appointment.
+3.  ClientSquare adds the appointment.
 
     Use case ends.
 
@@ -416,8 +415,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list appointments
-2.  ClientSquare shows a list of appointments
+1.  User requests to list appointments.
+2.  ClientSquare shows a list of appointments.
 
     Use case ends.
 
@@ -425,10 +424,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list appointments
-2.  ClientSquare shows a list of appointments
-3.  User requests to delete a specific appointment in the list
-4.  ClientSquare deletes the appointment
+1.  User requests to list appointments.
+2.  ClientSquare shows a list of appointments.
+3.  User requests to delete a specific appointment in the list.
+4.  ClientSquare deletes the appointment.
 
     Use case ends.
 
@@ -448,17 +447,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list appointments (UC06)
+1.  User requests to list appointments (UC07).
 2.  User requests to edit a specific appointment in the list.
-3.  ClientSquare edits the appointment
+3.  ClientSquare edits the appointment.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. User is unable to find the desired appointment
+* 1a. User is unable to find the desired appointment.
 
-    * 1a1. User searches for the desired appointment (UC09)    
+    * 1a1. User searches for the desired appointment (UC10).
     
       Use case resumes from step 2.
 
@@ -477,8 +476,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to find appointments by keyword(s) and/or timeframe
-2.  ClientSquare shows a list of matching appointments
+1.  User requests to find appointments by keyword(s) and/or timeframe.
+2.  ClientSquare shows a list of matching appointments.
 
     Use case ends.
 
@@ -652,10 +651,10 @@ testers are expected to do more *exploratory* testing.
       Expected: 1 appointment(s) listed!, with 1 appointment showing up in the UI.
 
    1. Test case: `sap` <br>
-      Expected: No appointments are listed. An error message is shown indicating the invalid command format and shows the correct usage.
+      Expected: Appointments list is not updated. An error message is shown indicating the invalid command format and shows the correct usage.
 
    1. Test case: `sap tf/invalid` <br>
-      Expected: Timeframe should be one of: past, today, upcoming (case-insensitive)
+      Expected: Appointments list is not updated. An error message is shown, indicating the valid timeframes.
 
 ### Deleting an appointment
 
@@ -709,7 +708,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `toggle` <br>
       Expected: The UI will change theme (Light -> Dark or Dark -> Light)
    2. Test case: `toggle 123` <br>
-   3. Expected: The UI will change theme (`Light -> Dark` or `Dark -> Light`)
+      Expected: The UI will change theme (`Light -> Dark` or `Dark -> Light`)
 
 ### Saving data
 
