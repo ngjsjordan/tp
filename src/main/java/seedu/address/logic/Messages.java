@@ -23,7 +23,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_DUPLICATE_PERSON =
-            "This client already exists in the address book.";
+            "This client already exists in the address book. Clients must have unique phone numbers.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
