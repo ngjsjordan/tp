@@ -476,13 +476,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3.  A user who can type faster than 40 words per minute on average for regular English text (i.e. not code, not system admin commands) should be able to use 90% of the application's functions faster using a keyboard than a mouse.
 4.  The product is to be used by a single user. 
 5.  The product should work without requiring an installer.
 6.  The product should work without any other external / online services. 
-5.  The product should not exceed 100MB in size.
-
-*{More to be added}*
+7.  The product should not exceed 100MB in size.
+8.  The product should not share data outside the application without the user's knowledge.
 
 ### Glossary
 
