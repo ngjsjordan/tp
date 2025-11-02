@@ -20,7 +20,7 @@ public class DeleteAppointmentCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the appointment identified by the "
             + "index number used in the displayed appointments list\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer greater than 0)\n"
             + "Example: dap 1";
 
     public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment: %1$s with Seller: %2$s";
