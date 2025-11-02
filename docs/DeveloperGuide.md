@@ -303,8 +303,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to add a buyer or seller
-2.  ClientSquare adds the buyer or seller
+1.  User requests to add a buyer or seller.
+2.  ClientSquare adds the buyer or seller.
 
     Use case ends.
 
@@ -321,8 +321,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list clients
-2.  ClientSquare shows a list of clients
+1.  User requests to list clients.
+2.  ClientSquare shows a list of clients.
 
     Use case ends.
 
@@ -330,10 +330,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list clients
-2.  ClientSquare shows a list of clients
-3.  User requests to delete a specific client in the list
-4.  ClientSquare deletes the person
+1.  User requests to list clients.
+2.  ClientSquare shows a list of clients.
+3.  User requests to delete a specific client in the list.
+4.  ClientSquare deletes the person.
 
     Use case ends.
 
@@ -353,8 +353,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to find contacts/properties by keyword(s)
-2.  ClientSquare shows a list of matching contacts/properties
+1.  User requests to find contacts/properties by keyword(s).
+2.  ClientSquare shows a list of matching contacts/properties.
 
     Use case ends.
 
@@ -371,9 +371,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User finds the clients involved (UC04)
-2.  User requests to add an appointment
-3.  ClientSquare adds the appointment
+1.  User finds the clients involved (UC04).
+2.  User requests to add an appointment.
+3.  ClientSquare adds the appointment.
 
     Use case ends.
 
@@ -390,8 +390,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list appointments
-2.  ClientSquare shows a list of appointments
+1.  User requests to list appointments.
+2.  ClientSquare shows a list of appointments.
 
     Use case ends.
 
@@ -399,10 +399,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list appointments
-2.  ClientSquare shows a list of appointments
-3.  User requests to delete a specific appointment in the list
-4.  ClientSquare deletes the appointment
+1.  User requests to list appointments.
+2.  ClientSquare shows a list of appointments.
+3.  User requests to delete a specific appointment in the list.
+4.  ClientSquare deletes the appointment.
 
     Use case ends.
 
@@ -422,7 +422,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list appointments (UC06)
+1.  User requests to list appointments (UC06).
 2.  User requests to edit a specific appointment in the list.
 3.  ClientSquare edits the appointment
 
@@ -430,9 +430,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. User is unable to find the desired appointment
+* 1a. User is unable to find the desired appointment.
 
-    * 1a1. User searches for the desired appointment (UC09)    
+    * 1a1. User searches for the desired appointment (UC09).
     
       Use case resumes from step 2.
 
@@ -451,8 +451,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to find appointments by keyword(s) and/or timeframe
-2.  ClientSquare shows a list of matching appointments
+1.  User requests to find appointments by keyword(s) and/or timeframe.
+2.  ClientSquare shows a list of matching appointments.
 
     Use case ends.
 
