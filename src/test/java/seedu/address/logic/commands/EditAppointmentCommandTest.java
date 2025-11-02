@@ -194,23 +194,55 @@ public class EditAppointmentCommandTest {
     }
 
     @Test
-    public void execute_invalidSellerRole_failure() {
+    public void execute_sellerHasBuyerRole_success() {
+        Appointment appointmentToEdit = model.getFilteredAppointmentList()
+                .get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        Person newSeller = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
-        descriptor.setSellerIndex(INDEX_FIRST_PERSON);
+        descriptor.setSellerIndex(INDEX_SECOND_PERSON);
 
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
 
-        assertCommandFailure(editAppointmentCommand, model, Messages.MESSAGE_INVALID_SELLER_ROLE);
+        Appointment editedAppointment = new Appointment(
+                appointmentToEdit.getAppointmentDatetime(),
+                newSeller,
+                appointmentToEdit.getBuyer().get());
+        String expectedMessage = String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_SUCCESS,
+                Messages.format(editedAppointment));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        expectedModel.setAppointment(appointmentToEdit, editedAppointment);
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+
+        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_invalidBuyerRole_failure() {
+    public void execute_buyerHasSellerRole_success() {
+        Appointment appointmentToEdit = model.getFilteredAppointmentList()
+                .get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        Person newBuyer = model.getFilteredPersonList().get(INDEX_SIXTH_PERSON.getZeroBased());
+
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
-        descriptor.setBuyerIndex(INDEX_THIRD_PERSON);
+        descriptor.setBuyerIndex(INDEX_SIXTH_PERSON);
 
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
 
-        assertCommandFailure(editAppointmentCommand, model, Messages.MESSAGE_INVALID_BUYER_ROLE);
+        Appointment editedAppointment = new Appointment(
+                appointmentToEdit.getAppointmentDatetime(),
+                appointmentToEdit.getSeller(),
+                newBuyer);
+        String expectedMessage = String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_SUCCESS,
+                Messages.format(editedAppointment));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        expectedModel.setAppointment(appointmentToEdit, editedAppointment);
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+
+        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -225,7 +257,7 @@ public class EditAppointmentCommandTest {
         // attempt to update the appointment's seller to Alice (who is also the buyer)
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
 
-        assertCommandFailure(editAppointmentCommand, model, EditAppointmentCommand.MESSAGE_SAME_SELLER_BUYER);
+        assertCommandFailure(editAppointmentCommand, model, Messages.MESSAGE_SAME_SELLER_BUYER);
     }
 
     @Test

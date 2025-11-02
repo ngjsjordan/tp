@@ -593,12 +593,6 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `ap d/2025-01-01T00:00 b/3` <br>
       Expected: An error will be shown as it is not possible to add appointments without a seller.
 
-   1. Test case: `ap d/2025-01-01T00:00 s/3` <br>
-      Expected: An error will be shown as the referenced seller does not have the seller role.
-   
-   1. Test case: `ap d/2025-01-01T00:00 s/4 b/5` <br>
-      Expected: An error will be shown as the referenced buyer does not have the buyer role.
-
 ### Searching for an appointment
 
 1. Searching for appointments using keywords and/or timeframes.
@@ -659,16 +653,6 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: `eap 1 ` (no fields provided) <br>
       Expected: No appointment is edited. An error message is shown: "At least one field to edit must be provided."
-
-1. Editing with role validation
-
-   1. Prerequisites: Know which persons in your list are buyers and which are sellers. Use the `list` command to view all persons.
-
-   1. Test case: `eap 1 s/3` where person at index 3 is a buyer (not a seller) <br>
-      Expected: No appointment is edited. An error message is shown: "The person assigned as seller must have a seller role."
-
-   1. Test case: `eap 1 b/4` where person at index 4 is a seller (not a buyer) <br>
-      Expected: No appointment is edited. An error message is shown: "The person assigned as buyer must have a buyer role."
 
 1. Editing to create duplicate appointment
 
