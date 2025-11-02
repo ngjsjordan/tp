@@ -726,6 +726,33 @@ testers are expected to do more *exploratory* testing.
    2. Test case: `toggle 123` <br>
       Expected: The UI will change theme (`Light -> Dark` or `Dark -> Light`)
 
+### Toggling between lists
+1. Switching from the client list to the appointment list
+   1. Prerequisites: Be on the client list
+      1. Test case: `lap` <br>
+         Expected: The UI window will toggle to the appointment list.
+      2. Test case: `list` <br>
+         Expected: The UI window will remain on the client list.
+2. Switching from the appointment list to the client list
+   1. Prerequisites: Be on the appointment list
+      1. Test case: `list` <br>
+           Expected: The UI window will toggle to the client list.
+      2. Test case: `lap` <br>
+           Expected: The UI window will remain on the appointment list.
+
+### Clearing data and resetting
+1. Clearing all currently saved data
+   1. Test case: `clear` <br>
+      Expected: All currently saved clients and appointments will be cleared. The client list and appointment list are both empty. 
+2. Adding new client after clearing
+   1. Prerequisites: Just cleared all saved data using the `clear` command.
+      1. Test case: `add n/Rahul Dravid p/99262658 e/rahuldravid@example.com r/buyer a/Block 72 Clementi Road, #12-34 pt/HDB_3` <br>
+      Expected: App behaves normally and new client is added to the client list.
+3. Adding new appointment after clearing
+   1. Prerequisites: Added a buyer with index 1 and seller with index 2 to the client list after clearing all saved data using the `clear` command.
+      1. Test case: `ap d/2025-01-01T00:00 s/2 b/1` <br>
+         Expected: App behaves normally and new appointment is added to the appointment list.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
