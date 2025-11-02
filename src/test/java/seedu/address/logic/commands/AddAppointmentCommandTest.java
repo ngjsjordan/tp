@@ -91,7 +91,7 @@ public class AddAppointmentCommandTest {
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_THIRD_PERSON);
 
-        assertCommandFailure(addAppointmentCommand, model, AddAppointmentCommand.MESSAGE_INVALID_SELLER_ROLE);
+        assertCommandFailure(addAppointmentCommand, model, Messages.MESSAGE_INVALID_SELLER_ROLE);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class AddAppointmentCommandTest {
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_SIXTH_PERSON);
 
-        assertCommandFailure(addAppointmentCommand, model, AddAppointmentCommand.MESSAGE_INVALID_BUYER_ROLE);
+        assertCommandFailure(addAppointmentCommand, model, Messages.MESSAGE_INVALID_BUYER_ROLE);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class AddAppointmentCommandTest {
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_FIRST_PERSON);
 
-        assertCommandFailure(addAppointmentCommand, model, AddAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT);
+        assertCommandFailure(addAppointmentCommand, model, Messages.MESSAGE_DUPLICATE_APPOINTMENT);
     }
 
     @Test

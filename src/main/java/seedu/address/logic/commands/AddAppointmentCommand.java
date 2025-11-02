@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_APPOINTMENT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_BUYER_ROLE;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_SELLER_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
@@ -25,7 +28,7 @@ public class AddAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "ap";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment with the seller and optional buyer"
-            + " specified by the index number used in the displayed person list.\n"
+            + " specified by the index number used in the displayed client list.\n"
             + "Parameters: "
             + PREFIX_DATETIME + "DATETIME "
             + PREFIX_SELLER + "SELLER_INDEX "
@@ -37,9 +40,6 @@ public class AddAppointmentCommand extends Command {
 
     public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS =
             "Appointment added with seller %1$s.";
-    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "That appointment already exists.";
-    public static final String MESSAGE_INVALID_SELLER_ROLE = "The person assigned as seller must have a seller role.";
-    public static final String MESSAGE_INVALID_BUYER_ROLE = "The person assigned as buyer must have a buyer role.";
 
     private final AppointmentDatetime appointmentDatetime;
     private final Index sellerIndex;

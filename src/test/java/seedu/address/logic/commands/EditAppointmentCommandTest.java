@@ -200,7 +200,7 @@ public class EditAppointmentCommandTest {
 
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
 
-        assertCommandFailure(editAppointmentCommand, model, EditAppointmentCommand.MESSAGE_INVALID_SELLER_ROLE);
+        assertCommandFailure(editAppointmentCommand, model, Messages.MESSAGE_INVALID_SELLER_ROLE);
     }
 
     @Test
@@ -210,7 +210,7 @@ public class EditAppointmentCommandTest {
 
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
 
-        assertCommandFailure(editAppointmentCommand, model, EditAppointmentCommand.MESSAGE_INVALID_BUYER_ROLE);
+        assertCommandFailure(editAppointmentCommand, model, Messages.MESSAGE_INVALID_BUYER_ROLE);
     }
 
     @Test
@@ -276,7 +276,7 @@ public class EditAppointmentCommandTest {
 
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
 
-        assertCommandFailure(editAppointmentCommand, model, EditAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT);
+        assertCommandFailure(editAppointmentCommand, model, Messages.MESSAGE_DUPLICATE_APPOINTMENT);
     }
 
     @Test
