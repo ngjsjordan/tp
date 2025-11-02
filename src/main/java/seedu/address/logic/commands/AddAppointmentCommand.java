@@ -39,7 +39,7 @@ public class AddAppointmentCommand extends Command {
             + PREFIX_BUYER + "2";
 
     public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS =
-            "Appointment added with seller %1$s.";
+            "Appointment added: %1$s";
 
     private final AppointmentDatetime appointmentDatetime;
     private final Index sellerIndex;
@@ -90,8 +90,7 @@ public class AddAppointmentCommand extends Command {
         }
 
         model.addAppointment(appointment);
-        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS,
-                Messages.format(appointment.getSeller())));
+        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, appointment));
     }
 
     /**
