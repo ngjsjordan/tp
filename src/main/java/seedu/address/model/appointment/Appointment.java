@@ -130,7 +130,8 @@ public class Appointment implements Comparable<Appointment> {
 
     @Override
     public String toString() {
-        return appointmentDatetime.toString();
+        return appointmentDatetime.toString() + ", Seller: " + seller.getName()
+                + (buyer != null ? ", Buyer: " + buyer.getName() : "");
     }
 
     @Override

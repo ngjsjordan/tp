@@ -15,14 +15,18 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
+    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The client index provided is invalid";
     public static final String MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX =
             "The appointment index provided is invalid";
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d person(s) listed!";
+    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d client(s) listed!";
     public static final String MESSAGE_APPOINTMENTS_LISTED_OVERVIEW = "%1$d appointment(s) listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-
+    public static final String MESSAGE_DUPLICATE_PERSON =
+            "This client already exists in the address book. Clients must have unique phone numbers.";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book.";
+    public static final String MESSAGE_INVALID_SELLER_ROLE = "The client assigned as seller must have a seller role.";
+    public static final String MESSAGE_INVALID_BUYER_ROLE = "The client assigned as buyer must have a buyer role.";
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
