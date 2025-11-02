@@ -28,8 +28,6 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentDatetime;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Role;
-import seedu.address.testutil.PersonBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditAppointmentCommand.
@@ -223,10 +221,10 @@ public class EditAppointmentCommandTest {
     public void execute_buyerHasSellerRole_success() {
         Appointment appointmentToEdit = model.getFilteredAppointmentList()
                 .get(INDEX_FIRST_APPOINTMENT.getZeroBased());
-        Person newBuyer = model.getFilteredPersonList().get(INDEX_SIXTH_PERSON.getZeroBased());
+        Person newBuyer = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
-        descriptor.setBuyerIndex(INDEX_SIXTH_PERSON);
+        descriptor.setBuyerIndex(INDEX_FIRST_PERSON);
 
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
 
@@ -247,14 +245,14 @@ public class EditAppointmentCommandTest {
 
     @Test
     public void execute_sameSellerBuyer_failure() throws CommandException {
+        Appointment appointmentToEdit = model.getFilteredAppointmentList()
+                .get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        Person currentBuyer = appointmentToEdit.getBuyer().get();
+        Index buyerIndex = Index.fromZeroBased(model.getFilteredPersonList().indexOf(currentBuyer));
         EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
-        descriptor.setSellerIndex(INDEX_FIRST_PERSON);
+        descriptor.setSellerIndex(buyerIndex);
 
-        // update first person (Alice) from buyer to seller
-        Person alice = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        model.setPerson(alice, new PersonBuilder(alice).withRole(Role.SELLER).build());
-
-        // attempt to update the appointment's seller to Alice (who is also the buyer)
+        // attempt to update the appointment's buyer as the seller
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
 
         assertCommandFailure(editAppointmentCommand, model, Messages.MESSAGE_SAME_SELLER_BUYER);
