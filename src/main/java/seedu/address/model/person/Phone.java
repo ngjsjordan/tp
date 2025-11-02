@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Phone {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should contain at least 3 digits, and may include '+', '(', ')', spaces, or '-'";
+            "Phone numbers should contain at least 3 digits, and may include '+', '(', ')', '-' or spaces";
     public static final String VALIDATION_REGEX = "^[+\\d()\\s-]{3,}$";
     public final String value;
 
