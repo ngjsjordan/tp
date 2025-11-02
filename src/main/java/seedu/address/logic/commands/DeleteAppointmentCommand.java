@@ -23,7 +23,7 @@ public class DeleteAppointmentCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: dap 1";
 
-    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment: %1$s with Seller: %2$s";
+    public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment: %1$s";
 
     private final Index targetIndex;
 
@@ -46,8 +46,7 @@ public class DeleteAppointmentCommand extends Command {
 
         Appointment appointmentToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteAppointment(appointmentToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete.toString(),
-                appointmentToDelete.getSeller().getName()));
+        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete.toString()));
     }
 
     @Override
