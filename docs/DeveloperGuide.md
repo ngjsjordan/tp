@@ -743,7 +743,9 @@ Team Size: 5
    - We plan to enhance the feature to support multiple properties per seller by modifying `Person` to hold a `List` of `Address` in a separate `Propertes` field. This would cover the case where the Person's actual home address is not one of the properties they wish to sell (common in multi-property portfolios).
    - The property lists would be managed by separate `prop`, `eprop`, `dprop` commands to prevent the existing Person-related commands from being overloaded with responsibility.
    - Appointments would also hold a specific `Address` rather than taking the seller's address.
-1. **Role to be allocated per appointment instead of person**. Currently, 
+1. **Role to be allocated per appointment instead of person**. Currently, a `Role` is assigned to a `Person` based on their general status (looking to buy or sell). This limits the usefulness of the field in filtering or searching users as part of their role in appointments.
+   - We plan to enhance this feature by making `Role` an association class between `Appointment` and `Person`. A `RoleType` enum would hold the types of roles available (buyer, seller, or future extensions like lessor/lessee). The `Role` class would then hold fields of `RoleType`, `Appointment` and `Person`, and can be interacted with via `UniqueRoleList`.
+   - This would allow for more flexible appointments (more than 1 buyer/seller), especially in combination with enhancement 1, improve searchability (search appointments by role of person etc.), and feature extensibility (more role types). 
 1. **Filter appointments by custom time range**. Currently, users can only filter appointments by predefined timeframes (`past`, `today`, `upcoming`) using the `sap` command. This limits flexibility when agents need to view appointments within a specific date or time range.
    - We plan to enhance the search appointment feature to allow users to specify custom time ranges using parameters like `from/` and `to/`.
    - Example usage: `sap from/2025-11-01T00:00 to/2025-11-30T23:59` to list all appointments in November 2025.
