@@ -122,6 +122,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/
 
 **:information_source: Valid inputs for Roles and Property Type:**<br>
 
+A person is uniquely identified by their **phone number**. You may add clients with the same name and/or email address, but **not** the same phone number.  
 **Valid roles** are `buyer` and `seller`.  
 **Valid property types** are
 `HDB_2`, `HDB_3`, `HDB_4`, `HDB_5`, `HDB_J`, `EC`, `EM`,
@@ -223,6 +224,7 @@ When changing a client's `ROLE`, previous appointments where the client had thei
 
 **:information_source: Valid inputs for Roles and Property Type:**<br>
 
+A person is uniquely identified by their **phone number**. You may add clients with the same name and/or email address, but **not** the same phone number.  
 **Valid roles** are `buyer` and `seller`.  
 **Valid property types** are
 `HDB_2`, `HDB_3`, `HDB_4`, `HDB_5`, `HDB_J`, `EC`, `EM`,
