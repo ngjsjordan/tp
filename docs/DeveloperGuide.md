@@ -271,40 +271,40 @@ _{more aspects and alternatives to be added}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                     | I want to …​                    | So that I can…​                                                        |
-|----------| ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new buyer/seller         | remember client details                                                |
-| `* * *`  | user                                       | tag sellers' property details  | easily note and view an important piece of information                 |
-| `* * *`  | user                                       | delete a client                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | list clients                   | get an overview of clients and properties                              |
-| `* * *`  | user                                       | find a client by name          | locate details of a client without having to go through the entire list|
-| `* * *`  | user                                       | find a property by name        | locate property and seller details without going through the list      |
-| `* * *`  | user                                       | schedule appointments          | manage my time effectively                                             |
-| `* * *`  | user                                       | view upcoming appointments     | keep track of client meetings                                          |
-| `* *`    | new user                                   | import contacts from my phone  | get set up quickly                                                     |
-| `* *`    | user                                       | edit client information        | update details when they change                                        |
-| `* *`    | user                                       | filter properties              | find properties to recommend to buyers                                 |
-| `*`      | user                                       | track transaction progress     | keep track of deals involving buyers/sellers                           |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
-| `*`      | user with many persons in the address book | find a person with similar name| find the client I'm looking for amidst many similar names              |
-| `*`      | user who is a co-broking agent             | add partner agents             | keep track of others involved in a deal                                |
-| `*`      | user with vision impairments               | use accessibility options      | use the application without eye strain                                 |
-| `*`      | user                                       | store property images          | easily show it to potential buyers                                     |
-| `*`      | user                                       | gather data about transactions | adapt my work to strike better deals                                   |
-
-*{More to be added}*
+| Priority | As a …​                                     | I want to …​                    | So that I can…​                                                         |
+|----------| ------------------------------------------ |---------------------------------|-------------------------------------------------------------------------|
+| `* * *`  | new user                                   | see usage instructions          | refer to instructions when I forget how to use the App                  |
+| `* * *`  | user                                       | add a new buyer/seller          | remember client details                                                 |
+| `* * *`  | user                                       | tag sellers' property details   | easily note and view an important piece of information                  |
+| `* * *`  | user                                       | delete a client                 | remove entries that I no longer need                                    |
+| `* * *`  | user                                       | list clients                    | get an overview of clients and properties                               |
+| `* * *`  | user                                       | find a client by name           | locate details of a client without having to go through the entire list |
+| `* * *`  | user                                       | find a property by name         | locate property and seller details without going through the list       |
+| `* * *`  | user                                       | schedule appointments           | manage my time effectively                                              |
+| `* * *`  | user                                       | view upcoming appointments      | keep track of client meetings                                           |
+| `* *`    | new user                                   | import contacts from my phone   | get set up quickly                                                      |
+| `* *`    | user                                       | edit client information         | update details when they change                                         |
+| `* *`    | user                                       | edit appointments               | update details when they change                                         |
+| `* *`    | user                                       | search appointments             | locate details about specific appointments                              |
+| `* *`    | user                                       | filter properties               | find properties to recommend to buyers                                  |
+| `*`      | user                                       | track transaction progress      | keep track of deals involving buyers/sellers                            |
+| `*`      | user with many persons in the address book | sort persons by name            | locate a person easily                                                  |
+| `*`      | user with many persons in the address book | find a person with similar name | find the client I'm looking for amidst many similar names               |
+| `*`      | user who is a co-broking agent             | add partner agents              | keep track of others involved in a deal                                 |
+| `*`      | user with vision impairments               | use accessibility options       | use the application without eye strain                                  |
+| `*`      | user                                       | store property images           | easily show it to potential buyers                                      |
+| `*`      | user                                       | gather data about transactions  | adapt my work to strike better deals                                    |
 
 ### Use cases
 
 (For all use cases below, the **System** is `ClientSquare` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: UC01 - Add a buyer/seller**
+**Use case: UC01 - Add a client**
 
 **MSS**
 
-1.  User requests to add a buyer or seller
-2.  ClientSquare adds the buyer or seller
+1.  User requests to add a client
+2.  ClientSquare adds the client
 
     Use case ends.
 
@@ -326,7 +326,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case: UC03 -  Remove a buyer/seller**
+**Use case: UC03 - Remove a client**
 
 **MSS**
 
@@ -349,12 +349,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC04 - Searching contacts**
+**Use case: UC04 - Editing a client**
 
 **MSS**
 
-1.  User requests to find contacts/properties by keyword(s)
-2.  ClientSquare shows a list of matching contacts/properties
+1.  User requests to edit a client with details.
+2.  ClientSquare makes the requested edits.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. No details to edit are provided.
+
+    * 1a1. ClientSquare shows an error message.
+
+      Step 1 is repeated until the input is valid.
+      Use case resumes from step 2.
+
+* 1b. Some details to edit are invalid.
+
+    * 1b1. ClientSquare shows an error message detailing the invalid fields.
+
+      Step 1 is repeated until the input is valid.
+      Use case resumes from step 2.
+
+**Use case: UC05 - Searching clients**
+
+**MSS**
+
+1.  User requests to find clients/properties by keyword(s)
+2.  ClientSquare shows a list of matching clients/properties
 
     Use case ends.
 
@@ -366,8 +391,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Step 1 is repeated until the input is valid.
     Use case resumes from step 2.
+    **Use case: UC01 - Add a buyer/seller**
 
-**Use case: UC05 - Add an appointment**
+**Use case: UC06 - Add an appointment**
 
 **MSS**
 
@@ -386,7 +412,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Step 2 is repeated until the input is valid.
     Use case resumes from step 3.
 
-**Use case: UC06 - View appointments**
+**Use case: UC07 - View appointments**
 
 **MSS**
 
@@ -395,7 +421,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case: UC07 - Remove an appointment**
+**Use case: UC08 - Remove an appointment**
 
 **MSS**
 
@@ -418,7 +444,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC08 - Edit an appointment**
+**Use case: UC09 - Edit an appointment**
 
 **MSS**
 
@@ -447,7 +473,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Step 2 is repeated until the input is valid.
       Use case resumes from step 3.
 
-**Use case: UC09 - Search for appointment**
+**Use case: UC10 - Search for appointment**
 
 **MSS**
 
@@ -472,17 +498,34 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Step 1 is repeated until the input is valid.
       Use case resumes from step 2.
 
+**Use case: UC11 - Toggle light/dark mode**
+
+**MSS**
+
+1.  User requests to toggle to the opposite theme.
+2.  ClientSquare toggles the theme to the one opposite that currently being used. 
+
+    Use case ends.
+
+**Use case: UC12 - Clear data**
+
+**MSS**
+
+1.  User requests to clear all client and appointment data.
+2.  ClientSquare clears all clients and appointments.
+
+    Use case ends.
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3.  A user who can type faster than 40 words per minute on average for regular English text (i.e. not code, not system admin commands) should be able to use 90% of the application's functions faster using a keyboard than a mouse.
 4.  The product is to be used by a single user. 
 5.  The product should work without requiring an installer.
 6.  The product should work without any other external / online services. 
-5.  The product should not exceed 100MB in size.
-
-*{More to be added}*
+7.  The product should not exceed 100MB in size.
+8.  The product should not share data outside the application without the user's knowledge.
 
 ### Glossary
 
