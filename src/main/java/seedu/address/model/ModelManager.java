@@ -178,7 +178,8 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Appointment> getFilteredAppointmentList() {
         // Sort the existing observable list instead of creating a new one
-        return filteredAppointments;
+        return filteredAppointments.sorted();
+
     }
 
     @Override
