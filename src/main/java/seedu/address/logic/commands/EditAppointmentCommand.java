@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_APPOINTMENT;
+import static seedu.address.logic.Messages.MESSAGE_SAME_SELLER_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
@@ -41,7 +42,6 @@ public class EditAppointmentCommand extends Command {
 
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_SAME_SELLER_BUYER = "The seller and buyer must not be the same person.";
 
     private final Index index;
     private final EditAppointmentDescriptor editAppointmentDescriptor;

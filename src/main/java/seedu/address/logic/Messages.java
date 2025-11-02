@@ -25,6 +25,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_PERSON =
             "This client already exists in the address book. Clients must have unique phone numbers.";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book.";
+    public static final String MESSAGE_SAME_SELLER_BUYER = "The seller and buyer must not be the same person.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

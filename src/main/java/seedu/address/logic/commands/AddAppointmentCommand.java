@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_APPOINTMENT;
+import static seedu.address.logic.Messages.MESSAGE_SAME_SELLER_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
@@ -113,7 +114,9 @@ public class AddAppointmentCommand extends Command {
 
         Person buyer = lastShownList.get(buyerIndex.getZeroBased());
 
-        assert !buyer.hasSameIdentifier(seller);
+        if (seller.hasSameIdentifier(buyer)) {
+            throw new CommandException(MESSAGE_SAME_SELLER_BUYER);
+        }
 
         return new Appointment(appointmentDatetime, seller, buyer);
     }

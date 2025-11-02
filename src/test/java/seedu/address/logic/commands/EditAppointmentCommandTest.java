@@ -257,7 +257,7 @@ public class EditAppointmentCommandTest {
         // attempt to update the appointment's seller to Alice (who is also the buyer)
         EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
 
-        assertCommandFailure(editAppointmentCommand, model, EditAppointmentCommand.MESSAGE_SAME_SELLER_BUYER);
+        assertCommandFailure(editAppointmentCommand, model, Messages.MESSAGE_SAME_SELLER_BUYER);
     }
 
     @Test
