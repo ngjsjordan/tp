@@ -282,7 +282,7 @@ Examples:
 * `search irfan` followed by `delete 1` deletes the 1st client in the results of the `search` command.
 <div style="display: flex; justify-content: center; gap: 5px;">
   <img src="images/searchIrfanResult.png" alt="result for `search irfan`" width="49%">
-  <img src="images/delete1AftersearchIrfanResult.png" alt="result for `delete 1`" width="49%">
+  <img src="images/delete1AfterSearchIrfanResult.png" alt="result for `delete 1`" width="49%">
 </div>
 
 <div style="page-break-after: always;"></div>
