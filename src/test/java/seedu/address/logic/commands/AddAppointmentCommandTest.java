@@ -95,11 +95,12 @@ public class AddAppointmentCommandTest {
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_THIRD_PERSON);
 
+        Appointment expectedAppointment = new Appointment(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), sellerWithBuyerRole, buyer);
         String expectedMessage = String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS,
                 new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), sellerWithBuyerRole, buyer));
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.addAppointment(new Appointment(
-                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), sellerWithBuyerRole, buyer));
+        expectedModel.addAppointment(expectedAppointment);
 
         assertCommandSuccess(addAppointmentCommand, model, expectedMessage, expectedModel);
     }
@@ -112,11 +113,12 @@ public class AddAppointmentCommandTest {
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_SIXTH_PERSON);
 
-        String expectedMessage = String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS,
-                Messages.format(seller));
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModel.addAppointment(new Appointment(
+        Appointment expectedAppointment = new Appointment(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), seller, buyerWithSellerRole);
+        String expectedMessage = String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS, new Appointment(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), seller, buyerWithSellerRole));
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.addAppointment(expectedAppointment);
 
         assertCommandSuccess(addAppointmentCommand, model, expectedMessage, expectedModel);
     }

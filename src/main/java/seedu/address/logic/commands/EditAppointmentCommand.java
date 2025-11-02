@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_APPOINTMENT;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_BUYER_ROLE;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_SELLER_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
