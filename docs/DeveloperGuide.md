@@ -173,11 +173,11 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th client in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new client. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
@@ -185,7 +185,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 </div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the client was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
@@ -234,7 +234,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+  * Pros: Will use less memory (e.g. for `delete`, just save the client being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
@@ -271,8 +271,8 @@ _{more aspects and alternatives to be added}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                     | I want to …​                    | So that I can…​                                                         |
-|----------| ------------------------------------------ |---------------------------------|-------------------------------------------------------------------------|
+| Priority | As a …​                                    | I want to …​                    | So that I can…​                                                         |
+|----------|--------------------------------------------|---------------------------------|-------------------------------------------------------------------------|
 | `* * *`  | new user                                   | see usage instructions          | refer to instructions when I forget how to use the App                  |
 | `* * *`  | user                                       | add a new buyer/seller          | remember client details                                                 |
 | `* * *`  | user                                       | tag sellers' property details   | easily note and view an important piece of information                  |
@@ -288,8 +288,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user                                       | search appointments             | locate details about specific appointments                              |
 | `* *`    | user                                       | filter properties               | find properties to recommend to buyers                                  |
 | `*`      | user                                       | track transaction progress      | keep track of deals involving buyers/sellers                            |
-| `*`      | user with many persons in the address book | sort persons by name            | locate a person easily                                                  |
-| `*`      | user with many persons in the address book | find a person with similar name | find the client I'm looking for amidst many similar names               |
+| `*`      | user with many clients in the address book | sort clients by name            | locate a client easily                                                  |
+| `*`      | user with many clients in the address book | find a client with similar name | find the client I'm looking for amidst many similar names               |
 | `*`      | user who is a co-broking agent             | add partner agents              | keep track of others involved in a deal                                 |
 | `*`      | user with vision impairments               | use accessibility options       | use the application without eye strain                                  |
 | `*`      | user                                       | store property images           | easily show it to potential buyers                                      |
@@ -333,7 +333,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  User requests to list clients.
 2.  ClientSquare shows a list of clients.
 3.  User requests to delete a specific client in the list.
-4.  ClientSquare deletes the person.
+4.  ClientSquare deletes the client.
 
     Use case ends.
 
@@ -515,16 +515,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
+**Use case: UC13 - Exit application**
+
+**MSS**
+
+1.  User requests to exit ClientSquare
+2.  ClientSquare saves data and closes the application.
+
+    Use case ends.
+
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user who can type faster than 40 words per minute on average for regular English text (i.e. not code, not system admin commands) should be able to use 90% of the application's functions faster using a keyboard than a mouse.
-4.  The product is to be used by a single user. 
-5.  The product should work without requiring an installer.
-6.  The product should work without any other external / online services. 
-7.  The product should not exceed 100MB in size.
-8.  The product should not share data outside the application without the user's knowledge.
+1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
+2. Should be able to hold up to 1000 clients and 1000 appointments without a noticeable sluggishness in performance for typical usage.
+3. Should load within 5 seconds on a standard modern laptop.
+4. A user who can type faster than 40 words per minute on average for regular English text (i.e. not code, not system admin commands) should be able to use 90% of the application's functions faster using a keyboard than a mouse.
+5. The product is to be used by a single user. 
+6. The product should work without requiring an installer.
+7. The product should work without any other external / online services. 
+8. The product should not exceed 100MB in size.
+9. The product should not share data outside the application without the user's knowledge.
+10. The product should not crash under normal usage, including adding, deleting, and editing multiple clients and appointments.
+11. The product should support common screen resolutions like 1080p without display issues.
+12. Common operations should complete within 2 seconds.
+13. Data should be saved after any CRUD operation to prevent accidental data loss.
 
 ### Glossary
 
@@ -534,6 +548,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Tag**: A user-defined label used to categorise clients
 * **Property Type**: Classification of property according to Singapore's industry norms (HDB, Executive Flats, Condo, Landed Commercial)
 * **JSON**: A lightweight text format for data persistence and consistency
+* **CRUD**: Operations that create, read, update, or delete data.
+* **MSS (Main Success Scenario)**: Describes the most straightforward interaction for a given use case, assuming nothing goes wrong.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -567,7 +583,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: Have previously launched the app and added/modified some data. The `data/ClientSquare.json` file exists with your custom data.
 
    1. Double-click the jar file.<br>
-      Expected: The application starts with your previously saved data (persons and appointments). No sample data is loaded.
+      Expected: The application starts with your previously saved data (clients and appointments). No sample data is loaded.
 
 1. Shutting down the application
 
@@ -582,9 +598,9 @@ testers are expected to do more *exploratory* testing.
 
 ### Adding a client
 
-1. Adding a client while all persons are shown. 
+1. Adding a client while all clients are shown. 
 
-    1. Prerequisites: List all persons using the `list` command. The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the json file to regenerate it.
+    1. Prerequisites: List all clients using the `list` command. The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the json file to regenerate it.
 
     1. Test case: `add n/Rahul Dravid p/99262658 e/rahuldravid@example.com r/buyer a/Block 72 Clementi Road, #12-34 pt/HDB_3` <br>
        Expected: A new client is added at index 7 of the clients' list.
@@ -603,34 +619,34 @@ testers are expected to do more *exploratory* testing.
        
 ### Editing a client's address 
 
-1. Editing a person's address while all persons are shown. To verify that a person has been edited, use the `list` command to show all persons.
-   1. Prerequisites: List all persons using the `list` command. Have at least 1 person in the list. 
+1. Editing a client's address while all clients are shown. To verify that a client has been edited, use the `list` command to show all clients.
+   1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list. 
    2. Test case: `edit 1 a/123 New Address pt/HDB_4` <br>
-      Expected: First person in the list now has a new address with the property type HDB_4. Details of the edited person will be shown in the status message. 
+      Expected: First client in the list now has a new address with the property type HDB_4. Details of the edited client will be shown in the status message. 
 
    3. Test case: `edit 1 a/123` <br>
-      Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
+      Expected: First client in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
 
    4. Test case: `edit 1 pt/HDB_4` <br>
-      Expected: First person in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
+      Expected: First client in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
    
    5. Test case: `edit 1` <br>
-      Expected: First person in the list is not edited. An error message is shown indicating that at least one field must be provided.
+      Expected: First client in the list is not edited. An error message is shown indicating that at least one field must be provided.
    
    6. Test case: `edit` <br>
-      Expected: No person in the list is edited. An error message is shown indicating that the command format is invalid.
+      Expected: No client in the list is edited. An error message is shown indicating that the command format is invalid.
 
 ### Adding an appointment
 
-1. Adding an appointment while all persons are shown. To verify that an appointment has been added, use the `lap` command to show all appointments.
+1. Adding an appointment while all clients are shown. To verify that an appointment has been added, use the `lap` command to show all appointments.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons should be in the list. The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the json file to regenerate it.
+   1. Prerequisites: List all clients using the `list` command. Multiple clients should be in the list. The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the json file to regenerate it.
 
    1. Test case: `ap d/2025-01-01T00:00 s/4 b/3` <br>
-      Expected: A new appointment is added at datetime 2025-01-01T00:00, with seller being the person at index 4, and buyer the person at index 3. 
+      Expected: A new appointment is added at datetime 2025-01-01T00:00, with seller being the client at index 4, and buyer the client at index 3. 
 
    1. Test case: `ap d/2025-01-01T00:00 s/5` <br>
-      Expected: A new appointment is added at datetime 2025-01-01T00:00, with seller being the person at index 5, and no buyer. 
+      Expected: A new appointment is added at datetime 2025-01-01T00:00, with seller being the client at index 5, and no buyer. 
 
    1. Test case: `ap d/2025-01-01T00:00 b/3` <br>
       Expected: An error will be shown as it is not possible to add appointments without a seller.
@@ -718,30 +734,30 @@ testers are expected to do more *exploratory* testing.
       1. Navigate to the `data` folder in the same directory as the jar file.
       2. Delete the `ClientSquare.json` file if it exists.
       3. Launch the application by double-clicking the jar file.<br>
-      Expected: The application starts successfully with sample data (6 persons and 6 appointments). A new `ClientSquare.json` file is created in the `data` folder.
+      Expected: The application starts successfully with sample data (6 clients and 6 appointments). A new `ClientSquare.json` file is created in the `data` folder.
 
    1. Test case: Corrupted data file (invalid JSON format)
       1. Navigate to the `data` folder.
       2. Open `ClientSquare.json` with a text editor.
       3. Delete a random character or add invalid text (e.g., remove a closing brace `}` or add random text like `corrupted data`).
       4. Save the file and launch the application.<br>
-      Expected: The application starts with an empty address book (no persons or appointments). The application log will show a warning about the corrupted data file. The corrupted file remains unchanged at startup, but will be overwritten with an empty address book when you perform any action (e.g., list or add a person).
+      Expected: The application starts with an empty address book (no clients or appointments). The application log will show a warning about the corrupted data file. The corrupted file remains unchanged at startup, but will be overwritten with an empty address book when you perform any action (e.g., list or add a client).
 
    1. Test case: Data file with missing required fields
       1. Navigate to the `data` folder.
       2. Open `ClientSquare.json` with a text editor.
-      3. Find a person entry and remove a required field (e.g., delete the `"name"` field and its value from a person object).
+      3. Find a client entry and remove a required field (e.g., delete the `"name"` field and its value from a person object).
       4. Save the file and launch the application.<br>
       Expected: The application starts with an empty address book. The application log will show an error indicating which field is missing (e.g., "Illegal values found in data\ClientSquare.json: Person's Name field is missing!").
 
 1. Saving data automatically
 
-   1. Test case: Data is saved after adding a person
+   1. Test case: Data is saved after adding a client
       1. Launch the application with existing data.
-      2. Add a new person using the command: `add n/Test Person p/91234567 e/test@example.com r/buyer a/123 Test St pt/hdb_3`
+      2. Add a new client using the command: `add n/Test Person p/91234567 e/test@example.com r/buyer a/123 Test St pt/hdb_3`
       3. Close the application.
       4. Navigate to the `data` folder and open `ClientSquare.json` with a text editor.<br>
-      Expected: The JSON file contains the newly added person with all their details.
+      Expected: The JSON file contains the newly added client with all their details.
 
    1. Test case: Data is saved after adding an appointment
       1. Launch the application with existing data.
@@ -750,12 +766,12 @@ testers are expected to do more *exploratory* testing.
       4. Navigate to the `data` folder and open `ClientSquare.json` with a text editor.<br>
       Expected: The JSON file contains the newly added appointment with the correct datetime, seller's phone number, and buyer's phone number.
 
-   1. Test case: Data is saved after deleting an person
+   1. Test case: Data is saved after deleting an client
       1. Launch the application with existing data.
-      2. Delete a person using the command: `delete 1`
+      2. Delete a client using the command: `delete 1`
       3. Close the application.
       4. Navigate to the `data` folder and open `ClientSquare.json` with a text editor.<br>
-      Expected: The deleted person does not appear in the person list as well as all appointments related to that person.
+      Expected: The deleted client does not appear in the client list as well as all appointments related to that client.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -774,7 +790,7 @@ testers are expected to do more *exploratory* testing.
 ## **Appendix: Planned Enhancements**
 Team Size: 5
 1. **Support multiple properties per seller**. Currently, each seller only has one associated property (stored in the `Address` field), limiting the app's functionality for agents managing seller portfolios with multiple properties.
-   - We plan to enhance the feature to support multiple properties per seller by modifying `Person` to hold a `List` of `Address` in a separate `Propertes` field. This would cover the case where the Person's actual home address is not one of the properties they wish to sell (common in multi-property portfolios).
+   - We plan to enhance the feature to support multiple properties per seller by modifying `Person` to hold a `List` of `Address` in a separate `Properties` field. This would cover the case where the Person's actual home address is not one of the properties they wish to sell (common in multi-property portfolios).
    - The property lists would be managed by separate `prop`, `eprop`, `dprop` commands to prevent the existing Person-related commands from being overloaded with responsibility.
    - Appointments would also hold a specific `Address` rather than taking the seller's address.
 1. **Role to be allocated per appointment instead of person**. Currently, a `Role` is assigned to a `Person` based on their general status (looking to buy or sell). This limits the usefulness of the field in filtering or searching users as part of their role in appointments.
