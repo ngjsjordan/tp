@@ -55,7 +55,7 @@ public class SampleDataUtil {
             // Today appointment: Alex Yeoh (buyer) with David Li (seller)
             new Appointment(
                 new AppointmentDatetime(LocalDate.now().toString() + "T09:00"),
-                persons[0], persons[3]
+                persons[3], persons[0]
             ),
             // Upcoming appointment: David Li (seller) with Alex Yeoh (buyer)
             new Appointment(
