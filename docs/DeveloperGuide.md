@@ -271,40 +271,40 @@ _{more aspects and alternatives to be added}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                     | I want to …​                    | So that I can…​                                                        |
-|----------| ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new buyer/seller         | remember client details                                                |
-| `* * *`  | user                                       | tag sellers' property details  | easily note and view an important piece of information                 |
-| `* * *`  | user                                       | delete a client                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | list clients                   | get an overview of clients and properties                              |
-| `* * *`  | user                                       | find a client by name          | locate details of a client without having to go through the entire list|
-| `* * *`  | user                                       | find a property by name        | locate property and seller details without going through the list      |
-| `* * *`  | user                                       | schedule appointments          | manage my time effectively                                             |
-| `* * *`  | user                                       | view upcoming appointments     | keep track of client meetings                                          |
-| `* *`    | new user                                   | import contacts from my phone  | get set up quickly                                                     |
-| `* *`    | user                                       | edit client information        | update details when they change                                        |
-| `* *`    | user                                       | filter properties              | find properties to recommend to buyers                                 |
-| `*`      | user                                       | track transaction progress     | keep track of deals involving buyers/sellers                           |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
-| `*`      | user with many persons in the address book | find a person with similar name| find the client I'm looking for amidst many similar names              |
-| `*`      | user who is a co-broking agent             | add partner agents             | keep track of others involved in a deal                                |
-| `*`      | user with vision impairments               | use accessibility options      | use the application without eye strain                                 |
-| `*`      | user                                       | store property images          | easily show it to potential buyers                                     |
-| `*`      | user                                       | gather data about transactions | adapt my work to strike better deals                                   |
-
-*{More to be added}*
+| Priority | As a …​                                     | I want to …​                    | So that I can…​                                                         |
+|----------| ------------------------------------------ |---------------------------------|-------------------------------------------------------------------------|
+| `* * *`  | new user                                   | see usage instructions          | refer to instructions when I forget how to use the App                  |
+| `* * *`  | user                                       | add a new buyer/seller          | remember client details                                                 |
+| `* * *`  | user                                       | tag sellers' property details   | easily note and view an important piece of information                  |
+| `* * *`  | user                                       | delete a client                 | remove entries that I no longer need                                    |
+| `* * *`  | user                                       | list clients                    | get an overview of clients and properties                               |
+| `* * *`  | user                                       | find a client by name           | locate details of a client without having to go through the entire list |
+| `* * *`  | user                                       | find a property by name         | locate property and seller details without going through the list       |
+| `* * *`  | user                                       | schedule appointments           | manage my time effectively                                              |
+| `* * *`  | user                                       | view upcoming appointments      | keep track of client meetings                                           |
+| `* *`    | new user                                   | import contacts from my phone   | get set up quickly                                                      |
+| `* *`    | user                                       | edit client information         | update details when they change                                         |
+| `* *`    | user                                       | edit appointments               | update details when they change                                         |
+| `* *`    | user                                       | search appointments             | locate details about specific appointments                              |
+| `* *`    | user                                       | filter properties               | find properties to recommend to buyers                                  |
+| `*`      | user                                       | track transaction progress      | keep track of deals involving buyers/sellers                            |
+| `*`      | user with many persons in the address book | sort persons by name            | locate a person easily                                                  |
+| `*`      | user with many persons in the address book | find a person with similar name | find the client I'm looking for amidst many similar names               |
+| `*`      | user who is a co-broking agent             | add partner agents              | keep track of others involved in a deal                                 |
+| `*`      | user with vision impairments               | use accessibility options       | use the application without eye strain                                  |
+| `*`      | user                                       | store property images           | easily show it to potential buyers                                      |
+| `*`      | user                                       | gather data about transactions  | adapt my work to strike better deals                                    |
 
 ### Use cases
 
 (For all use cases below, the **System** is `ClientSquare` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: UC01 - Add a buyer/seller**
+**Use case: UC01 - Add a client**
 
 **MSS**
 
-1.  User requests to add a buyer or seller
-2.  ClientSquare adds the buyer or seller
+1.  User requests to add a client
+2.  ClientSquare adds the client
 
     Use case ends.
 
@@ -326,7 +326,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case: UC03 -  Remove a buyer/seller**
+**Use case: UC03 - Remove a client**
 
 **MSS**
 
@@ -349,12 +349,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC04 - Searching contacts**
+**Use case: UC04 - Editing a client**
 
 **MSS**
 
-1.  User requests to find contacts/properties by keyword(s)
-2.  ClientSquare shows a list of matching contacts/properties
+1.  User requests to edit a client with details.
+2.  ClientSquare makes the requested edits.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. No details to edit are provided.
+
+    * 1a1. ClientSquare shows an error message.
+
+      Step 1 is repeated until the input is valid.
+      Use case resumes from step 2.
+
+* 1b. Some details to edit are invalid.
+
+    * 1b1. ClientSquare shows an error message detailing the invalid fields.
+
+      Step 1 is repeated until the input is valid.
+      Use case resumes from step 2.
+
+**Use case: UC05 - Searching clients**
+
+**MSS**
+
+1.  User requests to find clients/properties by keyword(s)
+2.  ClientSquare shows a list of matching clients/properties
 
     Use case ends.
 
@@ -366,8 +391,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Step 1 is repeated until the input is valid.
     Use case resumes from step 2.
+    **Use case: UC01 - Add a buyer/seller**
 
-**Use case: UC05 - Add an appointment**
+**Use case: UC06 - Add an appointment**
 
 **MSS**
 
@@ -386,7 +412,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Step 2 is repeated until the input is valid.
     Use case resumes from step 3.
 
-**Use case: UC06 - View appointments**
+**Use case: UC07 - View appointments**
 
 **MSS**
 
@@ -395,7 +421,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case: UC07 - Remove an appointment**
+**Use case: UC08 - Remove an appointment**
 
 **MSS**
 
@@ -418,7 +444,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC08 - Edit an appointment**
+**Use case: UC09 - Edit an appointment**
 
 **MSS**
 
@@ -447,7 +473,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Step 2 is repeated until the input is valid.
       Use case resumes from step 3.
 
-**Use case: UC09 - Search for appointment**
+**Use case: UC10 - Search for appointment**
 
 **MSS**
 
@@ -472,17 +498,34 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Step 1 is repeated until the input is valid.
       Use case resumes from step 2.
 
+**Use case: UC11 - Toggle light/dark mode**
+
+**MSS**
+
+1.  User requests to toggle to the opposite theme.
+2.  ClientSquare toggles the theme to the one opposite that currently being used. 
+
+    Use case ends.
+
+**Use case: UC12 - Clear data**
+
+**MSS**
+
+1.  User requests to clear all client and appointment data.
+2.  ClientSquare clears all clients and appointments.
+
+    Use case ends.
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3.  A user who can type faster than 40 words per minute on average for regular English text (i.e. not code, not system admin commands) should be able to use 90% of the application's functions faster using a keyboard than a mouse.
 4.  The product is to be used by a single user. 
 5.  The product should work without requiring an installer.
 6.  The product should work without any other external / online services. 
-5.  The product should not exceed 100MB in size.
-
-*{More to be added}*
+7.  The product should not exceed 100MB in size.
+8.  The product should not share data outside the application without the user's knowledge.
 
 ### Glossary
 
@@ -593,12 +636,6 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `ap d/2025-01-01T00:00 b/3` <br>
       Expected: An error will be shown as it is not possible to add appointments without a seller.
 
-   1. Test case: `ap d/2025-01-01T00:00 s/3` <br>
-      Expected: An error will be shown as the referenced seller does not have the seller role.
-   
-   1. Test case: `ap d/2025-01-01T00:00 s/4 b/5` <br>
-      Expected: An error will be shown as the referenced buyer does not have the buyer role.
-
 ### Searching for an appointment
 
 1. Searching for appointments using keywords and/or timeframes.
@@ -659,16 +696,6 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: `eap 1 ` (no fields provided) <br>
       Expected: No appointment is edited. An error message is shown: "At least one field to edit must be provided."
-
-1. Editing with role validation
-
-   1. Prerequisites: Know which persons in your list are buyers and which are sellers. Use the `list` command to view all persons.
-
-   1. Test case: `eap 1 s/3` where person at index 3 is a buyer (not a seller) <br>
-      Expected: No appointment is edited. An error message is shown: "The person assigned as seller must have a seller role."
-
-   1. Test case: `eap 1 b/4` where person at index 4 is a seller (not a buyer) <br>
-      Expected: No appointment is edited. An error message is shown: "The person assigned as buyer must have a buyer role."
 
 1. Editing to create duplicate appointment
 
@@ -735,13 +762,28 @@ testers are expected to do more *exploratory* testing.
 
 ## **Appendix: Effort**
 
+**Difficulty Level**: Medium. The code base was not trivial, but was relatively easy to understand and extend once we got the hang of it. Most of the thought processes behind the features concerned not how they can be technically implemented, but rather how they should be designed in line with the code quality guidelines and existing architecture of AB3. Our codebase increases the complexity of the class structure by having a new entity type (Appointment) that creates relationships amongst the existing entity type (Person), the commands and fields to support those relationships, as well as additional fields and functionality for user convenience.
+
+**Challenges Faced**: The timeline was a bit challenging at times. The first few weeks coincided with the busy midterms period, increasing the overall workload (albeit the deadlines were more lax then). The fact that weekly deadlines fell on Thursday rather than a more conventional Sunday also increased the strain a bit, as it was more difficult to fit our individual schedules.
+
+**Effort Required**: On average, we spent about 10 hours per week on the project per person, slightly above average for a 4MC course including lecture and tutorials. We opted not to overextend ourselves implement features that would be too complex, instead implementing simple but useful features instead. Our product hence does not have an appearance that deviates too much from AB3, and we were roughly in accordance with the 50% iP effort guidelines.
+
+**Achievements**: We evolved AB3 into an application tailored for the use of a specific audience (property agents), by extending the existing contact management features with new ones that would be specifically useful for our audience, such as the ability to create and track appointments with clients, or the ability to store and search by more industry-specific information such as property type. 
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Appendix: Planned Enhancements**
 Team Size: 5
 1. **Support multiple properties per seller**. Currently, each seller only has one associated property (stored in the `Address` field), limiting the app's functionality for agents managing seller portfolios with multiple properties.
-   - We plan to enhance the feature to support multiple properties per seller by modifying `Person` to hold a `List` of `Address` in a separate `Property` field.
-2. **Filter appointments by custom time range**. Currently, users can only filter appointments by predefined timeframes (`past`, `today`, `upcoming`) using the `sap` command. This limits flexibility when agents need to view appointments within a specific date or time range.
+   - We plan to enhance the feature to support multiple properties per seller by modifying `Person` to hold a `List` of `Address` in a separate `Propertes` field. This would cover the case where the Person's actual home address is not one of the properties they wish to sell (common in multi-property portfolios).
+   - The property lists would be managed by separate `prop`, `eprop`, `dprop` commands to prevent the existing Person-related commands from being overloaded with responsibility.
+   - Appointments would also hold a specific `Address` rather than taking the seller's address.
+1. **Role to be allocated per appointment instead of person**. Currently, a `Role` is assigned to a `Person` based on their general status (looking to buy or sell). This limits the usefulness of the field in filtering or searching users as part of their role in appointments.
+   - We plan to enhance this feature by making `Role` an association class between `Appointment` and `Person`. A `RoleType` enum would hold the types of roles available (buyer, seller, or future extensions like lessor/lessee). The `Role` class would then hold fields of `RoleType`, `Appointment` and `Person`, and can be interacted with via `UniqueRoleList`.
+   - This would allow for more flexible appointments (more than 1 buyer/seller), especially in combination with enhancement 1, improve searchability (search appointments by role of person etc.), and feature extensibility (more role types). 
+1. **Filter appointments by custom time range**. Currently, users can only filter appointments by predefined timeframes (`past`, `today`, `upcoming`) using the `sap` command. This limits flexibility when agents need to view appointments within a specific date or time range.
    - We plan to enhance the search appointment feature to allow users to specify custom time ranges using parameters like `from/` and `to/`.
    - Example usage: `sap from/2025-11-01T00:00 to/2025-11-30T23:59` to list all appointments in November 2025.
    - This will provide agents with more precise control over viewing appointments for specific periods, such as weekly schedules, monthly reviews, or custom date ranges for reports. 
+1. **Detailed feedback messages**. Currently, the feedback string contained within `CommandResult` cannot be further modified once created. This limits the ability of the application to give detailed feedback that comes from multiple sources (e.g. multiple appointment deletions on client deletion), warnings on successful but potentially undesirable inputs (e.g. appointments being created in the past), or more detailed feedback regarding the specifics of errors (e.g. which field caused a duplicate entry).
+   - We plan to extend `CommandResult` with new supporting classes such as `ModelResult` so that each operation done in the model can output specific success/warning/error messages that can together construct the final `CommandResult`. This would allow the users to receive better feedback from the application such that it is easier to use.
