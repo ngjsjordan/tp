@@ -299,12 +299,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is `ClientSquare` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: UC01 - Add a buyer/seller**
+**Use case: UC01 - Add a client**
 
 **MSS**
 
-1.  User requests to add a buyer or seller
-2.  ClientSquare adds the buyer or seller
+1.  User requests to add a client
+2.  ClientSquare adds the client
 
     Use case ends.
 
@@ -326,7 +326,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case: UC03 -  Remove a buyer/seller**
+**Use case: UC03 - Remove a client**
 
 **MSS**
 
@@ -349,12 +349,37 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC04 - Searching contacts**
+**Use case: UC04 - Editing a client**
 
 **MSS**
 
-1.  User requests to find contacts/properties by keyword(s)
-2.  ClientSquare shows a list of matching contacts/properties
+1.  User requests to edit a client with details.
+2.  ClientSquare makes the requested edits.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. No details to edit are provided.
+
+    * 1a1. ClientSquare shows an error message.
+
+      Step 1 is repeated until the input is valid.
+      Use case resumes from step 2.
+
+* 1b. Some details to edit are invalid.
+
+    * 1b1. ClientSquare shows an error message detailing the invalid fields.
+
+      Step 1 is repeated until the input is valid.
+      Use case resumes from step 2.
+
+**Use case: UC05 - Searching clients**
+
+**MSS**
+
+1.  User requests to find clients/properties by keyword(s)
+2.  ClientSquare shows a list of matching clients/properties
 
     Use case ends.
 
@@ -366,8 +391,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Step 1 is repeated until the input is valid.
     Use case resumes from step 2.
+    **Use case: UC01 - Add a buyer/seller**
 
-**Use case: UC05 - Add an appointment**
+**Use case: UC06 - Add an appointment**
 
 **MSS**
 
@@ -386,7 +412,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Step 2 is repeated until the input is valid.
     Use case resumes from step 3.
 
-**Use case: UC06 - View appointments**
+**Use case: UC07 - View appointments**
 
 **MSS**
 
@@ -395,7 +421,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case: UC07 - Remove an appointment**
+**Use case: UC08 - Remove an appointment**
 
 **MSS**
 
@@ -418,7 +444,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC08 - Edit an appointment**
+**Use case: UC09 - Edit an appointment**
 
 **MSS**
 
@@ -447,7 +473,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Step 2 is repeated until the input is valid.
       Use case resumes from step 3.
 
-**Use case: UC09 - Search for appointment**
+**Use case: UC10 - Search for appointment**
 
 **MSS**
 
@@ -471,6 +497,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Step 1 is repeated until the input is valid.
       Use case resumes from step 2.
+
+**Use case: UC11 - Toggle light/dark mode**
+
+**MSS**
+
+1.  User requests to toggle to the opposite theme.
+2.  ClientSquare toggles the theme to the one opposite that currently being used. 
+
+    Use case ends.
+
+**Use case: UC12 - Clear data**
+
+**MSS**
+
+1.  User requests to clear all client and appointment data.
+2.  ClientSquare clears all clients and appointments.
+
+    Use case ends.
 
 ### Non-Functional Requirements
 
