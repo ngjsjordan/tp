@@ -41,7 +41,7 @@ public class AddAppointmentCommandTest {
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS,
-                Messages.format(seller));
+                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), seller, buyer));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addAppointment(new Appointment(
@@ -58,7 +58,7 @@ public class AddAppointmentCommandTest {
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON);
 
         String expectedMessage = String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS,
-                Messages.format(seller));
+                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), seller));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addAppointment(new Appointment(
