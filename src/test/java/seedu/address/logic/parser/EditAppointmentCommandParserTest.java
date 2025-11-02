@@ -137,4 +137,16 @@ public class EditAppointmentCommandParserTest {
         assertParseFailure(parser, "1 " + PREFIX_BUYER + "abc",
                 ParserUtil.MESSAGE_INVALID_INDEX);
     }
+
+    @Test
+    public void parse_removeBuyer_success() {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_BUYER;
+
+        EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
+        descriptor.setRemoveBuyer();
+
+        EditAppointmentCommand expectedCommand = new EditAppointmentCommand(targetIndex, descriptor);
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
 }

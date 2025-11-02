@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_APPOINTMENT;
+import static seedu.address.logic.Messages.MESSAGE_SAME_SELLER_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
@@ -25,7 +27,7 @@ public class AddAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "ap";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment with the seller and optional buyer"
-            + " specified by the index number used in the displayed person list.\n"
+            + " specified by the index number used in the displayed client list.\n"
             + "Parameters: "
             + PREFIX_DATETIME + "DATETIME "
             + PREFIX_SELLER + "SELLER_INDEX "
@@ -36,10 +38,7 @@ public class AddAppointmentCommand extends Command {
             + PREFIX_BUYER + "2";
 
     public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS =
-            "Appointment added with seller %1$s.";
-    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "That appointment already exists.";
-    public static final String MESSAGE_INVALID_SELLER_ROLE = "The person assigned as seller must have a seller role.";
-    public static final String MESSAGE_INVALID_BUYER_ROLE = "The person assigned as buyer must have a buyer role.";
+            "Appointment added: %1$s";
 
     private final AppointmentDatetime appointmentDatetime;
     private final Index sellerIndex;
@@ -90,8 +89,7 @@ public class AddAppointmentCommand extends Command {
         }
 
         model.addAppointment(appointment);
-        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS,
-                Messages.format(appointment.getSeller())));
+        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, appointment));
     }
 
     /**
@@ -110,21 +108,15 @@ public class AddAppointmentCommand extends Command {
 
         Person seller = lastShownList.get(sellerIndex.getZeroBased());
 
-        if (!seller.isSeller()) {
-            throw new CommandException(MESSAGE_INVALID_SELLER_ROLE);
-        }
-
         if (buyerIndex == null) {
             return new Appointment(appointmentDatetime, seller);
         }
 
         Person buyer = lastShownList.get(buyerIndex.getZeroBased());
 
-        if (!buyer.isBuyer()) {
-            throw new CommandException(MESSAGE_INVALID_BUYER_ROLE);
+        if (seller.hasSameIdentifier(buyer)) {
+            throw new CommandException(MESSAGE_SAME_SELLER_BUYER);
         }
-
-        assert !buyer.hasSameIdentifier(seller);
 
         return new Appointment(appointmentDatetime, seller, buyer);
     }

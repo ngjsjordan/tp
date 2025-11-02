@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
 public class AppointmentDatetime implements Comparable<AppointmentDatetime> {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Appointment Datetime must take a valid ISO 8601 datetime ";
+            "Appointment Datetime must take a valid ISO 8601 datetime (e.g. 2025-01-01T00:00)";
 
     public final LocalDateTime datetime;
 

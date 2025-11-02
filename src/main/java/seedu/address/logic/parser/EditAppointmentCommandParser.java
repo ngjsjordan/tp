@@ -48,8 +48,12 @@ public class EditAppointmentCommandParser implements Parser<EditAppointmentComma
                     ParserUtil.parseIndex(argMultimap.getValue(PREFIX_SELLER).get()));
         }
         if (argMultimap.getValue(PREFIX_BUYER).isPresent()) {
-            editAppointmentDescriptor.setBuyerIndex(
-                    ParserUtil.parseIndex(argMultimap.getValue(PREFIX_BUYER).get()));
+            String buyerValue = argMultimap.getValue(PREFIX_BUYER).get().trim();
+            if (buyerValue.isEmpty()) {
+                editAppointmentDescriptor.setRemoveBuyer();
+            } else {
+                editAppointmentDescriptor.setBuyerIndex(ParserUtil.parseIndex(buyerValue));
+            }
         }
 
         if (!editAppointmentDescriptor.isAnyFieldEdited()) {

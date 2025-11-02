@@ -122,6 +122,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/
 
 **:information_source: Valid inputs for Roles and Property Type:**<br>
 
+A person is uniquely identified by their **phone number**. You may add clients with the same name and/or email address, but **not** the same phone number.  
 **Valid roles** are `buyer` and `seller`.  
 **Valid property types** are
 `HDB_2`, `HDB_3`, `HDB_4`, `HDB_5`, `HDB_J`, `EC`, `EM`,
@@ -130,6 +131,10 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL r/ROLE a/ADDRESS pt/PROPERTY_TYPE [t/
 <br>
 `LANDED_LH`, `LANDED_FH`, `COMMERCIAL_LH` and `COMMERCIAL_FH`.
 
+</div>
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+The role display is for your visual reference only, to track the general status of a client -- there are no restrictions on assigning a buyer as a seller of an appointment and vice-versa.  
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -223,6 +228,7 @@ When changing a client's `ROLE`, previous appointments where the client had thei
 
 **:information_source: Valid inputs for Roles and Property Type:**<br>
 
+A person is uniquely identified by their **phone number**. You may add clients with the same name and/or email address, but **not** the same phone number.  
 **Valid roles** are `buyer` and `seller`.  
 **Valid property types** are
 `HDB_2`, `HDB_3`, `HDB_4`, `HDB_5`, `HDB_J`, `EC`, `EM`,
@@ -294,7 +300,8 @@ Format: `ap d/DATETIME s/SELLER_INDEX [b/BUYER_INDEX]`
 * Adds an appointment with the seller being the client specified by `SELLER_INDEX` and the buyer being the client specified by `BUYER_INDEX`.
 * To create an appointment with only a seller, simply omit the `b/` tag.
 * The indices refer to the index numbers shown in the displayed client list which will be a positive whole number (e.g. 1, 2, 3, ...)
-* Provide a client that has the role `seller` and an optional client that has the role `buyer`.
+* You may assign a client without the buyer role to the buyer (and similarly for seller). 
+* You may not assign the same person as both the buyer and seller for the same appointment.
 * Provide the datetime in an ISO 8601-compliant format. (e.g. `yyyy-MM-ddTHH:mm`)
 * The seller's location is automatically displayed as the appointment location.
 
@@ -400,16 +407,19 @@ Format: `eap APPOINTMENT_INDEX [d/DATETIME] [s/SELLER_INDEX] [b/BUYER_INDEX]`
 * All indices must be positive whole numbers, such as 1, 2, 3, ...
 * Provide the datetime in an ISO 8601-compliant format. (e.g. `yyyy-MM-ddTHH:mm`)
 * Existing values will be updated to the input values.
-* When editing seller or buyer, the new client must have the appropriate role (seller role for seller, buyer role for buyer).
+* You may assign a client without the buyer role to the buyer (and similarly for seller).
 * The seller and buyer cannot be the same client.
+* To remove the buyer from an appointment, use `b/` without specifying an index.
 
 Examples:
 * `lap` followed by `eap 1 d/2025-01-15T14:00` changes the datetime of the 1st appointment to 15 Jan 2025 at 2pm.
 * `lap` followed by `eap 2 s/3` changes the seller of the 2nd appointment to the 3rd client in the client list.
 * `lap` followed by `eap 1 d/2025-02-01T10:00 b/4` changes both the datetime and buyer of the 1st appointment.
+* `lap` followed by `eap 3 b/` removes the buyer from the 3rd appointment.
 
 Tips:
 * Use [`lap`](#listing-all-appointments-lap) first to see the appointment indices.
+* To remove a buyer from an appointment without deleting the appointment, use `b/` with no index.
 
 
 <div style="page-break-after: always;"></div>

@@ -41,7 +41,7 @@ public class AddAppointmentCommandTest {
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS,
-                Messages.format(seller));
+                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), seller, buyer));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addAppointment(new Appointment(
@@ -58,7 +58,7 @@ public class AddAppointmentCommandTest {
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON);
 
         String expectedMessage = String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS,
-                Messages.format(seller));
+                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), seller));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addAppointment(new Appointment(
@@ -87,19 +87,48 @@ public class AddAppointmentCommandTest {
     }
 
     @Test
-    public void execute_invalidSellerRole_failure() {
+    public void execute_sellerHasBuyerRole_success() {
+        Person sellerWithBuyerRole =
+                new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased())).build();
+        Person buyer = new PersonBuilder(model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased())).build();
+
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_THIRD_PERSON);
 
-        assertCommandFailure(addAppointmentCommand, model, AddAppointmentCommand.MESSAGE_INVALID_SELLER_ROLE);
+        Appointment expectedAppointment = new Appointment(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), sellerWithBuyerRole, buyer);
+        String expectedMessage = String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS,
+                new Appointment(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), sellerWithBuyerRole, buyer));
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.addAppointment(expectedAppointment);
+
+        assertCommandSuccess(addAppointmentCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_invalidBuyerRole_failure() {
+    public void execute_buyerHasSellerRole_success() {
+        Person seller = new PersonBuilder(model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased())).build();
+        Person buyerWithSellerRole =
+                new PersonBuilder(model.getFilteredPersonList().get(INDEX_SIXTH_PERSON.getZeroBased())).build();
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_SIXTH_PERSON);
 
-        assertCommandFailure(addAppointmentCommand, model, AddAppointmentCommand.MESSAGE_INVALID_BUYER_ROLE);
+        Appointment expectedAppointment = new Appointment(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), seller, buyerWithSellerRole);
+        String expectedMessage = String.format(AddAppointmentCommand.MESSAGE_ADD_APPOINTMENT_SUCCESS, new Appointment(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), seller, buyerWithSellerRole));
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.addAppointment(expectedAppointment);
+
+        assertCommandSuccess(addAppointmentCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_sameSellerAndBuyer_failure() {
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_FIRST_PERSON);
+
+        assertCommandFailure(addAppointmentCommand, model, Messages.MESSAGE_SAME_SELLER_BUYER);
     }
 
     @Test
@@ -112,7 +141,7 @@ public class AddAppointmentCommandTest {
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_THIRD_PERSON, INDEX_FIRST_PERSON);
 
-        assertCommandFailure(addAppointmentCommand, model, AddAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT);
+        assertCommandFailure(addAppointmentCommand, model, Messages.MESSAGE_DUPLICATE_APPOINTMENT);
     }
 
     @Test
