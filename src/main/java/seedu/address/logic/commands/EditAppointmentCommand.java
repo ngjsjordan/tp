@@ -127,11 +127,16 @@ public class EditAppointmentCommand extends Command {
 
     /**
      * Returns the updated buyer for the appointment.
+     * If the descriptor indicates buyer removal, returns null.
      * If a new buyer index is provided, retrieves and validates the buyer from the model.
      * Otherwise, returns the original buyer from the appointment (which may be null).
      */
     private static Person getUpdatedBuyer(Appointment appointmentToEdit,
             EditAppointmentDescriptor editAppointmentDescriptor, Model model) throws CommandException {
+        if (editAppointmentDescriptor.isRemoveBuyer()) {
+            return null;
+        }
+
         if (!editAppointmentDescriptor.getBuyerIndex().isPresent()) {
             return appointmentToEdit.getBuyer().orElse(null);
         }
@@ -208,6 +213,8 @@ public class EditAppointmentCommand extends Command {
      * corresponding field value of the appointment.
      */
     public static class EditAppointmentDescriptor {
+        private static final Index REMOVE_BUYER_SENTINEL = Index.fromZeroBased(Integer.MAX_VALUE);
+
         private AppointmentDatetime appointmentDatetime;
         private Index sellerIndex;
         private Index buyerIndex;
@@ -252,6 +259,20 @@ public class EditAppointmentCommand extends Command {
 
         public Optional<Index> getBuyerIndex() {
             return Optional.ofNullable(buyerIndex);
+        }
+
+        /**
+         * Sets the descriptor to indicate that the buyer should be removed.
+         */
+        public void setRemoveBuyer() {
+            this.buyerIndex = REMOVE_BUYER_SENTINEL;
+        }
+
+        /**
+         * Returns true if the buyer should be removed from the appointment.
+         */
+        public boolean isRemoveBuyer() {
+            return REMOVE_BUYER_SENTINEL.equals(buyerIndex);
         }
 
         @Override
