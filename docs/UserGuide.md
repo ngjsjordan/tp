@@ -112,7 +112,7 @@ Format: `help`
 
 <div style="page-break-after: always;"></div>
 
-### Adding a client: `add`
+### Adding a client : `add`
 
 Adds a client to the ClientSquare app.
 
@@ -162,11 +162,11 @@ Example:
 
 <div style="page-break-after: always;"></div>
 
-### Locating clients by name: `find`
+### Locating clients by name : `search`
 
 Finds clients whose details contain any of the keywords you provide. Details include (i) name, (ii) role, (iii) email, (iv) address, (v) address type, or (vi) phone number.
 
-Format: `find KEYWORD [MORE_KEYWORDS]...`
+Format: `search KEYWORD [MORE_KEYWORDS]...`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
@@ -175,26 +175,26 @@ Format: `find KEYWORD [MORE_KEYWORDS]...`
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-After using the `find` command, you can use the new index numbers shown on screen for commands that require index as an input, such as [`edit`](#editing-a-client--edit) or [`ap`](#adding-an-appointment--ap).
+After using the `search` command, you can use the new index numbers shown on screen for commands that require index as an input, such as [`edit`](#editing-a-client--edit) or [`ap`](#adding-an-appointment--ap).
 </div>
 
 Examples:
-* `find Alex` returns all clients named 'Alex' (and anyone with 'Alex' in other details)
+* `search Alex` returns all clients named 'Alex' (and anyone with 'Alex' in other details)
 <div style="text-align:center;">
-  <img src="images/findAlexResult.png" alt="result for 'find Alex'" width="90%">
+  <img src="images/searchAlexResult.png" alt="result for 'search Alex'" width="90%">
 </div>
 <br>
 
 <div style="page-break-after: always;"></div>
 
-* `find Alex David` returns all clients named 'Alex' **or** 'David' (and anyone with 'Alex' or 'David' in other details)
+* `search Alex David` returns all clients named 'Alex' **or** 'David' (and anyone with 'Alex' or 'David' in other details)
 <div style="text-align:center;">
-  <img src="images/findAlexDavidResult.png" alt="result for 'find Alex David'" width="90%">
+  <img src="images/searchAlexDavidResult.png" alt="result for 'search Alex David'" width="90%">
 </div>
 <br>
-* `find buyer` returns all buyers (and anyone with 'buyer' in other details)
+* `search buyer` returns all buyers (and anyone with 'buyer' in other details)
 <div style="text-align:center;">
-  <img src="images/findBuyerResult.png" alt="result for 'find buyer'" width="90%">
+  <img src="images/searchBuyerResult.png" alt="result for 'search buyer'" width="90%">
 </div>
 
 <div style="page-break-after: always;"></div>
@@ -266,23 +266,23 @@ Format: `delete INDEX`
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Use the [`find`](#locating-clients-by-name-find) command to easily locate the contact that you wish to delete.
+Use the [`search`](#locating-clients-by-name--search) command to easily locate the contact that you wish to delete.
 </div>
 
 <div style="page-break-after: always;"></div>
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd client in the address book.
+* `list` followed by `delete 2` deletes the 2nd client in the address book. 
 <div style="display: flex; justify-content: center; gap: 5px;">
   <img src="images/listResult.png" alt="result for 'list'" width="49%">
   <img src="images/delete2Result.png" alt="result for 'delete 2'" width="49%">
 </div>
 <br>
 
-* `find irfan` followed by `delete 1` deletes the 1st client in the results of the `find` command.
+* `search irfan` followed by `delete 1` deletes the 1st client in the results of the `search` command.
 <div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="images/findIrfanResult.png" alt="result for `find irfan`" width="49%">
-  <img src="images/delete1AfterFindIrfanResult.png" alt="result for `delete 1`" width="49%">
+  <img src="images/searchIrfanResult.png" alt="result for `search irfan`" width="49%">
+  <img src="images/delete1AftersearchIrfanResult.png" alt="result for `delete 1`" width="49%">
 </div>
 
 <div style="page-break-after: always;"></div>
@@ -305,7 +305,7 @@ It is possible to add multiple appointments at the same time. Appointments will 
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Use the [`find`](#locating-clients-by-name-find) command with multiple keywords (such as `find Alex David`) to easily index the contacts you wish to create an appointment for.
+Use the [`search`](#locating-clients-by-name--search) command with multiple keywords (such as `search Alex David`) to easily index the contacts you wish to create an appointment for.
 </div>
 
 Examples:
@@ -337,7 +337,7 @@ Example:
 </div>
 <div style="page-break-after: always;"></div>
 
-### Searching an appointment: `sap`
+### Searching an appointment : `sap`
 
 Finds appointments whose details contain any of the keywords you provide and/or timeframe. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
 
@@ -396,7 +396,7 @@ Edits an existing appointment in the displayed appointment list.
 Format: `eap APPOINTMENT_INDEX [d/DATETIME] [s/SELLER_INDEX] [b/BUYER_INDEX]`
 
 * Edits the appointment at the specified `APPOINTMENT_INDEX`.
-* The appointment index refers to the index number shown in the displayed appointment list (shown after using [`lap`](#listing-all-appointments-lap) or `sap`).
+* The appointment index refers to the index number shown in the displayed appointment list (shown after using [`lap`](#listing-all-appointments--lap) or [`sap`](#searching-an-appointment--sap)).
 * The seller and buyer indices refer to the index numbers shown in the displayed client list.
 * At least one of the optional fields must be provided.
 * All indices must be positive whole numbers, such as 1, 2, 3, ...
@@ -411,7 +411,7 @@ Examples:
 * `lap` followed by `eap 1 d/2025-02-01T10:00 b/4` changes both the datetime and buyer of the 1st appointment.
 
 Tips:
-* Use [`lap`](#listing-all-appointments-lap) first to see the appointment indices.
+* Use [`lap`](#listing-all-appointments--lap) first to see the appointment indices.
 
 
 <div style="page-break-after: always;"></div>
