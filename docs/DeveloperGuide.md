@@ -682,7 +682,7 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `toggle` <br>
       Expected: The UI will change theme (Light -> Dark or Dark -> Light)
    2. Test case: `toggle 123` <br>
-   3. Expected: The UI will change theme (`Light -> Dark` or `Dark -> Light`)
+      Expected: The UI will change theme (`Light -> Dark` or `Dark -> Light`)
 
 ### Saving data
 
