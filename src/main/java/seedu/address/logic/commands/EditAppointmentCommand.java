@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_APPOINTMENT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_BUYER_ROLE;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_SELLER_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
@@ -40,9 +43,6 @@ public class EditAppointmentCommand extends Command {
 
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the address book.";
-    public static final String MESSAGE_INVALID_SELLER_ROLE = "The person assigned as seller must have a seller role.";
-    public static final String MESSAGE_INVALID_BUYER_ROLE = "The person assigned as buyer must have a buyer role.";
     public static final String MESSAGE_SAME_SELLER_BUYER = "The seller and buyer must not be the same person.";
 
     private final Index index;

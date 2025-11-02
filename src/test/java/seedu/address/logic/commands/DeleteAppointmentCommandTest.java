@@ -31,7 +31,7 @@ public class DeleteAppointmentCommandTest {
         DeleteAppointmentCommand deleteAppointmentCommand = new DeleteAppointmentCommand(INDEX_FIRST_APPOINTMENT);
 
         String expectedMessage = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS,
-                appointmentToDelete.toString(), appointmentToDelete.getSeller().getName());
+                appointmentToDelete.toString());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.deleteAppointment(appointmentToDelete);

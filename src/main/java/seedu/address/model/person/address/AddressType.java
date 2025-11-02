@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class AddressType {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Address type should strictly follow any one of these given types: \n"
+            "Property type should strictly follow any one of these given types: \n"
                     + Arrays.stream(PropertyType.values()).map(Enum::name).collect(Collectors.joining("\n"));
 
     public final PropertyType type;
