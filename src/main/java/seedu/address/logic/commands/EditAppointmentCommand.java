@@ -12,7 +12,9 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
@@ -44,6 +46,8 @@ public class EditAppointmentCommand extends Command {
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_SAME_SELLER_BUYER = "The seller and buyer must not be the same person.";
+
+    private static final Logger logger = LogsCenter.getLogger(EditAppointmentCommand.class);
 
     private final Index index;
     private final EditAppointmentDescriptor editAppointmentDescriptor;
@@ -79,6 +83,7 @@ public class EditAppointmentCommand extends Command {
 
         model.setAppointment(appointmentToEdit, editedAppointment);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        logger.info("Successfully edited appointment at index " + index.getOneBased());
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
                 Messages.format(editedAppointment)));
     }
