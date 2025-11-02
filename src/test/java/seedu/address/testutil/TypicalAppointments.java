@@ -36,8 +36,9 @@ public class TypicalAppointments {
             new AppointmentDatetime(LocalDate.now().minusDays(14).toString() + "T10:00"), CARL, ALICE);
 
     // Appointments - Today (mock today: current date)
+    // Set to early morning time (00:01) so it will be in the past when tests run during the day
     public static final Appointment FIONA_BENSON_TODAY = new Appointment(
-            new AppointmentDatetime(MOCK_TODAY_DATE + "T15:30"), FIONA, BENSON);
+            new AppointmentDatetime(MOCK_TODAY_DATE + "T00:01"), FIONA, BENSON);
 
     // Appointments - Upcoming (after mock today: current date)
     public static final Appointment CARL_ELLE_UPCOMING = new Appointment(

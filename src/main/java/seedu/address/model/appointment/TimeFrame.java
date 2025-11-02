@@ -55,16 +55,17 @@ public enum TimeFrame {
         requireNonNull(appointmentDateTime);
 
         LocalDate today = LocalDate.now();
+        LocalDateTime now = LocalDateTime.now();
         LocalDateTime startOfToday = today.atStartOfDay();
         LocalDateTime endOfToday = today.atTime(LocalTime.MAX);
 
         switch (this) {
         case PAST:
-            return appointmentDateTime.isBefore(startOfToday);
+            return appointmentDateTime.isBefore(now);
         case TODAY:
             return !appointmentDateTime.isBefore(startOfToday) && !appointmentDateTime.isAfter(endOfToday);
         case UPCOMING:
-            return !appointmentDateTime.isBefore(startOfToday);
+            return appointmentDateTime.isAfter(now);
         default:
             return false;
         }
