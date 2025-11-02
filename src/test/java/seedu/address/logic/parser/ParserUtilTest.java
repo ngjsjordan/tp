@@ -23,7 +23,7 @@ import seedu.address.model.person.address.AddressType;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_NAME = " ";
     private static final String INVALID_PHONE = "*651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_PROPERTY_TYPE = "HDB_10";
@@ -49,7 +49,7 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-                -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+            -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
