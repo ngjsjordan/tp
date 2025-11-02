@@ -615,10 +615,10 @@ testers are expected to do more *exploratory* testing.
       Expected: 1 appointment(s) listed!, with 1 appointment showing up in the UI.
 
    1. Test case: `sap` <br>
-      Expected: No appointments are listed. An error message is shown indicating the invalid command format and shows the correct usage.
+      Expected: Appointments list is not updated. An error message is shown indicating the invalid command format and shows the correct usage.
 
    1. Test case: `sap tf/invalid` <br>
-      Expected: Timeframe should be one of: past, today, upcoming (case-insensitive)
+      Expected: Appointments list is not updated. An error message is shown, indicating the valid timeframes.
 
 ### Deleting an appointment
 
