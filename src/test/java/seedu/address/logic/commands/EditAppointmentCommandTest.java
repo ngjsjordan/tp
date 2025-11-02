@@ -310,6 +310,33 @@ public class EditAppointmentCommandTest {
     }
 
     @Test
+    public void execute_removeBuyer_success() {
+        // Get appointment with buyer (setup creates one at INDEX_FIRST_APPOINTMENT)
+        Appointment appointmentToEdit = model.getFilteredAppointmentList()
+                .get(INDEX_FIRST_APPOINTMENT.getZeroBased());
+        assertTrue(appointmentToEdit.getBuyer().isPresent()); // Verify it has a buyer
+
+        EditAppointmentDescriptor descriptor = new EditAppointmentDescriptor();
+        descriptor.setRemoveBuyer();
+
+        EditAppointmentCommand editAppointmentCommand = new EditAppointmentCommand(INDEX_FIRST_APPOINTMENT, descriptor);
+
+        Appointment editedAppointment = new Appointment(
+                appointmentToEdit.getAppointmentDatetime(),
+                appointmentToEdit.getSeller());
+
+        String expectedMessage = String.format(EditAppointmentCommand.MESSAGE_EDIT_APPOINTMENT_SUCCESS,
+                Messages.format(editedAppointment));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        expectedModel.setAppointment(appointmentToEdit, editedAppointment);
+        expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+
+        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void equals() {
         EditAppointmentDescriptor descriptor1 = new EditAppointmentDescriptor();
         descriptor1.setAppointmentDatetime(new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1));

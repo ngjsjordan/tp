@@ -10,7 +10,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
@@ -41,6 +43,8 @@ public class EditAppointmentCommand extends Command {
 
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+
+    private static final Logger logger = LogsCenter.getLogger(EditAppointmentCommand.class);
 
     private final Index index;
     private final EditAppointmentDescriptor editAppointmentDescriptor;
@@ -75,6 +79,8 @@ public class EditAppointmentCommand extends Command {
         }
 
         model.setAppointment(appointmentToEdit, editedAppointment);
+        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+        logger.info("Successfully edited appointment at index " + index.getOneBased());
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
                 Messages.format(editedAppointment)));
     }
@@ -121,11 +127,16 @@ public class EditAppointmentCommand extends Command {
 
     /**
      * Returns the updated buyer for the appointment.
+     * If the descriptor indicates buyer removal, returns null.
      * If a new buyer index is provided, retrieves and validates the buyer from the model.
      * Otherwise, returns the original buyer from the appointment (which may be null).
      */
     private static Person getUpdatedBuyer(Appointment appointmentToEdit,
             EditAppointmentDescriptor editAppointmentDescriptor, Model model) throws CommandException {
+        if (editAppointmentDescriptor.isRemoveBuyer()) {
+            return null;
+        }
+
         if (!editAppointmentDescriptor.getBuyerIndex().isPresent()) {
             return appointmentToEdit.getBuyer().orElse(null);
         }
@@ -178,6 +189,8 @@ public class EditAppointmentCommand extends Command {
      * corresponding field value of the appointment.
      */
     public static class EditAppointmentDescriptor {
+        private static final Index REMOVE_BUYER_SENTINEL = Index.fromZeroBased(Integer.MAX_VALUE);
+
         private AppointmentDatetime appointmentDatetime;
         private Index sellerIndex;
         private Index buyerIndex;
@@ -222,6 +235,20 @@ public class EditAppointmentCommand extends Command {
 
         public Optional<Index> getBuyerIndex() {
             return Optional.ofNullable(buyerIndex);
+        }
+
+        /**
+         * Sets the descriptor to indicate that the buyer should be removed.
+         */
+        public void setRemoveBuyer() {
+            this.buyerIndex = REMOVE_BUYER_SENTINEL;
+        }
+
+        /**
+         * Returns true if the buyer should be removed from the appointment.
+         */
+        public boolean isRemoveBuyer() {
+            return REMOVE_BUYER_SENTINEL.equals(buyerIndex);
         }
 
         @Override
