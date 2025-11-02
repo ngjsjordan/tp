@@ -271,29 +271,29 @@ _{more aspects and alternatives to be added}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                     | I want to …​                    | So that I can…​                                                        |
-|----------| ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new buyer/seller         | remember client details                                                |
-| `* * *`  | user                                       | tag sellers' property details  | easily note and view an important piece of information                 |
-| `* * *`  | user                                       | delete a client                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | list clients                   | get an overview of clients and properties                              |
-| `* * *`  | user                                       | find a client by name          | locate details of a client without having to go through the entire list|
-| `* * *`  | user                                       | find a property by name        | locate property and seller details without going through the list      |
-| `* * *`  | user                                       | schedule appointments          | manage my time effectively                                             |
-| `* * *`  | user                                       | view upcoming appointments     | keep track of client meetings                                          |
-| `* *`    | new user                                   | import contacts from my phone  | get set up quickly                                                     |
-| `* *`    | user                                       | edit client information        | update details when they change                                        |
-| `* *`    | user                                       | filter properties              | find properties to recommend to buyers                                 |
-| `*`      | user                                       | track transaction progress     | keep track of deals involving buyers/sellers                           |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
-| `*`      | user with many persons in the address book | find a person with similar name| find the client I'm looking for amidst many similar names              |
-| `*`      | user who is a co-broking agent             | add partner agents             | keep track of others involved in a deal                                |
-| `*`      | user with vision impairments               | use accessibility options      | use the application without eye strain                                 |
-| `*`      | user                                       | store property images          | easily show it to potential buyers                                     |
-| `*`      | user                                       | gather data about transactions | adapt my work to strike better deals                                   |
-
-*{More to be added}*
+| Priority | As a …​                                     | I want to …​                    | So that I can…​                                                         |
+|----------| ------------------------------------------ |---------------------------------|-------------------------------------------------------------------------|
+| `* * *`  | new user                                   | see usage instructions          | refer to instructions when I forget how to use the App                  |
+| `* * *`  | user                                       | add a new buyer/seller          | remember client details                                                 |
+| `* * *`  | user                                       | tag sellers' property details   | easily note and view an important piece of information                  |
+| `* * *`  | user                                       | delete a client                 | remove entries that I no longer need                                    |
+| `* * *`  | user                                       | list clients                    | get an overview of clients and properties                               |
+| `* * *`  | user                                       | find a client by name           | locate details of a client without having to go through the entire list |
+| `* * *`  | user                                       | find a property by name         | locate property and seller details without going through the list       |
+| `* * *`  | user                                       | schedule appointments           | manage my time effectively                                              |
+| `* * *`  | user                                       | view upcoming appointments      | keep track of client meetings                                           |
+| `* *`    | new user                                   | import contacts from my phone   | get set up quickly                                                      |
+| `* *`    | user                                       | edit client information         | update details when they change                                         |
+| `* *`    | user                                       | edit appointments               | update details when they change                                         |
+| `* *`    | user                                       | search appointments             | locate details about specific appointments                              |
+| `* *`    | user                                       | filter properties               | find properties to recommend to buyers                                  |
+| `*`      | user                                       | track transaction progress      | keep track of deals involving buyers/sellers                            |
+| `*`      | user with many persons in the address book | sort persons by name            | locate a person easily                                                  |
+| `*`      | user with many persons in the address book | find a person with similar name | find the client I'm looking for amidst many similar names               |
+| `*`      | user who is a co-broking agent             | add partner agents              | keep track of others involved in a deal                                 |
+| `*`      | user with vision impairments               | use accessibility options       | use the application without eye strain                                  |
+| `*`      | user                                       | store property images           | easily show it to potential buyers                                      |
+| `*`      | user                                       | gather data about transactions  | adapt my work to strike better deals                                    |
 
 ### Use cases
 
