@@ -124,6 +124,14 @@ public class AddAppointmentCommandTest {
     }
 
     @Test
+    public void execute_sameSellerAndBuyer_failure() {
+        AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(
+                new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1), INDEX_FIRST_PERSON, INDEX_FIRST_PERSON);
+
+        assertCommandFailure(addAppointmentCommand, model, Messages.MESSAGE_SAME_SELLER_BUYER);
+    }
+
+    @Test
     public void execute_appointmentAlreadyExists_failure() {
         Person seller = new PersonBuilder(model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased())).build();
         Person buyer = new PersonBuilder(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased())).build();
