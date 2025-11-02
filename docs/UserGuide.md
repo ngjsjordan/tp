@@ -344,19 +344,23 @@ Example:
 
 ### Searching an appointment: `sap`
 
-Finds appointments whose details contain any of the keywords you provide and/or timeframe. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
+Finds appointments whose details contain any of the keywords you provide and/or timeframe. Details include (i) Buyer Name, (ii) Seller Name, (iii) Seller Address, (iv) Appointment Time.
 
-Format 1: `sap tf/TIMEFRAME [KEYWORD] [MORE_KEYWORDS]...`
-
-Format 2: `sap [tf/TIMEFRAME] KEYWORD [MORE_KEYWORDS]...`
+Format: `sap [tf/TIMEFRAME] [KEYWORD [MORE_KEYWORDS]...]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The valid timeframes consist of `past`, `today` and `upcoming` (case-insensitive)
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* At least one of the optional fields must be provided.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Appointments matching at least one keyword will be returned
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Valid timeframes** consist of `past`, `today` and `upcoming` (case-insensitive)<br>
+
+</div>
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:** 
 * When searching for appointments, you must provide either a `TIMEFRAME` or `KEYWORD`
@@ -366,11 +370,7 @@ Format 2: `sap [tf/TIMEFRAME] KEYWORD [MORE_KEYWORDS]...`
     * Example: `sap jake` will list all appointments involving `jake`
 </div>
 
-<div markdown="block" class="alert alert-info">
 
-**:information_source: Valid timeframes** consist of `past`, `today` and `upcoming` (case-insensitive)<br>
-
-</div>
 
 Examples:
 * `sap John` returns all appointments with 'John'
