@@ -157,19 +157,8 @@ public class AppointmentTest {
         assertTrue(appointment.containsKeyword("Elle"));
         assertTrue(appointment.containsKeyword("Meyer"));
 
-        // Seller details matching (from FIONA)
-        assertTrue(appointment.containsKeyword("9482427")); // Fiona's phone
-        assertTrue(appointment.containsKeyword("lydia@example.com")); // Fiona's email
+        // Seller address matching (from FIONA)
         assertTrue(appointment.containsKeyword("tokyo")); // part of "little tokyo" address
-        assertTrue(appointment.containsKeyword("HDB_J")); // Fiona's property type
-        assertTrue(appointment.containsKeyword("seller")); // Fiona's role
-
-        // Buyer details matching (from ELLE)
-        assertTrue(appointment.containsKeyword("9482224")); // Elle's phone
-        assertTrue(appointment.containsKeyword("werner@example.com")); // Elle's email
-        assertTrue(appointment.containsKeyword("michegan")); // part of "michegan ave" address
-        assertTrue(appointment.containsKeyword("HDB_5")); // Elle's property type
-        assertTrue(appointment.containsKeyword("buyer")); // Elle's role
 
         // Appointment datetime matching - use the actual datetime from the appointment
         String appointmentDatetimeString = appointment.appointmentDatetime.toString();
@@ -182,6 +171,17 @@ public class AppointmentTest {
         assertTrue(appointment.containsKeyword("FIONA"));
         assertTrue(appointment.containsKeyword("elle"));
         assertTrue(appointment.containsKeyword("TOKYO"));
+
+        // Fields that should NOT match (excluded from search)
+        assertFalse(appointment.containsKeyword("9482427")); // Seller's phone - not searchable
+        assertFalse(appointment.containsKeyword("lydia@example.com")); // Seller's email - not searchable
+        assertFalse(appointment.containsKeyword("HDB_J")); // Seller's property type - not searchable
+        assertFalse(appointment.containsKeyword("seller")); // Seller's role - not searchable
+        assertFalse(appointment.containsKeyword("9482224")); // Buyer's phone - not searchable
+        assertFalse(appointment.containsKeyword("werner@example.com")); // Buyer's email - not searchable
+        assertFalse(appointment.containsKeyword("michegan")); // Buyer's address - not searchable
+        assertFalse(appointment.containsKeyword("HDB_5")); // Buyer's property type - not searchable
+        assertFalse(appointment.containsKeyword("buyer")); // Buyer's role - not searchable
 
         // Non-matching keywords
         assertFalse(appointment.containsKeyword("Charlie"));

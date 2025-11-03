@@ -103,6 +103,20 @@ public class Person {
     }
 
     /**
+     * Returns true if this person's name contains the given keyword (case-insensitive).
+     */
+    public boolean containsKeywordInName(String keyword) {
+        return StringUtil.containsWordIgnoreCase(name.fullName, keyword);
+    }
+
+    /**
+     * Returns true if this person's address contains the given keyword (case-insensitive).
+     */
+    public boolean containsKeywordInAddress(String keyword) {
+        return StringUtil.containsWordIgnoreCase(address.value, keyword);
+    }
+
+    /**
      * Returns true if both persons have the same identifier (phone number).
      * This defines a weaker notion of equality between two persons.
      */
