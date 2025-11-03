@@ -635,6 +635,26 @@ testers are expected to do more *exploratory* testing.
    
    6. Test case: `edit` <br>
       Expected: No client in the list is edited. An error message is shown indicating that the command format is invalid.
+      
+### Searching for client
+1. Searching for clients by keyword(s)
+
+   1. Prerequisites: Have some clients in the client list. Use the `list` command to view all clients.
+
+   2. Test case: `find Alice` <br>
+      Expected: Matching client(s) containing "Alice" in their name are shown. Result message: "X client(s) listed!" and the UI displays the matching entries.
+
+   3. Test case: `find Alice Bob` (multiple keywords of the same field) <br>
+      Expected: Matching client(s) containing "Alice" OR "Bob" in their name are shown. Result message: "X client(s) listed!" and the UI displays the matching entries.
+
+   4. Test case: `find HDB_3 Alice` (different fields) <br>
+      Expected: Matching client(s) having property type "HDB_3" OR containing "Alice" in their name are shown. Result message: "X client(s) listed!" and the UI displays the matching entries.
+
+   5. Test case: `find NonExistentName` <br>
+      Expected: No clients are shown. Result message: "X client(s) listed!" and the UI displays the matching entries.
+
+   6. Test case: `find` (no keywords) <br>
+      Expected: No search performed. An error message is shown indicating invalid command format and displays the correct usage.
 
 ### Adding an appointment
 
