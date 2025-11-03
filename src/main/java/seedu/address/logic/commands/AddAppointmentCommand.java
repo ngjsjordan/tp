@@ -89,7 +89,8 @@ public class AddAppointmentCommand extends Command {
         }
 
         model.addAppointment(appointment);
-        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, appointment));
+        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, appointment),
+                false, false, true, false);
     }
 
     /**

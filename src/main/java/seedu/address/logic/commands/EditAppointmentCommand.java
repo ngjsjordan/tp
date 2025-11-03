@@ -6,7 +6,6 @@ import static seedu.address.logic.Messages.MESSAGE_SAME_SELLER_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 
 import java.util.List;
 import java.util.Objects;
@@ -80,10 +79,9 @@ public class EditAppointmentCommand extends Command {
         }
 
         model.setAppointment(appointmentToEdit, editedAppointment);
-        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         logger.info("Successfully edited appointment at index " + index.getOneBased());
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
-                Messages.format(editedAppointment)));
+                Messages.format(editedAppointment)), false, false, true, false);
     }
 
     /**
@@ -100,7 +98,7 @@ public class EditAppointmentCommand extends Command {
         Person updatedSeller = getUpdatedSeller(appointmentToEdit, editAppointmentDescriptor, model);
         Person updatedBuyer = getUpdatedBuyer(appointmentToEdit, editAppointmentDescriptor, model);
 
-        if (updatedSeller.equals(updatedBuyer)) {
+        if (updatedSeller.hasSameIdentifier(updatedBuyer)) {
             throw new CommandException(MESSAGE_SAME_SELLER_BUYER);
         }
 

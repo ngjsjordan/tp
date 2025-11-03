@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -24,6 +26,8 @@ public class DeleteAppointmentCommand extends Command {
             + "Example: dap 1";
 
     public static final String MESSAGE_DELETE_APPOINTMENT_SUCCESS = "Deleted Appointment: %1$s";
+
+    private static final Logger logger = LogsCenter.getLogger(DeleteAppointmentCommand.class);
 
     private final Index targetIndex;
 
@@ -46,7 +50,9 @@ public class DeleteAppointmentCommand extends Command {
 
         Appointment appointmentToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteAppointment(appointmentToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete.toString()));
+        logger.info("Successfully deleted appointment at index " + targetIndex.getOneBased());
+        return new CommandResult(String.format(MESSAGE_DELETE_APPOINTMENT_SUCCESS, appointmentToDelete.toString()),
+                false, false, true, false);
     }
 
     @Override
