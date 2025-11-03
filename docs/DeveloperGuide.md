@@ -127,13 +127,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
-
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2526S1-CS2103T-F08a-3/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
@@ -174,6 +167,30 @@ We finalised on the design present in our product before the MVP release. This c
 - `buyer` is optional. This feature was not present in the MVP, but we thought that it would be useful to have (perhaps an initial assessment of a property). It would also be possible to make seller optional, but we thought that that would have more niche utility and so didn’t include it.
 - Within the `Appointment` class and relevant `Logic` classes (`Parser`, `Command`), the null values are handled internally, with any external exposure making use of Java's `Optional`. This helps to reduce the possibility of having a `NullPointerException`.
 - `Person`'s phone number (`Phone`) is made unique. This allows us to store only the phone number of the persons involved in each appointment, removing the possibility of conflicts and increasing the ease of manual editing (for advanced users).
+
+#### Add Appointment
+
+Add appointment (`ap`) allows users to insert a new `Appointment`, with the following parameters:
+- `appointmentDatetime`, which is of class `AppointmentDatetime`.
+- `seller`, which is of class `Person`.
+- `buyer`, which is of class `Person` and can be `null`.
+
+The user passes these parameters in using the prefixes `d/` (datetime), `s/` (seller) and `b/` (buyer).
+
+The `Parser` class for this command helps to convert the input strings into objects to be manipulated.
+- The string passed into `d/` is converted directly into the required `AppointmentDatetime` with the help of the `ParserUtil` class.
+- The strings passed into `s/` and `b/` are converted (also with `ParserUtil`'s help) into the `Index` abstraction used to represent the index of the requested person in the last shown list. 
+
+These objects are passed into a new `Command` object. This has an overloaded constructor to handle the cases of `buyer` being `null` or otherwise. 
+
+When the `execute` method is executed, 
+- the `lastShownList` of Persons is obtained from `Model`.
+- the `lastShownList` is asked for the required persons using the `Index` objects. This returns the `Person` objects needed for `seller` and `buyer`.
+- finally, the actual `Appointment` is created using the one or two `Person` objects and one `AppointmentDatetime` object, again utilising an overloaded constructor.
+
+The following simplified sequence diagram outlines the main operations of `AddAppointmentCommand::execute`.
+
+![ApCommandExecuteSequenceDiagram](images/ApCommandExecuteSequenceDiagram.png)
 
 ### \[Proposed\] Undo/redo feature
 
