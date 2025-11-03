@@ -306,7 +306,7 @@ Format: `ap d/DATETIME s/SELLER_INDEX [b/BUYER_INDEX]`
 * The seller's location is automatically displayed as the appointment location.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** 
-* It is possible to add multiple appointments at the same time. Appointments will only be regarded as duplicate if they have the same datetime, seller, and buyer (or lack of buyer).
+It is possible to add multiple appointments at the same time. Appointments will only be regarded as duplicate if they have the same datetime, seller, and buyer (or lack of buyer).
 </div>
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
