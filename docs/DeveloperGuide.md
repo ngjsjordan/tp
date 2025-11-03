@@ -155,6 +155,26 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Appointments
+
+#### Overall Design Considerations:
+
+In planning our design for appointments, we aimed to 
+- minimise coupling between new classes added
+- maximise cohesion in new classes added and keeping to the design styles present in the existing `Model`.
+- make it easily convertible to Json for the `Storage` component.  
+
+We prioritised these factors over implementing the most efficient solution possible as our NFRs did not outline a need to support a data volume large enough such that it would make a major difference. In the event that these requirements became necessary, a good core design would be more easily extensible.
+
+We finalised on the design present in our product before the MVP release. This can be found in [this part](#model-component) of the Architecture section. Of particular note are:
+
+- A unidirectional coupling from `Appointment` to `Person`. We decided that this would suffice, eliminating the need to maintain data integrity if a bidirectional relationship were required. We accepted this tradeoff of reduced coupling for decreased efficiency (to modify a person’s appointments, you would need to look at all appointments to find matches) in line with our design goals. This could be modified in the future if the necessity arises.
+- Two distinct associations between `Person` and `Appointment` rather than a single association with multiplicity 2. This is to delineate the distinct buyer and seller roles in an appointment. We gauged that the extra effort to implement a more generalised approach would not be required within the scope of this project. This approach has been outlined in the Future Extensions appendix.
+- `AppointmentDatetime` is a separate class. This keeps the design similar to that of `Person`, where even attribute fields like `Name` are modelled as a separate class.
+- `buyer` is optional. This feature was not present in the MVP, but we thought that it would be useful to have (perhaps an initial assessment of a property). It would also be possible to make seller optional, but we thought that that would have more niche utility and so didn’t include it.
+- Within the `Appointment` class and relevant `Logic` classes (`Parser`, `Command`), the null values are handled internally, with any external exposure making use of Java's `Optional`. This helps to reduce the possibility of having a `NullPointerException`.
+- `Person`'s phone number (`Phone`) is made unique. This allows us to store only the phone number of the persons involved in each appointment, removing the possibility of conflicts and increasing the ease of manual editing (for advanced users).
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
@@ -236,8 +256,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   itself.
   * Pros: Will use less memory (e.g. for `delete`, just save the client being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
 
 --------------------------------------------------------------------------------------------------------------------
 
