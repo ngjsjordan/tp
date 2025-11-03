@@ -6,7 +6,6 @@ import static seedu.address.logic.Messages.MESSAGE_SAME_SELLER_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUYER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLER;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 
 import java.util.List;
 import java.util.Objects;
@@ -90,8 +89,8 @@ public class AddAppointmentCommand extends Command {
         }
 
         model.addAppointment(appointment);
-        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
-        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, appointment));
+        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, appointment),
+                false, false, true, false);
     }
 
     /**

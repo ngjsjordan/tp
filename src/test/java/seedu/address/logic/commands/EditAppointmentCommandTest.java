@@ -75,7 +75,10 @@ public class EditAppointmentCommandTest {
         expectedModel.setAppointment(appointmentToEdit, editedAppointment);
         expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
-        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(editAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -101,7 +104,10 @@ public class EditAppointmentCommandTest {
         expectedModel.setAppointment(appointmentToEdit, editedAppointment);
         expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
-        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(editAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -128,7 +134,10 @@ public class EditAppointmentCommandTest {
         expectedModel.setAppointment(appointmentToEdit, editedAppointment);
         expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
-        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(editAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -155,7 +164,10 @@ public class EditAppointmentCommandTest {
         expectedModel.setAppointment(appointmentToEdit, editedAppointment);
         expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
-        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(editAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -214,7 +226,10 @@ public class EditAppointmentCommandTest {
         expectedModel.setAppointment(appointmentToEdit, editedAppointment);
         expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
-        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(editAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -240,7 +255,10 @@ public class EditAppointmentCommandTest {
         expectedModel.setAppointment(appointmentToEdit, editedAppointment);
         expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
-        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(editAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -286,7 +304,10 @@ public class EditAppointmentCommandTest {
         expectedModel.setAppointment(appointmentWithoutBuyer, editedAppointment);
         expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
-        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(editAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -333,7 +354,10 @@ public class EditAppointmentCommandTest {
         expectedModel.setAppointment(appointmentToEdit, editedAppointment);
         expectedModel.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
-        assertCommandSuccess(editAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(editAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

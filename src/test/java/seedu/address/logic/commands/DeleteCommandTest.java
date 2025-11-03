@@ -40,7 +40,10 @@ public class DeleteCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, false, true);
+
+        assertCommandSuccess(deleteCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -65,7 +68,10 @@ public class DeleteCommandTest {
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, false, true);
+
+        assertCommandSuccess(deleteCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -105,7 +111,10 @@ public class DeleteCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(fiona);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, false, true);
+
+        assertCommandSuccess(deleteCommand, model, expectedCommandResult, expectedModel);
 
         // Verify appointments with FIONA are deleted
         long appointmentsWithFionaAfter = model.getAddressBook().getAppointmentList().stream()

@@ -79,10 +79,9 @@ public class EditAppointmentCommand extends Command {
         }
 
         model.setAppointment(appointmentToEdit, editedAppointment);
-        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
         logger.info("Successfully edited appointment at index " + index.getOneBased());
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS,
-                Messages.format(editedAppointment)));
+                Messages.format(editedAppointment)), false, false, true, false);
     }
 
     /**
