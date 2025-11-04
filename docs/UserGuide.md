@@ -344,19 +344,23 @@ Example:
 
 ### Searching an appointment : `sap`
 
-Finds appointments whose details contain any of the keywords you provide and/or timeframe. Details include (i) Buyer Name, (ii) Seller Name, (iii) Appointment Time.
+Finds appointments whose details contain any of the keywords you provide and/or timeframe. Details include (i) Buyer Name, (ii) Buyer Phone Number, (iii) Seller Name, (iv) Seller Phone Number, (v) Seller Address, (vi) Appointment Time.
 
-Format 1: `sap tf/TIMEFRAME [KEYWORD] [MORE_KEYWORDS]...`
-
-Format 2: `sap [tf/TIMEFRAME] KEYWORD [MORE_KEYWORDS]...`
+Format: `sap [tf/TIMEFRAME] [KEYWORD [MORE_KEYWORDS]...]`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The valid timeframes consist of `past`, `today` and `upcoming` (case-insensitive)
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* At least one of the optional fields must be provided.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Appointments matching at least one keyword will be returned
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
+<div markdown="block" class="alert alert-info">
+
+**:information_source: Valid timeframes** consist of `past`, `today` and `upcoming` (case-insensitive)<br>
+
+</div>
 
 <div markdown="block" class="alert alert-info">:information_source: **Note:** 
 * When searching for appointments, you must provide either a `TIMEFRAME` or `KEYWORD`
@@ -366,11 +370,7 @@ Format 2: `sap [tf/TIMEFRAME] KEYWORD [MORE_KEYWORDS]...`
     * Example: `sap jake` will list all appointments involving `jake`
 </div>
 
-<div markdown="block" class="alert alert-info">
 
-**:information_source: Valid timeframes** consist of `past`, `today` and `upcoming` (case-insensitive)<br>
-
-</div>
 
 Examples:
 * `sap John` returns all appointments with 'John'
@@ -545,9 +545,9 @@ Action | Format                                                                 
 **Search** | `search KEYWORD [MORE_KEYWORDS]...`                                                                                            | `search Jake HDB_3`                                                                                  | Find all clients named 'Jake' OR has property type 'HDB_3'
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/ROLE] [a/ADDRESS] [pt/PROPERTY_TYPE] [t/TAG]…​`                             | `edit 2 n/James Lee e/jameslee@example.com` <br><br> `edit 4 a/59 Jalan Besar Road pt/COMMERCIAL_FH` | Change the name and email of the second index client. <br><br> Change the address and property type of the fourth index client.
 **Delete** | `delete INDEX`                                                                                                                 | `delete 3`                                                                                           | Delete the third indexed client
-**Add Appointment** | `ap d/DATETIME s/SELLER_INDEX [b/BUYER_INDEX]`                                                                                 | `ap d/2025-01-0T12:00 s/1 b/3`                                                                       | Adds a appointment between seller(indexed 1) and buyer(indexed 3) at that specific timing
+**Add Appointment** | `ap d/DATETIME s/SELLER_INDEX [b/BUYER_INDEX]`                                                                                 | `ap d/2025-01-0T12:00 s/1 b/3`                                                                       | Adds an appointment between seller(indexed 1) and buyer(indexed 3) at that specific timing
 **List Appointments** | `lap`                                                                                                                          | -                                                                                                    | List all appointments you have made in chronological order
-**Search Appointments** | `sap tf/TIMEFRAME [KEYWORD] [MORE_KEYWORDS]...` (Format 1) <br><br> `sap [tf/TIMEFRAME] KEYWORD [MORE_KEYWORDS]...` (Format 2) | `sap tf/today` <br> <br>`sap Jake`                                                                   | Searches all appointments on that day <br><br> Searches all appointments with 'Jake'
+**Search Appointments** | `sap [tf/TIMEFRAME] [KEYWORD [MORE_KEYWORDS]...]` | `sap tf/today` <br> <br>`sap Jake`                                                                   | Searches all appointments on that day <br><br> Searches all appointments with 'Jake'
 **Edit Appointment** | `eap APPOINTMENT_INDEX [d/DATETIME] [s/SELLER_INDEX] [b/BUYER_INDEX]`                                                          | `eap 1 d/2025-01-15T14:00` <br><br> `eap 2 s/3 b/4`                                                  | Changes the datetime of appointment 1 to 15 Jan 2025 at 2pm. <br><br> Changes the seller and buyer of appointment 2 to client indices 3 and 4.
 **Delete Appointment** | `dap INDEX`                                                                                                                    | `dap 1`                                                                                              | Deletes appointment at index 1 at that specific timing
 **Clear** | `clear`                                                                                                                        | -                                                                                                    | Clears all current clients and appointments from the app
