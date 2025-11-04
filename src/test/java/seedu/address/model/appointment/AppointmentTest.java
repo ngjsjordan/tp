@@ -157,6 +157,12 @@ public class AppointmentTest {
         assertTrue(appointment.containsKeyword("Elle"));
         assertTrue(appointment.containsKeyword("Meyer"));
 
+        // Seller phone matching (from FIONA)
+        assertTrue(appointment.containsKeyword("9482427")); // Fiona's phone - NOW searchable
+
+        // Buyer phone matching (from ELLE)
+        assertTrue(appointment.containsKeyword("9482224")); // Elle's phone - NOW searchable
+
         // Seller address matching (from FIONA)
         assertTrue(appointment.containsKeyword("tokyo")); // part of "little tokyo" address
 
@@ -173,11 +179,9 @@ public class AppointmentTest {
         assertTrue(appointment.containsKeyword("TOKYO"));
 
         // Fields that should NOT match (excluded from search)
-        assertFalse(appointment.containsKeyword("9482427")); // Seller's phone - not searchable
         assertFalse(appointment.containsKeyword("lydia@example.com")); // Seller's email - not searchable
         assertFalse(appointment.containsKeyword("HDB_J")); // Seller's property type - not searchable
         assertFalse(appointment.containsKeyword("seller")); // Seller's role - not searchable
-        assertFalse(appointment.containsKeyword("9482224")); // Buyer's phone - not searchable
         assertFalse(appointment.containsKeyword("werner@example.com")); // Buyer's email - not searchable
         assertFalse(appointment.containsKeyword("michegan")); // Buyer's address - not searchable
         assertFalse(appointment.containsKeyword("HDB_5")); // Buyer's property type - not searchable

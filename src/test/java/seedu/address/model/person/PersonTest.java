@@ -208,4 +208,26 @@ public class PersonTest {
         // Partial word matching should not work
         assertFalse(person.containsKeywordInAddress("Jur"));
     }
+
+    @Test
+    public void containsKeywordInPhone() {
+        // Use existing person from TypicalPersons
+        Person person = ALICE;
+
+        // Phone matching
+        assertTrue(person.containsKeywordInPhone("94351253"));
+
+        // Case insensitive matching (phone numbers don't have case but method should still work)
+        assertTrue(person.containsKeywordInPhone("94351253"));
+
+        // Non-matching keywords (should not match other fields)
+        assertFalse(person.containsKeywordInPhone("Alice")); // name
+        assertFalse(person.containsKeywordInPhone("buyer")); // role
+        assertFalse(person.containsKeywordInPhone("Jurong")); // address
+        assertFalse(person.containsKeywordInPhone("friends")); // tag
+        assertFalse(person.containsKeywordInPhone("12345678")); // non-existent phone
+
+        // Partial word matching should not work
+        assertFalse(person.containsKeywordInPhone("9435"));
+    }
 }
