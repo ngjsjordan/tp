@@ -127,13 +127,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
-
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/AY2526S1-CS2103T-F08a-3/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
@@ -154,6 +147,50 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Appointments
+
+#### Overall Design Considerations:
+
+In planning our design for appointments, we aimed to 
+- minimise coupling between new classes added
+- maximise cohesion in new classes added and keeping to the design styles present in the existing `Model`.
+- make it easily convertible to Json for the `Storage` component.  
+
+We prioritised these factors over implementing the most efficient solution possible as our NFRs did not outline a need to support a data volume large enough such that it would make a major difference. In the event that these requirements became necessary, a good core design would be more easily extensible.
+
+We finalised on the design present in our product before the MVP release. This can be found in [this part](#model-component) of the Architecture section. Of particular note are:
+
+- A unidirectional coupling from `Appointment` to `Person`. We decided that this would suffice, eliminating the need to maintain data integrity if a bidirectional relationship were required. We accepted this tradeoff of reduced coupling for decreased efficiency (to modify a person’s appointments, you would need to look at all appointments to find matches) in line with our design goals. This could be modified in the future if the necessity arises.
+- Two distinct associations between `Person` and `Appointment` rather than a single association with multiplicity 2. This is to delineate the distinct buyer and seller roles in an appointment. We gauged that the extra effort to implement a more generalised approach would not be required within the scope of this project. This approach has been outlined in the Future Extensions appendix.
+- `AppointmentDatetime` is a separate class. This keeps the design similar to that of `Person`, where even attribute fields like `Name` are modelled as a separate class.
+- `buyer` is optional. This feature was not present in the MVP, but we thought that it would be useful to have (perhaps an initial assessment of a property). It would also be possible to make seller optional, but we thought that that would have more niche utility and so didn’t include it.
+- Within the `Appointment` class and relevant `Logic` classes (`Parser`, `Command`), the null values are handled internally, with any external exposure making use of Java's `Optional`. This helps to reduce the possibility of having a `NullPointerException`.
+- `Person`'s phone number (`Phone`) is made unique. This allows us to store only the phone number of the persons involved in each appointment, removing the possibility of conflicts and increasing the ease of manual editing (for advanced users).
+
+#### Add Appointment
+
+Add appointment (`ap`) allows users to insert a new `Appointment`, with the following parameters:
+- `appointmentDatetime`, which is of class `AppointmentDatetime`.
+- `seller`, which is of class `Person`.
+- `buyer`, which is of class `Person` and can be `null`.
+
+The user passes these parameters in using the prefixes `d/` (datetime), `s/` (seller) and `b/` (buyer).
+
+The `Parser` class for this command helps to convert the input strings into objects to be manipulated.
+- The string passed into `d/` is converted directly into the required `AppointmentDatetime` with the help of the `ParserUtil` class.
+- The strings passed into `s/` and `b/` are converted (also with `ParserUtil`'s help) into the `Index` abstraction used to represent the index of the requested person in the last shown list. 
+
+These objects are passed into a new `Command` object. This has an overloaded constructor to handle the cases of `buyer` being `null` or otherwise. 
+
+When the `execute` method is executed, 
+- the `lastShownList` of Persons is obtained from `Model`.
+- the `lastShownList` is asked for the required persons using the `Index` objects. This returns the `Person` objects needed for `seller` and `buyer`.
+- finally, the actual `Appointment` is created using the one or two `Person` objects and one `AppointmentDatetime` object, again utilising an overloaded constructor.
+
+The following simplified sequence diagram outlines the main operations of `AddAppointmentCommand::execute`.
+
+![ApCommandExecuteSequenceDiagram](images/ApCommandExecuteSequenceDiagram.png)
 
 ### \[Proposed\] Undo/redo feature
 
@@ -236,8 +273,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   itself.
   * Pros: Will use less memory (e.g. for `delete`, just save the client being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -854,3 +889,10 @@ Team Size: 5
    - For example, `find Alice Bob HDB_3` would search for clients with (name containing "Alice" OR "Bob") AND (property type "HDB_3"), providing more precise results.
    - Similarly, `sap tf/upcoming Bernice Charlotte` would search for appointments with (name containing "Bernice" OR "Charlotte") AND (timeframe is "upcoming").
    - This will allow agents to perform more targeted searches by combining multiple criteria, making it easier to find specific clients or appointments that meet all specified requirements.
+1. **Display person list alongside appointment list in split view**. Currently, users can only view either the appointment list (via `lap`) or the person list (via `list`) at any given time. This creates a troublesome workflow when using the `eap` command, which requires knowing indices from both lists simultaneously. Users must repeatedly switch between views to gather the required appointment index, seller index, and buyer index.
+   - We plan to enhance the UI layout to display both the person list and appointment list simultaneously in a split-screen view.
+   - The main window would be divided vertically, with the person list on the left side and the appointment list on the right side, each occupying approximately 50% of the window width.
+   - Both lists would remain independently scrollable and retain their current card-based display format.
+   - Commands like `list`, `find`, and `lap` would continue to work as before, updating their respective list panels.
+   - Example: When a user executes `lap`, the appointment list updates on the right while the person list remains visible on the left, allowing users to see both "1. Alex Yeoh..." in the person list and "1. 2025-01-15 10:00..." in the appointment list simultaneously when preparing an `eap 1 s/1 b/2` command.
+   - This enhancement eliminates the need to switch between views, significantly improving usability for appointment management commands while maintaining all existing functionality.

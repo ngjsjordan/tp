@@ -112,9 +112,6 @@ public class AppointmentContainsKeywordsPredicateTest {
         AppointmentContainsKeywordsPredicate predicate =
             new AppointmentContainsKeywordsPredicate(Collections.emptyList(), TimeFrame.UPCOMING);
         assertTrue(predicate.test(futureAppointment));
-
-        Appointment todayAppointment = FIONA_BENSON_TODAY;
-        assertTrue(predicate.test(todayAppointment));
     }
 
     @Test

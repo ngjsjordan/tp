@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.person.Person;
 
 /**
  * An UI component that displays information of an {@code Appointment}.
@@ -44,8 +45,18 @@ public class AppointmentCard extends UiPart<Region> {
         appointmentLocation.setText(appointment.getSeller().getAddress().value);
 
         // Display buyer AND seller information
-        buyer.setText("Buyer: " + appointment.getBuyer().map(b ->
-                        b.getName().fullName).orElse(NO_BUYER_TEXT));
-        seller.setText("Seller: " + appointment.getSeller().getName().fullName);
+        buyer.setText("Buyer: " + appointment.getBuyer()
+                .map(this::formatPersonWithPhone)
+                .orElse(NO_BUYER_TEXT));
+        seller.setText("Seller: " + formatPersonWithPhone(appointment.getSeller()));
+    }
+
+    /**
+     * Formats a person's name with their phone number.
+     * @param person The person to format.
+     * @return Formatted string in the format "Name (Phone)".
+     */
+    private String formatPersonWithPhone(Person person) {
+        return person.getName() + " (" + person.getPhone() + ")";
     }
 }

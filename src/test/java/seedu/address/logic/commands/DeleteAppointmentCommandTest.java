@@ -36,7 +36,10 @@ public class DeleteAppointmentCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.deleteAppointment(appointmentToDelete);
 
-        assertCommandSuccess(deleteAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(deleteAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

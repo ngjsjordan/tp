@@ -48,7 +48,10 @@ public class AddAppointmentCommandTest {
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1),
                 seller, buyer));
 
-        assertCommandSuccess(addAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(addAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -65,7 +68,10 @@ public class AddAppointmentCommandTest {
                 new AppointmentDatetime(VALID_APPOINTMENT_DATETIME_JAN_1),
                 seller));
 
-        assertCommandSuccess(addAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(addAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -102,7 +108,10 @@ public class AddAppointmentCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addAppointment(expectedAppointment);
 
-        assertCommandSuccess(addAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(addAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test
@@ -120,7 +129,10 @@ public class AddAppointmentCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.addAppointment(expectedAppointment);
 
-        assertCommandSuccess(addAppointmentCommand, model, expectedMessage, expectedModel);
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage,
+                false, false, true, false);
+
+        assertCommandSuccess(addAppointmentCommand, model, expectedCommandResult, expectedModel);
     }
 
     @Test

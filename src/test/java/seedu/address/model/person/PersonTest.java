@@ -160,4 +160,52 @@ public class PersonTest {
         assertFalse(person.containsKeyword("Ali")); // partial match of "Alice"
         assertFalse(person.containsKeyword("9435")); // partial match of "94351253"
     }
+
+    @Test
+    public void containsKeywordInName() {
+        // Use existing person from TypicalPersons
+        Person person = ALICE;
+
+        // Name matching
+        assertTrue(person.containsKeywordInName("Alice"));
+        assertTrue(person.containsKeywordInName("Pauline"));
+
+        // Case insensitive matching
+        assertTrue(person.containsKeywordInName("ALICE"));
+        assertTrue(person.containsKeywordInName("paUline"));
+
+        // Non-matching keywords (should not match other fields)
+        assertFalse(person.containsKeywordInName("buyer")); // role
+        assertFalse(person.containsKeywordInName("94351253")); // phone
+        assertFalse(person.containsKeywordInName("Jurong")); // address
+        assertFalse(person.containsKeywordInName("friends")); // tag
+        assertFalse(person.containsKeywordInName("Charlie")); // non-existent
+
+        // Partial word matching should not work
+        assertFalse(person.containsKeywordInName("Ali"));
+    }
+
+    @Test
+    public void containsKeywordInAddress() {
+        // Use existing person from TypicalPersons
+        Person person = ALICE;
+
+        // Address matching
+        assertTrue(person.containsKeywordInAddress("Jurong"));
+        assertTrue(person.containsKeywordInAddress("West"));
+
+        // Case insensitive matching
+        assertTrue(person.containsKeywordInAddress("JURONG"));
+        assertTrue(person.containsKeywordInAddress("WEST"));
+
+        // Non-matching keywords (should not match other fields)
+        assertFalse(person.containsKeywordInAddress("Alice")); // name
+        assertFalse(person.containsKeywordInAddress("buyer")); // role
+        assertFalse(person.containsKeywordInAddress("94351253")); // phone
+        assertFalse(person.containsKeywordInAddress("friends")); // tag
+        assertFalse(person.containsKeywordInAddress("Charlie")); // non-existent
+
+        // Partial word matching should not work
+        assertFalse(person.containsKeywordInAddress("Jur"));
+    }
 }

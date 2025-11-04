@@ -89,7 +89,8 @@ public class AddAppointmentCommand extends Command {
         }
 
         model.addAppointment(appointment);
-        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, appointment));
+        return new CommandResult(String.format(MESSAGE_ADD_APPOINTMENT_SUCCESS, appointment),
+                false, false, true, false);
     }
 
     /**
@@ -100,11 +101,7 @@ public class AddAppointmentCommand extends Command {
      * @throws CommandException if indices are invalid or if roles are wrong.
      */
     private Appointment getAppointment(List<Person> lastShownList) throws CommandException {
-        boolean isInvalidSellerIndex = sellerIndex.getZeroBased() >= lastShownList.size();
-        boolean isInvalidBuyerIndex = buyerIndex != null && buyerIndex.getZeroBased() >= lastShownList.size();
-        if (isInvalidSellerIndex || isInvalidBuyerIndex) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
+        validateIndices(lastShownList, sellerIndex, buyerIndex);
 
         Person seller = lastShownList.get(sellerIndex.getZeroBased());
 
@@ -119,6 +116,23 @@ public class AddAppointmentCommand extends Command {
         }
 
         return new Appointment(appointmentDatetime, seller, buyer);
+    }
+
+    /**
+     * Validates that the indices given do not exceed the size of lastShownList.
+     *
+     * @param lastShownList Last shown list to reference index from.
+     * @param sellerIndex Index of seller to check.
+     * @param buyerIndex Index of buyer to check. Could be null.
+     * @throws CommandException if either index is invalid.
+     */
+    private void validateIndices(List<Person> lastShownList, Index sellerIndex, Index buyerIndex)
+            throws CommandException {
+        boolean isInvalidSellerIndex = sellerIndex.getZeroBased() >= lastShownList.size();
+        boolean isInvalidBuyerIndex = buyerIndex != null && buyerIndex.getZeroBased() >= lastShownList.size();
+        if (isInvalidSellerIndex || isInvalidBuyerIndex) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
     }
 
     @Override
