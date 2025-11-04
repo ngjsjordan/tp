@@ -651,10 +651,37 @@ testers are expected to do more *exploratory* testing.
 
     6. Test case: `add n/Sam Lee p/89252558 e/samlee@example.com r/sell a/Block 31 Bukit Merah Road, #01-02 pt/COMMERICAL_LH` <br>
        Expected: An error will be shown as the role must either be a 'buyer' or 'seller'.
-       
-### Editing a client's address 
 
-1. Editing a client's address while all clients are shown. To verify that a client has been edited, use the `list` command to show all clients.
+### Editing a client's details
+
+1. Editing a client's name while all clients are shown.
+    1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
+    2. Test case: `edit 1 n/Joe Smith` <br>
+       Expected: First client in the list now has a new name with the value "new name". Details of the edited client will be shown in the status message.
+2. Editing a client's phone number while all clients are shown.
+    1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
+    2. Test case: `edit 1 p/12345678` <br>
+       Expected: First client in the list now has a new phone number with the value "12345678". Details of the edited client will be shown in the status message.
+    3. Test case: `edit 1 p/hello` <br>
+       Expected: An error message will be shown indicating that the phone number should contain digits.
+3. Editing a client's email while all clients are shown.
+   1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
+   2. Test case: `edit 1 e/newemail@example.com` <br>
+      Expected: First client in the list now has a new email with the value "newemail@example.com". Details of the edited client will be shown in the status message.
+4. Editing a client's role while all clients are shown.
+    1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
+    2. Test case: `edit 1 r/buyer` <br>
+       Expected: First client in the list now has the buyer role. Details of the edited client will be shown in the status message.
+    3. Test case: `edit 1 r/Buyer` <br>
+       Expected: First client in the list now has the buyer role. Details of the edited client will be shown in the status message. 
+    4. Test case: `edit 1 r/seller` <br>
+       Expected: First client in the list now has the seller role. Details of the edited client will be shown in the status message.   
+    5. Test case: `edit 1 r/Seller` <br>
+       Expected: First client in the list now has the seller role. Details of the edited client will be shown in the status message.
+    6. Test case: `edit 1 r/otherrole` <br>
+       Expected: An error will be shown indicating that the role must be either a "buyer" or a "seller".
+
+5. Editing a client's address while all clients are shown.
    1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list. 
    2. Test case: `edit 1 a/123 New Address pt/HDB_4` <br>
       Expected: First client in the list now has a new address with the property type HDB_4. Details of the edited client will be shown in the status message. 
@@ -670,7 +697,10 @@ testers are expected to do more *exploratory* testing.
    
    6. Test case: `edit` <br>
       Expected: No client in the list is edited. An error message is shown indicating that the command format is invalid.
-      
+6. Editing a client's tag while all clients are shown.
+    1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
+    2. Test case: `edit 1 t/newtag` <br>
+       Expected: First client in the list now has a new tag with the value "newtag". Details of the edited client will be shown in the status message.     
 ### Searching for client
 1. Searching for clients by keyword(s)
 
@@ -794,6 +824,11 @@ testers are expected to do more *exploratory* testing.
            Expected: The UI window will toggle to the client list.
       2. Test case: `lap` <br>
            Expected: The UI window will remain on the appointment list.
+
+### Help
+1. Opening the help window
+    1. Test case: `help` <br>
+       Expected: The help window will appear.
 
 ### Clearing data and resetting
 1. Clearing all currently saved data
