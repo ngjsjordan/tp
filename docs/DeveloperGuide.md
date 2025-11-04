@@ -905,3 +905,9 @@ Team Size: 5
    - Commands like `list`, `find`, and `lap` would continue to work as before, updating their respective list panels.
    - Example: When a user executes `lap`, the appointment list updates on the right while the person list remains visible on the left, allowing users to see both "1. Alex Yeoh..." in the person list and "1. 2025-01-15 10:00..." in the appointment list simultaneously when preparing an `eap 1 s/1 b/2` command.
    - This enhancement eliminates the need to switch between views, significantly improving usability for appointment management commands while maintaining all existing functionality.
+1. **Scrollable panel for long text fields**. Currently, when text fields like email addresses, names, or addresses are too long to fit within the card width, they are truncated with an ellipsis ("..."). This can hide important information like role labels or property type tags, making it difficult for users to view complete client details at a glance.
+   - We plan to enhance the view panels to support horizontal scrolling.
+   - The view panel would support horizontal scrolling to accommodate wider card content when text fields exceed the current display width.
+   - A horizontal scrollbar would appear at the bottom of the view panel when any card contains text longer than the panel width, allowing users to scroll right to view the complete content including role and property type labels.
+   - This feature is primarily intended for the small number of users who have exceptionally long text fields that exceed the standard display width.
+   - This ensures all client information remains accessible without truncation while maintaining the compact card layout for clients with shorter text fields.
