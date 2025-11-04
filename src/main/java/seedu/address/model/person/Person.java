@@ -117,6 +117,13 @@ public class Person {
     }
 
     /**
+     * Returns true if this person's phone number contains the given keyword (case-insensitive).
+     */
+    public boolean containsKeywordInPhone(String keyword) {
+        return StringUtil.containsWordIgnoreCase(phone.value, keyword);
+    }
+
+    /**
      * Returns true if both persons have the same identifier (phone number).
      * This defines a weaker notion of equality between two persons.
      */

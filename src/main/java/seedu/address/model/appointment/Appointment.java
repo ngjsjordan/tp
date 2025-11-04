@@ -120,12 +120,15 @@ public class Appointment implements Comparable<Appointment> {
 
     /**
      * Returns true if any field of this appointment contains the given keyword (case-insensitive).
-     * Searches across seller name, buyer name, seller address, and appointment datetime.
+     * Searches across seller name, seller phone, buyer name, buyer phone, seller address,
+     * and appointment datetime.
      */
     public boolean containsKeyword(String keyword) {
         return seller.containsKeywordInName(keyword)
+                || seller.containsKeywordInPhone(keyword)
                 || seller.containsKeywordInAddress(keyword)
                 || (buyer != null && buyer.containsKeywordInName(keyword))
+                || (buyer != null && buyer.containsKeywordInPhone(keyword))
                 || StringUtil.containsWordIgnoreCase(appointmentDatetime.toString(), keyword);
     }
 
