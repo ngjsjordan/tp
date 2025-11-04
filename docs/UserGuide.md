@@ -344,7 +344,7 @@ Example:
 
 ### Searching an appointment: `sap`
 
-Finds appointments whose details contain any of the keywords you provide and/or timeframe. Details include (i) Buyer Name, (ii) Seller Name, (iii) Seller Address, (iv) Appointment Time.
+Finds appointments whose details contain any of the keywords you provide and/or timeframe. Details include (i) Buyer Name, (ii) Buyer Phone Number, (iii) Seller Name, (iv) Seller Phone Number, (v) Seller Address, (vi) Appointment Time.
 
 Format: `sap [tf/TIMEFRAME] [KEYWORD [MORE_KEYWORDS]...]`
 
