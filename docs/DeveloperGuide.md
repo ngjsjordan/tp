@@ -651,13 +651,40 @@ testers are expected to do more *exploratory* testing.
 
     6. Test case: `add n/Sam Lee p/89252558 e/samlee@example.com r/sell a/Block 31 Bukit Merah Road, #01-02 pt/COMMERICAL_LH` <br>
        Expected: An error will be shown as the role must either be a 'buyer' or 'seller'.
-       
-### Editing a client's address 
 
-1. Editing a client's address while all clients are shown. To verify that a client has been edited, use the `list` command to show all clients.
+### Editing a client's details
+
+1. Editing a client's name while all clients are shown.
+    1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
+    2. Test case: `edit 1 n/Joe Smith` <br>
+       Expected: First client in the list now has a new name with the value "Joe Smith". Details of the edited client will be shown in the status message.
+2. Editing a client's phone number while all clients are shown.
+    1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
+    2. Test case: `edit 1 p/12345678` <br>
+       Expected: First client in the list now has a new phone number with the value "12345678". Details of the edited client will be shown in the status message.
+    3. Test case: `edit 1 p/hello` <br>
+       Expected: An error message will be shown indicating that the phone number should contain digits.
+3. Editing a client's email while all clients are shown.
+   1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
+   2. Test case: `edit 1 e/newemail@example.com` <br>
+      Expected: First client in the list now has a new email with the value "newemail@example.com". Details of the edited client will be shown in the status message.
+4. Editing a client's role while all clients are shown.
+    1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
+    2. Test case: `edit 1 r/buyer` <br>
+       Expected: First client in the list now has the buyer role. Details of the edited client will be shown in the status message.
+    3. Test case: `edit 1 r/Buyer` <br>
+       Expected: First client in the list now has the buyer role. Details of the edited client will be shown in the status message. 
+    4. Test case: `edit 1 r/seller` <br>
+       Expected: First client in the list now has the seller role. Details of the edited client will be shown in the status message.   
+    5. Test case: `edit 1 r/Seller` <br>
+       Expected: First client in the list now has the seller role. Details of the edited client will be shown in the status message.
+    6. Test case: `edit 1 r/otherrole` <br>
+       Expected: An error message will be shown indicating that the role must be either a "buyer" or a "seller".
+
+5. Editing a client's address while all clients are shown.
    1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list. 
    2. Test case: `edit 1 a/123 New Address pt/HDB_4` <br>
-      Expected: First client in the list now has a new address with the property type HDB_4. Details of the edited client will be shown in the status message. 
+      Expected: First client in the list now has a new address with the value "123 New Address" with the property type HDB_4. Details of the edited client will be shown in the status message. 
 
    3. Test case: `edit 1 a/123` <br>
       Expected: First client in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
@@ -670,7 +697,12 @@ testers are expected to do more *exploratory* testing.
    
    6. Test case: `edit` <br>
       Expected: No client in the list is edited. An error message is shown indicating that the command format is invalid.
-      
+6. Editing a client's tag while all clients are shown.
+    1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
+    2. Test case: `edit 1 t/newtag` <br>
+       Expected: First client in the list now has a new tag with the value "newtag". Details of the edited client will be shown in the status message.
+    3. Test case: `edit 1 t/new-tag` <br>
+       Expected: An error message will be shown indicating that tag names must only contain alphanumeric characters.
 ### Searching for client
 1. Searching for clients by keyword(s)
 
@@ -804,6 +836,11 @@ testers are expected to do more *exploratory* testing.
       2. Test case: `lap` <br>
            Expected: The UI window will remain on the appointment list.
 
+### Help
+1. Opening the help window
+    1. Test case: `help` <br>
+       Expected: The help window will appear.
+
 ### Clearing data and resetting
 1. Clearing all currently saved data
    1. Test case: `clear` <br>
@@ -905,6 +942,12 @@ Team Size: 5
    - Commands like `list`, `find`, and `lap` would continue to work as before, updating their respective list panels.
    - Example: When a user executes `lap`, the appointment list updates on the right while the person list remains visible on the left, allowing users to see both "1. Alex Yeoh..." in the person list and "1. 2025-01-15 10:00..." in the appointment list simultaneously when preparing an `eap 1 s/1 b/2` command.
    - This enhancement eliminates the need to switch between views, significantly improving usability for appointment management commands while maintaining all existing functionality.
+1. **Scrollable panel for long text fields**. Currently, when text fields like email addresses, names, or addresses are too long to fit within the card width, they are truncated with an ellipsis ("..."). This can hide important information like role labels or property type tags, making it difficult for users to view complete client details at a glance.
+   - We plan to enhance the view panels to support horizontal scrolling.
+   - The view panel would support horizontal scrolling to accommodate wider card content when text fields exceed the current display width.
+   - A horizontal scrollbar would appear at the bottom of the view panel when any card contains text longer than the panel width, allowing users to scroll right to view the complete content including role and property type labels.
+   - This feature is primarily intended for the small number of users who have exceptionally long text fields that exceed the standard display width.
+   - This ensures all client information remains accessible without truncation while maintaining the compact card layout for clients with shorter text fields.
 1. **Accept a wider range of datetime formats**. Currently, the format accepted for datetime for `Appointment` is quite strict, as it only accepts a String that can be parsed by Java's default `LocalDateTime::parse` method. While the ISO 8601 format could be familiar to technical audiences, our target users might be more familiar with formats like `dd/MM/yyyy` for the date portion.
    - We plan to improve our parsing method to try a wider range of formats instead
 1. **Improve JSON file error handling**.

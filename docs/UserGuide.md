@@ -141,6 +141,7 @@ A person is uniquely identified by their **phone number**. You may add clients w
 A client can have any number of tags (including none)
 </div>
 
+<div style="page-break-after: always;"></div>
 
 Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com r/buyer a/John street, block 123, #01-01 pt/HDB_4`
@@ -300,7 +301,7 @@ Format: `ap d/DATETIME s/SELLER_INDEX [b/BUYER_INDEX]`
 * Adds an appointment with the seller being the client specified by `SELLER_INDEX` and the buyer being the client specified by `BUYER_INDEX`.
 * To create an appointment with only a seller, simply omit the `b/` tag.
 * The indices refer to the index numbers shown in the displayed client list which will be a positive whole number (e.g. 1, 2, 3, ...)
-* You may assign a client without the buyer role to the buyer (and similarly for seller). 
+* **You may assign a client without the buyer role to the buyer (and similarly for seller).** 
 * You may not assign the same person as both the buyer and seller for the same appointment.
 * Provide the datetime in an ISO 8601-compliant format. (e.g. `yyyy-MM-ddTHH:mm`)
 * The seller's location is automatically displayed as the appointment location.
@@ -313,11 +314,13 @@ It is possible to add multiple appointments at the same time. Appointments will 
 Use the [`search`](#locating-clients-by-name--search) command with multiple keywords (such as `search Alex David`) to easily index the contacts you wish to create an appointment for.
 </div>
 
+<div style="page-break-after: always;"></div>
+
 Examples:
-*  `ap d/2025-12-01T12:00 s/4 b/1` adds an appointment with seller (index 4: Roy) and buyer (index 1: Alex) on 1 Dec 2025 at 12pm. `lap` can be used to view appointments after adding.
-<div style="display: flex; justify-content: center; gap: 5px;">
-  <img src="images/apResult.png" alt="result for `ap d/2025-12-01T12:00 s/4 b/1`" width="49%">
-  <img src="images/lapAfterApResult.png" alt="result for `lap`" width="49%">
+*  `list` followed by `ap d/2025-12-01T12:00 s/4 b/1` adds an appointment with seller (index 4: Roy) and buyer (index 1: Alex) on 1 Dec 2025 at 12pm. (In this case, the new appointment is at index 4 as shown below)
+
+<div style="text-align:center;">
+  <img src="images/lapAfterApResult.png" alt="result for 'ap'" width="90%">
 </div>
 <br>
 
@@ -373,23 +376,23 @@ Format: `sap [tf/TIMEFRAME] [KEYWORD [MORE_KEYWORDS]...]`
 
 
 Examples:
-* `sap John` returns all appointments with 'John'
+* `sap Charlotte` returns all appointments with 'Charlotte'
 <div style="text-align:center;">
-  <img src="images/searchAppointmentJohnResult.png" alt="result for 'sap John'" width="90%">
+  <img src="images/searchAppointmentCharlotteResult.png" alt="result for 'sap Charlotte'" width="90%">
 </div>
 <br>
 
 <div style="page-break-after: always;"></div>
 
-* `sap Alex John` returns all appointments with `Alex` or `John`
+* `sap Alex David` returns all appointments with `Alex` **or** `David`
 <div style="text-align:center;">
-  <img src="images/searchAppointmentAlexJohnResult.png" alt="result for 'sap Alex John'" width="90%">
+  <img src="images/searchAppointmentAlexDavidResult.png" alt="result for 'sap Alex David'" width="90%">
 </div>
 <br>
 
-*  `sap tf/today Bernice` returns today's appointments with `Bernice Yu`(for illustration purposes, assume the date to be 2025-10-30)
+*  `sap tf/upcoming David` returns upcoming's appointments with `David Li`(for illustration purposes, assume the date to be 2025-11-04)
 <div style="text-align:center;">
-  <img src="images/searchAppointmentAlexDavidToday.png" alt="result for 'sap tf/today Bernice'" width="90%">
+  <img src="images/searchAppointmentUpcomingDavidResult.png" alt="result for 'sap tf/today David'" width="90%">
 </div>
 
 <div style="page-break-after: always;"></div>
@@ -407,14 +410,14 @@ Format: `eap APPOINTMENT_INDEX [d/DATETIME] [s/SELLER_INDEX] [b/BUYER_INDEX]`
 * All indices must be positive whole numbers, such as 1, 2, 3, ...
 * Provide the datetime in an ISO 8601-compliant format. (e.g. `yyyy-MM-ddTHH:mm`)
 * Existing values will be updated to the input values.
-* You may assign a client without the buyer role to the buyer (and similarly for seller).
+* **You may assign a client without the buyer role to the buyer (and similarly for seller).**
 * The seller and buyer cannot be the same client.
 * To remove the buyer from an appointment, use `b/` without specifying an index.
 
 Examples:
-* `lap` followed by `eap 1 d/2025-01-15T14:00` changes the datetime of the 1st appointment to 15 Jan 2025 at 2pm.
+* `lap` followed by `eap 1 d/2026-01-15T14:00` changes the datetime of the 1st appointment to 15 Jan 2026 at 2pm.
 * `lap` followed by `eap 2 s/3` changes the seller of the 2nd appointment to the 3rd client in the client list.
-* `lap` followed by `eap 1 d/2025-02-01T10:00 b/4` changes both the datetime and buyer of the 1st appointment.
+* `lap` followed by `eap 1 d/2026-02-01T10:00 b/4` changes both the datetime and buyer of the 1st appointment.
 * `lap` followed by `eap 3 b/` removes the buyer from the 3rd appointment.
 
 Tips:
