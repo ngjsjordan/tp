@@ -671,6 +671,15 @@ testers are expected to do more *exploratory* testing.
    6. Test case: `edit` <br>
       Expected: No client in the list is edited. An error message is shown indicating that the command format is invalid.
 
+### Deleting a client 
+
+1. Deleting a client who has associated appointments.
+
+   1. Prerequisites: The following test cases will use the sample data. If the sample data has been cleared/modified, simply delete the json file to regenerate it. Use `lap` or `sap Irfan` to observe that Irfan has 2 appointments. Use `list` to refresh the person list.
+
+   1. Test case: `delete 5`  
+      Expected: Client at index 5 (Irfan) will be deleted. Appointments with Irfan as a participant will also be deleted. You may verify this with `lap` or `sap Irfan`.
+
 ### Adding an appointment
 
 1. Adding an appointment while all clients are shown. To verify that an appointment has been added, use the `lap` command to show all appointments.
