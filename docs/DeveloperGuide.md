@@ -670,6 +670,26 @@ testers are expected to do more *exploratory* testing.
    
    6. Test case: `edit` <br>
       Expected: No client in the list is edited. An error message is shown indicating that the command format is invalid.
+      
+### Searching for client
+1. Searching for clients by keyword(s)
+
+   1. Prerequisites: Have some clients in the client list. Use the `list` command to view all clients.
+
+   2. Test case: `find Alice` <br>
+      Expected: Matching client(s) containing "Alice" in their name are shown. Result message: "X client(s) listed!" and the UI displays the matching entries.
+
+   3. Test case: `find Alice Bob` (multiple keywords of the same field) <br>
+      Expected: Matching client(s) containing "Alice" OR "Bob" in their name are shown. Result message: "X client(s) listed!" and the UI displays the matching entries.
+
+   4. Test case: `find HDB_3 Alice` (different fields) <br>
+      Expected: Matching client(s) having property type "HDB_3" OR containing "Alice" in their name are shown. Result message: "X client(s) listed!" and the UI displays the matching entries.
+
+   5. Test case: `find NonExistentName` <br>
+      Expected: No clients are shown. Result message: "X client(s) listed!" and the UI displays the matching entries.
+
+   6. Test case: `find` (no keywords) <br>
+      Expected: No search performed. An error message is shown indicating invalid command format and displays the correct usage.
 
 ### Adding an appointment
 
@@ -855,15 +875,20 @@ Team Size: 5
    - We plan to enhance the feature to support multiple properties per seller by modifying `Person` to hold a `List` of `Address` in a separate `Properties` field. This would cover the case where the Person's actual home address is not one of the properties they wish to sell (common in multi-property portfolios).
    - The property lists would be managed by separate `prop`, `eprop`, `dprop` commands to prevent the existing Person-related commands from being overloaded with responsibility.
    - Appointments would also hold a specific `Address` rather than taking the seller's address.
-2. **Role to be allocated per appointment instead of person**. Currently, a `Role` is assigned to a `Person` based on their general status (looking to buy or sell). This limits the usefulness of the field in filtering or searching users as part of their role in appointments.
+1. **Role to be allocated per appointment instead of person**. Currently, a `Role` is assigned to a `Person` based on their general status (looking to buy or sell). This limits the usefulness of the field in filtering or searching users as part of their role in appointments.
    - We plan to enhance this feature by making `Role` an association class between `Appointment` and `Person`. A `RoleType` enum would hold the types of roles available (buyer, seller, or future extensions like lessor/lessee). The `Role` class would then hold fields of `RoleType`, `Appointment` and `Person`, and can be interacted with via `UniqueRoleList`.
    - This would allow for more flexible appointments (more than 1 buyer/seller), especially in combination with enhancement 1, improve searchability (search appointments by role of person etc.), and feature extensibility (more role types). 
-3. **Filter appointments by custom time range**. Currently, users can only filter appointments by predefined timeframes (`past`, `today`, `upcoming`) using the `sap` command. This limits flexibility when agents need to view appointments within a specific date or time range.
+1. **Filter appointments by custom time range**. Currently, users can only filter appointments by predefined timeframes (`past`, `today`, `upcoming`) using the `sap` command. This limits flexibility when agents need to view appointments within a specific date or time range.
    - We plan to enhance the search appointment feature to allow users to specify custom time ranges using parameters like `from/` and `to/`.
    - Example usage: `sap from/2025-11-01T00:00 to/2025-11-30T23:59` to list all appointments in November 2025.
    - This will provide agents with more precise control over viewing appointments for specific periods, such as weekly schedules, monthly reviews, or custom date ranges for reports. 
-4. **Detailed feedback messages**. Currently, the feedback string contained within `CommandResult` cannot be further modified once created. This limits the ability of the application to give detailed feedback that comes from multiple sources (e.g. multiple appointment deletions on client deletion), warnings on successful but potentially undesirable inputs (e.g. appointments being created in the past), or more detailed feedback regarding the specifics of errors (e.g. which field caused a duplicate entry).
+1. **Detailed feedback messages**. Currently, the feedback string contained within `CommandResult` cannot be further modified once created. This limits the ability of the application to give detailed feedback that comes from multiple sources (e.g. multiple appointment deletions on client deletion), warnings on successful but potentially undesirable inputs (e.g. appointments being created in the past), or more detailed feedback regarding the specifics of errors (e.g. which field caused a duplicate entry).
    - We plan to extend `CommandResult` with new supporting classes such as `ModelResult` so that each operation done in the model can output specific success/warning/error messages that can together construct the final `CommandResult`. This would allow the users to receive better feedback from the application such that it is easier to use.
+1. **More comprehensive search logic**. Currently, the `find` and `sap` commands use OR logic for all keywords regardless of whether they belong to the same field or different fields. For example, `find Alice HDB_3` searches for clients with name containing "Alice" OR property type "HDB_3", which may return too many results including clients that only match one criterion.
+   - We plan to enhance the search functionality to use AND logic when keywords are from different fields, while maintaining OR logic for keywords within the same field.
+   - For example, `find Alice Bob HDB_3` would search for clients with (name containing "Alice" OR "Bob") AND (property type "HDB_3"), providing more precise results.
+   - Similarly, `sap tf/upcoming Bernice Charlotte` would search for appointments with (name containing "Bernice" OR "Charlotte") AND (timeframe is "upcoming").
+   - This will allow agents to perform more targeted searches by combining multiple criteria, making it easier to find specific clients or appointments that meet all specified requirements.
 1. **Display person list alongside appointment list in split view**. Currently, users can only view either the appointment list (via `lap`) or the person list (via `list`) at any given time. This creates a troublesome workflow when using the `eap` command, which requires knowing indices from both lists simultaneously. Users must repeatedly switch between views to gather the required appointment index, seller index, and buyer index.
    - We plan to enhance the UI layout to display both the person list and appointment list simultaneously in a split-screen view.
    - The main window would be divided vertically, with the person list on the left side and the appointment list on the right side, each occupying approximately 50% of the window width.
