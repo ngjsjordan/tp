@@ -657,7 +657,7 @@ testers are expected to do more *exploratory* testing.
 1. Editing a client's name while all clients are shown.
     1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
     2. Test case: `edit 1 n/Joe Smith` <br>
-       Expected: First client in the list now has a new name with the value "new name". Details of the edited client will be shown in the status message.
+       Expected: First client in the list now has a new name with the value "Joe Smith". Details of the edited client will be shown in the status message.
 2. Editing a client's phone number while all clients are shown.
     1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
     2. Test case: `edit 1 p/12345678` <br>
@@ -679,12 +679,12 @@ testers are expected to do more *exploratory* testing.
     5. Test case: `edit 1 r/Seller` <br>
        Expected: First client in the list now has the seller role. Details of the edited client will be shown in the status message.
     6. Test case: `edit 1 r/otherrole` <br>
-       Expected: An error will be shown indicating that the role must be either a "buyer" or a "seller".
+       Expected: An error message will be shown indicating that the role must be either a "buyer" or a "seller".
 
 5. Editing a client's address while all clients are shown.
    1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list. 
    2. Test case: `edit 1 a/123 New Address pt/HDB_4` <br>
-      Expected: First client in the list now has a new address with the property type HDB_4. Details of the edited client will be shown in the status message. 
+      Expected: First client in the list now has a new address with the value "123 New Address" with the property type HDB_4. Details of the edited client will be shown in the status message. 
 
    3. Test case: `edit 1 a/123` <br>
       Expected: First client in the list is not edited. An error message is shown indicating that the address and property type must be edited at the same time.
@@ -700,7 +700,9 @@ testers are expected to do more *exploratory* testing.
 6. Editing a client's tag while all clients are shown.
     1. Prerequisites: List all clients using the `list` command. Have at least 1 client in the list.
     2. Test case: `edit 1 t/newtag` <br>
-       Expected: First client in the list now has a new tag with the value "newtag". Details of the edited client will be shown in the status message.     
+       Expected: First client in the list now has a new tag with the value "newtag". Details of the edited client will be shown in the status message.
+    3. Test case: `edit 1 t/new-tag` <br>
+       Expected: An error message will be shown indicating that tag names must only contain alphanumeric characters.
 ### Searching for client
 1. Searching for clients by keyword(s)
 
