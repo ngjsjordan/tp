@@ -905,3 +905,7 @@ Team Size: 5
    - Commands like `list`, `find`, and `lap` would continue to work as before, updating their respective list panels.
    - Example: When a user executes `lap`, the appointment list updates on the right while the person list remains visible on the left, allowing users to see both "1. Alex Yeoh..." in the person list and "1. 2025-01-15 10:00..." in the appointment list simultaneously when preparing an `eap 1 s/1 b/2` command.
    - This enhancement eliminates the need to switch between views, significantly improving usability for appointment management commands while maintaining all existing functionality.
+1. **Accept a wider range of datetime formats**. Currently, the format accepted for datetime for `Appointment` is quite strict, as it only accepts a String that can be parsed by Java's default `LocalDateTime::parse` method. While the ISO 8601 format could be familiar to technical audiences, our target users might be more familiar with formats like `dd/MM/yyyy` for the date portion.
+   - We plan to improve our parsing method to try a wider range of formats instead
+1. **Improve JSON file error handling**.
+1. **Make more fields optional**.
